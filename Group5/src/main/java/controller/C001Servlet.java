@@ -16,14 +16,14 @@ import services.auth;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/C001Servlet")
+public class C001Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LoginServlet() {
+	public C001Servlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -51,10 +51,10 @@ public class LoginServlet extends HttpServlet {
 		if (user != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", user);
-			response.sendRedirect("HomeServlet");
+			response.sendRedirect("C002Servlet");
 		} else {
 			request.setAttribute("error", "メールアドレス、またはパスワードが違います。");
-			request.getRequestDispatcher("Login.jsp").forward(request, response);
+			request.getRequestDispatcher("C001.jsp").forward(request, response);
 		}
 	}
 

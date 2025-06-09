@@ -17,13 +17,13 @@
         </div>
     </div>
  
-    <form action="#" method="post">
+    <form action="C001Servlet" method="post">
         <br>
         <div class="row my-4">
             <div class="col-sm-4 offset-sm-4">
                 <div class="row my-3 px-3">メールアドレス</div>
                 <div class="row my-3 px-2">
-                    <input type="text" class="form-control" placeholder="メールアドレス" name="e-mail" required />
+                    <input type="text" class="form-control" placeholder="メールアドレス" name="mail" required />
                 </div>
                 <div class="row my-3 px-3">パスワード</div>
                 <div class="row my-3 px-2">
