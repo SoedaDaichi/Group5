@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context displayName="Todo Java" path="/todo" docBase="todo"
+<Context displayName="PBL Java" path="/group5" docBase="group5"
          reloadable="true" crossContext="true">
     <Resource name="jdbc/mariadb"
               auth="Container"
@@ -7,10 +7,10 @@
               username="root"
               password="root"
               driverClassName="org.mariadb.jdbc.Driver"
-              url="jdbc:mariadb://localhost:3306/todo?useUnicode=true&amp;characterEncoding=UTF-8"
+              url="jdbc:mariadb://localhost:3306/group5?useUnicode=true&amp;characterEncoding=UTF-8"
               maxTotal="4"
               maxIdle="10"
               maxWaitMillis="5000"
-              validationQuery="SELECT count(*) FROM tasks"
+              validationQuery="SELECT count(*) FROM accounts"
               testOnBorrow="true"/>
 </Context>
