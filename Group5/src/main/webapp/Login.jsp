@@ -3,12 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-Login
-</title>
+<head>
+<title>Login</title>
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 </head>
 <body>
-	<form action="roguinServlet" method="post">
+	<form action="LoginServlet" method="post">
 		<br>
 		<div class="row my-4">
 			<div class="col-sm-4 offset-sm-4">
