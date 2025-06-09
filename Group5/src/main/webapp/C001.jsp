@@ -10,9 +10,9 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row p-3 mb-2 bg-primary-subtle text-emphasis-primary bg-opacity-75">
+        <div class="row p-3 mb-2 bg-danger-subtle text-emphasis-danger bg-opacity-75">
             <div class="col fs-2 fw-bold text-center">
-                <img src="" alt="logo" />物品売上管理システム
+                物品売上管理システム
             </div>
         </div>
     </div>
@@ -44,17 +44,18 @@
         </div>
     </form>
  
-    <div class="container-fluid">
-        <div class="row">
-            <p>
-                <a href="#">パスワードをお忘れの方はこちら</a>
-            </p>
-        </div>
-        <div class="row">
-            <p>
-                <a href="#">新規登録（無料）</a>
-            </p>
-        </div>
-    </div>
+<!--    <div class="container-fluid">-->
+<!--    	<div class="col text-center">-->
+<!--        <div class="row">-->
+<!--            <p>-->
+<!--                <a href="#">パスワードをお忘れの方はこちら</a>-->
+<!--            </p>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--            <p>-->
+<!--                <a href="#">新規登録（無料）</a>-->
+<!--            </p>-->
+<!--        </div>-->
+<!--    </div>-->
 </body>
 </html>
