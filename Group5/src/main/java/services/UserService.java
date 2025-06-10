@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Base64;
 
 import beans.Users;
@@ -183,6 +184,34 @@ public class UserService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static ArrayList<Users> select() {
+		ArrayList<Users> account
+		List = new ArrayList<>();
+		String select = "SELECT * FROM tasks WHERE user_id = ?";
+
+		try (
+				Connection conn = Db.open();
+				PreparedStatement pstmt = conn.prepareStatement(select);) {
+			pstmt.setInt(1, user_id);
+
+			try (ResultSet rs = pstmt.executeQuery();) {
+				while (rs.next()) {
+					Tasks task = new Tasks();
+					task.setId(rs.getInt("id"));
+					task.setName(rs.getString("name"));
+					task.setDeadline(rs.getDate("deadline"));
+					task.setStatus(rs.getString("status"));
+					task.setAssignee(rs.getString("assignee"));
+					taskList.add(task);
+				}
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return taskList;
 	}
 
 }

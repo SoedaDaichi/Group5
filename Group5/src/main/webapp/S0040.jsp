@@ -20,10 +20,10 @@
 
 				<div class="mt-3">
 					<label for="name" class="form-label">氏名
-					<span class="required-badge">部分一致</span>
+					<span class="badge bg-secondary">部分一致</span>
 					</label> 
 					<input type="text" required="required"
-						id="name" name="name" class="form-control my-3 px-2" placeholder="氏名"　required>
+						id="name" name="name" class="form-control my-3 px-2" placeholder="氏名" required>
 				</div>
 				
 				<div class="mt-3">
@@ -31,7 +31,7 @@
 					</label> 
 					<input
 						type="email" required="required" id="adless" name="mail"
-						class="form-control my-3 px-2" placeholder="メールアドレス"　required>
+						class="form-control my-3 px-2" placeholder="メールアドレス" required>
 				</div>
 				
 

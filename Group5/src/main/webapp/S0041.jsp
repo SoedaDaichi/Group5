@@ -37,9 +37,9 @@
             <td>${account.email}</td>
             <td>
               <c:choose>
-                <c:when test="${account.role == 'none'}">権限なし</c:when>
-                <c:when test="${account.role == 'read'}">売上登録</c:when>
-                <c:when test="${account.role == 'update'}">アカウント登録</c:when>
+                <c:when test="${account.role == '0'}">権限なし</c:when>
+                <c:when test="${account.role == '1'}">売上登録</c:when>
+                <c:when test="${account.role == '10'}">アカウント登録</c:when>
               </c:choose>
             </td>
           </tr>

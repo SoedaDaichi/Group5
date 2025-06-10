@@ -34,7 +34,7 @@ public class C001Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("/C001.jsp").forward(request, response);
 	}
 
 	/**
@@ -42,24 +42,21 @@ public class C001Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String mail = request.getParameter("mail");
 		String pass = UserService.hashPassword(request.getParameter("pass"));
 
-		Users user = auth.login(mail, pass);
-		String noManeger = auth.checkManeger(user);
+		Users user = auth.login(mail, pass); // ユーザー取得
 
-		if (user != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", user);
-			response.sendRedirect("C002Servlet");
-		} else if (noManeger != null) {
-			request.setAttribute("error", noManeger);
-			request.getRequestDispatcher("C001.jsp");
-		} else {
-			request.setAttribute("error", "メールアドレス、またはパスワードが違います。");
-			request.getRequestDispatcher("C001.jsp").forward(request, response);
+		String noManager = auth.checkManager(user);
+		if (noManager != null) {
+			request.setAttribute("error", noManager);
+			request.getRequestDispatcher("/C001.jsp").forward(request, response);
+			return;
 		}
+		// ログイン成功処理
+		HttpSession session = request.getSession();
+		session.setAttribute("loginUser", user);
+		response.sendRedirect("C002Servlet");
 	}
 
 }
