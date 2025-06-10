@@ -16,7 +16,7 @@
 			<h1>アカウント検索条件入力</h1>
 
 
-			<form id="create-task-form" action="S0030Servlet" method="post">
+			<form id="create-task-form" action="S0040Servlet" method="post">
 
 				<div class="mt-3">
 					<label for="name" class="form-label">氏名
