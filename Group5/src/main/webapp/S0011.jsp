@@ -8,7 +8,7 @@
 <title>S0010</title>
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 </head>
-	<body>
+<body>
 	<%@ include file="navbar.jsp"%>
 	<div class="container-fluid mx-5">
 		<p class="fs-1 fw-bold mx-5 mt-4">売上登録</p>
@@ -59,7 +59,8 @@
 					</h5>
 				</div>
 				<div class="col-5 my-3">
-					<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="商品名">
+					<input type="text" class="form-control"
+						id="exampleFormControlInput1" placeholder="商品名">
 				</div>
 			</div>
 			<div class=row>
@@ -69,7 +70,8 @@
 					</h5>
 				</div>
 				<div class="col-2 my-3">
-					<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="単価">
+					<input type="text" class="form-control"
+						id="exampleFormControlInput1" placeholder="単価">
 				</div>
 			</div>
 			<div class=row>
@@ -79,7 +81,8 @@
 					</h5>
 				</div>
 				<div class="col-2 my-3">
-					<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="個数">
+					<input type="text" class="form-control"
+						id="exampleFormControlInput1" placeholder="個数">
 				</div>
 			</div>
 			<div class=row>
@@ -89,13 +92,19 @@
 					</h5>
 				</div>
 				<div class="col-8 my-3">
-				<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="備考"></textarea>
+					<textarea class="form-control" id="exampleFormControlTextarea1"
+						rows="3" placeholder="備考"></textarea>
 				</div>
 			</div>
-			<div class="row my-5" >
-				<div class="col-2 offset-2 my-3">
-					<button type="submit" class="btn btn-primary">✓登録</button>
+			<div class="row">
+				<div class="col-2 my-3 text-end">
+					<button type="submit" class="btn btn-primary">✓OK</button>
+				</div>
+				<div class="col-5 my-3">
+					<a href="#" button type="submit" class="btn btn-outline-secondary">キャンセル</a>
+				</div>
+			</div>
 		</form>
-		</div>
-	</body>
+	</div>
+</body>
 </html>
