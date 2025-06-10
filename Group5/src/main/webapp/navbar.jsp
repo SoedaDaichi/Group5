@@ -1,57 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
 	<div class="container-fluid">
-		<h1 class="navbar-brand ps-5 mt-1">ToDoリスト</h1>
+		<h1 class="navbar-brand ps-5 mt-1">物品売上管理システム</h1>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarNav" aria-controls="navbarNav"
 			aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link" href="TodoServlet">一覧</a></li>
-				<li class="nav-item"><a class="nav-link" href="TaskAddServlet">新規作成</a></li>
-			</ul>
-			<!--			<div class="ms-auto d-flex gap-2">-->
-			<!--				<form action="LogoutServlet" method="get">-->
-			<!--					<button class="btn btn-outline-light" type="submit"-->
-			<!--						onclick="return confirm('ログアウトしますか？');">ログアウト</button>-->
-			<!--				</form>-->
-			<!--				<form action="DeleteAccountServlet" method="post"-->
-			<!--					onsubmit="return confirm('本当にアカウントを削除しますか？');">-->
-			<!--					<button class="btn btn-outline-danger" type="submit">アカウント削除</button>-->
-			<!--				</form>-->
-			<!--			</div>-->
-			<div class="ms-auto d-flex gap-2">
-				<div class="dropdown">
-					<button class="btn btn-outline-light dropdown-toggle" type="button"
-						id="accountDropdown" data-bs-toggle="dropdown"
-						aria-expanded="false">アカウント</button>
-					<ul class="dropdown-menu dropdown-menu-end"
-						aria-labelledby="accountDropdown">
+			<ul class="navbar-nav align-items-center gap-2 ps-5">
+				<li class="nav-item"><a class="nav-link" href="C002Servlet">ダッシュボード</a>
+				</li>
+				<li class="nav-item dropdown">
+					<button class="btn dropdown-toggle nav-link ps-5" type="button"
+						id="salesDropdown" data-bs-toggle="dropdown" aria-expanded="false">売上管理</button>
+					<ul class="dropdown-menu dropdown-menu-lg-end"
+						aria-labelledby="salesDropdown">
 						<li>
-							<form action="UpdateUserServlet" method="get">
-								<button type="submit" class="dropdown-item">アカウント情報</button>
-							</form>
-						</li>
-						<li>
-							<form action="LogoutServlet" method="get"
-								onsubmit="return confirm('ログアウトしますか？');">
-								<button type="submit" class="dropdown-item">ログアウト</button>
+							<form action="S010Servlet" method="get">
+								<button type="submit" class="dropdown-item">売上登録</button>
 							</form>
 						</li>
 						<li><hr class="dropdown-divider"></li>
 						<li>
-							<form action="DeleteAccountServlet" method="post"
-								onsubmit="return confirm('本当にアカウントを削除しますか？');">
-								<button type="submit" class="dropdown-item text-danger">アカウント削除</button>
+							<form action="S020Servlet" method="get">
+								<button type="submit" class="dropdown-item">売上検索</button>
 							</form>
 						</li>
 					</ul>
-				</div>
-			</div>
-
+				</li>
+				<li class="nav-item dropdown">
+					<button class="btn dropdown-toggle nav-link ps-5" type="button"
+						id="accountDropdown" data-bs-toggle="dropdown"
+						aria-expanded="false">アカウント</button>
+					<ul class="dropdown-menu dropdown-menu-lg-end"
+						aria-labelledby="accountDropdown">
+						<li>
+							<form action="S0030Servlet" method="get">
+								<button type="submit" class="dropdown-item">アカウント登録</button>
+							</form>
+						</li>
+						<li><hr class="dropdown-divider"></li>
+						<li>
+							<form action="S0040Servlet" method="get">
+								<button type="submit" class="dropdown-item">アカウント検索</button>
+							</form>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item">
+					<form action="LogoutServlet" method="get"
+						onsubmit="return confirm('ログアウトしますか？');">
+						<button type="submit" class="btn btn-outline-danger">ログアウト</button>
+					</form>
+				</li>
+			</ul>
 		</div>
 	</div>
 </nav>
