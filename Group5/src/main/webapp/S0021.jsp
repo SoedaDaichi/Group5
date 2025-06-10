@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>アカウント検索結果表示</title>
+<title>S0022</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
