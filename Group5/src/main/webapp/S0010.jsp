@@ -92,7 +92,10 @@
 				<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="備考"></textarea>
 				</div>
 			</div>
-			
+			<div class="row d-flex justify-content-center my-5" >
+				<div class="col-2 my-3">
+					<button type="submit" class="btn btn-primary">✓登録</button>
 		</form>
+		</div>
 	</body>
 </html>
