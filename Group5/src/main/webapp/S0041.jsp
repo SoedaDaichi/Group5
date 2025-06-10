@@ -14,7 +14,7 @@
   <div class="container mt-5">
     <h1 class="mb-4">アカウント検索結果表示</h1>
 
-    <!-- 検索結果テーブル -->
+    
     <table class="table table-bordered table-hover">
       <thead class="table-light">
         <tr>
