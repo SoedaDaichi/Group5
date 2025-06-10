@@ -11,11 +11,6 @@
 <body>
 	<%@ include file="navbar.jsp"%>
 	<div class="container">
-		<!--        <div class="sidebar">-->
-
-		<!--            <button onclick="location.href='IchiranServlet'" class="btn btn-outline-secondary w-100 mb-3">タスク一覧</button>-->
-		<!--            <button onclick="location.href='todo_sakusei.jsp'" class="btn btn-primary w-100">新規作成</button>-->
-		<!--        </div>-->
 
 		<div class="content">
 			<h1>アカウント登録</h1>
