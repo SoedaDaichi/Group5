@@ -8,6 +8,10 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
+<%
+  String role = request.getParameter("role");
+%>
+
   <%@ include file="navbar.jsp"%>
   <div class="container">
 
@@ -17,45 +21,63 @@
      <form action="S0031Servlet" method="post">
 
         <div class="mt-3">
-          <label class="form-label">氏名</label>
-          <p><%= request.getParameter("name") %></p>
-          <input type="hidden" name="name" value="<%= request.getParameter("name") %>">
-       </div>
+					<label for="name" class="form-label">氏名 <span
+						class="required-badge">必須</span>
+					</label> <input type="text" id="name" name="name"
+						class="form-control my-3 px-2"
+						value="<%=request.getParameter("name")%>" readonly>
+				</div>
 
-      <div class="mt-3">
-        <label class="form-label">メールアドレス</label>
-        <p><%= request.getParameter("mail") %></p>
-        <input type="hidden" name="mail" value="<%= request.getParameter("mail") %>">
-      </div>
+				<div class="mt-3">
+					<label for="adless" class="form-label">メールアドレス <span
+						class="required-badge">必須</span>
+					</label> <input type="email" id="adless" name="mail"
+						class="form-control my-3 px-2"
+						value="<%=request.getParameter("mail")%>" readonly>
+				</div>
 
-       <div class="mt-3"> 
-        <label class="form-label">パスワード</label>
-        <p>＊＊＊＊＊＊＊</p>
-        <input type="hidden" name="pass" value="<%= request.getParameter("pass") %>">
-       </div>
+				<div class="mt-3">
+					<label for="password" class="form-label">パスワード <span
+						class="required-badge">必須</span>
+					</label> <input type="password" id="password" name="pass"
+						class="form-control my-3 px-2"
+						value="<%=request.getParameter("pass")%>" readonly>
+				</div>
 
-       <div class="mt-3">
-        <label class="form-label">パスワード（確認）</label>
-        <p>＊＊＊＊＊＊＊</p>
-        <input type="hidden" name="confirm_pass" value="<%= request.getParameter("confirm_pass") %>">
-       </div>
+				<div class="mt-3">
+					<label for="confirm-password" class="form-label">パスワード（確認）
+						<span class="required-badge">必須</span>
+					</label> <input type="password" id="confirm_password" name="confirm_pass"
+						class="form-control my-3 px-2"
+						value="<%=request.getParameter("confirm_pass")%>" readonly>
+				</div>
 
-      <div class="mt-3">
-        <label class="form-label">権限</label>
-        <%
-          String role = request.getParameter("role");
-          String roleLabel = "不明";
-          if ("none".equals(role)) roleLabel = "権限なし";
-          else if ("read".equals(role)) roleLabel = "参照";
-          else if ("update".equals(role)) roleLabel = "更新";
-        %>
-        <p><%= roleLabel %></p>
-        <input type="hidden" name="role" value="<%= role %>">
-      </div>
+				<div class="mt-3">
+					<label class="form-label">権限</label>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="role"
+							id="role-none" value="none"
+							<%= "none".equals(role) ? "checked" : "" %> disabled> <label
+							class="form-check-label" for="role-none">権限なし</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="role"
+							id="role-read" value="read"
+							<%= "read".equals(role) ? "checked" : "" %> disabled> <label
+							class="form-check-label" for="role-read">参照</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="role"
+							id="role-update" value="update"
+							<%= "update".equals(role) ? "checked" : "" %> disabled> <label
+							class="form-check-label" for="role-update">更新</label>
+					</div>
+					<input type="hidden" name="role" value="<%=role%>">
+				</div>
 
       <div class="mt-4">
-        <button type="submit" class="btn btn-primary">登録</button>
-        <a href="register.jsp" class="btn btn-secondary">戻る</a>
+        <button type="submit" class="btn btn-primary">OK</button>
+        <a href="register.jsp" class="btn btn-secondary">キャンセル</a>
       </div>
     </form>
   </div>
