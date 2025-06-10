@@ -11,7 +11,7 @@ public class auth {
 
 	public static Users findByEmail(String mail) {
 		Users user = null;
-		String select = "SELECT * FROM accounts WHERE mail = ? AND authority = 11";
+		String select = "SELECT * FROM accounts WHERE mail = ?";
 		try (Connection conn = Db.open();
 				PreparedStatement ps = conn.prepareStatement(select)) {
 			ps.setString(1, mail);
@@ -22,20 +22,29 @@ public class auth {
 				user.setPass(rs.getString("password"));
 				user.setAccount_id(rs.getInt("account_id"));
 				user.setName(rs.getString("name"));
-			}
+				user.setAuthority(rs.getInt("authority"));			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return user;
 	}
-
+	
+	public static String checkManeger(Users user) {
+		String noManeger = null;
+		if (user.getAuthority() == 0 || user.getAuthority() == 1) {
+			user = null;
+			noManeger = "権限がありません。";
+		}
+		return noManeger;
+	}
+	
 	public auth() {
 	}
 
 	public static Users login(String mail, String pass) {
-		Users users = findByEmail(mail);
-		if (users != null && pass.equals(users.getPass())) {
-			return users;
+		Users user = findByEmail(mail);
+		if (user != null && pass.equals(user.getPass())) {
+			return user;
 		}
 		return null;
 	}
