@@ -19,22 +19,28 @@
 			<form id="create-task-form" action="S0030Servlet" method="post">
 
 				<div class="mt-3">
-					<label for="name" class="form-label">氏名</label> <input type="text"
+					<label for="name" class="form-label">氏名</label> 
+					<input type="text" required="required"
 						id="name" name="name" class="form-control my-3 px-2" required>
 				</div>
+				
 				<div class="mt-3">
-					<label for="adless" class="form-label">メールアドレス</label> <input
-						type="email" id="adless" name="mail"
+					<label for="adless" class="form-label">メールアドレス</label> 
+					<input
+						type="email" required="required" id="adless" name="mail"
 						class="form-control my-3 px-2" required>
 				</div>
+				
 				<div class="mt-3">
-					<label for="password" class="form-label">パスワード</label> <input
-						type="password" id="password" name="pass"
+					<label for="password" class="form-label">パスワード</label> 
+					<input
+						type="password" required="required" id="password" name="pass"
 						class="form-control my-3 px-2" placeholder="パスワード" required>
 				</div>
+				
 				<div class="mt-3">
 					<label for="confirm-password" class="form-label">パスワード（確認）</label>
-					<input type="password" id="confirm_password" name="confirm_pass"
+					<input type="password" required="required" id="confirm_password" name="confirm_pass"
 						class="form-control my-3 px-2" placeholder="パスワード（確認）" required>
 				</div>
 
