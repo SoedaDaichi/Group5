@@ -11,7 +11,7 @@ public class auth {
 
 	public static Users findByEmail(String mail) {
 		Users user = null;
-		String select = "SELECT * FROM accounts WHERE mail = ?";
+		String select = "SELECT mail, password, account_id, name, authority FROM accounts WHERE mail = ?";
 		try (Connection conn = Db.open();
 				PreparedStatement ps = conn.prepareStatement(select)) {
 			ps.setString(1, mail);
@@ -22,22 +22,24 @@ public class auth {
 				user.setPass(rs.getString("password"));
 				user.setAccount_id(rs.getInt("account_id"));
 				user.setName(rs.getString("name"));
-				user.setAuthority(rs.getInt("authority"));			}
+				user.setAuthority(rs.getInt("authority"));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return user;
 	}
-	
-	public static String checkManeger(Users user) {
-		String noManeger = null;
-		if (user.getAuthority() == 0 || user.getAuthority() == 1) {
-			user = null;
-			noManeger = "権限がありません。";
+
+	public static String checkManager(Users user) {
+		if (user == null) {
+			return "メールアドレス、またはパスワードが違います。";
 		}
-		return noManeger;
+		if (user.getAuthority() == 0 || user.getAuthority() == 1) {
+			return "権限がありません。";
+		}
+		return null;
 	}
-	
+
 	public auth() {
 	}
 
@@ -58,7 +60,7 @@ public class auth {
 			ps.setInt(1, account_id);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-		        pass = rs.getString("password");
+				pass = rs.getString("password");
 			}
 			if (!pass.equals(cPass)) {
 				return false;

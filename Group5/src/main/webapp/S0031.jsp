@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,19 +9,19 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
-<%
-  String role = request.getParameter("role");
-%>
+	<%
+	String role = request.getParameter("role");
+	%>
 
-  <%@ include file="navbar.jsp"%>
-  <div class="container">
+	<%@ include file="navbar.jsp"%>
+	<div class="container">
 
-   <div class="content">
-     <h1>アカウントを登録してよろしいですか？</h1>
+		<div class="content">
+			<h1>アカウントを登録してよろしいですか？</h1>
 
-     <form action="S0031Servlet" method="post">
+			<form action="S0031Servlet" method="post">
 
-        <div class="mt-3">
+				<div class="mt-3">
 					<label for="name" class="form-label">氏名 <span
 						class="required-badge">必須</span>
 					</label> <input type="text" id="name" name="name"
@@ -56,32 +57,32 @@
 					<label class="form-label">権限</label>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
-							id="role-none" value="none"
-							<%= "none".equals(role) ? "checked" : "" %> disabled> <label
+							id="role-none" value="0"
+							<%="none".equals(role) ? "checked" : ""%> disabled> <label
 							class="form-check-label" for="role-none">権限なし</label>
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
-							id="role-read" value="read"
-							<%= "read".equals(role) ? "checked" : "" %> disabled> <label
-							class="form-check-label" for="role-read">参照</label>
+							id="role-read" value="1"
+							<%="read".equals(role) ? "checked" : ""%> disabled> <label
+							class="form-check-label" for="role-read">売上登録</label>
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
-							id="role-update" value="update"
-							<%= "update".equals(role) ? "checked" : "" %> disabled> <label
-							class="form-check-label" for="role-update">更新</label>
+							id="role-update" value="10"
+							<%="update".equals(role) ? "checked" : ""%> disabled> <label
+							class="form-check-label" for="role-update">アカウント登録</label>
 					</div>
 					<input type="hidden" name="role" value="<%=role%>">
 				</div>
 
-      <div class="mt-4">
-        <button type="submit" class="btn btn-primary">OK</button>
-        <a href="register.jsp" class="btn btn-secondary">キャンセル</a>
-      </div>
-    </form>
-  </div>
+				<div class="mt-4">
+					<button type="submit" class="btn btn-primary">OK</button>
+					<a href="S0030.jsp" class="btn btn-secondary">キャンセル</a>
+				</div>
+			</form>
+		</div>
 
-</div>
+	</div>
 </body>
 </html>
