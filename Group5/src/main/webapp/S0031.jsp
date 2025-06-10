@@ -8,19 +8,19 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
-<%@ include file="navbar.jsp"%>
-<div class="container">
+  <%@ include file="navbar.jsp"%>
+  <div class="container">
 
-  <div class="content">
-    <h1>アカウントを登録してよろしいですか？</h1>
+   <div class="content">
+     <h1>アカウントを登録してよろしいですか？</h1>
 
-    <form action="S0031Servlet" method="post">
+     <form action="S0031Servlet" method="post">
 
-      <div class="mt-3">
-        <label class="form-label">氏名</label>
-        <p><%= request.getParameter("name") %></p>
-        <input type="hidden" name="name" value="<%= request.getParameter("name") %>">
-      </div>
+        <div class="mt-3">
+          <label class="form-label">氏名</label>
+          <p><%= request.getParameter("name") %></p>
+          <input type="hidden" name="name" value="<%= request.getParameter("name") %>">
+       </div>
 
       <div class="mt-3">
         <label class="form-label">メールアドレス</label>
@@ -28,17 +28,17 @@
         <input type="hidden" name="mail" value="<%= request.getParameter("mail") %>">
       </div>
 
-      <div class="mt-3">
+       <div class="mt-3"> 
         <label class="form-label">パスワード</label>
         <p>＊＊＊＊＊＊＊</p>
         <input type="hidden" name="pass" value="<%= request.getParameter("pass") %>">
-      </div>
+       </div>
 
-      <div class="mt-3">
+       <div class="mt-3">
         <label class="form-label">パスワード（確認）</label>
         <p>＊＊＊＊＊＊＊</p>
         <input type="hidden" name="confirm_pass" value="<%= request.getParameter("confirm_pass") %>">
-      </div>
+       </div>
 
       <div class="mt-3">
         <label class="form-label">権限</label>
