@@ -59,18 +59,18 @@
 					</label>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
-							id="role-none" value="none" required> <label
+							id="role-none" value="0" required> <label
 							class="form-check-label" for="role-none">権限なし</label>
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
-							id="role-read" value="read"> <label
-							class="form-check-label" for="role-read">参照</label>
+							id="role-read" value="1"> <label
+							class="form-check-label" for="role-read">売上登録</label>
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
-							id="role-update" value="update"> <label
-							class="form-check-label" for="role-update">更新</label>
+							id="role-update" value="10"> <label
+							class="form-check-label" for="role-update">アカウント登録</label>
 					</div>
 				</div>
 
