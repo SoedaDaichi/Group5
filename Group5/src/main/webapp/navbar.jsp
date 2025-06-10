@@ -18,13 +18,13 @@
 					<ul class="dropdown-menu dropdown-menu-lg-end"
 						aria-labelledby="salesDropdown">
 						<li>
-							<form action="S010Servlet" method="get">
+							<form action="S0010Servlet" method="get">
 								<button type="submit" class="dropdown-item">売上登録</button>
 							</form>
 						</li>
 						<li><hr class="dropdown-divider"></li>
 						<li>
-							<form action="S020Servlet" method="get">
+							<form action="S0020Servlet" method="get">
 								<button type="submit" class="dropdown-item">売上検索</button>
 							</form>
 						</li>

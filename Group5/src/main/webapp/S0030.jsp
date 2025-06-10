@@ -20,7 +20,7 @@
 
 				<div class="mt-3">
 					<label for="name" class="form-label">氏名
-					<span class="required-badge">必須</span>
+					<span class="badge bg-secondary">必須</span>
 					</label> 
 					<input type="text" required="required"
 						id="name" name="name" class="form-control my-3 px-2" placeholder="氏名" required>
@@ -28,7 +28,7 @@
 				
 				<div class="mt-3">
 					<label for="adless" class="form-label">メールアドレス
-					<span class="required-badge">必須</span>
+					<span class="badge bg-secondary">必須</span>
 					</label> 
 					<input
 						type="email" required="required" id="adless" name="mail"
@@ -37,7 +37,7 @@
 				
 				<div class="mt-3">
 					<label for="password" class="form-label">パスワード
-					<span class="required-badge">必須</span>
+					<span class="badge bg-secondary">必須</span>
 					</label> 
 					<input
 						type="password" required="required" id="password" name="pass"
@@ -46,7 +46,7 @@
 				
 				<div class="mt-3">
 					<label for="confirm-password" class="form-label">パスワード（確認）
-					<span class="required-badge">必須</span>
+					<span class="badge bg-secondary">必須</span>
 					</label>
 					<input type="password" required="required" id="confirm_password" name="confirm_pass"
 						class="form-control my-3 px-2" placeholder="パスワード（確認）" required>
@@ -55,7 +55,7 @@
 
 				<div class="mt-3">
 					<label class="form-label">権限
-					<span class="required-badge">必須</span>
+					<span class="badge bg-secondary">必須</span>
 					</label>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
@@ -69,6 +69,7 @@
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
+				
 							id="role-update" value="10"> <label
 							class="form-check-label" for="role-update">アカウント登録</label>
 					</div>
