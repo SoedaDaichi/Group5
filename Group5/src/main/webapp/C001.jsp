@@ -23,13 +23,13 @@
             <div class="col-sm-4 offset-sm-4">
             	<div class = "col-5 my-4">
                 <span class>メールアドレス</span>
-            	<span class="badge bg-danger me-2">必須</span></div>
+            	<span class="badge bg-danger me-2 mx-3">必須</span></div>
                 <div class="row my-3 px-2">
                     <input type="text" class="form-control" placeholder="メールアドレス" name="mail" required />
                 </div>
                 <div class = "col-5 my-4">
                 <span class>パスワード</span>
-                <span class="badge bg-danger me-2">必須</span></div>
+                <span class="badge bg-danger me-2 mx-3">必須</span></div>
                 <div class="row my-3 px-2">
                     <input type="password" class="form-control" placeholder="パスワード" name="pass" required />
                 </div>
