@@ -47,11 +47,15 @@ public class C001Servlet extends HttpServlet {
 		String pass = UserService.hashPassword(request.getParameter("pass"));
 
 		Users user = auth.login(mail, pass);
+		String noManeger = auth.checkManeger(user);
 
 		if (user != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", user);
 			response.sendRedirect("C002Servlet");
+		} else if (noManeger != null) {
+			request.setAttribute("error", noManeger);
+			request.getRequestDispatcher("C001.jsp");
 		} else {
 			request.setAttribute("error", "メールアドレス、またはパスワードが違います。");
 			request.getRequestDispatcher("C001.jsp").forward(request, response);
