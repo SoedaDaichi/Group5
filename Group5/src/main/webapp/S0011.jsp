@@ -13,7 +13,7 @@
 	<div class="container-fluid mx-5">
 		<p class="fs-1 fw-bold mx-5 mt-4">売上登録</p>
 
-		<form id="create-task-form" action="S0030Servlet" method="post">
+		<form id="create-task-form" action="S0010Servlet" method="post">
 			<div class="row my-3">
 				<div class="col-2 text-end">
 					<h5>
