@@ -60,18 +60,31 @@ public class S0030Servlet extends HttpServlet {
 			request.getRequestDispatcher("S0030.jsp").forward(request, response);
 			return;
 		}
-
-		try {
-			String hashedPass = UserService.hashPassword(pass);
-
-			UserService.insert(name, mail, hashedPass);
-
-			response.sendRedirect("S0031.jsp");
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("error", "登録に失敗しました。");
+		
+		if(!pass.equals(confirm_pass)) {
+			request.setAttribute("error", "パスワードは一致していません。");
 			request.getRequestDispatcher("S0030.jsp").forward(request, response);
+			return;
 		}
 
+//		try {
+//			String hashedPass = UserService.hashPassword(pass);
+//
+//			UserService.insert(name, mail, hashedPass);
+//
+//			response.sendRedirect("S0031.jsp");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			request.setAttribute("error", "登録に失敗しました。");
+//			request.getRequestDispatcher("S0030.jsp").forward(request, response);
+//		}
+		
+		request.setAttribute("name", name);
+		request.setAttribute("mail", mail);
+		request.setAttribute("pass", pass);
+		request.setAttribute("confirm_pass", confirm_pass);
+		request.setAttribute("role", role);
+
+		request.getRequestDispatcher("S0031.jsp").forward(request, response);
 	}
 }
