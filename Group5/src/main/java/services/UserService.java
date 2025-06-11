@@ -46,13 +46,13 @@ public class UserService {
 		}
 	}
 
-	public static boolean UserNameCheck(String username) {
-		String select = "SELECT COUNT(*) FROM users WHERE username = ?";
+	public static boolean UserNameCheck(String name) {
+		String select = "SELECT COUNT(*) FROM accounts WHERE name = ?";
 
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(select);) {
-			pstmt.setString(1, username);
+			pstmt.setString(1, name);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return rs.getInt(1) > 0;
@@ -81,13 +81,13 @@ public class UserService {
 		return false;
 	}
 
-	public static boolean UserEmailCheck(String email) {
-		String select = "SELECT COUNT(*) FROM users WHERE email = ?";
+	public static boolean UserEmailCheck(String mail) {
+		String select = "SELECT COUNT(*) FROM accounts WHERE mail = ?";
 
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(select);) {
-			pstmt.setString(1, email);
+			pstmt.setString(1, mail);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return rs.getInt(1) > 0;
