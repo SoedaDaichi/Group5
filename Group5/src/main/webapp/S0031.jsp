@@ -61,8 +61,8 @@
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
-							id="role-update" value="10"
-							<c:if test="${param.role eq '10'}">checked</c:if> disabled>
+							id="role-update" value="2"
+							<c:if test="${param.role eq '2'}">checked</c:if> disabled>
 						<label class="form-check-label" for="role-update">アカウント登録</label>
 					</div>
 					<input type="hidden" name="role" value="${param.role}">
