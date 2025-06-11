@@ -186,32 +186,64 @@ public class UserService {
 		}
 	}
 
-	public static ArrayList<Users> select() {
-		ArrayList<Users> account
-		List = new ArrayList<>();
-		String select = "SELECT * FROM tasks WHERE user_id = ?";
+	public static ArrayList<Users> select(String name, String mail, int role0, int role1, int role10) {
+		ArrayList<Users> accountList = new ArrayList<>();
+		ArrayList<Object> sqlList = new ArrayList<>();
+		ArrayList<Integer> roles = new ArrayList<>();
+		StringBuilder select = new StringBuilder("SELECT acount_id, name, mail, authority FROM accounts"
+				+ "WHERE 1 = 1");
+
+		if (name != null && !name.isEmpty()) {
+			// nullでないかつ空文字でない
+			select.append("AND name LIKE ?");
+			sqlList.add("%" + name + "%");
+		}
+		if (mail != null && !name.isEmpty()) {
+			select.append("AND mail = ?");
+			sqlList.add(mail);
+		}
+		if (role0 != 3) {
+			roles.add(role0);
+		}
+		if (role1 != 3) {
+			roles.add(role1);
+		}
+		if (role10 != 3) {
+			roles.add(role10);
+		}
+		if (roles.isEmpty()) {
+			 select.append(" AND authority IN (");
+			for (int i = 0; i < roles.size(); i++) {
+				if (i > 0) {
+					select.append(", ");
+					select.append("?");
+				}
+				select.append(")");
+				sqlList.addAll(roles);
+			}
+		}
+		
 
 		try (
 				Connection conn = Db.open();
-				PreparedStatement pstmt = conn.prepareStatement(select);) {
-			pstmt.setInt(1, user_id);
+				PreparedStatement pstmt = conn.prepareStatement(select.toString());) {
+			for (int i = 0; i < sqlList.size(); i++) {
+				pstmt.setObject(i + 1, sqlList.get(i));
+			}
 
 			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
-					Tasks task = new Tasks();
-					task.setId(rs.getInt("id"));
-					task.setName(rs.getString("name"));
-					task.setDeadline(rs.getDate("deadline"));
-					task.setStatus(rs.getString("status"));
-					task.setAssignee(rs.getString("assignee"));
-					taskList.add(task);
+					Users users = new Users();
+					users.setAccount_id(rs.getInt("account_id"));
+					users.setName(rs.getString("name"));
+					users.setAuthority(rs.getInt("authority"));
+					accountList.add(users);
 				}
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return taskList;
+		return accountList;
 	}
 
 }
