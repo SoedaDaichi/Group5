@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 
 import beans.Users;
 import utils.Db;
@@ -190,52 +191,53 @@ public class UserService {
 		ArrayList<Users> accountList = new ArrayList<>();
 		ArrayList<Object> sqlList = new ArrayList<>();
 		ArrayList<Integer> roles = new ArrayList<>();
-		StringBuilder select = new StringBuilder("SELECT acount_id, name, mail, authority FROM accounts"
-				+ "WHERE 1 = 1");
+		ArrayList<String> where = new ArrayList<>();
+		StringBuilder select = new StringBuilder("SELECT account_id, name, mail, authority FROM accounts");
 
 		if (name != null && !name.isEmpty()) {
 			// nullでないかつ空文字でない
-			select.append("AND name LIKE ?");
+			where.add("name LIKE ?");
 			sqlList.add("%" + name + "%");
 		}
-		if (mail != null && !name.isEmpty()) {
-			select.append("AND mail = ?");
+		if (mail != null && !mail.isEmpty()) {
+			where.add("mail = ?");
 			sqlList.add(mail);
 		}
-		if (role0 != 3) {
+		if (role0 == 0) {
 			roles.add(role0);
 		}
-		if (role1 != 3) {
+		if (role1 == 1) {
 			roles.add(role1);
 		}
-		if (role10 != 3) {
+		if (role10 == 2) {
 			roles.add(role10);
 		}
-		if (roles.isEmpty()) {
-			 select.append(" AND authority IN (");
-			for (int i = 0; i < roles.size(); i++) {
-				if (i > 0) {
-					select.append(", ");
-					select.append("?");
-				}
-				select.append(")");
-				sqlList.addAll(roles);
-			}
+		if (!roles.isEmpty()) {
+			where.add("authority IN (" +
+					String.join(",", Collections.nCopies(roles.size(), "?")) + ")");
+			sqlList.addAll(roles);
 		}
-		
 
+		if (!where.isEmpty()) {
+			select.append(" WHERE ");
+			select.append(String.join(" AND ", where));
+		}
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(select.toString());) {
-			for (int i = 0; i < sqlList.size(); i++) {
-				pstmt.setObject(i + 1, sqlList.get(i));
+
+				for (int i = 0; i < sqlList.size(); i++) {
+					pstmt.setObject(i + 1, sqlList.get(i));
 			}
+			System.out.println("SQL: " + select.toString());
+			System.out.println("Params: " + sqlList.size());
 
 			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
 					Users users = new Users();
 					users.setAccount_id(rs.getInt("account_id"));
 					users.setName(rs.getString("name"));
+					users.setMail(rs.getString("mail"));
 					users.setAuthority(rs.getInt("authority"));
 					accountList.add(users);
 				}

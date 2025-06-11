@@ -46,7 +46,7 @@
 					</div>
 					<div class="custom-control custom-checkbox">
 						<input class="custom-control-input" type="checkbox" name="role10"
-							id="role-account" value="10"> <label
+							id="role-account" value="2"> <label
 							class="custom-control-label" for="role-read">アカウント登録</label>
 					</div>
 				</div>
@@ -56,6 +56,6 @@
 			</form>
 		</div>
 	</div>
-
+	<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
