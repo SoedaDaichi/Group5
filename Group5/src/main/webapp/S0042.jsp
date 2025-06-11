@@ -40,7 +40,7 @@
 						class="required-badge">必須</span>
 					</label> <input type="password" id="password" name="pass"
 						class="form-control my-3 px-2"
-						value="<%=request.getParameter("pass")%>" readonly>
+						value="${pass}" readonly>
 				</div>
 
 				<div class="mt-3">
@@ -48,7 +48,7 @@
 						<span class="required-badge">必須</span>
 					</label> <input type="password" id="confirm_password" name="confirm_pass"
 						class="form-control my-3 px-2"
-						value="<%=request.getParameter("confirm_pass")%>" readonly>
+						value="${confirm_pass}" readonly>
 				</div>
 
 				<div class="mt-3">

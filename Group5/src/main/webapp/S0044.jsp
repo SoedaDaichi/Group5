@@ -15,10 +15,6 @@
 		<div class="content">
 			<h1>アカウント詳細削除確認</h1>
 
-			<%
-				String role = request.getParameter("role");
-			%>
-
 			<form id="create-task-form" action="S0044Servlet" method="post">
 
 				<div class="mt-3">
@@ -26,7 +22,7 @@
 						class="required-badge">必須</span>
 					</label> <input type="text" id="name" name="name"
 						class="form-control my-3 px-2"
-						value="<%=request.getParameter("name")%>" readonly>
+						value="${name}" readonly>
 				</div>
 
 				<div class="mt-3">
@@ -34,7 +30,7 @@
 						class="required-badge">必須</span>
 					</label> <input type="email" id="adless" name="mail"
 						class="form-control my-3 px-2"
-						value="<%=request.getParameter("mail")%>" readonly>
+						value="${mail}" readonly>
 				</div>
 
 				<div class="mt-3">
@@ -42,7 +38,7 @@
 						class="required-badge">必須</span>
 					</label> <input type="password" id="password" name="pass"
 						class="form-control my-3 px-2"
-						value="<%=request.getParameter("pass")%>" readonly>
+						value="${pass}" readonly>
 				</div>
 
 				<div class="mt-3">
@@ -50,7 +46,7 @@
 						<span class="required-badge">必須</span>
 					</label> <input type="password" id="confirm_password" name="confirm_pass"
 						class="form-control my-3 px-2"
-						value="<%=request.getParameter("confirm_pass")%>" readonly>
+						value="${confirm_pass}" readonly>
 				</div>
 
 				<div class="mt-3">
@@ -58,22 +54,22 @@
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
 							id="role-none" value="none"
-							<%= "none".equals(role) ? "checked" : "" %> disabled> <label
+							${role == 'none' ? 'checked' : ''} disabled> <label
 							class="form-check-label" for="role-none">権限なし</label>
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
 							id="role-read" value="read"
-							<%= "read".equals(role) ? "checked" : "" %> disabled> <label
+							${role == 'read' ? 'checked' : ''} disabled> <label
 							class="form-check-label" for="role-read">売上登録</label>
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
 							id="role-update" value="update"
-							<%= "update".equals(role) ? "checked" : "" %> disabled> <label
+							${role == 'update' ? 'checked' : ''} disabled> <label
 							class="form-check-label" for="role-update">アカウント登録</label>
 					</div>
-					<input type="hidden" name="role" value="<%=role%>">
+					<input type="hidden" name="role" value="${role}">
 				</div>
 
 				<button type="submit" class="btn btn-primary">OK</button>
