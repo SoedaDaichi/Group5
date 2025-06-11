@@ -38,6 +38,7 @@ public class S0010Servlet extends HttpServlet {
 		
 		S0010Service ss = new S0010Service();
 		accountList = ss.selectAccount();
+		System.out.println(accountList.size());
 		categoryList = ss.selectCategory();
 		
 		request.setAttribute("accountList", accountList);
@@ -65,5 +66,4 @@ public class S0010Servlet extends HttpServlet {
 		ss.insert(saledate, staff,category, trage, unitprice, sale_num, note);
 		response.sendRedirect("S0011Servlet");
 	}
-
 }

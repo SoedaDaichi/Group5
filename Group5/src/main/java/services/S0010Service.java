@@ -26,10 +26,12 @@ public class S0010Service {
 				Users users = new Users();
 				users.setAccount_id(rs.getInt("account_id"));
 				users.setName(rs.getString("name"));
+				accountList.add(users);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("Service : " + accountList.size());
 		return accountList;
 	}
 	
@@ -45,6 +47,7 @@ public class S0010Service {
 				Categories categories = new Categories();
 				categories.setCategory_id(rs.getInt("category_id"));
 				categories.setCategory_name(rs.getString("category_name"));
+				categoryList.add(categories);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
