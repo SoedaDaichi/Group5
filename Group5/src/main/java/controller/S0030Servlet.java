@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import services.UserService;
 
@@ -32,6 +33,14 @@ public class S0030Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			String success = (String) session.getAttribute("success");
+			if (success != null) {
+				request.setAttribute("success", success);
+				session.removeAttribute("success");
+			}
+		}
 		request.getRequestDispatcher("/S0030.jsp").forward(request, response);
 	}
 
@@ -51,34 +60,34 @@ public class S0030Servlet extends HttpServlet {
 
 		if (UserService.UserNameCheck(name)) {
 			request.setAttribute("error", "このユーザ名は既に使用されています。");
-			request.getRequestDispatcher("S0030.jsp").forward(request, response);
+			request.getRequestDispatcher("/S0030.jsp").forward(request, response);
 			return;
 		}
 
 		if (UserService.UserEmailCheck(mail)) {
 			request.setAttribute("error", "このメールアドレスは既に使用されています。");
-			request.getRequestDispatcher("S0030.jsp").forward(request, response);
-			return;
-		}
-		
-		if(!pass.equals(confirm_pass)) {
-			request.setAttribute("error", "パスワードは一致していません。");
-			request.getRequestDispatcher("S0030.jsp").forward(request, response);
+			request.getRequestDispatcher("/S0030.jsp").forward(request, response);
 			return;
 		}
 
-//		try {
-//			String hashedPass = UserService.hashPassword(pass);
-//
-//			UserService.insert(name, mail, hashedPass);
-//
-//			response.sendRedirect("S0031.jsp");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			request.setAttribute("error", "登録に失敗しました。");
-//			request.getRequestDispatcher("S0030.jsp").forward(request, response);
-//		}
-		
+		if (!pass.equals(confirm_pass)) {
+			request.setAttribute("error", "パスワードが一致していません。");
+			request.getRequestDispatcher("/S0030.jsp").forward(request, response);
+			return;
+		}
+
+		//		try {
+		//			String hashedPass = UserService.hashPassword(pass);
+		//
+		//			UserService.insert(name, mail, hashedPass);
+		//
+		//			response.sendRedirect("S0031.jsp");
+		//		} catch (Exception e) {
+		//			e.printStackTrace();
+		//			request.setAttribute("error", "登録に失敗しました。");
+		//			request.getRequestDispatcher("S0030.jsp").forward(request, response);
+		//		}
+
 		request.setAttribute("name", name);
 		request.setAttribute("mail", mail);
 		request.setAttribute("pass", pass);
