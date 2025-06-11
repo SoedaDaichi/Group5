@@ -13,7 +13,7 @@
 	<div class="container-fluid mx-5">
 		<p class="fs-1 fw-bold mx-5 mt-4">売上登録</p>
 
-		<form id="create-task-form" action="S0010Servlet" method="post">
+		<form id="create-sales-form" action="S0010Servlet" method="post">
 			<div class=row>
 				<div class="col-2 text-end my-3">
 					<h5>
@@ -33,7 +33,7 @@
 				<div class="col-5  my-3">
 					<select class="form-select form-select-sm"
 						aria-label=".form-select-sm example"
-							name = "staff">
+							name = "account_id">
 						<option selected>選択してください</option>
 						<c:forEach var="account" items="${accountList}">
 							<option value="${account.account_id}">${account.name}</option>
@@ -50,9 +50,11 @@
 				<div class="col-5 my-3">
 					<select class="form-select form-select-sm"
 						aria-label=".form-select-sm example"
-							name = "category">
+							name = "category_id">
 						<option selected>選択してください</option>
-						<option value="1">#</option>
+						<c:forEach var="account" items="${categoryList}">
+							<option value="${categories.cotegory_id}">${cotegory.name}</option>
+						</c:forEach>
 					</select>
 				</div>
 			</div>
@@ -64,7 +66,7 @@
 				</div>
 				<div class="col-5 my-3">
 					<input type="text" class="form-control" 
-					id="exampleFormControlInput1" name="trage" placeholder="商品名">
+					id="exampleFormControlInput1" name="trade" placeholder="商品名">
 				</div>
 			</div>
 			<div class=row>

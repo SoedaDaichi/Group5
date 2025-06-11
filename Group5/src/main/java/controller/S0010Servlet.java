@@ -52,18 +52,25 @@ public class S0010Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		S0010Service ss = new S0010Service();
 		
-		
-		Date saledate =Date.valueOf(request.getParameter("saledate"));
-		int staff = Integer.parseInt(request.getParameter("staff"));
-		int category =Integer.parseInt( request.getParameter("category"));
-		String trage = request.getParameter("trage");
-		int unitprice = Integer.parseInt(request.getParameter("unitp_rice"));	
-		int sale_num = Integer.parseInt(request.getParameter("sale_num"));	
+		Date saledate = Date.valueOf(request.getParameter("saledate"));
+		String account_name = request.getParameter("account_name");
+		String cotegory_name = request.getParameter("cotegory_name");
+		String trade_name =request.getParameter("trade");
+		int unit_price = Integer.valueOf(request.getParameter("unitp_price"));
+		int sale_number = Integer.valueOf(request.getParameter("sale_num"));
 		String note = request.getParameter("note");
 		
-		ss.insert(saledate, staff,category, trage, unitprice, sale_num, note);
-		response.sendRedirect("S0011Servlet");
+		System.out.println(account_name);
+		
+		request.setAttribute("saledate", saledate);
+		request.setAttribute("account_name", account_name);
+		request.setAttribute("cotegory_name", cotegory_name);
+		request.setAttribute("trade_name", trade_name);
+		request.setAttribute("unit_price", unit_price);
+		request.setAttribute("sale_number",sale_number);
+		request.setAttribute("note", note);
+		
+		request.getRequestDispatcher("S0011.jsp").forward(request, response);
 	}
 }

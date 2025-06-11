@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,7 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import services.SalesService;
+import services.S0010Service;
 
 /**
  * Servlet implementation class S0011Servlet
@@ -29,17 +30,27 @@ public class S0011Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
-		SalesService ss = new SalesService();
+		request.getRequestDispatcher("S0011.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		S0010Service ss = new S0010Service();
+		
+		
+		Date saledate =Date.valueOf(request.getParameter("saledate"));
+		int staff = Integer.parseInt(request.getParameter("staff"));
+		int category =Integer.parseInt( request.getParameter("category"));
+		String trage = request.getParameter("trage");
+		int unit_price = Integer.parseInt(request.getParameter("unitp_price"));	
+		int sale_num = Integer.parseInt(request.getParameter("sale_num"));	
+		String note = request.getParameter("note");
+		
+		ss.insert(saledate, staff,category, trage, unit_price, sale_num, note);
+		response.sendRedirect("S0010Servlet");
 	}
 
 }
