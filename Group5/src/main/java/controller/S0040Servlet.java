@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.ArrayList;
 
 import jakarta.servlet.ServletException;
@@ -12,7 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import beans.Users;
 import services.UserService;
-import utils.Db;
 
 /**
  * Servlet implementation class S0040Servlet
@@ -34,7 +32,7 @@ public class S0040Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("/S0040.jsp").forward(request, response);
 	}
 
 	/**
@@ -42,16 +40,24 @@ public class S0040Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ArrayList<Users> accountList = new ArrayList<>();
-		try (Connection conn = Db.open();) {
-			accountList = UserService.select();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		String name = request.getParameter("name");
+		String mail = request.getParameter("mail");
+		
+		int role0 = parseRole(request.getParameter("role0"));
+		int role1 = parseRole(request.getParameter("role1"));
+		int role10 = parseRole(request.getParameter("role10"));
+		
+		ArrayList<Users> accountList = UserService.select(name, mail, role0, role1, role10);
 
 	request.setAttribute("accountList",accountList);
-	request.getRequestDispatcher("S0041Servlet").forward(request,response);
-
+	request.getRequestDispatcher("S0041.jsp").forward(request,response);
+	}
+	
+	private int parseRole(String roleStr) {
+	    if (roleStr != null && !roleStr.isEmpty()) {
+	        return Integer.parseInt(roleStr);
+	    }
+	    return 5;
 	}
 
 }
