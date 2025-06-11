@@ -49,21 +49,21 @@
 					<label class="form-label">権限</label>
 					<span class="badge bg-secondary">必須</span>
 					<div class="form-check">
-						<input class="form-check-input" type="radio" name="role"
-							id="role-none" value="none" ${role == 'none' ? 'checked' : ''}
-							disabled> <label class="form-check-label" for="role-none">権限なし</label>
+						<input class="form-check-input" type="radio" name="role" id="role-none" value="none" 
+							<c:if test="${param.role eq 'none'}">checked</c:if>disabled> 
+							<label class="form-check-label" for="role-none">権限なし</label>
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
-							id="role-read" value="read" ${role == 'read' ? 'checked' : ''} disabled>
+							id="role-read" value="read" <c:if test="${param.role eq 'read'}">checked</c:if> disabled>
 							<label class="form-check-label" for="role-read">売上登録</label>
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
-							id="role-update" value="update" ${role == 'update' ? 'checked' : ''} disabled> 
+							id="role-update" value="update" <c:if test="${param.role eq 'update'}">checked</c:if> disabled> 
 							<label class="form-check-label" for="role-update">アカウント登録</label>
 					</div>
-					<input type="hidden" name="role" value="${role}">
+					<input type="hidden" name="role" value="${param.role}">
 				</div>
 
 				<button type="submit" class="btn btn-primary">OK</button>
