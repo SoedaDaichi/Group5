@@ -35,8 +35,8 @@
 						aria-label=".form-select-sm example"
 							name = "staff">
 						<option selected>選択してください</option>
-						<c:forEach var="task" items="${  }">
-							<option value="1">${ }</option>
+						<c:forEach var="account" items="${ accountList }">
+							<option value="${account.account_id}">${ account.name }</option>
 						</c:forEach>
 					</select>
 				</div>
