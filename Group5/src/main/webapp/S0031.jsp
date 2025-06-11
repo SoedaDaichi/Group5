@@ -50,19 +50,19 @@
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
 							id="role-none" value="0"
-							<c:if test="${param.role eq 'none'}">checked</c:if> disabled>
+							<c:if test="${param.role eq '0'}">checked</c:if> disabled>
 						<label class="form-check-label" for="role-none">権限なし</label>
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
 							id="role-read" value="1"
-							<c:if test="${param.role eq 'read'}">checked</c:if> disabled>
+							<c:if test="${param.role eq '1'}">checked</c:if> disabled>
 						<label class="form-check-label" for="role-read">売上登録</label>
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="role"
 							id="role-update" value="10"
-							<c:if test="${param.role eq 'update'}">checked</c:if> disabled>
+							<c:if test="${param.role eq '10'}">checked</c:if> disabled>
 						<label class="form-check-label" for="role-update">アカウント登録</label>
 					</div>
 					<input type="hidden" name="role" value="${param.role}">
