@@ -6,16 +6,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import beans.Accounts;
 import beans.Categories;
-import beans.Users;
 import utils.Db;
 
 public class S0010Service {
 	public S0010Service() {
 	}
 
-	public ArrayList<Users> selectAccount() {
-		ArrayList<Users> accountList = new ArrayList<>();
+	public ArrayList<Accounts> selectAccount() {
+		ArrayList<Accounts> accountList = new ArrayList<>();
 		String selectAccount = "SELECT account_id, name FROM accounts WHERE authority = 1 OR authority = 3";
 
 		try (
@@ -23,10 +23,10 @@ public class S0010Service {
 				PreparedStatement pstmt = conn.prepareStatement(selectAccount);) {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				Users users = new Users();
-				users.setAccount_id(rs.getInt("account_id"));
-				users.setName(rs.getString("name"));
-				accountList.add(users);
+				Accounts accounts = new Accounts();
+				accounts.setAccount_id(rs.getInt("account_id"));
+				accounts.setName(rs.getString("name"));
+				accountList.add(accounts);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

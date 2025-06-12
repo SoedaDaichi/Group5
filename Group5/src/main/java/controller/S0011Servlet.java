@@ -14,7 +14,7 @@ import services.S0010Service;
 /**
  * Servlet implementation class S0011Servlet
  */
-@WebServlet("/S0011Servlet")
+@WebServlet("/S0011.html")
 public class S0011Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,7 +30,7 @@ public class S0011Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("S0011.jsp").forward(request, response);
+		request.getRequestDispatcher("/S0011.jsp").forward(request, response);
 	}
 
 	/**
@@ -44,13 +44,13 @@ public class S0011Servlet extends HttpServlet {
 		Date saledate =Date.valueOf(request.getParameter("saledate"));
 		int staff = Integer.parseInt(request.getParameter("staff"));
 		int category =Integer.parseInt( request.getParameter("category"));
-		String trage = request.getParameter("trage");
+		String trade = request.getParameter("trade");
 		int unit_price = Integer.parseInt(request.getParameter("unitp_price"));	
 		int sale_num = Integer.parseInt(request.getParameter("sale_num"));	
 		String note = request.getParameter("note");
 		
-		ss.insert(saledate, staff,category, trage, unit_price, sale_num, note);
-		response.sendRedirect("S0010Servlet");
+		ss.insert(saledate, staff,category, trade, unit_price, sale_num, note);
+		response.sendRedirect("/S0010.html");
 	}
 
 }

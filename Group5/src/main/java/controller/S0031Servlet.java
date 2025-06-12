@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import services.S0031Service;
-import services.UserService;
+import services.auth;
 
 /**
  * Servlet implementation class S0031Servlet
@@ -52,18 +52,18 @@ public class S0031Servlet extends HttpServlet {
 
 		System.out.println(name);
 
-		String hashedPass = UserService.hashPassword(pass);
+		String hashedPass = auth.hashPassword(pass);
 
-		S0031Service s0031Service = new S0031Service();
-		boolean success = s0031Service.insert(name, mail, hashedPass, role);
+		S0031Service s0031service = new S0031Service();
+		boolean success = s0031service.insert(name, mail, hashedPass, role);
 
+		HttpSession session = request.getSession();
 		if (success) {
-			HttpSession session = request.getSession();
 			session.setAttribute("success", "アカウントが作成されました。");
-			response.sendRedirect("S0030Servlet");
+			response.sendRedirect("/S0030Servlet");
 		} else {
-			request.setAttribute("error", "登録に失敗しました");
-			request.getRequestDispatcher("/S0030.jsp").forward(request, response);
+			session.setAttribute("error", "登録に失敗しました");
+			response.sendRedirect("/S0030Servlet");
 		}
 
 		//request.getRequestDispatcher("/C002.jsp").forward(request, response);

@@ -9,21 +9,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.Users;
-import services.UserService;
+import beans.Accounts;
 import services.auth;
 
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/C001Servlet")
+@WebServlet("/C001.html")
 public class C001Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	
+
 	public C001Servlet() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -44,20 +43,25 @@ public class C001Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String mail = request.getParameter("mail");
-		String pass = UserService.hashPassword(request.getParameter("pass"));
+		String pass = auth.hashPassword(request.getParameter("pass"));
 
-		Users user = auth.login(mail, pass); // ユーザー取得
+		Accounts account = auth.login(mail, pass); // ユーザー取得
+		String noManager = auth.checkManager(account);
 
-		String noManager = auth.checkManager(user);
-		if (noManager != null) {
+		if (account == null) {
+			request.setAttribute("error", "メールアドレス、またはパスワードが違います。");
+			request.getRequestDispatcher("/C001.jsp").forward(request, response);
+			return;
+		} else if (noManager != null) {
 			request.setAttribute("error", noManager);
 			request.getRequestDispatcher("/C001.jsp").forward(request, response);
 			return;
 		}
+
 		// ログイン成功処理
 		HttpSession session = request.getSession();
-		session.setAttribute("loginUser", user);
-		response.sendRedirect("C002Servlet");
+		session.setAttribute("loginUser", account);
+		response.sendRedirect("/C002.html");
 	}
 
 }

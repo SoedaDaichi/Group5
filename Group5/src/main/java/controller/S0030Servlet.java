@@ -9,12 +9,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import services.UserService;
+import services.S0030Service;
 
 /**
  * Servlet implementation class S0030Servlet
  */
-@WebServlet("/S0030Servlet")
+@WebServlet("/S0030.html")
 public class S0030Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,12 +36,17 @@ public class S0030Servlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			String success = (String) session.getAttribute("success");
+			String error = (String) session.getAttribute("error");
+
 			if (success != null) {
 				request.setAttribute("success", success);
 				session.removeAttribute("success");
+			} else if (error != null) {
+				request.setAttribute("error", error);
+				session.removeAttribute("error");
 			}
+			request.getRequestDispatcher("/S0030.jsp").forward(request, response);
 		}
-		request.getRequestDispatcher("/S0030.jsp").forward(request, response);
 	}
 
 	/**
@@ -58,21 +63,23 @@ public class S0030Servlet extends HttpServlet {
 		String confirm_pass = request.getParameter("confirm_pass");
 		String role = request.getParameter("role");
 
-		if (UserService.UserNameCheck(name)) {
-			request.setAttribute("error", "このユーザ名は既に使用されています。");
-			request.getRequestDispatcher("/S0030.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+
+		if (S0030Service.accountNameCheck(name)) {
+			session.setAttribute("error", "このユーザ名は既に使用されています。");
+			response.sendRedirect("/S0030.html");
 			return;
 		}
 
-		if (UserService.UserEmailCheck(mail)) {
-			request.setAttribute("error", "このメールアドレスは既に使用されています。");
-			request.getRequestDispatcher("/S0030.jsp").forward(request, response);
+		if (S0030Service.accountEmailCheck(mail)) {
+			session.setAttribute("error", "このメールアドレスは既に使用されています。");
+			response.sendRedirect("/S0030.html");
 			return;
 		}
 
 		if (!pass.equals(confirm_pass)) {
-			request.setAttribute("error", "パスワードが一致していません。");
-			request.getRequestDispatcher("/S0030.jsp").forward(request, response);
+			session.setAttribute("error", "パスワードが一致していません。");
+			response.sendRedirect("/S0030.html");
 			return;
 		}
 
