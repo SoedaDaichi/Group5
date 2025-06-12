@@ -13,12 +13,12 @@
 	<%@ include file="navbar.jsp"%>
 
 	<div class="container-fluid mt-2">
-		<div class = "row">
-			<div class = "col-10 offset-3">
+		<div class="row">
+			<div class="col-10 offset-3">
 				<h1 class="mb-4">売上検索結果表示</h1>
 			</div>
 		</div>
-		
+
 		<div class="row mx-2">
 			<table class="table table-bordered table-hover">
 				<thead class="table-light">
@@ -36,24 +36,24 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="account" items="${salesList}" varStatus="status">
+					<c:forEach var="sales" items="${salesList}" varStatus="status">
 						<tr>
 							<td><a href="EditServlet?id=${sales.sale_id}"
-								class="btn btn-sm btn-primary">詳細</a> 
-							</td>
-							<td>${status.index + 1}</td>
-							<td>${sales.}</td>
-							<td>${sales.}</td>
-							<td>${sales.}</td>
-							<td>${sales.}</td>
-							<td>${sales.}</td>
-							<td>${sales.}</td>
-							<td>${sales.}</td>
+								class="btn btn-sm btn-primary">詳細</a></td>
+							<td>${sales.sale_id}</td>
+							<td>${sales.sale_date}</td>
+							<td>${sales.name}</td>
+							<td>${sales.category_name}</td>
+							<td>${sales.trade_name}</td>
+							<td>${sales.unit_price}</td>
+							<td>${sales.sale_number}</td>
+							<td>${sales.price_all}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</div>
 	</div>
+	<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
