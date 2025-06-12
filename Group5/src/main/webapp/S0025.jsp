@@ -12,9 +12,14 @@
 <body>
 	<%@ include file="navbar.jsp"%>
 	<div class="container-fluid mx-5">
-		<p class="fs-1 fw-bold mx-5 mt-4">売上詳細編集</p>
-
+		<div class = "row">
+			<div class = "col-10 offset-3">
+				<p class="fs-1 fw-bold mx-5 mt-4">売上詳細編集</p>
+			</div>
+		</div>
 		<form id="create-task-form" action="S0030Servlet" method="post">
+		<div class = "row">
+		<div class = "col-10 offset-3">
 			<div class="row my-4">
 				<div class="col-2 text-end">
 					<h5>
@@ -103,6 +108,8 @@
 						キャンセル </a>
 				</div>
 			</div>
+		</div>
+		</div>
 		</form>
 </body>
 </html>

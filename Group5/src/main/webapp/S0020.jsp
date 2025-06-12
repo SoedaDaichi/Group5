@@ -11,9 +11,15 @@
 <body>
 	<%@ include file="navbar.jsp"%>
 	<div class="container-fluid mx-5">
-		<p class="fs-1 fw-bold mx-5 mt-4">売上検索条件入力</p>
-
+		<div class = "row">
+			<div class = "col-10 offset-3">
+				<p class="fs-1 fw-bold mx-5 mt-4">売上検索条件入力</p>
+			</div>
+		</div>
+		
 		<form id="create-task-form" action="S0020Servlet" method="post">
+		<div class = "row">
+		<div class = "col-10 offset-3">
 			<div class="row my-4">
 				<div class="col-2 text-end my-1">
 					<h5>
@@ -88,6 +94,8 @@
 					<a href="#" button type="submit" class="btn btn-outline-secondary">
 						クリア </a>
 				</div>
+			</div>
+			</div>
 			</div>
 		</form>
 	</div>

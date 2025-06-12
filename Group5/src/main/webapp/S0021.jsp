@@ -13,8 +13,12 @@
 	<%@ include file="navbar.jsp"%>
 
 	<div class="container-fluid mt-2">
-		<h1 class="mb-4">売上検索結果表示</h1>
-
+		<div class = "row">
+			<div class = "col-10 offset-3">
+				<h1 class="mb-4">売上検索結果表示</h1>
+			</div>
+		</div>
+		
 		<div class="row mx-2">
 			<table class="table table-bordered table-hover">
 				<thead class="table-light">
