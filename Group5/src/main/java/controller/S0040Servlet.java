@@ -9,13 +9,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import beans.Users;
-import services.UserService;
+import beans.Accounts;
+import services.S0040Service;
 
 /**
  * Servlet implementation class S0040Servlet
  */
-@WebServlet("/S0040Servlet")
+@WebServlet("/S0040.html")
 public class S0040Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,10 +47,10 @@ public class S0040Servlet extends HttpServlet {
 		int role1 = parseRole(request.getParameter("role1"));
 		int role10 = parseRole(request.getParameter("role10"));
 		
-		ArrayList<Users> accountList = UserService.select(name, mail, role0, role1, role10);
+		ArrayList<Accounts> accountList = S0040Service.select(name, mail, role0, role1, role10);
 
 	request.setAttribute("accountList",accountList);
-	request.getRequestDispatcher("S0041.jsp").forward(request,response);
+	request.getRequestDispatcher("/S0041.jsp").forward(request,response);
 	}
 	
 	private int parseRole(String roleStr) {

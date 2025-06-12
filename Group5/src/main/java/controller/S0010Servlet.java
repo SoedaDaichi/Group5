@@ -10,14 +10,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import beans.Accounts;
 import beans.Categories;
-import beans.Users;
 import services.S0010Service;
 
 /**
  * Servlet implementation class S0010Servlet
  */
-@WebServlet("/S0010Servlet")
+@WebServlet("/S0010.html")
 public class S0010Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,7 +33,7 @@ public class S0010Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Users> accountList = new ArrayList<>();
+		ArrayList<Accounts> accountList = new ArrayList<>();
 		ArrayList<Categories> categoryList = new ArrayList<>();
 		
 		S0010Service ss = new S0010Service();
@@ -44,7 +44,7 @@ public class S0010Servlet extends HttpServlet {
 		request.setAttribute("accountList", accountList);
 		request.setAttribute("categoryList", categoryList);
 		
-		request.getRequestDispatcher("S0010.jsp").forward(request, response);
+		request.getRequestDispatcher("/S0010.jsp").forward(request, response);
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class S0010Servlet extends HttpServlet {
 		String account_name = request.getParameter("account_name");
 		String cotegory_name = request.getParameter("cotegory_name");
 		String trade_name =request.getParameter("trade");
-		int unit_price = Integer.valueOf(request.getParameter("unitp_price"));
+		int unit_price = Integer.valueOf(request.getParameter("unit_price"));
 		int sale_number = Integer.valueOf(request.getParameter("sale_num"));
 		String note = request.getParameter("note");
 		
@@ -71,6 +71,6 @@ public class S0010Servlet extends HttpServlet {
 		request.setAttribute("sale_number",sale_number);
 		request.setAttribute("note", note);
 		
-		request.getRequestDispatcher("S0011.jsp").forward(request, response);
+		request.getRequestDispatcher("/S0011.html").forward(request, response);
 	}
 }

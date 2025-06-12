@@ -3,7 +3,7 @@ package beans;
 import lombok.Data;
 
 @Data
-public class Users {
+public class Accounts {
 	private int account_id;
 	private String name;
 	private String mail;

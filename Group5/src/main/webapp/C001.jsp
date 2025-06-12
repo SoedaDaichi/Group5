@@ -17,7 +17,7 @@
 		</div>
 	</div>
 
-	<form action="C001Servlet" method="post">
+	<form action="C001.html" method="post">
 		<c:if test="${not empty error}">
 			<div class="alert alert-danger text-center py-2">
 				<c:out value="${error}" />
