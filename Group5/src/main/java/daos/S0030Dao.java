@@ -1,4 +1,4 @@
-package services;
+package daos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 
 import utils.Db;
 
-public class S0030Service {
+public class S0030Dao {
 	
-	public static boolean accountNameCheck(String name) {
+	public boolean accountNameCheck(String name) {
 		String select = "SELECT COUNT(*) FROM accounts WHERE name = ?";
 
 		try (
@@ -25,7 +25,7 @@ public class S0030Service {
 		return false;
 	}
 	
-	public static boolean accountEmailCheck(String mail) {
+	public boolean accountEmailCheck(String mail) {
 		String select = "SELECT COUNT(*) FROM accounts WHERE mail = ?";
 
 		try (

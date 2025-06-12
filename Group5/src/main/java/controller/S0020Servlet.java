@@ -13,8 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import beans.Accounts;
 import beans.Categories;
 import beans.Sales;
+import daos.S0020Dao;
 import services.S0010Service;
-import services.S0020Service;
 
 /**
  * Servlet implementation class S0020Servlet
@@ -64,8 +64,11 @@ public class S0020Servlet extends HttpServlet {
 		String trade = request.getParameter("trade");
 		String note = request.getParameter("note");
 		
-		ArrayList<Sales> salesList = S0020Service.select(first, last, account_id, category_id, trade, note);
-				
+		S0020Dao s0020dao = new S0020Dao();
+		ArrayList<Sales> salesList = s0020dao.select(first, last, account_id, category_id, trade, note);
+		
+		request.setAttribute("salesList",salesList);
+		request.getRequestDispatcher("/S0021.jsp").forward(request,response);
 	}
 	private Integer parseId(String idStr) {
 		if (idStr != null && !idStr.isEmpty()) {

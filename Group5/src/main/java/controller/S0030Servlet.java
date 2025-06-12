@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import services.S0030Service;
+import daos.S0030Dao;
 
 /**
  * Servlet implementation class S0030Servlet
@@ -65,13 +65,14 @@ public class S0030Servlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		if (S0030Service.accountNameCheck(name)) {
+		S0030Dao s0030dao = new S0030Dao();
+		if (s0030dao.accountNameCheck(name)) {
 			session.setAttribute("error", "このユーザ名は既に使用されています。");
 			response.sendRedirect("S0030.html");
 			return;
 		}
 
-		if (S0030Service.accountEmailCheck(mail)) {
+		if (s0030dao.accountEmailCheck(mail)) {
 			session.setAttribute("error", "このメールアドレスは既に使用されています。");
 			response.sendRedirect("S0030.html");
 			return;

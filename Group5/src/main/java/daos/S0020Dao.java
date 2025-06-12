@@ -1,4 +1,4 @@
-package services;
+package daos;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,18 +9,18 @@ import java.util.ArrayList;
 import beans.Sales;
 import utils.Db;
 
-public class S0020Service {
+public class S0020Dao {
 
-	public static ArrayList<Sales> select(Date first, Date last, Integer account_id, Integer category_id, String trade,
+	public ArrayList<Sales> select(Date first, Date last, Integer account_id, Integer category_id, String trade,
 			String note) {
 		ArrayList<Sales> salesList = new ArrayList<>();
 		ArrayList<Object> sqlList = new ArrayList<>();
 		ArrayList<String> where = new ArrayList<>();
 		StringBuilder select = new StringBuilder(
 				"SELECT s.sale_id, s.sale_date, a.name, c.category_name, s.trade_name, s.unit_price, s.sale_number, "
-				+ "s.unit_price * s.sale_number AS price_All "
-				+ "FROM sales s INNER JOIN accounts a ON s.account_id = a.account_id "
-				+ "INNER JOIN categories c ON s.category_id = c.category_id;");
+						+ "s.unit_price * s.sale_number AS price_all "
+						+ "FROM sales s INNER JOIN accounts a ON s.account_id = a.account_id "
+						+ "INNER JOIN categories c ON s.category_id = c.category_id;");
 
 		if (trade != null && !trade.isEmpty()) {
 			// nullでないかつ空文字でない
@@ -29,7 +29,7 @@ public class S0020Service {
 		}
 		if (note != null && !note.isEmpty()) {
 			where.add("s.note = ?");
-			sqlList.add("%" +note+ "%");
+			sqlList.add("%" + note + "%");
 		}
 		if (first != null && last != null) {
 			where.add("s.sale_date BETWEEN ? AND ?");
@@ -64,17 +64,18 @@ public class S0020Service {
 					Sales sales = new Sales();
 					sales.setSale_id(rs.getInt("sale_id"));
 					sales.setSale_date(rs.getDate("sale_date"));
-					sales.setAccount_id(rs.getInt("account_id"));
 					sales.setName(rs.getString("name"));
-					sales.setMail(rs.getString("mail"));
-					sales.setAuthority(rs.getInt("authority"));
+					sales.setCategory_name(rs.getString("category_name"));
+					sales.setUnit_price(rs.getInt("unit_price"));
+					sales.setSale_number(rs.getInt("sale_number"));
+					sales.setPrice_all(rs.getInt("price_all"));
 					salesList.add(sales);
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return accountList;
+		return salesList;
 	}
 
 }
