@@ -12,7 +12,8 @@
 	<%@ include file="navbar.jsp"%>
 	<div class="container-fluid mx-5">
 		<div class = "col-10 offset-3">
-		<p class="fs-1 fw-bold mx-5 mt-4">売上登録確認</p>
+			<p class="fs-1 fw-bold mx-5 mt-4">売上登録確認</p>
+		
 
 		<form id="create-sales-form" action="S0010.html" method="post">
 			<div class=row>
