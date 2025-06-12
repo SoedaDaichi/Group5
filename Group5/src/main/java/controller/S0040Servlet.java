@@ -47,7 +47,8 @@ public class S0040Servlet extends HttpServlet {
 		int role1 = parseRole(request.getParameter("role1"));
 		int role10 = parseRole(request.getParameter("role10"));
 		
-		ArrayList<Accounts> accountList = S0040Service.select(name, mail, role0, role1, role10);
+		S0040Service s0040service = new S0040Service();
+		ArrayList<Accounts> accountList = s0040service.select(name, mail, role0, role1, role10);
 
 	request.setAttribute("accountList",accountList);
 	request.getRequestDispatcher("/S0041.jsp").forward(request,response);

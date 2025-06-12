@@ -3,7 +3,7 @@ package services;
 import java.util.ArrayList;
 
 import beans.Accounts;
-import dao.S0040Dao;
+import daos.S0040Dao;
 
 public class S0040Service {
 

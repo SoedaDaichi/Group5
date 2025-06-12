@@ -1,11 +1,11 @@
-package services;
+package daos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import utils.Db;
 
-public class S0031Service {
+public class S0031Dao {
 	
 	public boolean insert(String name, String mail, String hashedPass, String authority) {
 		String sql = "INSERT INTO accounts(name, mail, password, authority) VALUES (?, ?, ?, ?)";

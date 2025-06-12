@@ -15,6 +15,11 @@ public class Sales {
 	private int sale_number;
 	private String note;
 	
+	// その他
+	private String name;
+	private String category_name;
+	private int price_all; // unit_price * sale_number
+	
 	public Sales() {
 	}
 }

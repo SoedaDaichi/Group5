@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import services.S0031Service;
+import daos.S0031Dao;
 import services.auth;
 
 /**
@@ -54,8 +54,8 @@ public class S0031Servlet extends HttpServlet {
 
 		String hashedPass = auth.hashPassword(pass);
 
-		S0031Service s0031service = new S0031Service();
-		boolean success = s0031service.insert(name, mail, hashedPass, role);
+		S0031Dao s0031dao = new S0031Dao();
+		boolean success = s0031dao.insert(name, mail, hashedPass, role);
 
 		HttpSession session = request.getSession();
 		if (success) {
