@@ -14,7 +14,7 @@
 		<div class = "col-10 offset-3">
 		<p class="fs-1 fw-bold mx-5 mt-4">売上登録</p>
 
-		<form id="create-sales-form" action="S0010Servlet" method="post">
+		<form id="create-sales-form" action="S0010.html" method="post">
 			<div class=row>
 				<div class="col-2 text-end my-3">
 					<h5>

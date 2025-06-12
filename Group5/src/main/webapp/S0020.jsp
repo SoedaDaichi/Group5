@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		
-		<form id="create-task-form" action="S0020Servlet" method="post">
+		<form id="create-task-form" action="S0020.html" method="post">
 		<div class = "row">
 		<div class = "col-10 offset-3">
 			<div class="row my-4">
