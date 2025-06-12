@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import services.S0010Service;
+import dao.S0010Dao;
 
 /**
  * Servlet implementation class S0011Servlet
@@ -38,18 +38,18 @@ public class S0011Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		S0010Service ss = new S0010Service();
+		S0010Dao ss = new S0010Dao();
 		
 		
 		Date saledate =Date.valueOf(request.getParameter("saledate"));
-		int staff = Integer.parseInt(request.getParameter("staff"));
-		int category =Integer.parseInt( request.getParameter("category"));
+		int account_id = Integer.parseInt(request.getParameter("account_name"));
+		int category_id =Integer.parseInt(request.getParameter("category_name"));
 		String trade = request.getParameter("trade");
-		int unit_price = Integer.parseInt(request.getParameter("unitp_price"));	
+		int unit_price = Integer.parseInt(request.getParameter("unit_price"));	
 		int sale_num = Integer.parseInt(request.getParameter("sale_num"));	
 		String note = request.getParameter("note");
 		
-		ss.insert(saledate, staff,category, trade, unit_price, sale_num, note);
+		ss.insert(saledate, account_id,category_id, trade, unit_price, sale_num, note);
 		response.sendRedirect("S0010.html");
 	}
 
