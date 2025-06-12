@@ -67,19 +67,19 @@ public class S0030Servlet extends HttpServlet {
 
 		if (S0030Service.accountNameCheck(name)) {
 			session.setAttribute("error", "このユーザ名は既に使用されています。");
-			response.sendRedirect("/S0030.html");
+			response.sendRedirect("S0030.html");
 			return;
 		}
 
 		if (S0030Service.accountEmailCheck(mail)) {
 			session.setAttribute("error", "このメールアドレスは既に使用されています。");
-			response.sendRedirect("/S0030.html");
+			response.sendRedirect("S0030.html");
 			return;
 		}
 
 		if (!pass.equals(confirm_pass)) {
 			session.setAttribute("error", "パスワードが一致していません。");
-			response.sendRedirect("/S0030.html");
+			response.sendRedirect("S0030.html");
 			return;
 		}
 
@@ -101,6 +101,6 @@ public class S0030Servlet extends HttpServlet {
 		request.setAttribute("confirm_pass", confirm_pass);
 		request.setAttribute("role", role);
 
-		request.getRequestDispatcher("S0031.jsp").forward(request, response);
+		request.getRequestDispatcher("/S0031.jsp").forward(request, response);
 	}
 }

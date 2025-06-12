@@ -60,10 +60,10 @@ public class S0031Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		if (success) {
 			session.setAttribute("success", "アカウントが作成されました。");
-			response.sendRedirect("/S0030Servlet");
+			response.sendRedirect("S0030Servlet");
 		} else {
 			session.setAttribute("error", "登録に失敗しました");
-			response.sendRedirect("/S0030Servlet");
+			response.sendRedirect("S0030Servlet");
 		}
 
 		//request.getRequestDispatcher("/C002.jsp").forward(request, response);

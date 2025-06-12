@@ -10,7 +10,7 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav align-items-center gap-2 ps-5">
-				<li class="nav-item"><a class="nav-link" href="C002Servlet">ダッシュボード</a>
+				<li class="nav-item"><a class="nav-link" href="C002.html">ダッシュボード</a>
 				</li>
 				<li class="nav-item dropdown">
 					<button class="btn dropdown-toggle nav-link ps-5" type="button"
@@ -18,13 +18,13 @@
 					<ul class="dropdown-menu dropdown-menu-lg-end"
 						aria-labelledby="salesDropdown">
 						<li>
-							<form action="S0010Servlet" method="get">
+							<form action="S0010.html" method="get">
 								<button type="submit" class="dropdown-item">売上登録</button>
 							</form>
 						</li>
 						<li><hr class="dropdown-divider"></li>
 						<li>
-							<form action="S0020Servlet" method="get">
+							<form action="S0020.html" method="get">
 								<button type="submit" class="dropdown-item">売上検索</button>
 							</form>
 						</li>
@@ -37,13 +37,13 @@
 					<ul class="dropdown-menu dropdown-menu-lg-end"
 						aria-labelledby="accountDropdown">
 						<li>
-							<form action="S0030Servlet" method="get">
+							<form action="S0030.html" method="get">
 								<button type="submit" class="dropdown-item">アカウント登録</button>
 							</form>
 						</li>
 						<li><hr class="dropdown-divider"></li>
 						<li>
-							<form action="S0040Servlet" method="get">
+							<form action="S0040.html" method="get">
 								<button type="submit" class="dropdown-item">アカウント検索</button>
 							</form>
 						</li>
@@ -52,7 +52,7 @@
 			</ul>
 			<ul class="navbar-nav ms-auto">
 				<li class="nav-item">
-					<form action="LogoutServlet" method="get"
+					<form action="Logout.html" method="get"
 						onsubmit="return confirm('ログアウトしますか？');">
 						<button type="submit" class="btn btn-outline-danger">ログアウト</button>
 					</form>

@@ -61,7 +61,7 @@ public class C001Servlet extends HttpServlet {
 		// ログイン成功処理
 		HttpSession session = request.getSession();
 		session.setAttribute("loginUser", account);
-		response.sendRedirect("/C002.html");
+		response.sendRedirect("C002.html");
 	}
 
 }

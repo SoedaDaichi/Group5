@@ -71,6 +71,6 @@ public class S0010Servlet extends HttpServlet {
 		request.setAttribute("sale_number",sale_number);
 		request.setAttribute("note", note);
 		
-		request.getRequestDispatcher("/S0011.html").forward(request, response);
+		request.getRequestDispatcher("S0011.html").forward(request, response);
 	}
 }
