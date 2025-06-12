@@ -50,7 +50,7 @@ public class S0011Servlet extends HttpServlet {
 		String note = request.getParameter("note");
 		
 		ss.insert(saledate, staff,category, trade, unit_price, sale_num, note);
-		response.sendRedirect("/S0010.html");
+		response.sendRedirect("S0010.html");
 	}
 
 }
