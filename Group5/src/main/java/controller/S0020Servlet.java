@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 
 import jakarta.servlet.ServletException;
@@ -57,24 +56,19 @@ public class S0020Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Date first = Date.valueOf(request.getParameter("first"));
-		Date last = Date.valueOf(request.getParameter("last"));
-		int account_id = parseId(request.getParameter("acount_id"));
-		int category_id = parseId(request.getParameter("category_id"));
+		String firststr = request.getParameter("first");
+		String laststr = request.getParameter("last");
+		String account_idstr = request.getParameter("account_id");
+		System.out.println("アカウントID: " + account_idstr);
+		String category_idstr = request.getParameter("category_id");
 		String trade = request.getParameter("trade");
 		String note = request.getParameter("note");
-		
+		System.out.println(firststr);
+		System.out.println(laststr);
 		S0020Dao s0020dao = new S0020Dao();
-		ArrayList<Sales> salesList = s0020dao.select(first, last, account_id, category_id, trade, note);
+		ArrayList<Sales> salesList = s0020dao.select(firststr, laststr, account_idstr, category_idstr, trade, note);
 		
 		request.setAttribute("salesList",salesList);
 		request.getRequestDispatcher("/S0021.jsp").forward(request,response);
 	}
-	private Integer parseId(String idStr) {
-		if (idStr != null && !idStr.isEmpty()) {
-			return Integer.parseInt(idStr);
-		}
-		return null;
-	}
-
 }
