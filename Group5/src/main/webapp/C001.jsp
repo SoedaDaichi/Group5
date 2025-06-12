@@ -11,9 +11,8 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div
-			class="row p-3 mb-2 bg-danger-subtle text-emphasis-danger bg-opacity-75">
-			<div class="col fs-2 fw-bold text-center">物品売上管理システム</div>
+		<div class="row mt-5">
+			<div class="col-10 offset-4 fs-2 fw-bold ">物品売上管理システム</div>
 		</div>
 	</div>
 
@@ -24,35 +23,37 @@
 			</div>
 		</c:if>
 		<div class="row my-5">
-			<div class="col-sm-4 offset-sm-4">
-				<div class="col-5 my-4">
-					<span class>メールアドレス</span> <span class="badge bg-danger me-2 mx-3">必須</span>
+			<div class="col-7 offset-4">
+				<div class="col-5">
+					<h6>メールアドレス</h6>
 				</div>
-				<div class="row my-3 px-2">
-					<input type="text"
-						class="form-control ${not empty error ? ' is-invalid' : ''}"
-						placeholder="メールアドレス" name="mail" required />
-				</div>
-				<div class="col-5 my-4">
-					<span class>パスワード</span> <span class="badge bg-danger me-2 mx-3">必須</span>
-				</div>
-				<div class="row my-3 px-2">
-					<input type="password"
-						class="form-control ${not empty error ? ' is-invalid' : ''}"
-						placeholder="パスワード" name="pass" required />
-				</div>
-				<div class="row px-2">
-					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-						<button type="submit" class="btn btn-primary btn-lg">ログイン</button>
+				<div class="row">
+					<div class = "col-8">
+						<input type="text"
+							class="form-control form-control-lg ${not empty error ? ' is-invalid' : ''}"
+							placeholder="メールアドレス" name="mail" required />
 					</div>
 				</div>
-				<div class="form-check my-4">
-					<input class="form-check-input" type="checkbox" id="keepLoggedIn">
-					<label class="form-check-label" for="keepLoggedIn">
-						ログイン状態を維持する </label>
+				<div class="col-5 mt-5">
+					<h6>パスワード</h6>
+				</div>
+					<div class="row">
+					<div class = "col-8">
+						<input type="password"
+							class="form-control form-control-lg ${not empty error ? ' is-invalid' : ''}"
+							placeholder="パスワード" name="pass" required />
+					</div>
+					</div>
+				
+					<div class="row my-4">
+						<div class = "col-8">
+							<div class="d-grid gap-2">
+ 							 	<button class="btn btn-primary" type="button">ログイン</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
 	</form>
 
 	<!--    <div class="container-fluid">-->
