@@ -12,13 +12,18 @@
 <body>
 	<%@ include file="navbar.jsp"%>
 	<div class="container-fluid mx-5">
-		<p class="fs-1 fw-bold mx-5 mt-4">売上詳細編集</p>
-
-		<form id="create-task-form" action="S0030Servlet" method="post">
+		<div class = "row">
+			<div class = "col-10 offset-3">
+				<p class="fs-1 fw-bold mx-5 mt-4">売上詳細編集</p>
+			</div>
+		</div>
+		<form id="create-task-form" action="S0030.html" method="post">
+		<div class = "row">
+		<div class = "col-10 offset-3">
 			<div class="row my-4">
 				<div class="col-2 text-end">
 					<h5>
-						<span class>販売日</span>
+						販売日
 					</h5>
 				</div>
 				
@@ -29,7 +34,7 @@
 			<div class="row my-4">
 				<div class="col-2 text-end">
 					<h5>
-						<span class>担当</span>
+						担当
 					</h5>
 				</div>
 				<div class="col-3">
@@ -42,7 +47,7 @@
 			<div class="row my-4">
 				<div class="col-2 text-end">
 					<h5>
-						<span class>商品カテゴリー</span>
+						商品カテゴリー
 					</h5>
 				</div>
 				<div class="col-3">
@@ -103,6 +108,8 @@
 						キャンセル </a>
 				</div>
 			</div>
+		</div>
+		</div>
 		</form>
 </body>
 </html>
