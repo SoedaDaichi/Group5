@@ -15,7 +15,7 @@
 			<p class="fs-1 fw-bold mx-5 mt-4">売上登録確認</p>
 		
 
-		<form id="create-sales-form" action="S0010.html" method="post">
+		<form id="create-sales-form" action="S0011.html" method="post">
 			<div class=row>
 				<div class="col-2 text-end my-3">
 					<h5>
@@ -23,7 +23,8 @@
 					</h5>
 				</div>
 				<div class="col-2 my-3">
-					<input type="date" id="date" name="saledate" class="form-control">
+					<input type="date" id="date" name="saledate" class="form-control" value = "${saledate}">
+					
 				</div>
 			</div>
 			<div class=row>
@@ -33,14 +34,9 @@
 					</h5>
 				</div>
 				<div class="col-2  my-3">
-					<select class="form-select form-select-sm"
-						aria-label=".form-select-sm example"
-							name = "account_name">
-						<option selected>選択してください</option>
-						<c:forEach var="account" items="${accountList}">
-							<option value="${account.account_id}">${account.name}</option>
-						</c:forEach>
-					</select>
+					<span class = input type="text" class="form-control" 
+					id="exampleFormControlInput1" name="account_name" 
+					value = "" readonly>${name}</span>
 				</div>
 			</div>
 			<div class=row>
@@ -50,14 +46,9 @@
 					</h5>
 				</div>
 				<div class="col-4 my-3">
-					<select class="form-select form-select-sm"
-						aria-label=".form-select-sm example"
-							name = "category_name">
-						<option selected>選択してください</option>
-						<c:forEach var="account" items="${categoryList}">
-							<option value="${categories.cotegory_id}">${cotegory.name}</option>
-						</c:forEach>
-					</select>
+					<span class = input type="text" class="form-control" 
+					id="exampleFormControlInput1" name="category_name" var = "category" 
+					value = "">${category_name}</span>
 				</div>
 			</div>
 			<div class=row>
@@ -68,7 +59,7 @@
 				</div>
 				<div class="col-4 my-3">
 					<input type="text" class="form-control" 
-					id="exampleFormControlInput1" name="trade" placeholder="商品名">
+					id="exampleFormControlInput1" name="trade" value = "${trade}">
 				</div>
 			</div>
 			<div class=row>
@@ -78,7 +69,7 @@
 					</h5>
 				</div>
 				<div class="col-2 my-3">
-					<input type="text" class="form-control" id="exampleFormControlInput1" name="unit_price" placeholder="単価">
+					<input type="text" class="form-control" id="exampleFormControlInput1" name="unit_price" placeholder="単価" value = "${unit_price}">
 				</div>
 			</div>
 			<div class=row>
@@ -88,7 +79,7 @@
 					</h5>
 				</div>
 				<div class="col-2 my-3">
-					<input type="text" class="form-control" id="exampleFormControlInput1" name="sale_num" placeholder="個数">
+					<input type="text" class="form-control" id="exampleFormControlInput1" name="sale_num" placeholder="個数" value = "${sale_number}">
 				</div>
 			</div>
 			<div class=row>
@@ -98,7 +89,7 @@
 					</h5>
 				</div>
 				<div class="col-5 my-3">
-				<textarea class="form-control" id="exampleFormControlTextarea1" name="note" rows="5" placeholder="備考"></textarea>
+					<textarea class="form-control" id="exampleFormControlTextarea1" name="note" rows="5" placeholder="備考" value = "${note}"></textarea>
 				</div>
 			</div>
 			<div class="row my-5">

@@ -1,4 +1,4 @@
-package services;
+package dao;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,14 +10,13 @@ import beans.Accounts;
 import beans.Categories;
 import utils.Db;
 
-public class S0010Service {
-	public S0010Service() {
-	}
+public class S0010Dao {
+	
 
 	public ArrayList<Accounts> selectAccount() {
 		ArrayList<Accounts> accountList = new ArrayList<>();
 		String selectAccount = "SELECT account_id, name FROM accounts WHERE authority = 1 OR authority = 3";
-
+		
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(selectAccount);) {
@@ -54,6 +53,50 @@ public class S0010Service {
 		}
 		return categoryList;
 	}
+	
+	public Accounts identificationAccount(int account_id) {
+	    Accounts account = null;
+		String identificationaccount = "SELECT name FROM accounts WHERE account_id = ?";
+		
+		 try (
+			        Connection conn = Db.open();
+			        PreparedStatement pstmt = conn.prepareStatement(identificationaccount);
+			    ) {
+			        pstmt.setInt(1, account_id); 
+
+			        ResultSet rs = pstmt.executeQuery();
+			        if (rs.next()) {
+			            account = new Accounts();
+			            account.setName(rs.getString("name"));
+			        }
+			    } catch (Exception e) {
+			        e.printStackTrace();
+			    }
+
+			    return account;
+			}
+	
+	public Categories identificationCategory(int category_id) {
+		Categories category = null;
+		String identificationcategory = "SELECT category_name FROM categories WHERE category_id = ?";
+		
+		 try (
+			        Connection conn = Db.open();
+			        PreparedStatement pstmt = conn.prepareStatement(identificationcategory);
+			    ) {
+			        pstmt.setInt(1, category_id); 
+
+			        ResultSet rs = pstmt.executeQuery();
+			        if (rs.next()) {
+			            category = new Categories();
+			            category.setCategory_name(rs.getString("Category_name"));
+			        }
+			    } catch (Exception e) {
+			        e.printStackTrace();
+			    }
+
+			    return category;
+			}
 
 	public void insert(Date sale_date, int account_id, int category_id, String trade_name,
 			int unit_price, int sale_number, String note) {

@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import beans.Accounts;
 import beans.Categories;
-import services.S0010Service;
+import dao.S0010Dao;
 
 /**
  * Servlet implementation class S0010Servlet
@@ -36,7 +36,7 @@ public class S0010Servlet extends HttpServlet {
 		ArrayList<Accounts> accountList = new ArrayList<>();
 		ArrayList<Categories> categoryList = new ArrayList<>();
 		
-		S0010Service ss = new S0010Service();
+		S0010Dao ss = new S0010Dao();
 		accountList = ss.selectAccount();
 		System.out.println(accountList.size());
 		categoryList = ss.selectCategory();
@@ -54,23 +54,30 @@ public class S0010Servlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		Date saledate = Date.valueOf(request.getParameter("saledate"));
-		String account_name = request.getParameter("account_name");
-		String cotegory_name = request.getParameter("cotegory_name");
-		String trade_name =request.getParameter("trade");
+		int account_id = Integer.valueOf(request.getParameter("account_id"));
+		int category_id = Integer.valueOf(request.getParameter("category_id"));
+		String trade =request.getParameter("trade");
 		int unit_price = Integer.valueOf(request.getParameter("unit_price"));
 		int sale_number = Integer.valueOf(request.getParameter("sale_num"));
 		String note = request.getParameter("note");
 		
-		System.out.println(account_name);
+		S0010Dao ss = new S0010Dao();
+		 Accounts account = ss.identificationAccount(account_id);
+		 String name = account.getName();
+		 System.out.println(name);
 		
+		 Categories category = ss.identificationCategory(category_id);
+		 String category_name = category.getCategory_name();
+		 System.out.println(category_name);
+		 
 		request.setAttribute("saledate", saledate);
-		request.setAttribute("account_name", account_name);
-		request.setAttribute("cotegory_name", cotegory_name);
-		request.setAttribute("trade_name", trade_name);
+		request.setAttribute("name", name);
+		request.setAttribute("category_name", category_name);
+		request.setAttribute("trade", trade);
 		request.setAttribute("unit_price", unit_price);
 		request.setAttribute("sale_number",sale_number);
 		request.setAttribute("note", note);
 		
-		request.getRequestDispatcher("S0011.html").forward(request, response);
+		request.getRequestDispatcher("S0011.jsp").forward(request, response);
 	}
 }
