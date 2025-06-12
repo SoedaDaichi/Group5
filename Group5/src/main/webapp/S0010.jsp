@@ -11,21 +11,25 @@
 	<body>
 	<%@ include file="navbar.jsp"%>
 	<div class="container-fluid mx-5">
-		<p class="fs-1 fw-bold mx-5 mt-4">売上登録</p>
-
+		<div class = "row">
+			<div class = "col-8 offset-2">
+				<p class="fs-1 fw-bold mx-5 mt-4">売上登録</p>
+			</div>
+		</div>
 		<form id="create-sales-form" action="S0010Servlet" method="post">
-			<div class=row>
-				<div class="col-2 text-end my-3">
+			<div class="row my-3">
+				<div class="col-2 offset-2 text-end">
 					<h5>
 						<span class>販売日</span> <span class="badge bg-secondary">必須</span>
 					</h5>
 				</div>
-				<div class="col-3 my-3">
+			<div class = "row my-3">				
+				<div class="col-5 offset-3">
 					<input type="date" id="date" name="saledate" class="form-control">
 				</div>
 			</div>
-			<div class=row>
-				<div class="col-2 text-end my-3">
+			<div class="row my-3">
+				<div class="col-2 text-end">
 					<h5>
 						<span class>担当</span> <span class="badge bg-secondary">必須</span>
 					</h5>
@@ -33,7 +37,7 @@
 				<div class="col-5  my-3">
 					<select class="form-select form-select-sm"
 						aria-label=".form-select-sm example"
-							name = "account_id">
+							name = "account_name">
 						<option selected>選択してください</option>
 						<c:forEach var="account" items="${accountList}">
 							<option value="${account.account_id}">${account.name}</option>
@@ -50,7 +54,7 @@
 				<div class="col-5 my-3">
 					<select class="form-select form-select-sm"
 						aria-label=".form-select-sm example"
-							name = "category_id">
+							name = "category_name">
 						<option selected>選択してください</option>
 						<c:forEach var="account" items="${categoryList}">
 							<option value="${categories.cotegory_id}">${cotegory.name}</option>
