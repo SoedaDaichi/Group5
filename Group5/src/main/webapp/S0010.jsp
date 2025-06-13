@@ -14,7 +14,21 @@
 		<div class="col-10 offset-3">
 			<p class="fs-1 fw-bold mx-5 mt-4">売上登録</p>
 
-
+			<div class="row my-3">
+				<div class = col-8>
+					<c:if test="${not empty error}">
+						<div class="alert alert-danger text-center py-2">
+							<c:out value="${error}" />
+						</div>
+					</c:if>
+					<c:if test="${not empty success}">
+						<div class="alert alert-success text-center py-2">
+							<c:out value="${success}" />
+						</div>
+					</c:if>
+				</div>
+			</div>
+			
 			<form id="create-sales-form" action="S0010.html" method="post">
 				<div class=row>
 					<div class="col-2 text-end my-3">
@@ -24,7 +38,7 @@
 					</div>
 					<div class="col-2 my-3">
 						<input type="date" id="date" name="saledate" class="form-control"
-							required>
+							value = "${sessionScope.saledate}" required>
 					</div>
 				</div>
 				<div class=row>
@@ -54,7 +68,7 @@
 							aria-label=".form-select-sm example" name="category_id" required>
 							<option selected>選択してください</option>
 							<c:forEach var="category" items="${categoryList}">
-								<option value="${category.cotegory_id}">${cotegory.name}</option>
+								<option value="${category.category_id}">${category.category_name}</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -108,7 +122,7 @@
 				</div>
 				<div class="row my-5">
 					<div class="col-2 offset-2 my-3">
-						<button type="submit" class="btn btn-primary">✓登録</button>
+						<input type="submit" class="btn btn-primary" value = ✓OK></input>
 			</form>
 		</div>
 	</div>

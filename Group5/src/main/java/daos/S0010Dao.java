@@ -1,4 +1,4 @@
-package dao;
+package daos;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -56,7 +56,7 @@ public class S0010Dao {
 	
 	public Accounts identificationAccount(int account_id) {
 	    Accounts account = null;
-		String identificationaccount = "SELECT name FROM accounts WHERE account_id = ?";
+		String identificationaccount = "SELECT name, account_id FROM accounts WHERE account_id = ?";
 		
 		 try (
 			        Connection conn = Db.open();
@@ -67,6 +67,7 @@ public class S0010Dao {
 			        ResultSet rs = pstmt.executeQuery();
 			        if (rs.next()) {
 			            account = new Accounts();
+			            account.setAccount_id(rs.getInt("account_id"));
 			            account.setName(rs.getString("name"));
 			        }
 			    } catch (Exception e) {
@@ -78,7 +79,7 @@ public class S0010Dao {
 	
 	public Categories identificationCategory(int category_id) {
 		Categories category = null;
-		String identificationcategory = "SELECT category_name FROM categories WHERE category_id = ?";
+		String identificationcategory = "SELECT category_name, category_id FROM categories WHERE category_id = ?";
 		
 		 try (
 			        Connection conn = Db.open();
@@ -89,7 +90,8 @@ public class S0010Dao {
 			        ResultSet rs = pstmt.executeQuery();
 			        if (rs.next()) {
 			            category = new Categories();
-			            category.setCategory_name(rs.getString("Category_name"));
+			            category.setCategory_name(rs.getString("category_name"));
+			            category.setCategory_id(rs.getInt("category_id"));
 			        }
 			    } catch (Exception e) {
 			        e.printStackTrace();
@@ -98,7 +100,7 @@ public class S0010Dao {
 			    return category;
 			}
 
-	public void insert(Date sale_date, int account_id, int category_id, String trade_name,
+	public boolean insert(Date sale_date, int account_id, int category_id, String trade_name,
 			int unit_price, int sale_number, String note) {
 
 		String insert = "INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number, note)"
@@ -121,8 +123,10 @@ public class S0010Dao {
 			;
 			int result = pstmt.executeUpdate();
 			System.out.println(result + "件のデータを追加");
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 
