@@ -15,7 +15,7 @@ import services.auth;
 /**
  * Servlet implementation class S0031Servlet
  */
-@WebServlet("/S0031Servlet")
+@WebServlet("/S0031.html")
 public class S0031Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -60,10 +60,10 @@ public class S0031Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		if (success) {
 			session.setAttribute("success", "アカウントが作成されました。");
-			response.sendRedirect("S0030Servlet");
+			response.sendRedirect("S0030.html");
 		} else {
 			session.setAttribute("error", "登録に失敗しました");
-			response.sendRedirect("S0030Servlet");
+			response.sendRedirect("S0030.html");
 		}
 
 		//request.getRequestDispatcher("/C002.jsp").forward(request, response);
