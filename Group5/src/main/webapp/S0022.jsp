@@ -29,79 +29,77 @@
 				</div>
 				<div class="col-3">
 					<h5>
-						<span class>2025/06/10</span>
+						${sale_date}
 					</h5>
 				</div>
 			</div>
 			<div class="row my-4">
 				<div class="col-2 text-end">
 					<h5>
-						<span class>担当</span>
+						担当
+					</h5>
+				</div>
+				<div class="col-3">
+					<c:out value="${name}" />
+				</div>
+			</div>
+			<div class="row my-4">
+				<div class="col-2 text-end">
+					<h5>
+						商品カテゴリー
 					</h5>
 				</div>
 				<div class="col-3">
 					<h5>
-						<span class>#</span>
+						${category_name}
 					</h5>
 				</div>
 			</div>
 			<div class="row my-4">
 				<div class="col-2 text-end">
 					<h5>
-						<span class>商品カテゴリー</span>
+						商品名
 					</h5>
 				</div>
 				<div class="col-3">
 					<h5>
-						<span class>#</span>
+						
+					</h5>${trade_name}
+				</div>
+			</div>
+			<div class="row my-4">
+				<div class="col-2 text-end">
+					<h5>
+						単価
+					</h5>
+				</div>
+				<div class="col-3">
+					<h5>
+						${unit_price}
 					</h5>
 				</div>
 			</div>
 			<div class="row my-4">
 				<div class="col-2 text-end">
 					<h5>
-						<span class>商品名</span>
+						個数
 					</h5>
 				</div>
 				<div class="col-3">
 					<h5>
-						<span class>#</span>
+						${sale_number}
 					</h5>
 				</div>
 			</div>
 			<div class="row my-4">
 				<div class="col-2 text-end">
 					<h5>
-						<span class>単価</span>
+						備考
 					</h5>
 				</div>
 				<div class="col-3">
 					<h5>
-						<span class>#</span>
-					</h5>
-				</div>
-			</div>
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						<span class>個数</span>
-					</h5>
-				</div>
-				<div class="col-3">
-					<h5>
-						<span class>#</span>
-					</h5>
-				</div>
-			</div>
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						<span class>備考</span>
-					</h5>
-				</div>
-				<div class="col-3">
-					<h5>
-						<span class>#</span>
+						${nete}
 					</h5>
 				</div>
 			</div>

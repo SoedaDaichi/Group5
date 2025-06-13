@@ -63,11 +63,12 @@ public class S0021Servlet extends HttpServlet {
 		Accounts account = ss.identificationAccount(account_id);
 		String name = account.getName();
 		int accountID = account.getAccount_id();
+		
 		Categories category = ss.identificationCategory(category_id);
 		String category_name = category.getCategory_name();
 		int categoryID = category.getCategory_id();
-		
-		request.setAttribute("saledate", sale_date);
+		System.out.println(name);
+		request.setAttribute("sale_date", sale_date);
 		request.setAttribute("name", name);
 		request.setAttribute("account_id", accountID);
 		request.setAttribute("category_name", category_name);
@@ -77,7 +78,8 @@ public class S0021Servlet extends HttpServlet {
 		request.setAttribute("sale_number", sale_number);
 		request.setAttribute("nete", nete);
 		
+		request.getRequestDispatcher("S0022.jsp").forward(request, response);
 		
-		
-		}}
+		}
+	}
 
