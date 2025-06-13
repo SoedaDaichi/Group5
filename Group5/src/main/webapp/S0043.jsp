@@ -43,7 +43,7 @@
 						<span class>氏名</span> <span class="badge bg-secondary" >必須</span>
 					</h5>
 				</div>
-				<div class="col-2 my-3">
+				<div class="col-4 my-3">
 					<input type="text" id="name" name="name" class="form-control" value="${name}" readonly>
 				</div>
 			</div>
@@ -70,7 +70,7 @@
 						<span class>メールアドレス</span> <span class="badge bg-secondary" >必須</span>
 					</h5>
 				</div>
-				<div class="col-2 my-3">
+				<div class="col-4 my-3">
 					<input type="email" id="adless" name="mail" class="form-control" value="${mail}" readonly>
 				</div>
 			</div>
@@ -97,7 +97,7 @@
 						<span class>パスワード</span> <span class="badge bg-secondary" >必須</span>
 					</h5>
 				</div>
-				<div class="col-2 my-3">
+				<div class="col-4 my-3">
 					<input type="password" id="password" name="pass" class="form-control" value="${pass}" readonly>
 				</div>
 			</div>
@@ -123,7 +123,7 @@
 						<span class>パスワード(確認)</span> <span class="badge bg-secondary" >必須</span>
 					</h5>
 				</div>
-				<div class="col-2 my-3">
+				<div class="col-4 my-3">
 					<input type="password" id="confirm_password" name="confirm_pass" class="form-control" value="${confirm_pass}" readonly>
 				</div>
 			</div>
@@ -169,19 +169,19 @@
     </h5>
   </div>
   <div class="col-4 my-3">
-    <div class="form-check">
+    <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="role"
         id="role-none" value="none"
         <c:if test="${param.role eq 'none'}">checked</c:if> disabled>
       <label class="form-check-label" for="role-none">権限なし</label>
     </div>
-    <div class="form-check">
+    <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="role"
         id="role-read" value="read"
         <c:if test="${param.role eq 'read'}">checked</c:if> disabled>
       <label class="form-check-label" for="role-read">売上登録</label>
     </div>
-    <div class="form-check">
+    <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="role"
         id="role-update" value="update"
         <c:if test="${param.role eq 'update'}">checked</c:if> disabled>
@@ -199,10 +199,10 @@
 				<!--				<div class="row my-5">-->
 				<!--					<div class="col-3 text-end">-->
 
-				<div class="row my-5">
+				<div class="row my-2">
 					<div class="col-2 offset-2 my-3">
-						<button type="submit" class="btn btn-primary">OK</button>
-						<button type="submit" class="btn btn-primary">キャンセル</button>
+						<button type="submit" class="btn btn-primary">✓OK</button>
+						<button type="submit" class="btn btn-outline-secondary">キャンセル</button>
 					</div>
 				</div>
 			</form>

@@ -39,7 +39,7 @@
       <label for="name" class="form-label">氏名 <span class="badge bg-secondary ms-2">部分一致</span></label>
     </h5>
 				</div>
-				<div class="col-2 my-3">
+				<div class="col-4 my-3">
 					<input type="text" id="name" name="name" class="form-control" placeholder="氏名">
 				</div>
 			</div>
@@ -65,7 +65,7 @@
       <label for="adless" class="form-label">メールアドレス </label>
     </h5>
 				</div>
-				<div class="col-2 my-3">
+				<div class="col-4 my-3">
 					<input type="email" id="adless" name="mail" class="form-control" placeholder="メールアドレス">
 				</div>
 			</div>
@@ -104,15 +104,15 @@
     <h5 class="custom-control-label">権限</h5>
   </div>
   <div class="col-2 my-3">
-    <div class="form-check">
+    <div class="form-check form-check-inline">
       <input class="form-check-input" type="checkbox" name="role0" id="role-none" value="0">
       <label class="form-check-label" for="role-none">権限なし</label>
     </div>
-    <div class="form-check">
+    <div class="form-check form-check-inline">
       <input class="form-check-input" type="checkbox" name="role1" id="role-sales" value="1">
       <label class="form-check-label" for="role-sales">売上登録</label>
     </div>
-    <div class="form-check">
+    <div class="form-check form-check-inline">
       <input class="form-check-input" type="checkbox" name="role10" id="role-account" value="2">
       <label class="form-check-label" for="role-account">アカウント登録</label>
     </div>
@@ -127,10 +127,10 @@
 				<!--				<div class="row my-5">-->
 				<!--					<div class="col-3 text-end">-->
 
-				<div class="row my-5">
+				<div class="row my-2">
 					<div class="col-2 offset-2 my-3">
-						<button type="submit" class="btn btn-primary">検索</button>
-						<button type="submit" class="btn btn-primary">クリア</button>
+						<button type="submit" class="btn btn-primary">🔍検索</button>
+						<button type="submit" class="btn btn-outline-secondary">クリア</button>
 					</div>
 				</div>
 

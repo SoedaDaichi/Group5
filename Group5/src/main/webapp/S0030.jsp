@@ -55,7 +55,7 @@
       <label for="name" class="form-label">氏名 <span class="badge bg-secondary ms-2">必須</span></label>
     </h5>
 				</div>
-				<div class="col-2 my-3">
+				<div class="col-4 my-3">
 					<input type="text" required="required" id="name" name="name" class="form-control ${not empty error ? ' is-invalid' : ''}" placeholder="氏名" required>
 				</div>
 			</div>
@@ -84,7 +84,7 @@
       <label for="adless" class="form-label">メールアドレス <span class="badge bg-secondary ms-2">必須</span></label>
     </h5>
 				</div>
-				<div class="col-2 my-3">
+				<div class="col-4 my-3">
 					<input type="email" required="required" id="adless" name="mail" class="form-control ${not empty error ? ' is-invalid' : ''}" placeholder="メールアドレス" required>
 				</div>
 			</div>
@@ -116,7 +116,7 @@
       <label for="adless" class="form-label">パスワード<span class="badge bg-secondary ms-2">必須</span></label>
     </h5>
 				</div>
-				<div class="col-2 my-3">
+				<div class="col-4 my-3">
 					<input type="password" required="required" id="password" name="pass" class="form-control ${not empty error ? ' is-invalid' : ''}" placeholder="パスワード" required>
 				</div>
 			</div>
@@ -150,7 +150,7 @@
       <span class>パスワード(確認)</span> <span class="badge bg-secondary" >必須</span>
     </h5>
 				</div>
-				<div class="col-2 my-3">
+				<div class="col-4 my-3">
 					<input type="password" required="required" id="confirm_password" name="confirm_pass" class="form-control ${not empty error ? ' is-invalid' : ''}" placeholder="パスワード（確認）" required>
 				</div>
 			</div>
@@ -194,16 +194,16 @@
     </h5>
   </div>
 
-  <div class="col-2 my-3">
-    <div class="form-check">
+  <div class="col-4 my-3">
+    <div class="form-check form-check form-check-inline">
       <input class="form-check-input" type="radio" name="role" id="role-none" value="0" required>
       <label class="form-check-label" for="role-none">権限なし</label>
     </div>
-    <div class="form-check">
+    <div class="form-check form-check form-check-inline">
       <input class="form-check-input" type="radio" name="role" id="role-read" value="1">
       <label class="form-check-label" for="role-read">売上登録</label>
     </div>
-    <div class="form-check">
+    <div class="form-check form-check form-check-inline">
       <input class="form-check-input" type="radio" name="role" id="role-update" value="2">
       <label class="form-check-label" for="role-update">アカウント登録</label>
     </div>
@@ -214,19 +214,11 @@
 
 
 
-
-
-
-
-
-
-
-
 <!--				<div class="row my-5">-->
 <!--					<div class="col-3 text-end">-->
-<div class="row my-5" >
+<div class="row my-2" >
 				<div class="col-2 offset-2 my-3">
-						<button type="submit" class="btn btn-primary">登録</button>
+						<button type="submit" class="btn btn-primary">✓登録</button>
 
 					</div>
 				</div>

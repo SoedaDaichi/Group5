@@ -40,7 +40,7 @@
 						<span class>氏名</span> <span class="badge bg-secondary" >必須</span>
 					</h5>
 				</div>
-				<div class="col-2 my-3">
+				<div class="col-4 my-3">
 					<input type="text" required="required" id="name" name="name" class="form-control" placeholder="氏名" required>
 				</div>
 			</div>
@@ -69,7 +69,7 @@
 						<span class>メールアドレス</span> <span class="badge bg-secondary" >必須</span>
 					</h5>
 				</div>
-				<div class="col-2 my-3">
+				<div class="col-4 my-3">
 					<input type="email" required="required" id="adless" name="mail" class="form-control" placeholder="メールアドレス" required>
 				</div>
 			</div>
@@ -96,7 +96,7 @@
 						<span class>パスワード</span> <span class="badge bg-secondary" >必須</span>
 					</h5>
 				</div>
-				<div class="col-2 my-3">
+				<div class="col-4 my-3">
 					<input type="password" required="required" id="password" name="pass" class="form-control" placeholder="パスワード" required>
 				</div>
 			</div>
@@ -122,7 +122,7 @@
 						<span class>パスワード(確認)</span> <span class="badge bg-secondary" >必須</span>
 					</h5>
 				</div>
-				<div class="col-2 my-3">
+				<div class="col-4 my-3">
 					<input type="password" required="required" id="confirm_password" name="confirm_pass" class="form-control" placeholder="パスワード(確認)" required>
 				</div>
 			</div>
@@ -163,15 +163,15 @@
     </h5>
   </div>
   <div class="col-2 my-3">
-    <div class="form-check">
+    <div class="form-check  form-check-inline">
       <input class="form-check-input" type="radio" name="role" id="role-none" value="none" required>
       <label class="form-check-label" for="role-none">権限なし</label>
     </div>
-    <div class="form-check">
+    <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="role" id="role-read" value="read">
       <label class="form-check-label" for="role-read">売上登録</label>
     </div>
-    <div class="form-check">
+    <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="role" id="role-update" value="update">
       <label class="form-check-label" for="role-update">アカウント登録</label>
     </div>
@@ -184,10 +184,10 @@
 
 				<!--				<div class="row my-5">-->
 				<!--					<div class="col-3 text-end">-->
-				<div class="row my-5">
+				<div class="row my-2">
 					<div class="col-2 offset-2 my-3">
-						<button type="submit" class="btn btn-primary">更新</button>
-						<button type="submit" class="btn btn-primary">キャンセル</button>
+						<button type="submit" class="btn btn-primary">✓更新</button>
+						<button type="submit" class="btn btn-outline-secondary">キャンセル</button>
 					</div>
 				</div>
 
