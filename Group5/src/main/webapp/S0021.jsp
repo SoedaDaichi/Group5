@@ -38,8 +38,10 @@
 				<tbody>
 					<c:forEach var="sales" items="${salesList}" varStatus="status">
 						<tr>
-							<td><a href="EditServlet?id=${sales.sale_id}"
-								class="btn btn-sm btn-primary">詳細</a></td>
+							<td><form action="S0021.html" method="post">
+									<input type="hidden" name="id" value="${sales.sale_id}">
+									<button type="submit" class="btn btn-sm btn-primary">詳細</button>
+								</form></td>
 							<td>${sales.sale_id}</td>
 							<td>${sales.sale_date}</td>
 							<td>${sales.name}</td>
