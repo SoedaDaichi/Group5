@@ -22,6 +22,8 @@
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント詳細編集確認</h1>
 
 			<form id="create-task-form" action="S0043.html" method="post">
+			<input type="hidden" name="id" value="${param.id}">
+			
 
 				<!--				<div class="mt-3">-->
 <!--				<div class=row>-->
@@ -202,7 +204,9 @@
 				<div class="row my-2">
 					<div class="col-2 offset-2 my-3">
 						<button type="submit" class="btn btn-primary">✓OK</button>
-						<button type="submit" class="btn btn-outline-secondary">キャンセル</button>
+<!--						<button type="button" class="btn btn-outline-secondary">キャンセル</button>-->
+						<button type="button" class="btn btn-outline-secondary" onclick="history.back()">キャンセル</button>
+						
 					</div>
 				</div>
 			</form>
