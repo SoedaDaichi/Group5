@@ -34,6 +34,7 @@ public class S0030Servlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession(false);
+
 		if (session != null) {
 			String success = (String) session.getAttribute("success");
 			String error = (String) session.getAttribute("error");
@@ -56,12 +57,16 @@ public class S0030Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		System.out.println("----------アカウント登録-----------");
 
 		String name = request.getParameter("name");
+		System.out.println("アカウント名： " + name);
 		String mail = request.getParameter("mail");
+		System.out.println("メールアドレス： " + mail);
 		String pass = request.getParameter("pass");
 		String confirm_pass = request.getParameter("confirm_pass");
 		String role = request.getParameter("role");
+		System.out.println("権限： " + role);
 
 		HttpSession session = request.getSession();
 

@@ -14,16 +14,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import beans.Accounts;
+
 /**
- * Servlet Filter implementation class LoginFilter
+ * Servlet Filter implementation class S0030Filter
  */
-@WebFilter(urlPatterns={"/*"})
-public class LoginFilter extends HttpFilter implements Filter {
+@WebFilter(urlPatterns={"/S0010.html", "/S0011.html"})
+public class S0010Filter extends HttpFilter implements Filter {
        
     /**
      * @see HttpFilter#HttpFilter()
      */
-    public LoginFilter() {
+    public S0010Filter() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,28 +43,22 @@ public class LoginFilter extends HttpFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		// place your code here
-        HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
+		
+		HttpSession session = req.getSession(false);
+		Accounts loginUser = (Accounts) session.getAttribute("accounts");
+		
+		if (loginUser.getAuthority() == 0 || loginUser.getAuthority() == 2) {
+			System.out.println("不正");
+			session.removeAttribute("accounts");
+			res.sendRedirect("C001.html");
+			return;
+		}
 
-        // セッション取得（なければnull）
-        HttpSession session = req.getSession(false);
-
-        // ログインユーザー情報の有無で判定
-        boolean loggedIn = (session != null && session.getAttribute("accounts") != null);
-
-        // ログイン画面や静的リソースは除外
-        String uri = req.getRequestURI();
-        boolean loginPage = uri.endsWith("C001.jsp") || uri.endsWith("C001.html");
-        boolean staticResource = uri.matches(".*(\\.css|\\.js|\\.png|\\.jpg|\\.ico)$");
-
-        if (loggedIn || loginPage || staticResource ) {
-            // ログイン済み、またはログイン画面・静的リソースならそのまま進む
-            chain.doFilter(request, response);
-        } else {
-            // 未ログインならログイン画面へリダイレクト
-            res.sendRedirect(req.getContextPath() + "/C001.jsp");
-        }
-    }
+		// pass the request along the filter chain
+		chain.doFilter(request, response);
+	}
 
 	/**
 	 * @see Filter#init(FilterConfig)

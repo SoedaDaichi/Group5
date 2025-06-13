@@ -50,8 +50,6 @@ public class S0031Servlet extends HttpServlet {
 		String pass = request.getParameter("pass");
 		String role = request.getParameter("role");
 
-		System.out.println(name);
-
 		String hashedPass = auth.hashPassword(pass);
 
 		S0031Dao s0031dao = new S0031Dao();

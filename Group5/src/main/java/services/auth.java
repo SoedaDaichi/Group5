@@ -32,13 +32,10 @@ public class auth {
 		}
 		return accounts;
 	}
-
+	
 	public static String checkManager(Accounts accounts) {
 		if (accounts == null) {
 			return "メールアドレス、またはパスワードが違います。";
-		}
-		if (accounts.getAuthority() == 0 || accounts.getAuthority() == 1) {
-			return "権限がありません。";
 		}
 		return null;
 	}
@@ -47,11 +44,8 @@ public class auth {
 	}
 
 	public static Accounts login(String mail, String pass) {
-		Accounts user = findByEmail(mail);
-		if (user != null && pass.equals(user.getPass())) {
-			return user;
-		}
-		return null;
+		Accounts accounts = findByEmail(mail);
+			return accounts;
 	}
 
 	public static boolean passCheck(int account_id, String cPass) {

@@ -56,6 +56,8 @@ public class S0020Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("----------売上検索-----------");
+		
 		String firststr = request.getParameter("first");
 		System.out.print("日付範囲: " + firststr + "～");
 		String laststr = request.getParameter("last");
