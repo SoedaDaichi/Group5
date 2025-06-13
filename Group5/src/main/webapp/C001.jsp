@@ -35,20 +35,18 @@
 					<h6>メールアドレス</h6>
 				</div>
 				<div class="row">
-					<div class="col-8 mb-4">
+					<div class="col-8 mb-4"> 
 						<input type="text"
 							class="form-control form-control-lg ${not empty errors ? ' is-invalid' : ''}"
 							placeholder="メールアドレス" name="mail" value="${param.mail}" />
 						<c:choose>
 							<c:when test="${not empty errors.mail}">
-								<div class="alert alert-danger text-center py-1">
+								<div class="text-danger small">
 									<c:out value="${errors.mail}" />
 								</div>
 							</c:when>
 							<c:otherwise>
-								<div class="alert alert-danger text-center
-									py-1"
-									style="visibility: hidden;">&nbsp;</div>
+								<div class="small" style="visibility: hidden;">&nbsp;</div>
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -63,14 +61,12 @@
 							placeholder="パスワード" name="pass" />
 						<c:choose>
 							<c:when test="${not empty errors.pass}">
-								<div class="alert alert-danger text-center py-1">
+								<div class="text-danger small">
 									<c:out value="${errors.pass}" />
 								</div>
 							</c:when>
 							<c:otherwise>
-								<div class="alert alert-danger text-center
-									py-1"
-									style="visibility: hidden;">&nbsp;</div>
+								<div class="small" style="visibility: hidden;">&nbsp;</div>
 							</c:otherwise>
 						</c:choose>
 					</div>
