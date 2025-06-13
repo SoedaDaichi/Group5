@@ -64,11 +64,10 @@ public class S0010Servlet extends HttpServlet {
 		S0010Dao ss = new S0010Dao();
 		 Accounts account = ss.identificationAccount(account_id);
 		 String name = account.getName();
-		 System.out.println(name);
 		
 		 Categories category = ss.identificationCategory(category_id);
 		 String category_name = category.getCategory_name();
-		 System.out.println(category_name);
+		 
 		 
 		request.setAttribute("saledate", saledate);
 		request.setAttribute("name", name);

@@ -34,9 +34,9 @@
 					</h5>
 				</div>
 				<div class="col-2  my-3">
-					<span class = input type="text" class="form-control" 
+					<class = input type="text" class="form-control" 
 					id="exampleFormControlInput1" name="account_name" 
-					value = "" readonly>${name}</span>
+					value = "${name}" readonly>${name}</class>
 				</div>
 			</div>
 			<div class=row>
@@ -46,9 +46,9 @@
 					</h5>
 				</div>
 				<div class="col-4 my-3">
-					<span class = input type="text" class="form-control" 
+					<class = input type="text" class="form-control" 
 					id="exampleFormControlInput1" name="category_name" var = "category" 
-					value = "">${category_name}</span>
+					value = "${category_name}">${category_name}</class>
 				</div>
 			</div>
 			<div class=row>

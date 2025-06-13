@@ -54,7 +54,7 @@
 							aria-label=".form-select-sm example" name="category_id" required>
 							<option selected>選択してください</option>
 							<c:forEach var="category" items="${categoryList}">
-								<option value="${category.cotegory_id}">${cotegory.name}</option>
+								<option value="${category.category_id}">${category.category_name}</option>
 							</c:forEach>
 						</select>
 					</div>
