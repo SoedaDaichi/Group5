@@ -9,14 +9,14 @@ import utils.Db;
 
 public class S0021Dao {
 
-	public Sales identificationSales(int sales_id) {
+	public Sales identificationSales(int sale_id) {
 		Sales sales = null;
-		String identificationSales = "SELECT sale_date, account_id, category_id, trade_name, unit_price, sale_number, note WHERE sale_id = ?";
+		String identificationSales = "SELECT sale_date, account_id, category_id, trade_name, unit_price, sale_number, note FROM sales WHERE sale_id = ?";
 
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(identificationSales);) {
-			pstmt.setInt(1, sales_id);
+			pstmt.setInt(1, sale_id);
 
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
