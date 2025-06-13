@@ -9,20 +9,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import daos.S0031Dao;
+import daos.S0043Dao;
 import services.auth;
 
 /**
- * Servlet implementation class S0031Servlet
+ * Servlet implementation class S0043Servlet
  */
-@WebServlet("/S0031.html")
-public class S0031Servlet extends HttpServlet {
+@WebServlet("/S0043.html")
+public class S0043Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public S0031Servlet() {
+	public S0043Servlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -34,7 +34,9 @@ public class S0031Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.getRequestDispatcher("/S0031.jsp").forward(request, response);
+
+		request.getRequestDispatcher("/S0043.jsp").forward(request, response);
+
 	}
 
 	/**
@@ -45,26 +47,36 @@ public class S0031Servlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 
+		String action = request.getParameter("action");
+		if ("cancel".equals(action)) {
+			response.sendRedirect("S0042.html?id=" + request.getParameter("id"));
+			return;
+		}
+
 		String name = request.getParameter("name");
 		String mail = request.getParameter("mail");
 		String pass = request.getParameter("pass");
 		String role = request.getParameter("role");
 
+		System.out.println(name);
+
 		String hashedPass = auth.hashPassword(pass);
 
-		S0031Dao s0031dao = new S0031Dao();
-		boolean success = s0031dao.insert(name, mail, hashedPass, role);
+		S0043Dao s0043dao = new S0043Dao();
+		boolean success = s0043dao.insert(name, mail, hashedPass, role);
 
 		HttpSession session = request.getSession();
 		if (success) {
-			session.setAttribute("success", "アカウントが作成されました。");
-			response.sendRedirect("S0030.html");
-		} else {
-			session.setAttribute("error", "登録に失敗しました");
-			response.sendRedirect("S0030.html");
-		}
+			session.setAttribute("success", "アカウントが更新されました。");
+			//response.sendRedirect("S0042.html");
+			response.sendRedirect("S0042.html?id=" + request.getParameter("id"));
 
-		//request.getRequestDispatcher("/C002.jsp").forward(request, response);
+		} else {
+			session.setAttribute("error", "更新に失敗しました");
+			//response.sendRedirect("S0042.html");
+			response.sendRedirect("S0042.html?id=" + request.getParameter("id"));
+
+		}
 
 	}
 
