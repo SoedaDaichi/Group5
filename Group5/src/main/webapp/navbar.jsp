@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
 	<div class="container-fluid">
 		<h1 class="navbar-brand ps-5 mt-1">物品売上管理システム</h1>
@@ -17,12 +18,15 @@
 						id="salesDropdown" data-bs-toggle="dropdown" aria-expanded="false">売上管理</button>
 					<ul class="dropdown-menu dropdown-menu-lg-end"
 						aria-labelledby="salesDropdown">
-						<li>
-							<form action="S0010.html" method="get">
-								<button type="submit" class="dropdown-item">売上登録</button>
-							</form>
-						</li>
-						<li><hr class="dropdown-divider"></li>
+						<c:if
+							test="${sessionScope.loginUser.authority == 1 || sessionScope.loginUser.authority == 3}">
+							<li>
+								<form action="S0010.html" method="get">
+									<button type="submit" class="dropdown-item">売上登録</button>
+								</form>
+							</li>
+							<li><hr class="dropdown-divider"></li>
+						</c:if>
 						<li>
 							<form action="S0020.html" method="get">
 								<button type="submit" class="dropdown-item">売上検索</button>
@@ -36,12 +40,15 @@
 						aria-expanded="false">アカウント</button>
 					<ul class="dropdown-menu dropdown-menu-lg-end"
 						aria-labelledby="accountDropdown">
-						<li>
-							<form action="S0030.html" method="get">
-								<button type="submit" class="dropdown-item">アカウント登録</button>
-							</form>
-						</li>
-						<li><hr class="dropdown-divider"></li>
+						<c:if
+							test="${sessionScope.loginUser.authority == 2 || sessionScope.loginUser.authority == 3}">
+							<li>
+								<form action="S0030.html" method="get">
+									<button type="submit" class="dropdown-item">アカウント登録</button>
+								</form>
+							</li>
+							<li><hr class="dropdown-divider"></li>
+						</c:if>
 						<li>
 							<form action="S0040.html" method="get">
 								<button type="submit" class="dropdown-item">アカウント検索</button>
@@ -50,13 +57,24 @@
 					</ul>
 				</li>
 			</ul>
-			<ul class="navbar-nav ms-auto">
-				<li class="nav-item">
-					<form action="Logout.html" method="get"
-						onsubmit="return confirm('ログアウトしますか？');">
-						<button type="submit" class="btn btn-outline-danger">ログアウト</button>
-					</form>
+			<ul class="navbar-nav ms-auto pe-4">
+				<li class="nav-item dropdown">
+					<button class="btn dropdown-toggle nav-link ps-5" type="button"
+						id="logoutDropdown" data-bs-toggle="dropdown"
+						aria-expanded="false">
+						<c:out value="${sessionScope.loginUser.name}" />
+					</button>
+					<ul class="dropdown-menu dropdown-menu-end"
+						aria-labelledby="logoutDropdown">
+
+						<form action="Logout.html" method="get"
+							onsubmit="return confirm('ログアウトしますか？');">
+							<button type="submit" class="dropdown-item">ログアウト</button>
+						</form>
 				</li>
+
+				</li>
+			</ul>
 			</ul>
 		</div>
 	</div>

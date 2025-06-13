@@ -40,8 +40,12 @@ public class S0040Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("----------アカウント検索-----------");
+		
 		String name = request.getParameter("name");
+		System.out.println("アカウント名： " + name);
 		String mail = request.getParameter("mail");
+		System.out.println("メールアドレス： " + mail);
 		
 		int role0 = parseRole(request.getParameter("role0"));
 		int role1 = parseRole(request.getParameter("role1"));
@@ -56,6 +60,7 @@ public class S0040Servlet extends HttpServlet {
 	
 	private int parseRole(String roleStr) {
 	    if (roleStr != null && !roleStr.isEmpty()) {
+	    	System.out.println("権限： " + roleStr);
 	        return Integer.parseInt(roleStr);
 	    }
 	    return 5;
