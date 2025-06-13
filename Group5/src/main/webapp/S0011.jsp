@@ -23,7 +23,8 @@
 					</h5>
 				</div>
 				<div class="col-2 my-3">
-					<input type="date" id="date" name="saledate" class="form-control" value = "${saledate}">
+					<input type="date" id="date" name="saledate" class="form-control" 
+					value = "${sessionScope.saledate}" disable>
 					
 				</div>
 			</div>
@@ -36,7 +37,7 @@
 				<div class="col-2  my-3">
 					<class = input type="text" class="form-control" 
 					id="exampleFormControlInput1" name="account_name" 
-					value = "${name}" readonly>${name}</class>
+					value = "${sessionScope.account_id}" disable>${sessionScope.name}</class>
 				</div>
 			</div>
 			<div class=row>
@@ -48,7 +49,7 @@
 				<div class="col-4 my-3">
 					<class = input type="text" class="form-control" 
 					id="exampleFormControlInput1" name="category_name" var = "category" 
-					value = "${category_name}">${category_name}</class>
+					value = "${sessionScope.category_id}" disable>${sessionScope.category_name}</class>
 				</div>
 			</div>
 			<div class=row>
@@ -59,7 +60,7 @@
 				</div>
 				<div class="col-4 my-3">
 					<input type="text" class="form-control" 
-					id="exampleFormControlInput1" name="trade" value = "${trade}">
+					id="exampleFormControlInput1" name="trade" value = "${sessionScope.trade}" disable>
 				</div>
 			</div>
 			<div class=row>
@@ -69,7 +70,8 @@
 					</h5>
 				</div>
 				<div class="col-2 my-3">
-					<input type="text" class="form-control" id="exampleFormControlInput1" name="unit_price" placeholder="単価" value = "${unit_price}">
+					<input type="text" class="form-control" id="exampleFormControlInput1" 
+					name="unit_price" placeholder="単価" value = "${sessionScope.unit_price}" disable>
 				</div>
 			</div>
 			<div class=row>
@@ -79,7 +81,8 @@
 					</h5>
 				</div>
 				<div class="col-2 my-3">
-					<input type="text" class="form-control" id="exampleFormControlInput1" name="sale_num" placeholder="個数" value = "${sale_number}">
+					<input type="text" class="form-control" id="exampleFormControlInput1" 
+					name="sale_num" placeholder="個数" value = "${sessionScope.sale_number}" disable>
 				</div>
 			</div>
 			<div class=row>
@@ -89,13 +92,14 @@
 					</h5>
 				</div>
 				<div class="col-5 my-3">
-					<textarea class="form-control" id="exampleFormControlTextarea1" name="note" rows="5" placeholder="備考" value = "${note}"></textarea>
+					<textarea class="form-control" id="exampleFormControlTextarea1" 
+					name="note" rows="5" placeholder="備考" disable>${sessionScope.note}</textarea>
 				</div>
 			</div>
 			<div class="row my-5">
 				<div class="col-3 text-end">
-					<button type="submit" class="btn btn-primary">✓OK</button>
-					<a href="#" button type="submit" class="btn btn-outline-secondary">キャンセル</a>
+					<button type="submit" class="btn btn-primary">✓登録</button>
+					<a href="S0010.html" button type="submit" class="btn btn-outline-secondary">キャンセル</a>
 				</div>
 			</div>
 		</form>

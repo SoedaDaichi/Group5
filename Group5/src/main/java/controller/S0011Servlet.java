@@ -8,8 +8,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
-import dao.S0010Dao;
+import daos.S0010Dao;
 
 /**
  * Servlet implementation class S0011Servlet
@@ -30,6 +31,9 @@ public class S0011Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		int CID = (int) session.getAttribute("category_id");
+		System.out.println(CID);
 		request.getRequestDispatcher("/S0011.jsp").forward(request, response);
 	}
 
@@ -38,19 +42,29 @@ public class S0011Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		S0010Dao ss = new S0010Dao();
+		S0010Dao s0010dao = new S0010Dao();
 		
+		HttpSession session = request.getSession();
 		
-		Date saledate =Date.valueOf(request.getParameter("saledate"));
-		int account_id = Integer.parseInt(request.getParameter("account_name"));
-		int category_id =Integer.parseInt(request.getParameter("category_name"));
-		String trade = request.getParameter("trade");
-		int unit_price = Integer.parseInt(request.getParameter("unit_price"));	
-		int sale_num = Integer.parseInt(request.getParameter("sale_num"));	
-		String note = request.getParameter("note");
+		Date saledate = (Date) session.getAttribute("saledate");
+	    int account_id = (int) session.getAttribute("account_id");
+	    int category_id = (int) session.getAttribute("category_id");
+	    String trade = (String) session.getAttribute("trade");
+	    int unit_price = (int) session.getAttribute("unit_price");
+	    int sale_num = (int) session.getAttribute("sale_number");
+	    String note = (String) session.getAttribute("note");
 		
-		ss.insert(saledate, account_id,category_id, trade, unit_price, sale_num, note);
-		response.sendRedirect("S0010.html");
-	}
 
+		
+	    boolean success = s0010dao.insert(saledate, account_id,category_id, trade,
+	    									unit_price, sale_num, note);
+		
+		if (success) {
+			session.setAttribute("success", "商品が登録されました");
+			response.sendRedirect("S0010.html");
+		} else {
+			session.setAttribute("error", "登録に失敗しました");
+			response.sendRedirect("S0010.html");
+		}	
+	}
 }
