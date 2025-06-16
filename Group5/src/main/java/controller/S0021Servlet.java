@@ -8,10 +8,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import beans.Categories;
 import beans.Sales;
+import beans.SalesData;
 import daos.S0010Dao;
 import daos.S0021Dao;
 
@@ -45,6 +47,7 @@ public class S0021Servlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		int sale_id = Integer.valueOf(request.getParameter("id"));
+		HttpSession session = request.getSession();
 		
 		S0021Dao s0021dao = new S0021Dao();
 		Sales sale = s0021dao.identificationSales(sale_id);
@@ -55,30 +58,26 @@ public class S0021Servlet extends HttpServlet {
 		String trade_name = sale.getTrade_name();
 		int unit_price = sale.getUnit_price();
 		int sale_number = sale.getSale_number();
-		String nete = sale.getNote();
+		String note = sale.getNote();
 		
 		//取り出したsalesテーブルのaccount_idとcategory_idを
 		//各テーブルの紐づいたNAMEを取ってくる作業
 		S0010Dao ss = new S0010Dao();
 		Accounts account = ss.identificationAccount(account_id);
 		String name = account.getName();
-		int accountID = account.getAccount_id();
-		
 		Categories category = ss.identificationCategory(category_id);
 		String category_name = category.getCategory_name();
-		int categoryID = category.getCategory_id();
-		System.out.println(name);
-		request.setAttribute("sale_date", sale_date);
-		request.setAttribute("name", name);
-		request.setAttribute("account_id", accountID);
-		request.setAttribute("category_name", category_name);
-		request.setAttribute("category_id", categoryID);
-		request.setAttribute("trade_name", trade_name);
-		request.setAttribute("unit_price", unit_price);
-		request.setAttribute("sale_number", sale_number);
-		request.setAttribute("nete", nete);
 		
-		request.getRequestDispatcher("S0022.jsp").forward(request, response);
+		
+		SalesData data = new SalesData(sale_date, name, account_id, category_name, category_id, trade_name, unit_price,
+				sale_number, note);
+		
+		session.setAttribute("sale_id", sale_id);
+		session.setAttribute("data", data);
+		
+		
+		
+		request.getRequestDispatcher("S0022.html").forward(request, response);
 		
 		}
 	}

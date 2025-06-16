@@ -28,7 +28,7 @@
 				</div>
 				
 				<div class="col-3">
-					<input type="date" id="date" name="date" class="form-control" value = "#" />
+					<input type="date" id="date" name="date" class="form-control" value = "#" disabled/>
 				</div>
 			</div>
 			<div class="row my-4">
@@ -38,7 +38,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<select id="#" name="#" class="form-select"value = "#" />
+					<select id="#" name="#" class="form-select"value = "#" disabled/>
 					
 					</select>
 				</div>
@@ -51,7 +51,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<select id="#" name="#" class="form-select"value = "#" />
+					<select id="#" name="#" class="form-select"value = "#" disabled/>
 					
 					</select>
 				</div>
@@ -64,7 +64,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<input type="text" id="#" name="#" class="form-control" value = "#"/>
+					<input type="text" id="#" name="#" class="form-control" value = "#" disabled/>
 				</div>
 			</div>
 			
@@ -75,7 +75,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<input type="text" id="#" name="#" class="form-control" value = "#"/>
+					<input type="text" id="#" name="#" class="form-control" value = "#" disabled/>
 				</div>
 			</div>
 			
@@ -86,7 +86,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<input type="text" id="#" name="#" class="form-control" value = "#"/>
+					<input type="text" id="#" name="#" class="form-control" value = "#" disabled/>
 				</div>
 			</div>
 			
@@ -97,13 +97,13 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<textarea input type="text" id="#" name="#" class="form-control" value = "#" rows = "4"/></textarea>
+					<textarea input type="text" id="#" name="#" class="form-control" value = "#" rows = "4" disabled/></textarea>
 				</div>
 			</div>
 			
 			<div class="row">
 				<div class="col-3 my-3 text-end">
-					<button type="submit" class="btn btn-danger">×OK</button>
+					<a herf = "" button type="submit" class="btn btn-danger">×OK</a>
 					<a href="#" button type="submit" class="btn btn-outline-secondary">
 						キャンセル </a>
 				</div>

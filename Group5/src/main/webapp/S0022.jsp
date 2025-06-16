@@ -12,107 +12,89 @@
 <body>
 	<%@ include file="navbar.jsp"%>
 	<div class="container-fluid mx-5">
-		<div class = "row">
-			<div class = "col-10 offset-3">
+		<div class="row">
+			<div class="col-10 offset-3">
 				<p class="fs-1 fw-bold mx-5 mt-4">売上詳細表示</p>
 			</div>
 		</div>
-		
-		<form id="create-task-form" action="S0030.html" method="post">
-		<div class = "row">
-		<div class = "col-10 offset-3">
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						<span class>販売日</span>
-					</h5>
+
+		<div class="row">
+			<div class="col-10 offset-3">
+				<div class="row my-4">
+					<div class="col-2 text-end">
+						<h5>
+							<span class>販売日</span>
+						</h5>
+					</div>
+					<div class="col-3">
+						<h5>${data.sale_date}</h5>
+					</div>
 				</div>
-				<div class="col-3">
-					<h5>
-						${sale_date}
-					</h5>
+				<div class="row my-4">
+					<div class="col-2 text-end">
+						<h5>担当</h5>
+					</div>
+					<div class="col-3">
+						<h5><c:out value="${data.name}" /></h5>
+					</div>
 				</div>
-			</div>
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						担当
-					</h5>
+				<div class="row my-4">
+					<div class="col-2 text-end">
+						<h5>商品カテゴリー</h5>
+					</div>
+					<div class="col-3">
+						<h5>${data.category_name}</h5>
+					</div>
 				</div>
-				<div class="col-3">
-					<c:out value="${name}" />
+				<div class="row my-4">
+					<div class="col-2 text-end">
+						<h5>商品名</h5>
+					</div>
+					<div class="col-3">
+						<h5>${data.trade_name}</h5>
+					</div>
 				</div>
-			</div>
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						商品カテゴリー
-					</h5>
+				<div class="row my-4">
+					<div class="col-2 text-end">
+						<h5>単価</h5>
+					</div>
+					<div class="col-3">
+						<h5>${data.unit_price}</h5>
+					</div>
 				</div>
-				<div class="col-3">
-					<h5>
-						${category_name}
-					</h5>
+				<div class="row my-4">
+					<div class="col-2 text-end">
+						<h5>個数</h5>
+					</div>
+					<div class="col-3">
+						<h5>${data.sale_number}</h5>
+					</div>
 				</div>
-			</div>
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						商品名
-					</h5>
+				<div class="row my-4">
+					<div class="col-2 text-end">
+						<h5>備考</h5>
+					</div>
+					<div class="col-3">
+						<h5>${data.note}</h5>
+					</div>
 				</div>
-				<div class="col-3">
-					<h5>
+				<div class="row">
+					<div class="col-3 my-3 text-end">
 						
-					</h5>${trade_name}
+						<form method="get" action="S0023.html" class="d-inline">
+							<button type="submit" class="btn btn-primary">✓編集</button>
+						</form>
+
+					
+						<form method="get" action="S0025.html" class="d-inline">
+							<button type="submit" class="btn btn-danger">×削除</button>
+						</form>
+						
+						<a href="#" button type="submit" class="btn btn-outline-secondary">
+							キャンセル </a>
+					</div>
 				</div>
 			</div>
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						単価
-					</h5>
-				</div>
-				<div class="col-3">
-					<h5>
-						${unit_price}
-					</h5>
-				</div>
-			</div>
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						個数
-					</h5>
-				</div>
-				<div class="col-3">
-					<h5>
-						${sale_number}
-					</h5>
-				</div>
-			</div>
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						備考
-					</h5>
-				</div>
-				<div class="col-3">
-					<h5>
-						${nete}
-					</h5>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-3 my-3 text-end">
-					<button type="submit" class="btn btn-primary">✓編集</button>
-					<button type="button" class="btn btn-danger">×削除</button>
-					<a href="#" button type="submit" class="btn btn-outline-secondary">
-						キャンセル </a>
-				</div>
-			</div>
-			</div>
-			</div>
-		</form>
+		</div>
 </body>
 </html>

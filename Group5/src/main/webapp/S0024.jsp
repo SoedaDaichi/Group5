@@ -14,7 +14,7 @@
 	<div class="container-fluid mx-5">
 		<div class = "row">
 			<div class = "col-10 offset-3">
-				<p class="fs-1 fw-bold mx-5 mt-4">売上詳細編集</p>
+				<p class="fs-1 fw-bold mx-5 mt-4">売上詳細編集確認</p>
 			</div>
 		</div>
 
@@ -29,7 +29,7 @@
 				</div>
 				
 				<div class="col-3">
-					<input type="date" id="date" name="date" class="form-control" value = "#" />
+					<input type="date" id="date" name="date" class="form-control" value = "#" disabled/>
 				</div>
 			</div>
 			<div class="row my-4">
@@ -39,7 +39,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<select id="#" name="#" class="form-select"value = "#" />
+					<select id="#" name="#" class="form-select"value = "#" disabled/>
 					
 					</select>
 				</div>
@@ -52,7 +52,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<select id="#" name="#" class="form-select"value = "#" />
+					<select id="#" name="#" class="form-select"value = "#" disabled/>
 					
 					</select>
 				</div>
@@ -65,7 +65,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<input type="text" id="#" name="#" class="form-control" value = "#"/>
+					<input type="text" id="#" name="#" class="form-control" value = "#" disabled/>
 				</div>
 			</div>
 			
@@ -76,7 +76,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<input type="text" id="#" name="#" class="form-control" value = "#"/>
+					<input type="text" id="#" name="#" class="form-control" value = "#" disabled/>
 				</div>
 			</div>
 			
@@ -87,7 +87,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<input type="text" id="#" name="#" class="form-control" value = "#"/>
+					<input type="text" id="#" name="#" class="form-control" value = "#" disabled/>
 				</div>
 			</div>
 			
@@ -98,7 +98,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<textarea input type="text" id="#" name="#" class="form-control" value = "#" rows = "4"/></textarea>
+					<textarea input type="text" id="#" name="#" class="form-control" value = "#" rows = "4" disabled/></textarea>
 				</div>
 			</div>
 			

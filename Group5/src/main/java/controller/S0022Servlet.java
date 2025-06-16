@@ -7,6 +7,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import beans.SalesData;
 
 /**
  * Servlet implementation class S0022Servlet
@@ -27,8 +30,12 @@ public class S0022Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		HttpSession session = request.getSession();
+		SalesData data = (SalesData) session.getAttribute("data");
+		
+		session.setAttribute("data", data);
+		request.getRequestDispatcher("S0022.jsp").forward(request, response);
 	}
 
 	/**
