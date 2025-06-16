@@ -42,39 +42,88 @@ public class S0044Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		String idStr = request.getParameter("id");
-		Accounts account = null;
 		
-		if (idStr != null && !idStr.isEmpty()) {
-		    int accountId = Integer.parseInt(idStr);
-		    //Accounts account = null;
+		
+		    HttpSession session = request.getSession();
+		    String successMsg = (String) session.getAttribute("success");
+		    String errorMsg = (String) session.getAttribute("error");
 
-		    try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-		        String sql = "SELECT * FROM accounts WHERE account_id = ?";
-		        PreparedStatement stmt = conn.prepareStatement(sql);
-		        stmt.setInt(1, accountId);
-
-		        ResultSet rs = stmt.executeQuery();
-		        if (rs.next()) {
-		            account = new Accounts();
-		            account.setAccount_id(rs.getInt("account_id"));
-		            account.setName(rs.getString("name"));
-		            account.setMail(rs.getString("mail"));
-		            account.setPass(rs.getString("pass"));
-		            account.setConfirm_pass(account.getPass());
-		            account.setAuthority(rs.getInt("authority"));
-		        }
-		    } catch (Exception e) {
-		        e.printStackTrace();
+		    if (successMsg != null) {
+		        request.setAttribute("success", successMsg);
+		        session.removeAttribute("success");
+		    }
+		    if (errorMsg != null) {
+		        request.setAttribute("error", errorMsg);
+		        session.removeAttribute("error");
 		    }
 
+		    String idStr = request.getParameter("id");
+		    Accounts account = null;
+
+		    if (idStr != null && !idStr.isEmpty()) {
+		        int accountId = Integer.parseInt(idStr);
+
+		        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+			        String sql = "SELECT * FROM accounts WHERE account_id = ?";
+			        PreparedStatement stmt = conn.prepareStatement(sql);
+			        stmt.setInt(1, accountId);
+
+			        ResultSet rs = stmt.executeQuery();
+			        if (rs.next()) {
+			            account = new Accounts();
+			            account.setAccount_id(rs.getInt("account_id"));
+			            account.setName(rs.getString("name"));
+			            account.setMail(rs.getString("mail"));
+			            account.setPass(rs.getString("pass"));
+			            account.setConfirm_pass(account.getPass());
+			            account.setAuthority(rs.getInt("authority"));
+			        }
+			    } catch (Exception e) {
+			        e.printStackTrace();
+			    }
+
+		        request.setAttribute("account", account);
+		    }
+
+		    request.getRequestDispatcher("/S0044.jsp").forward(request, response);
 		}
 
-		request.setAttribute("account", account);
-	    request.getRequestDispatcher("/S0044.jsp").forward(request, response);		
 		
 		
-	}
+//		
+//		String idStr = request.getParameter("id");
+//		Accounts account = null;
+//		
+//		if (idStr != null && !idStr.isEmpty()) {
+//		    int accountId = Integer.parseInt(idStr);
+//		    //Accounts account = null;
+//
+//		    try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+//		        String sql = "SELECT * FROM accounts WHERE account_id = ?";
+//		        PreparedStatement stmt = conn.prepareStatement(sql);
+//		        stmt.setInt(1, accountId);
+//
+//		        ResultSet rs = stmt.executeQuery();
+//		        if (rs.next()) {
+//		            account = new Accounts();
+//		            account.setAccount_id(rs.getInt("account_id"));
+//		            account.setName(rs.getString("name"));
+//		            account.setMail(rs.getString("mail"));
+//		            account.setPass(rs.getString("pass"));
+//		            account.setConfirm_pass(account.getPass());
+//		            account.setAuthority(rs.getInt("authority"));
+//		        }
+//		    } catch (Exception e) {
+//		        e.printStackTrace();
+//		    }
+//
+//		}
+//
+//		request.setAttribute("account", account);
+//	    request.getRequestDispatcher("/S0044.jsp").forward(request, response);		
+//		
+//		
+//	}
 
 
 	/**
@@ -123,14 +172,14 @@ public class S0044Servlet extends HttpServlet {
 
 		if (success) {
 			session.setAttribute("success", "アカウントが削除されました。");
-			response.sendRedirect("S0044.html");
+			response.sendRedirect("S0044.html?id=" + accountId);
 		} else {
 			session.setAttribute("error", "削除に失敗しました");
-			response.sendRedirect("S0044.html");
+			response.sendRedirect("S0044.html?id=" + accountId);
 		}
 		
-		
-	}
-
-	}
+        return;
+    }
 }
+}
+	

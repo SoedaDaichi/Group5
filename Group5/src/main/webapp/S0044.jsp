@@ -18,6 +18,14 @@
 	<div class="container-fluid mx-5">
 		<div class="col-10 offset-3">
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント詳細削除確認</h1>
+			
+			<c:if test="${not empty success}">
+  <div class="alert alert-success" role="alert">${success}</div>
+</c:if>
+<c:if test="${not empty error}">
+  <div class="alert alert-danger" role="alert">${error}</div>
+</c:if>
+			
 
 			<form id="create-task-form" action="S0044.html" method="post">
 			<input type="hidden" name="id" value="${account.account_id}" />
@@ -218,7 +226,10 @@
 					
 						<button type="submit" class="btn btn-danger">×OK</button>
 <!--						<button type="submit" class="btn btn-outline-secondary">キャンセル</button>-->
-						<button type="button" class="btn btn-outline-secondary" onclick="location.href='S0041.html?id=${account.account_id}'">キャンセル</button>
+<!--						<button type="button" class="btn btn-outline-secondary" onclick="location.href='S0041.html?id=${account.account_id}'">キャンセル</button>-->
+						
+						<button type="button" class="btn btn-outline-secondary" onclick="location.href='S0041.html'">キャンセル</button>
+						
 						
 					</div>
 				</div>
