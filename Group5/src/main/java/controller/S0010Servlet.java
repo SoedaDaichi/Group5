@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Map;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,7 +14,10 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import beans.Categories;
+import beans.SalesData;
+import beans.SalesForm;
 import daos.S0010Dao;
+import services.ErrorService;
 
 /**
  * Servlet implementation class S0010Servlet
@@ -33,20 +37,26 @@ public class S0010Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		HttpSession session = request.getSession(false);
+
+		HttpSession session = request.getSession();
+
+		Map<String, String> errors = null;
+		SalesForm form = null;
 		if (session != null) {
 			String success = (String) session.getAttribute("success");
-			String error = (String) session.getAttribute("error");
-
+			errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
 			if (success != null) {
 				request.setAttribute("success", success);
 				session.removeAttribute("success");
-			} else if (error != null) {
-				request.setAttribute("error", error);
-				session.removeAttribute("error");
+			} else if (errors != null) {
+				request.setAttribute("errors", errors);
+				form = (SalesForm) session.getAttribute("form");
+				request.setAttribute("form", form);
+				session.removeAttribute("form");
+				session.removeAttribute("errors");
 			}
 		}
 
@@ -72,33 +82,51 @@ public class S0010Servlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 
-		Date saledate = Date.valueOf(request.getParameter("saledate"));
-		int account_id = Integer.valueOf(request.getParameter("account_id"));
-		int category_id = Integer.valueOf(request.getParameter("category_id"));
+		String sale_dateStr = request.getParameter("sale_date");
+		String account_idStr = request.getParameter("account_id");
+		System.out.println(account_idStr);
+		String category_idStr = request.getParameter("category_id");
 		String trade = request.getParameter("trade");
-		int unit_price = Integer.valueOf(request.getParameter("unit_price"));
-		int sale_number = Integer.valueOf(request.getParameter("sale_num"));
+		String unit_priceStr = request.getParameter("unit_price");
+		String sale_numberStr = request.getParameter("sale_number");
 		String note = request.getParameter("note");
 
-		S0010Dao ss = new S0010Dao();
-		Accounts account = ss.identificationAccount(account_id);
-		String name = account.getName();
-		int accountID = account.getAccount_id();
+		ErrorService es = new ErrorService();
+		Map<String, String> errors = es.ValidateSales(sale_dateStr, account_idStr, category_idStr, trade, unit_priceStr,
+				sale_numberStr,
+				note);
+		System.out.println(errors);
 
-		Categories category = ss.identificationCategory(category_id);
-		String categoryid = category.getCategory_name();
-		int categoryID = category.getCategory_id();
+		if (errors != null && !errors.isEmpty()) {
+			SalesForm form = new SalesForm(sale_dateStr, account_idStr, category_idStr, trade, unit_priceStr,
+					sale_numberStr, note);
+			session.setAttribute("form", form);
+			session.setAttribute("errors", errors);
+			response.sendRedirect("S0010.html");
+			return;
+		}
 
-		session.setAttribute("saledate", saledate);
-		session.setAttribute("name", name);
-		session.setAttribute("account_id", accountID);
-		session.setAttribute("category_name", categoryid);
-		session.setAttribute("category_id", categoryID);
-		session.setAttribute("trade", trade);
-		session.setAttribute("unit_price", unit_price);
-		session.setAttribute("sale_number", sale_number);
-		session.setAttribute("note", note);
+		if (errors == null || errors.isEmpty()) {
 
-		request.getRequestDispatcher("S0011.jsp").forward(request, response);
+			Date sale_date = Date.valueOf(sale_dateStr);
+			int account_id = Integer.valueOf(account_idStr);
+			int category_id = Integer.valueOf(category_idStr);
+			int unit_price = Integer.valueOf(unit_priceStr);
+			int sale_number = Integer.valueOf(sale_numberStr);
+
+			S0010Dao ss = new S0010Dao();
+			Accounts account = ss.identificationAccount(account_id);
+			String name = account.getName();
+
+			Categories category = ss.identificationCategory(category_id);
+			String category_name = category.getCategory_name();
+
+			SalesData data = new SalesData(sale_date, name, account_id, category_name, category_id, trade, unit_price,
+					sale_number, note);
+			
+			session.setAttribute("data", data);
+//			request.getRequestDispatcher("S0011.html").forward(request, response);
+			response.sendRedirect("S0011.html");
+		}
 	}
 }

@@ -56,11 +56,14 @@ public class C001Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String mail = request.getParameter("mail");
+		System.out.println(mail);
 		String pass = request.getParameter("pass");
+		System.out.println(pass);
 		String hashed_pass = auth.hashPassword(pass);
 
-		ErrorService errorservice = new ErrorService();
-		Map<String, String> errors = errorservice.ValidateLogin(mail, pass, hashed_pass);
+		ErrorService es = new ErrorService();
+		Map<String, String> errors = es.ValidateLogin(mail, pass, hashed_pass);
+		System.out.println(errors);
 		HttpSession session = request.getSession();
 
 		if (errors != null && !errors.isEmpty()) {

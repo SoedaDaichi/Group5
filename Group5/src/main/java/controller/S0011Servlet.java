@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import beans.SalesData;
 import daos.S0010Dao;
 
 /**
@@ -32,8 +33,9 @@ public class S0011Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		int CID = (int) session.getAttribute("category_id");
-		System.out.println(CID);
+		SalesData data = (SalesData) session.getAttribute("data");
+		
+		request.setAttribute("data", data);
 		request.getRequestDispatcher("/S0011.jsp").forward(request, response);
 	}
 
@@ -45,19 +47,20 @@ public class S0011Servlet extends HttpServlet {
 		S0010Dao s0010dao = new S0010Dao();
 		
 		HttpSession session = request.getSession();
+		SalesData data = (SalesData) session.getAttribute("data");
 		
-		Date saledate = (Date) session.getAttribute("saledate");
-	    int account_id = (int) session.getAttribute("account_id");
-	    int category_id = (int) session.getAttribute("category_id");
-	    String trade = (String) session.getAttribute("trade");
-	    int unit_price = (int) session.getAttribute("unit_price");
-	    int sale_num = (int) session.getAttribute("sale_number");
-	    String note = (String) session.getAttribute("note");
+		Date sale_date = data.getSale_date();
+	    int account_id = data.getAccount_id();
+	    int category_id = data.getCategory_id();
+	    String trade = data.getTrade();
+	    int unit_price = data.getUnit_price();
+	    int sale_number = data.getSale_number();
+	    String note = data.getNote();
 		
-
+	    session.removeAttribute("data");
 		
-	    boolean success = s0010dao.insert(saledate, account_id,category_id, trade,
-	    									unit_price, sale_num, note);
+	    boolean success = s0010dao.insert(sale_date, account_id,category_id, trade,
+	    									unit_price, sale_number, note);
 		
 		if (success) {
 			session.setAttribute("success", "商品が登録されました");
