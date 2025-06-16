@@ -24,7 +24,7 @@
 				</div>
 				<div class="col-2 my-3">
 					<input type="date" id="date" name="sale_date" class="form-control" 
-					value = "${data.sale_date}" disable>
+					value = "${data.sale_date}" disabled>
 					
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 				<div class="col-2  my-3">
 					<class = input type="text" class="form-control" 
 					id="exampleFormControlInput1" name="account_name" 
-					value = "${data.account_id}" disable>${data.name}</class>
+					value = "${data.account_id}" disabled>${data.name}</class>
 				</div>
 			</div>
 			<div class=row>
@@ -49,7 +49,7 @@
 				<div class="col-4 my-3">
 					<class = input type="text" class="form-control" 
 					id="exampleFormControlInput1" name="category_name" var = "category" 
-					value = "${data.category_id}" disable>${data.category_name}</class>
+					value = "${data.category_id}" disabled>${data.category_name}</class>
 				</div>
 			</div>
 			<div class=row>
@@ -60,7 +60,7 @@
 				</div>
 				<div class="col-4 my-3">
 					<input type="text" class="form-control" 
-					id="exampleFormControlInput1" name="trade" value = "${data.trade}" disable>
+					id="exampleFormControlInput1" name="trade_name" value = "${data.trade_name}" disabled>
 				</div>
 			</div>
 			<div class=row>
@@ -71,7 +71,7 @@
 				</div>
 				<div class="col-2 my-3">
 					<input type="text" class="form-control" id="exampleFormControlInput1" 
-					name="unit_price" placeholder="単価" value = "${data.unit_price}" disable>
+					name="unit_price" placeholder="単価" value = "${data.unit_price}" disabled>
 				</div>
 			</div>
 			<div class=row>
@@ -82,7 +82,7 @@
 				</div>
 				<div class="col-2 my-3">
 					<input type="text" class="form-control" id="exampleFormControlInput1" 
-					name="sale_number" placeholder="個数" value = "${data.sale_number}" disable>
+					name="sale_number" placeholder="個数" value = "${data.sale_number}" disabled>
 				</div>
 			</div>
 			<div class=row>
@@ -93,7 +93,7 @@
 				</div>
 				<div class="col-5 my-3">
 					<textarea class="form-control" id="exampleFormControlTextarea1" 
-					name="note" rows="5" placeholder="備考" disable>${data.note}</textarea>
+					name="note" rows="5" placeholder="備考" disabled>${data.note}</textarea>
 				</div>
 			</div>
 			<div class="row my-5">
