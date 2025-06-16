@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,7 +11,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import daos.S0030Dao;
+import beans.AccountsData;
+import beans.AccountsForm;
+import services.ErrorService;
 
 /**
  * Servlet implementation class S0030Servlet
@@ -29,6 +33,7 @@ public class S0030Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -37,17 +42,21 @@ public class S0030Servlet extends HttpServlet {
 
 		if (session != null) {
 			String success = (String) session.getAttribute("success");
-			String error = (String) session.getAttribute("error");
+			Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
+			AccountsForm accountsform = null;
 
 			if (success != null) {
 				request.setAttribute("success", success);
 				session.removeAttribute("success");
-			} else if (error != null) {
-				request.setAttribute("error", error);
-				session.removeAttribute("error");
+			} else if (errors != null) {
+				request.setAttribute("error", errors);
+				accountsform = (AccountsForm) session.getAttribute("accountsform");
+				request.setAttribute("accountsform", accountsform);
+				session.removeAttribute("errors");
+				session.removeAttribute("accountsform");
 			}
-			request.getRequestDispatcher("/S0030.jsp").forward(request, response);
 		}
+		request.getRequestDispatcher("/S0030.jsp").forward(request, response);
 	}
 
 	/**
@@ -68,45 +77,24 @@ public class S0030Servlet extends HttpServlet {
 		String role = request.getParameter("role");
 		System.out.println("権限： " + role);
 
+		ErrorService es = new ErrorService();
+		Map<String, String> errors = new HashMap<>();
+		errors = es.ValidateAccounts(name, mail, pass, confirm_pass);
+		System.out.println("アカウント登録エラー: " + errors);
 		HttpSession session = request.getSession();
 
-		S0030Dao s0030dao = new S0030Dao();
-		if (s0030dao.accountNameCheck(name)) {
-			session.setAttribute("error", "このユーザ名は既に使用されています。");
-			response.sendRedirect("S0030.html");
+		if (errors != null && !errors.isEmpty()) {
+			AccountsForm accountsform = new AccountsForm(name, mail, role);
+			session.setAttribute("accountsform", accountsform);
+			session.setAttribute("errors", errors);
+			response.sendRedirect("S0010.html");
 			return;
 		}
-
-		if (s0030dao.accountEmailCheck(mail)) {
-			session.setAttribute("error", "このメールアドレスは既に使用されています。");
-			response.sendRedirect("S0030.html");
-			return;
+		
+		if (errors == null || errors.isEmpty()) {
+			AccountsData accountsdata = new AccountsData(name, mail, pass, role);
+			session.setAttribute("accountsdata", accountsdata);
+			response.sendRedirect("S0031.html");
 		}
-
-		if (!pass.equals(confirm_pass)) {
-			session.setAttribute("error", "パスワードが一致していません。");
-			response.sendRedirect("S0030.html");
-			return;
-		}
-
-		//		try {
-		//			String hashedPass = UserService.hashPassword(pass);
-		//
-		//			UserService.insert(name, mail, hashedPass);
-		//
-		//			response.sendRedirect("S0031.jsp");
-		//		} catch (Exception e) {
-		//			e.printStackTrace();
-		//			request.setAttribute("error", "登録に失敗しました。");
-		//			request.getRequestDispatcher("S0030.jsp").forward(request, response);
-		//		}
-
-		request.setAttribute("name", name);
-		request.setAttribute("mail", mail);
-		request.setAttribute("pass", pass);
-		request.setAttribute("confirm_pass", confirm_pass);
-		request.setAttribute("role", role);
-
-		request.getRequestDispatcher("/S0031.jsp").forward(request, response);
 	}
 }

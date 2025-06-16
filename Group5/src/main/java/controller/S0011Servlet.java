@@ -33,9 +33,9 @@ public class S0011Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		SalesData data = (SalesData) session.getAttribute("data");
+		SalesData salesdata = (SalesData) session.getAttribute("salesdata");
 		
-		request.setAttribute("data", data);
+		request.setAttribute("salesdata", salesdata);
 		request.getRequestDispatcher("/S0011.jsp").forward(request, response);
 	}
 
@@ -47,17 +47,17 @@ public class S0011Servlet extends HttpServlet {
 		S0010Dao s0010dao = new S0010Dao();
 		
 		HttpSession session = request.getSession();
-		SalesData data = (SalesData) session.getAttribute("data");
+		SalesData salesdata = (SalesData) session.getAttribute("data");
 		
-		Date sale_date = data.getSale_date();
-	    int account_id = data.getAccount_id();
-	    int category_id = data.getCategory_id();
-	    String trade_name = data.getTrade_name();
-	    int unit_price = data.getUnit_price();
-	    int sale_number = data.getSale_number();
-	    String note = data.getNote();
+		Date sale_date = salesdata.getSale_date();
+	    int account_id = salesdata.getAccount_id();
+	    int category_id = salesdata.getCategory_id();
+	    String trade_name = salesdata.getTrade_name();
+	    int unit_price = salesdata.getUnit_price();
+	    int sale_number = salesdata.getSale_number();
+	    String note = salesdata.getNote();
 		
-	    session.removeAttribute("data");
+	    session.removeAttribute("salesdata");
 		
 	    boolean success = s0010dao.insert(sale_date, account_id,category_id, trade_name,
 	    									unit_price, sale_number, note);
