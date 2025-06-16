@@ -115,12 +115,12 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="text" class="form-control"
-							id="exampleFormControlInput1" name="trade" value="${form.trade}"
+							id="exampleFormControlInput1" name="trade_name" value="${form.trade_name}"
 							placeholder="商品名">
 						<c:choose>
-							<c:when test="${not empty errors.trade}">
+							<c:when test="${not empty errors.trade_name}">
 								<div class="text-danger small">
-									<c:out value="${errors.trade}" />
+									<c:out value="${errors.trade_name}" />
 								</div>
 							</c:when>
 							<c:otherwise>
