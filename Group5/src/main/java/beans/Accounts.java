@@ -8,5 +8,6 @@ public class Accounts {
 	private String name;
 	private String mail;
 	private String pass;
+	private String confirm_pass;
 	private int authority;
 }

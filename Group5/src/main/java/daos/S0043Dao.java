@@ -32,4 +32,35 @@ public class S0043Dao {
 			return false;
 		}
 	}
+	
+//	public boolean delete(int accountId) {
+//	    String sql = "DELETE FROM accounts WHERE account_id = ?";
+//
+//	    try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+//	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+//
+//	        stmt.setInt(1, accountId);
+//	        int rowsAffected = stmt.executeUpdate();
+//	        return rowsAffected > 0;
+//
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	        return false;
+//	    }
+//	}
+	
+	public boolean delete(int accountId) {
+	    try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+	        String sql = "DELETE FROM accounts WHERE account_id = ?";
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        stmt.setInt(1, accountId);
+	        int rowsAffected = stmt.executeUpdate();
+	        return rowsAffected > 0;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
+
 }

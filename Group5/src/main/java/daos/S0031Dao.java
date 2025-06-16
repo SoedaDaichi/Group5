@@ -8,6 +8,10 @@ import utils.Db;
 public class S0031Dao {
 	
 	public boolean insert(String name, String mail, String hashedPass, String authority) {
+		
+		System.out.println("insert called with: " + name + ", " + mail);
+		
+		
 		String sql = "INSERT INTO accounts(name, mail, password, authority) VALUES (?, ?, ?, ?)";
         try (Connection con = Db.open()) {
             PreparedStatement ps = con.prepareStatement(sql);

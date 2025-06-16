@@ -31,9 +31,9 @@
 				<tbody>
 					<c:forEach var="account" items="${accountList}" varStatus="status">
 						<tr>
-							<td><a href="S0042Servlet?id=${account.account_id}"
+							<td><a href="S0042.html?id=${account.account_id}"
 								class="btn btn-sm btn-primary">編集</a> <a
-								href="S0043Servlet?id=${account.account_id}"
+								href="S0044.html?id=${account.account_id}"
 								class="btn btn-sm btn-danger">削除</a></td>
 							<td>${account.account_id}</td>
 							<td>${account.name}</td>

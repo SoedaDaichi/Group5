@@ -20,6 +20,8 @@
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント詳細削除確認</h1>
 
 			<form id="create-task-form" action="S0044.html" method="post">
+			<input type="hidden" name="id" value="${account.account_id}" />
+			
 
 				<!--				<div class="mt-3">-->
 <!--				<div class=row>-->
@@ -42,7 +44,7 @@
 					</h5>
 				</div>
 				<div class="col-4 my-3">
-					<input type="text" id="name" name="name" class="form-control" value="${name}" readonly>
+					<input type="text" id="name" name="name" class="form-control" value="${account.name}" readonly>
 				</div>
 			</div>
 				
@@ -70,7 +72,7 @@
 					</h5>
 				</div>
 				<div class="col-4 my-3">
-					<input type="email" id="adless" name="mail" class="form-control" value="${mail}" readonly>
+					<input type="email" id="adless" name="mail" class="form-control" value="${account.mail}" readonly>
 				</div>
 			</div>
 
@@ -101,7 +103,7 @@
 					</h5>
 				</div>
 				<div class="col-4 my-3">
-					<input type="password" id="password" name="pass" class="form-control" value="${pass}" readonly>
+					<input type="password" id="password" name="pass" class="form-control" value="${account.pass}" readonly>
 				</div>
 			</div>
 				
@@ -135,7 +137,7 @@
 					</h5>
 				</div>
 				<div class="col-4 my-3">
-					<input type="password" id="confirm_password" name="confirm_pass" class="form-control" value="${confirm_pass}" readonly>
+					<input type="password" id="confirm_password" name="confirm_pass" class="form-control" value="${account.confirm_pass}" readonly>
 				</div>
 			</div>
 				
@@ -186,19 +188,19 @@
     <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="role"
         id="role-none" value="none"
-        <c:if test="${param.role eq 'none'}">checked</c:if> disabled>
+        <c:if test="${account.authority eq 0}">checked</c:if> disabled>
       <label class="form-check-label" for="role-none">権限なし</label>
     </div>
     <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="role"
         id="role-read" value="read"
-        <c:if test="${param.role eq 'read'}">checked</c:if> disabled>
+        <c:if test="${account.authority eq 1}">checked</c:if> disabled>
       <label class="form-check-label" for="role-read">売上登録</label>
     </div>
     <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="role"
         id="role-update" value="update"
-        <c:if test="${param.role eq 'update'}">checked</c:if> disabled>
+        <c:if test="${account.authority eq 2}">checked</c:if> disabled>
       <label class="form-check-label" for="role-update">アカウント登録</label>
     </div>
     <input type="hidden" name="role" value="${param.role}">
@@ -215,7 +217,9 @@
 					<div class="col-2 offset-2 my-3">
 					
 						<button type="submit" class="btn btn-danger">×OK</button>
-						<button type="submit" class="btn btn-outline-secondary">キャンセル</button>
+<!--						<button type="submit" class="btn btn-outline-secondary">キャンセル</button>-->
+						<button type="button" class="btn btn-outline-secondary" onclick="location.href='S0041.html?id=${account.account_id}'">キャンセル</button>
+						
 					</div>
 				</div>
 			</form>
