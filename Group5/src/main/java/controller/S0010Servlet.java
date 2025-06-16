@@ -86,19 +86,19 @@ public class S0010Servlet extends HttpServlet {
 		String account_idStr = request.getParameter("account_id");
 		System.out.println(account_idStr);
 		String category_idStr = request.getParameter("category_id");
-		String trade = request.getParameter("trade");
+		String trade_name = request.getParameter("trade_name");
 		String unit_priceStr = request.getParameter("unit_price");
 		String sale_numberStr = request.getParameter("sale_number");
 		String note = request.getParameter("note");
 
 		ErrorService es = new ErrorService();
-		Map<String, String> errors = es.ValidateSales(sale_dateStr, account_idStr, category_idStr, trade, unit_priceStr,
+		Map<String, String> errors = es.ValidateSales(sale_dateStr, account_idStr, category_idStr, trade_name, unit_priceStr,
 				sale_numberStr,
 				note);
 		System.out.println(errors);
 
 		if (errors != null && !errors.isEmpty()) {
-			SalesForm form = new SalesForm(sale_dateStr, account_idStr, category_idStr, trade, unit_priceStr,
+			SalesForm form = new SalesForm(sale_dateStr, account_idStr, category_idStr, trade_name, unit_priceStr,
 					sale_numberStr, note);
 			session.setAttribute("form", form);
 			session.setAttribute("errors", errors);
@@ -121,7 +121,7 @@ public class S0010Servlet extends HttpServlet {
 			Categories category = ss.identificationCategory(category_id);
 			String category_name = category.getCategory_name();
 
-			SalesData data = new SalesData(sale_date, name, account_id, category_name, category_id, trade, unit_price,
+			SalesData data = new SalesData(sale_date, name, account_id, category_name, category_id, trade_name, unit_price,
 					sale_number, note);
 			
 			session.setAttribute("data", data);

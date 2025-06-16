@@ -52,14 +52,14 @@ public class S0011Servlet extends HttpServlet {
 		Date sale_date = data.getSale_date();
 	    int account_id = data.getAccount_id();
 	    int category_id = data.getCategory_id();
-	    String trade = data.getTrade();
+	    String trade_name = data.getTrade_name();
 	    int unit_price = data.getUnit_price();
 	    int sale_number = data.getSale_number();
 	    String note = data.getNote();
 		
 	    session.removeAttribute("data");
 		
-	    boolean success = s0010dao.insert(sale_date, account_id,category_id, trade,
+	    boolean success = s0010dao.insert(sale_date, account_id,category_id, trade_name,
 	    									unit_price, sale_number, note);
 		
 		if (success) {
