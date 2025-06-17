@@ -24,6 +24,8 @@
 			<form id="create-task-form" action="S0043.html" method="post">
 			<input type="hidden" name="id" value="${param.id}">
 			
+			<input type="hidden" name="account_id" value="${account.account_id}">
+			
 
 				<!--				<div class="mt-3">-->
 <!--				<div class=row>-->
@@ -194,6 +196,7 @@
 </div>
 
 
+<p>account_id = ${account.account_id}</p>
 
 
 
