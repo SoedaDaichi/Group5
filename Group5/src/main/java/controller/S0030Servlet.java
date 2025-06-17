@@ -39,23 +39,18 @@ public class S0030Servlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
-		Map<String, String> errors = null;
-		AccountsForm accountsform = null;
+		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
+		AccountsForm accountsform = (AccountsForm) session.getAttribute("accountsform");
 
-		if (session != null) {
-			String success = (String) session.getAttribute("success");
-			errors = (Map<String, String>) session.getAttribute("errors");
-
-			if (success != null) {
-				request.setAttribute("success", success);
-				session.removeAttribute("success");
-			} else if (errors != null) {
-				request.setAttribute("errors", errors);
-				accountsform = (AccountsForm) session.getAttribute("accountsform");
-				request.setAttribute("accountsform", accountsform);
-				session.removeAttribute("errors");
-				session.removeAttribute("accountsform");
-			}
+		String success = (String) session.getAttribute("success");
+		if (success != null) {
+			request.setAttribute("success", success);
+			session.removeAttribute("success");
+		} else if (errors != null) {
+			request.setAttribute("errors", errors);
+			request.setAttribute("accountsform", accountsform);
+			session.removeAttribute("errors");
+			session.removeAttribute("accountsform");
 		}
 		request.getRequestDispatcher("/S0030.jsp").forward(request, response);
 	}
@@ -91,7 +86,7 @@ public class S0030Servlet extends HttpServlet {
 			response.sendRedirect("S0030.html");
 			return;
 		}
-		
+
 		if (errors == null || errors.isEmpty()) {
 			AccountsData accountsdata = new AccountsData(name, mail, pass, confirm_pass, role);
 			session.setAttribute("accountsdata", accountsdata);

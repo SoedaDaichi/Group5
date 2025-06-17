@@ -96,14 +96,14 @@ public class ErrorService {
 			errors.put("first", "販売日（検索開始日）を正しく入力して下さい。");
 		}
 		if (S0010Service.ValidDate(lastStr)) {
-			errors.put("first", "販売日（検索開始日）を正しく入力して下さい。");
+			errors.put("last", "販売日（検索開始日）を正しく入力して下さい。");
 		}
 		return errors;
 	}
 	
 	public Map<String, String> ValidateNotFoundSales(ArrayList<Sales> sales) {
 		Map<String, String> notFound = new HashMap<>();
-		if (sales ==null || sales.isEmpty()) {
+		if (sales == null || sales.isEmpty()) {
 			notFound.put("sales_notfound", "ご指定の条件に該当するデータが見つかりませんでした。");
 		}
 		return notFound;

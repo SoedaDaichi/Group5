@@ -71,7 +71,7 @@
 									${empty ssform.account_idStr ? 'selected' : ''}>選択してください</option>
 								<c:forEach var="accounts" items="${accountList}">
 									<option value="${accounts.account_id}"
-										${ssform.account_idStr eq account.account_id ? 'selected' : ''}>${accounts.name}</option>
+										${ssform.account_idStr eq accounts.account_id ? 'selected' : ''}>${accounts.name}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -123,13 +123,14 @@
 							<button type="submit" class="btn btn-primary">検索</button>
 						</div>
 						<div class="col-5 my-3">
-							<a href="S0020.html" button type="submit"
-								class="btn btn-outline-secondary"> クリア </a>
+							<a href="S0020.html" button class="btn btn-outline-secondary">
+								クリア </a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>
+	<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
