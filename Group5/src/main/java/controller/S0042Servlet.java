@@ -31,7 +31,7 @@ public class S0042Servlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/group5";
+    private static final String DB_URL = "jdbc:mariadb://localhost:3306/group5";
 	private static final String DB_USER = "root";
 	private static final String DB_PASS = "root";
 
@@ -48,47 +48,79 @@ public class S0042Servlet extends HttpServlet {
 //		session.removeAttribute("error");
 
 		
+//		
+//		String idStr = request.getParameter("id");
+//		if (idStr == null || idStr.isEmpty()) {
+//			//エラー処理とりあえず消してる
+//			//response.sendRedirect("error.jsp");
+//			//return;
+//			idStr = "1"; // とりあえず確認用に書いてるだけ
+//			}
+//
+//
+//		int accountId = Integer.parseInt(idStr);
+//		Accounts account = null;
+//
+//		try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+//			String sql = "SELECT * FROM accounts WHERE account_id = ?";
+//			PreparedStatement stmt = conn.prepareStatement(sql);
+//			stmt.setInt(1, accountId);
+//
+//			ResultSet rs = stmt.executeQuery();
+//			if (rs.next()) {
+//				account = new Accounts();
+//				account.setAccount_id(rs.getInt("account_id"));
+//				account.setName(rs.getString("name"));
+//				account.setMail(rs.getString("mail"));
+//				account.setPass(rs.getString("pass"));
+//				account.setAuthority(rs.getInt("authority"));
+//			}
+//
+//			rs.close();
+//			stmt.close();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			//エラー処理とりあえず消してる
+//			//response.sendRedirect("error.jsp");
+//            //return;
+//		}
+//			request.setAttribute("account", account);
+//		request.getRequestDispatcher("/S0042.jsp").forward(request, response);
+//		
+//		
 		
 		String idStr = request.getParameter("id");
-		if (idStr == null || idStr.isEmpty()) {
-			//エラー処理とりあえず消してる
-			//response.sendRedirect("error.jsp");
-			//return;
-			idStr = "1"; // とりあえず確認用に書いてるだけ
-			}
-
-
-		int accountId = Integer.parseInt(idStr);
 		Accounts account = null;
+		
+		if (idStr != null && !idStr.isEmpty()) {
+		    int accountId = Integer.parseInt(idStr);
+		    //Accounts account = null;
 
-		try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-			String sql = "SELECT * FROM accounts WHERE account_id = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, accountId);
+		    try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+		        String sql = "SELECT * FROM accounts WHERE account_id = ?";
+		        PreparedStatement stmt = conn.prepareStatement(sql);
+		        stmt.setInt(1, accountId);
 
-			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				account = new Accounts();
-				account.setAccount_id(rs.getInt("account_id"));
-				account.setName(rs.getString("name"));
-				account.setMail(rs.getString("mail"));
-				account.setPass(rs.getString("pass"));
-				account.setAuthority(rs.getInt("authority"));
-			}
+		        ResultSet rs = stmt.executeQuery();
+		        if (rs.next()) {
+		            account = new Accounts();
+		            account.setAccount_id(rs.getInt("account_id"));
+		            account.setName(rs.getString("name"));
+		            account.setMail(rs.getString("mail"));
+		            account.setPass(rs.getString("password"));
+		            account.setConfirm_pass(account.getPass());
+		            account.setAuthority(rs.getInt("authority"));
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
 
-			rs.close();
-			stmt.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			//エラー処理とりあえず消してる
-			//response.sendRedirect("error.jsp");
-            //return;
 		}
 
+		request.setAttribute("account", account);
+	    request.getRequestDispatcher("/S0042.jsp").forward(request, response);		
 		
-			request.setAttribute("account", account);
-
-		request.getRequestDispatcher("/S0042.jsp").forward(request, response);
+		
 	}
 
 
@@ -126,6 +158,5 @@ public class S0042Servlet extends HttpServlet {
 
 			request.getRequestDispatcher("/S0043.jsp").forward(request, response);
 		}
-
 
 }
