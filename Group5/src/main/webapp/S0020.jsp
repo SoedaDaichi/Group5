@@ -27,13 +27,35 @@
 							</h5>
 						</div>
 						<div class="col-2">
-							<input type="date" id="date" name="first" class="form-control">
+							<input type="date" id="date" name="first"
+								value="${ssform.firstStr}" class="form-control">
+							<c:choose>
+								<c:when test="${not empty errors.first}">
+									<div class="text-danger small">
+										<c:out value="${errors.first}" />
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="small" style="visibility: hidden;">&nbsp;</div>
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="col-1 text-center ">
 							<p>～</p>
 						</div>
 						<div class="col-2">
-							<input type="date" id="date" name="last" class="form-control">
+							<input type="date" id="date" name="last"
+								value="${ssform.lastStr}" class="form-control">
+							<c:choose>
+								<c:when test="${not empty errors.last}">
+									<div class="text-danger small">
+										<c:out value="${errors.last}" />
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="small" style="visibility: hidden;">&nbsp;</div>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 					<div class="row my-3">
@@ -45,9 +67,11 @@
 						<div class="col-2">
 							<select class="form-select form-select-sm"
 								aria-label=".form-select-sm example" name="account_id">
-								<option selected value="">選択してください</option>
+								<option selected value=""
+									${empty ssform.account_idStr ? 'selected' : ''}>選択してください</option>
 								<c:forEach var="accounts" items="${accountList}">
-									<option value="${accounts.account_id}">${accounts.name}</option>
+									<option value="${accounts.account_id}"
+										${ssform.account_idStr eq account.account_id ? 'selected' : ''}>${accounts.name}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -61,9 +85,11 @@
 						<div class="col-2">
 							<select class="form-select form-select-sm"
 								aria-label=".form-select-sm example" name="category_id">
-								<option selected value="">選択してください</option>
+								<option selected value=""
+									${empty ssform.category_idStr ? 'selected' : ''}>選択してください</option>
 								<c:forEach var="categories" items="${categoryList}">
-									<option value="${categories.category_id}">${categories.category_name}</option>
+									<option value="${categories.category_id}"
+										${ssform.category_idStr eq categories.category_id ? 'selected' : ''}>${categories.category_name}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -76,7 +102,8 @@
 						</div>
 						<div class="col-4">
 							<input type="text" class="form-control"
-								id="exampleFormControlInput1" name="trade" placeholder="商品名">
+								id="exampleFormControlInput1" name="trade_name"
+								value="${ssform.trade_name}" placeholder="商品名">
 						</div>
 					</div>
 					<div class="row my-4">
@@ -87,7 +114,8 @@
 						</div>
 						<div class="col-4">
 							<input type="text" class="form-control"
-								id="exampleFormControlInput1" name="note" placeholder="備考">
+								id="exampleFormControlInput1" name="note" value="${ssform.note}"
+								placeholder="備考">
 						</div>
 					</div>
 					<div class="row">
@@ -95,7 +123,7 @@
 							<button type="submit" class="btn btn-primary">検索</button>
 						</div>
 						<div class="col-5 my-3">
-							<a href="#" button type="submit"
+							<a href="S0020.html" button type="submit"
 								class="btn btn-outline-secondary"> クリア </a>
 						</div>
 					</div>
