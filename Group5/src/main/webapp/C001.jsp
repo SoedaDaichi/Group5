@@ -82,19 +82,5 @@
 			</div>
 		</div>
 	</form>
-
-	<!--    <div class="container-fluid">-->
-	<!--    	<div class="col text-center">-->
-	<!--        <div class="row">-->
-	<!--            <p>-->
-	<!--                <a href="#">パスワードをお忘れの方はこちら</a>-->
-	<!--            </p>-->
-	<!--        </div>-->
-	<!--        <div class="row">-->
-	<!--            <p>-->
-	<!--                <a href="#">新規登録（無料）</a>-->
-	<!--            </p>-->
-	<!--        </div>-->
-	<!--    </div>-->
 </body>
 </html>
