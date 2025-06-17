@@ -69,11 +69,11 @@ public class S0021Servlet extends HttpServlet {
 		String category_name = category.getCategory_name();
 		
 		
-		SalesData data = new SalesData(sale_date, name, account_id, category_name, category_id, trade_name, unit_price,
+		SalesData salesdata = new SalesData(sale_date, name, account_id, category_name, category_id, trade_name, unit_price,
 				sale_number, note);
 		
 		session.setAttribute("sale_id", sale_id);
-		session.setAttribute("data", data);
+		session.setAttribute("salesdata", salesdata);
 		
 		
 		
