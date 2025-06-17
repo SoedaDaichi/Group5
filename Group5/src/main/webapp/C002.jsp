@@ -70,5 +70,6 @@
 <!--		let polarChart = new Chart(polarCtx, polarConfig);-->
 <!--	</script>-->
 	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
