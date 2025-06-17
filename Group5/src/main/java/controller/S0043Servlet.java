@@ -34,6 +34,8 @@ public class S0043Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		
 
 		request.getRequestDispatcher("/S0043.jsp").forward(request, response);
 
@@ -46,6 +48,8 @@ public class S0043Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		
+		int accountId = Integer.parseInt(request.getParameter("account_id"));
 
 		String action = request.getParameter("action");
 		if ("cancel".equals(action)) {
@@ -63,7 +67,7 @@ public class S0043Servlet extends HttpServlet {
 		String hashedPass = auth.hashPassword(pass);
 
 		S0043Dao s0043dao = new S0043Dao();
-		boolean success = s0043dao.insert(name, mail, hashedPass, role);
+		boolean success = s0043dao.update(accountId, name, mail, hashedPass, role);
 
 		HttpSession session = request.getSession();
 		if (success) {

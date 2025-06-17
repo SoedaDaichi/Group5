@@ -39,6 +39,8 @@
 			<form id="create-task-form" action="S0042.html" method="post">
 
 
+<input type="hidden" name="account_id" value="${account.account_id}">
+
 
 
 				<div class=row>
@@ -67,7 +69,7 @@
 					<div class="col-4 my-3">
 						<input type="email" required="required" id="adless" name="mail"
 							class="form-control" placeholder="メールアドレス"
-							value="${account.adless}" required>
+							value="${account.mail}" required>
 					</div>
 				</div>
 
@@ -85,7 +87,7 @@
 					<div class="col-4 my-3">
 						<input type="password" required="required" id="password"
 							name="pass" class="form-control" placeholder="パスワード"
-							value="${account.password}" required>
+							value="${account.pass}" required>
 					</div>
 				</div>
 
@@ -102,7 +104,7 @@
 					<div class="col-4 my-3">
 						<input type="password" required="required" id="confirm_password"
 							name="confirm_pass" class="form-control" placeholder="パスワード(確認)"
-							value="${account.confirm_password}" required>
+							value="${account.confirm_pass}" required>
 					</div>
 				</div>
 
@@ -122,19 +124,35 @@
 						<div class="form-check  form-check-inline">
 							<input class="form-check-input" type="radio" name="role"
 								id="role-none" value="0"
-								${account.authority == 0 ? 'checked' : ''} required> <label
+								
+								<c:if test="${account.authority == 0}">checked</c:if> required>
+								
+<!--								${account.authority == 0 ? 'checked' : ''} required> -->
+								
+								<label
 								class="form-check-label" for="role-none">権限なし</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="role"
 								id="role-read"
-								value="1 ${account.authority == 1 ? 'checked' : ''}"> <label
+								value="1"
+								
+								<c:if test="${account.authority == 1}">checked</c:if> required>
+<!--								 ${account.authority == 1 ? 'checked' : ''}"> -->
+								 
+								 <label
 								class="form-check-label" for="role-read">売上登録</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="role"
 								id="role-update"
-								value="2 ${account.authority == 2 ? 'checked' : ''}"> <label
+								value="2"
+								
+								<c:if test="${account.authority == 2}">checked</c:if> required>
+								
+<!--								 ${account.authority == 2 ? 'checked' : ''}">-->
+								 
+								  <label
 								class="form-check-label" for="role-update">アカウント登録</label>
 						</div>
 					</div>
@@ -154,6 +172,8 @@
 			</form>
 		</div>
 	</div>
+	
+	
 
 </body>
 </html>

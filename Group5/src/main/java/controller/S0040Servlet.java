@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import services.S0040Service;
@@ -50,6 +51,16 @@ public class S0040Servlet extends HttpServlet {
 		int role0 = parseRole(request.getParameter("role0"));
 		int role1 = parseRole(request.getParameter("role1"));
 		int role10 = parseRole(request.getParameter("role10"));
+		
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("search_name", name);
+		session.setAttribute("search_mail", mail);
+		session.setAttribute("search_role0", role0);
+		session.setAttribute("search_role1", role1);
+		session.setAttribute("search_role10", role10);
+
+	
 		
 		S0040Service s0040service = new S0040Service();
 		ArrayList<Accounts> accountList = s0040service.select(name, mail, role0, role1, role10);
