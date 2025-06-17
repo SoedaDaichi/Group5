@@ -27,7 +27,7 @@
 						</h5>
 					</div>
 					<div class="col-3">
-						<h5>${data.sale_date}</h5>
+						<h5>${salesdata.sale_date}</h5>
 					</div>
 				</div>
 				<div class="row my-4">
@@ -35,7 +35,7 @@
 						<h5>担当</h5>
 					</div>
 					<div class="col-3">
-						<h5><c:out value="${data.name}" /></h5>
+						<h5><c:out value="${salesdata.name}" /></h5>
 					</div>
 				</div>
 				<div class="row my-4">
@@ -43,7 +43,7 @@
 						<h5>商品カテゴリー</h5>
 					</div>
 					<div class="col-3">
-						<h5>${data.category_name}</h5>
+						<h5>${salesdata.category_name}</h5>
 					</div>
 				</div>
 				<div class="row my-4">
@@ -51,7 +51,7 @@
 						<h5>商品名</h5>
 					</div>
 					<div class="col-3">
-						<h5>${data.trade_name}</h5>
+						<h5>${salesdata.trade_name}</h5>
 					</div>
 				</div>
 				<div class="row my-4">
@@ -59,7 +59,7 @@
 						<h5>単価</h5>
 					</div>
 					<div class="col-3">
-						<h5>${data.unit_price}</h5>
+						<h5>${salesdata.unit_price}</h5>
 					</div>
 				</div>
 				<div class="row my-4">
@@ -67,7 +67,7 @@
 						<h5>個数</h5>
 					</div>
 					<div class="col-3">
-						<h5>${data.sale_number}</h5>
+						<h5>${salesdata.sale_number}</h5>
 					</div>
 				</div>
 				<div class="row my-4">
@@ -75,7 +75,7 @@
 						<h5>備考</h5>
 					</div>
 					<div class="col-3">
-						<h5>${data.note}</h5>
+						<h5>${salesdata.note}</h5>
 					</div>
 				</div>
 				<div class="row">
