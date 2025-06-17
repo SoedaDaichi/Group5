@@ -38,18 +38,19 @@ public class S0030Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
+		Map<String, String> errors = null;
+		AccountsForm accountsform = null;
 
 		if (session != null) {
 			String success = (String) session.getAttribute("success");
-			Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
-			AccountsForm accountsform = null;
+			errors = (Map<String, String>) session.getAttribute("errors");
 
 			if (success != null) {
 				request.setAttribute("success", success);
 				session.removeAttribute("success");
 			} else if (errors != null) {
-				request.setAttribute("error", errors);
+				request.setAttribute("errors", errors);
 				accountsform = (AccountsForm) session.getAttribute("accountsform");
 				request.setAttribute("accountsform", accountsform);
 				session.removeAttribute("errors");
@@ -87,12 +88,12 @@ public class S0030Servlet extends HttpServlet {
 			AccountsForm accountsform = new AccountsForm(name, mail, role);
 			session.setAttribute("accountsform", accountsform);
 			session.setAttribute("errors", errors);
-			response.sendRedirect("S0010.html");
+			response.sendRedirect("S0030.html");
 			return;
 		}
 		
 		if (errors == null || errors.isEmpty()) {
-			AccountsData accountsdata = new AccountsData(name, mail, pass, role);
+			AccountsData accountsdata = new AccountsData(name, mail, pass, confirm_pass, role);
 			session.setAttribute("accountsdata", accountsdata);
 			response.sendRedirect("S0031.html");
 		}
