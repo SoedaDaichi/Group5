@@ -92,10 +92,10 @@ public class ErrorService {
 	
 	public Map<String, String> ValidateSalesSearch(String firstStr, String lastStr) {
 		Map<String, String> errors = new HashMap<>();
-		if (S0010Service.ValidDate(firstStr)) {
+		if (!S0010Service.ValidNull(firstStr) && S0010Service.ValidDate(firstStr)) {
 			errors.put("first", "販売日（検索開始日）を正しく入力して下さい。");
 		}
-		if (S0010Service.ValidDate(lastStr)) {
+		if (!S0010Service.ValidNull(firstStr) && S0010Service.ValidDate(lastStr)) {
 			errors.put("last", "販売日（検索開始日）を正しく入力して下さい。");
 		}
 		return errors;

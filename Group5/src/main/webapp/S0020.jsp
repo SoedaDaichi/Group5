@@ -18,6 +18,18 @@
 		</div>
 
 		<form id="create-task-form" action="S0020.html" method="post">
+			<c:choose>
+				<c:when test="${not empty notFound.sales_notfound}">
+					<div class="alert alert-danger text-center py-1">
+						<c:out value="${notFound.sales_notfound}" />
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="alert alert-danger text-center
+									py-1"
+						style="visibility: hidden;">&nbsp;</div>
+				</c:otherwise>
+			</c:choose>
 			<div class="row">
 				<div class="col-10 offset-3">
 					<div class="row my-4">
