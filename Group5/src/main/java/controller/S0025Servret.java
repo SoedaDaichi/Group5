@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,6 +8,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
+import beans.SalesData;
+import daos.S0025Dao;
 
 /**
  * Servlet implementation class S0025Servret
@@ -29,34 +31,11 @@ public class S0025Servret extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
-
-	    // セッションから情報を取り出す
-		Date saledate = (Date) session.getAttribute("saledate");
-	    String name = (String) session.getAttribute("name");
-	    String category_name = (String) session.getAttribute("category_name");
-	    String trade = (String) session.getAttribute("trade_name");
-	    int unit_price = (int) session.getAttribute("unit_price");
-	    int sale_number = (int) session.getAttribute("sale_number");
-	    String note = (String) session.getAttribute("note");
-	    
-	    session.removeAttribute("sale_date");
-	    session.removeAttribute("name");
-	    session.removeAttribute("category_name");
-	    session.removeAttribute("trade_name");
-	    session.removeAttribute("unit_price");
-	    session.removeAttribute("sale_number");
-	    session.removeAttribute("note");
-	    
-	    session.setAttribute("saledate", saledate);
-		session.setAttribute("name", name);
-		session.setAttribute("category_name", category_name);
-		session.setAttribute("trade", trade);
-		session.setAttribute("unit_price", unit_price);
-		session.setAttribute("sale_number", sale_number);
-		session.setAttribute("note", note);
-	    
+		SalesData salesdata = (SalesData) session.getAttribute("salesdata");
+		
+		request.setAttribute("salesdata", salesdata);
+		session.removeAttribute("salesdata");
 		request.getRequestDispatcher("/S0025.jsp").forward(request, response);
 	}
 
@@ -64,8 +43,16 @@ public class S0025Servret extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		
+		int sale_id = (int) session.getAttribute("sale_id");
+		System.out.println("削除"+sale_id);
+	    session.removeAttribute("sale_id");
+	    
+	    S0025Dao s0025dao = new S0025Dao();
+	    s0025dao.daleteSales(sale_id);
+	    
+	    response.sendRedirect("S0020.html");	    
 	}
 
 }

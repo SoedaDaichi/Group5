@@ -12,104 +12,101 @@
 <body>
 	<%@ include file="navbar.jsp"%>
 	<div class="container-fluid mx-5">
-		<div class = "row">
-			<div class = "col-10 offset-3">
-				<p class="fs-1 fw-bold mx-5 mt-4">売上詳細編集</p>
+		<div class="row">
+			<div class="col-10 offset-3">
+				<p class="fs-1 fw-bold mx-5 mt-4">売上詳細削除</p>
 			</div>
 		</div>
-		<form id="create-task-form" action="S0030.html" method="post">
-		<div class = "row">
-		<div class = "col-10 offset-3">
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						販売日
-					</h5>
-				</div>
-				
-				<div class="col-3">
-					<input type="date" id="date" name="date" class="form-control" value = "#" disabled/>
-				</div>
-			</div>
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						担当
-					</h5>
-				</div>
-				<div class="col-3">
-					<select id="#" name="#" class="form-select"value = "#" disabled/>
-					
-					</select>
-				</div>
-			</div>
-			
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						商品カテゴリー
-					</h5>
-				</div>
-				<div class="col-3">
-					<select id="#" name="#" class="form-select"value = "#" disabled/>
-					
-					</select>
-				</div>
-			</div>
-			
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						<span class>商品名</span>
-					</h5>
-				</div>
-				<div class="col-3">
-					<input type="text" id="#" name="#" class="form-control" value = "#" disabled/>
-				</div>
-			</div>
-			
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						<span class>単価</span>
-					</h5>
-				</div>
-				<div class="col-3">
-					<input type="text" id="#" name="#" class="form-control" value = "#" disabled/>
-				</div>
-			</div>
-			
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						<span class>個数</span>
-					</h5>
-				</div>
-				<div class="col-3">
-					<input type="text" id="#" name="#" class="form-control" value = "#" disabled/>
-				</div>
-			</div>
-			
-			<div class="row my-4">
-				<div class="col-2 text-end">
-					<h5>
-						<span class>備考</span>
-					</h5>
-				</div>
-				<div class="col-3">
-					<textarea input type="text" id="#" name="#" class="form-control" value = "#" rows = "4" disabled/></textarea>
-				</div>
-			</div>
-			
 			<div class="row">
-				<div class="col-3 my-3 text-end">
-					<a herf = "" button type="submit" class="btn btn-danger">×OK</a>
-					<a href="#" button type="submit" class="btn btn-outline-secondary">
-						キャンセル </a>
+				<div class="col-10 offset-3">
+					<div class="row my-4">
+						<div class="col-2 text-end">
+							<h5>販売日</h5>
+						</div>
+
+						<div class="col-3">
+							<input type="date" id="date" name="date" class="form-control"
+								value="${salesdata.sale_date}" disabled />
+						</div>
+					</div>
+					<div class="row my-4">
+						<div class="col-2 text-end">
+							<h5>担当</h5>
+						</div>
+						<div class="col-3">
+							<input type="text" id="text" name="name" class="form-control"
+								value="${salesdata.name}" disabled />
+						</div>
+					</div>
+
+					<div class="row my-4">
+						<div class="col-2 text-end">
+							<h5>商品カテゴリー</h5>
+						</div>
+						<div class="col-3">
+							<input type="text" id="text" name="categroy_name"
+								class="form-control" value="${salesdata.category_name}" disabled />
+						</div>
+					</div>
+
+					<div class="row my-4">
+						<div class="col-2 text-end">
+							<h5>
+								<span class>商品名</span>
+							</h5>
+						</div>
+						<div class="col-3">
+							<input type="text" id="text" name="trade_name"
+								class="form-control" value="${salesdata.trade_name}" disabled />
+						</div>
+					</div>
+
+					<div class="row my-4">
+						<div class="col-2 text-end">
+							<h5>
+								<span class>単価</span>
+							</h5>
+						</div>
+						<div class="col-3">
+							<input type="text" id="text" name="unit_price"
+								class="form-control" value="${salesdata.unit_price}" disabled />
+						</div>
+					</div>
+
+					<div class="row my-4">
+						<div class="col-2 text-end">
+							<h5>
+								<span class>個数</span>
+							</h5>
+						</div>
+						<div class="col-3">
+							<input type="text" id="text" name="sale_number"
+								class="form-control" value="${salesdata.sale_number}" disabled />
+						</div>
+					</div>
+
+					<div class="row my-4">
+						<div class="col-2 text-end">
+							<h5>
+								<span class>備考</span>
+							</h5>
+						</div>
+						<div class="col-3">
+							<textarea input type="text" id="text" name="note"
+								class="form-control" value="${salesdata.note}" rows="4" disabled /></textarea>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-3 my-3 text-end">
+							<form method="post" action="S0025.html" class="d-inline" onsubmit="return confirm('本当に削除しますか？');">
+								<button type="submit" class="btn btn-danger">×OK</button>
+							</form>
+							<a href="S0021.html" class="btn btn-outline-secondary">キャンセル</a>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		</div>
-		</form>
-</body>
+			<script src="js/bootstrap.bundle.min.js"></script>
+	</body>
 </html>

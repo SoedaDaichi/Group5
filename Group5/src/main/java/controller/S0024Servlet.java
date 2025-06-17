@@ -55,6 +55,7 @@ public class S0024Servlet extends HttpServlet {
 	    int sale_number = salesdata.getSale_number();
 	    String note = salesdata.getNote();
 		
+	    session.removeAttribute("sale_id");
 	    session.removeAttribute("salesdata");
 		
 		
