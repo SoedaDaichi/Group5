@@ -95,8 +95,8 @@ public class ErrorService {
 		if (!S0010Service.ValidNull(firstStr) && S0010Service.ValidDate(firstStr)) {
 			errors.put("first", "販売日（検索開始日）を正しく入力して下さい。");
 		}
-		if (!S0010Service.ValidNull(firstStr) && S0010Service.ValidDate(lastStr)) {
-			errors.put("last", "販売日（検索開始日）を正しく入力して下さい。");
+		if (!S0010Service.ValidNull(lastStr) && S0010Service.ValidDate(lastStr)) {
+			errors.put("last", "販売日（検索終了日）を正しく入力して下さい。");
 		}
 		return errors;
 	}

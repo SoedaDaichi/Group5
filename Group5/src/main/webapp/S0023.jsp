@@ -115,14 +115,14 @@
 						</div>
 						<div class="col-3">
 							<textarea input type="text" id="text" name="note"
-								class="form-control" value="${salesdata.note}" rows="4" /></textarea>
+								class="form-control" rows="4" />${salesdata.note}</textarea>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-3 my-3 text-end">
 							<button type="submit" class="btn btn-primary">✓更新</button>
-							<a href="#" button type="submit"
+							<a href="S0021.html" button type="submit"
 								class="btn btn-outline-secondary"> キャンセル </a>
 						</div>
 					</div>

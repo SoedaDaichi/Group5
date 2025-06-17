@@ -62,7 +62,8 @@ public class S0024Servlet extends HttpServlet {
 		S0023Dao s0023dao = new S0023Dao();
 		s0023dao.updateSales(sale_date, account_id, category_id, trade_name,unit_price, sale_number, note, sale_id);
 		
-		response.sendRedirect("S0020.html");
+		session.setAttribute("success", "データを更新しました。");
+		response.sendRedirect("S0021.html");
 	}
 
 }

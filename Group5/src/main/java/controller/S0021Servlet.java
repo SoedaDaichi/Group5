@@ -40,10 +40,17 @@ public class S0021Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		String success = (String) session.getAttribute("success");
+
+		if (success != null) {
+			request.setAttribute("success", success);
+			session.removeAttribute("success");
+		}
+
 		ArrayList<Sales> salesList = (ArrayList<Sales>) session.getAttribute("salesList");
 		System.out.println("検索結果: " + salesList);
 		request.setAttribute("salesList", salesList);
-		session.removeAttribute("salesList");
+		//		session.removeAttribute("salesList");
 		request.getRequestDispatcher("/S0021.jsp").forward(request, response);
 	}
 
