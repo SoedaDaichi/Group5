@@ -30,7 +30,7 @@
 
 						<div class="col-3">
 							<input type="date" id="date" name="sale_date" class="form-control"
-								value="${data.sale_date}" />
+								value="${salesdata.sale_date}" />
 						</div>
 					</div>
 					<div class="row my-4">
@@ -42,9 +42,9 @@
 						<div class="col-3">
 							<select class="form-select form-select-sm"
 								aria-label=".form-select-sm example" name="account_id">
-								<option value="${data.account_id}" selected>${data.name}</option>
+								<option value="${salesdata.account_id}" selected>${salesdata.name}</option>
 								<c:forEach var="account" items="${accountList}">
-									<c:if test="${account.account_id != data.account_id}">
+									<c:if test="${account.account_id != salesdata.account_id}">
 										<option value="${account.account_id}">${account.name}</option>
 									</c:if>
 								</c:forEach>
@@ -61,10 +61,10 @@
 						<div class="col-3">
 							<select class="form-select form-select-sm"
 								aria-label=".form-select-sm example" name="category_id">
-								<option value="${data.category_id}" selected>${data.category_name}</option>
-								<c:forEach var="category" items="${categoryList}">
-								<c:if test="${category.category_id != data.category_id}">
-									<option value="${category.category_id}">${category.category_name}</option>
+								<option value="${salesdata.category_id}" selected>${salesdata.category_name}</option>
+								<c:forEach var="categories" items="${categoryList}">
+								<c:if test="${categories.category_id != salesdata.category_id}">
+									<option value="${categories.category_id}">${categories.category_name}</option>
 								</c:if>
 								</c:forEach>
 							</select>
@@ -79,7 +79,7 @@
 						</div>
 						<div class="col-3">
 							<input type="text" id="text" name="trade_name" class="form-control"
-								value="${data.trade_name}" />
+								value="${salesdata.trade_name}" />
 						</div>
 					</div>
 
@@ -91,7 +91,7 @@
 						</div>
 						<div class="col-3">
 							<input type="text" id="text" name="unit_price"
-								class="form-control" value="${data.unit_price}" />
+								class="form-control" value="${salesdata.unit_price}" />
 						</div>
 					</div>
 
@@ -103,7 +103,7 @@
 						</div>
 						<div class="col-3">
 							<input type="text" id="text" name="sale_number"
-								class="form-control" value="${data.sale_number}" />
+								class="form-control" value="${salesdata.sale_number}" />
 						</div>
 					</div>
 
@@ -115,7 +115,7 @@
 						</div>
 						<div class="col-3">
 							<textarea input type="text" id="text" name="note"
-								class="form-control" value="${data.note}" rows="4" /></textarea>
+								class="form-control" value="${salesdata.note}" rows="4" /></textarea>
 						</div>
 					</div>
 
