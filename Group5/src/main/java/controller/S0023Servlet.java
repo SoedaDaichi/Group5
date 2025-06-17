@@ -15,7 +15,6 @@ import beans.Accounts;
 import beans.Categories;
 import beans.SalesData;
 import daos.S0010Dao;
-import daos.S0023Dao;
 
 /**
  * Servlet implementation class S0023Servlet
@@ -46,10 +45,10 @@ public class S0023Servlet extends HttpServlet {
 		accountList = ss.selectAccount();
 		categoryList = ss.selectCategory();
 		
-		SalesData data = (SalesData) session.getAttribute("data");
+		SalesData salesdata = (SalesData) session.getAttribute("salesdata");
 		
-		request.setAttribute("data", data);
-		session.removeAttribute("data");
+		request.setAttribute("salesdata", salesdata);
+		session.removeAttribute("salesdata");
 		
 		
 	    request.setAttribute("accountList", accountList);
@@ -64,23 +63,29 @@ public class S0023Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		int sale_id = (int) session.getAttribute("sale_id");
+		
 		Date sale_date = Date.valueOf(request.getParameter("sale_date"));
 		int account_id = Integer.valueOf(request.getParameter("account_id"));
 		int category_id = Integer.valueOf(request.getParameter("category_id"));
-		String trade = request.getParameter("trade_name");
+		String trade_name = request.getParameter("trade_name");
 		int unit_price = Integer.valueOf(request.getParameter("unit_price"));
 		int sale_number = Integer.valueOf(request.getParameter("sale_number"));
 		String note = request.getParameter("note");
-		System.out.println(sale_id);
 		
-		session.removeAttribute("sale_id");
+		S0010Dao ss = new S0010Dao();
+		Accounts account = ss.identificationAccount(account_id);
+		String name = account.getName();
 		
-		S0023Dao s0023dao = new S0023Dao();
-			s0023dao.updateSales(sale_date, account_id, category_id, trade,unit_price, sale_number, note, sale_id);
-			
-			response.sendRedirect("S0020.html");
+		Categories category = ss.identificationCategory(category_id);
+		String category_name = category.getCategory_name();
 		
+		SalesData salesdata = new SalesData(sale_date, name, account_id, category_name, category_id, trade_name, unit_price,
+				sale_number, note);
+		
+		session.setAttribute("salesdata", salesdata);
+		
+		
+		response.sendRedirect("S0024.html");	
 	}
 
 }
