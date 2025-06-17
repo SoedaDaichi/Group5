@@ -38,12 +38,14 @@ public class C001Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(false);
+		Map<String, String> errors = null;
 		if (session != null) {
-			Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
+			errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
 			if (errors != null) {
 				request.setAttribute("errors", errors);
 				session.removeAttribute("errors");
 			}
+
 		}
 		request.getRequestDispatcher("/C001.jsp").forward(request, response);
 	}

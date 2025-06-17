@@ -40,19 +40,24 @@ public class S0010Servlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String success = (String) session.getAttribute("success");
-		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
-		SalesForm salesform = (SalesForm) session.getAttribute("salesform");
 
-		if (success != null) {
-			request.setAttribute("success", success);
-			session.removeAttribute("success");
-		} else if (errors != null) {
-			request.setAttribute("errors", errors);
-			request.setAttribute("salesform", salesform);
-			session.removeAttribute("errors");
-			session.removeAttribute("salesform");
+		HttpSession session = request.getSession();
+
+		Map<String, String> errors = null;
+		SalesForm salesform = null;
+		if (session != null) {
+			String success = (String) session.getAttribute("success");
+			errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
+			if (success != null) {
+				request.setAttribute("success", success);
+				session.removeAttribute("success");
+			} else if (errors != null) {
+				request.setAttribute("errors", errors);
+				salesform = (SalesForm) session.getAttribute("salesform");
+				request.setAttribute("salesform", salesform);
+				session.removeAttribute("errors");
+				session.removeAttribute("salesform");
+			}
 		}
 
 		ArrayList<Accounts> accountList = new ArrayList<>();
@@ -87,8 +92,7 @@ public class S0010Servlet extends HttpServlet {
 		String note = request.getParameter("note");
 
 		ErrorService es = new ErrorService();
-		Map<String, String> errors = es.ValidateSales(sale_dateStr, account_idStr, category_idStr, trade_name,
-				unit_priceStr,
+		Map<String, String> errors = es.ValidateSales(sale_dateStr, account_idStr, category_idStr, trade_name, unit_priceStr,
 				sale_numberStr,
 				note);
 		System.out.println(errors);
@@ -117,12 +121,11 @@ public class S0010Servlet extends HttpServlet {
 			Categories category = ss.identificationCategory(category_id);
 			String category_name = category.getCategory_name();
 
-			SalesData salesdata = new SalesData(sale_date, name, account_id, category_name, category_id, trade_name,
-					unit_price,
+			SalesData salesdata = new SalesData(sale_date, name, account_id, category_name, category_id, trade_name, unit_price,
 					sale_number, note);
-
+			
 			session.setAttribute("salesdata", salesdata);
-			//			request.getRequestDispatcher("S0011.html").forward(request, response);
+//			request.getRequestDispatcher("S0011.html").forward(request, response);
 			response.sendRedirect("S0011.html");
 		}
 	}

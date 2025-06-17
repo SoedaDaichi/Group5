@@ -21,6 +21,11 @@
 
 
 			<form id="create-task-form" action="S0030.html" method="post">
+				<c:if test="${not empty success}">
+					<div class="alert alert-success text-center py-2">
+						<c:out value="${success}" />
+					</div>
+				</c:if>
 
 				<!--				<div class="mt-3">-->
 				<!--				<div class=row>-->
@@ -38,15 +43,7 @@
 				<!--				</div>-->
 
 
-				<div class=row>
-					<div class="col-offset-2 col-6">
-						<c:if test="${not empty success}">
-							<div class="alert alert-success text-center py-2">
-								<c:out value="${success}" />
-							</div>
-						</c:if>
-					</div>
-				</div>
+
 				<div class=row>
 					<div
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
@@ -254,7 +251,7 @@
 						<div class="form-check form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="role"
 								id="role-none" value="0"
-								${accountsform.roleStr == '0' ? 'checked' : ''} checked>
+								${accountsform.roleStr == '0' ? 'checked' : ''} required>
 							<label class="form-check-label" for="role-none">権限なし</label>
 						</div>
 						<div class="form-check form-check form-check-inline">
@@ -268,14 +265,6 @@
 								id="role-update" value="2"
 								${accountsform.roleStr == '2' ? 'checked' : ''}> <label
 								class="form-check-label" for="role-update">アカウント登録</label>
-						</div>
-						<div class="form-check form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-all" value="3"
-								${accountsform.roleStr == '3' ? 'checked' : ''}> <label
-				
-				
-								class="form-check-label" for="role-all">管理者</label>
 						</div>
 					</div>
 				</div>

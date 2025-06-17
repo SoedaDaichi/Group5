@@ -7,11 +7,11 @@ public class AccountsForm {
 
 	private String name;
 	private String mail;
-	private String roleStr;
+	private String authority;
 	
-	public AccountsForm(String name, String mail, String roleStr) {
+	public AccountsForm(String name, String mail, String authority) {
 		this.name = name;
 		this.mail = mail;
-		this.roleStr = roleStr;
+		this.authority = authority;
 	}
 }

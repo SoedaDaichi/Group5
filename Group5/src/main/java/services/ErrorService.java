@@ -2,12 +2,10 @@ package services;
 
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import beans.Accounts;
-import beans.Sales;
 import daos.S0010Dao;
 import daos.S0030Dao;
 
@@ -88,25 +86,6 @@ public class ErrorService {
 			errors.put("note", "備考が長すぎます。");
 		}
 		return errors;
-	}
-	
-	public Map<String, String> ValidateSalesSearch(String firstStr, String lastStr) {
-		Map<String, String> errors = new HashMap<>();
-		if (S0010Service.ValidDate(firstStr)) {
-			errors.put("first", "販売日（検索開始日）を正しく入力して下さい。");
-		}
-		if (S0010Service.ValidDate(lastStr)) {
-			errors.put("last", "販売日（検索開始日）を正しく入力して下さい。");
-		}
-		return errors;
-	}
-	
-	public Map<String, String> ValidateNotFoundSales(ArrayList<Sales> sales) {
-		Map<String, String> notFound = new HashMap<>();
-		if (sales == null || sales.isEmpty()) {
-			notFound.put("sales_notfound", "ご指定の条件に該当するデータが見つかりませんでした。");
-		}
-		return notFound;
 	}
 
 	public Map<String, String> ValidateAccounts(String name, String mail, String pass, String confirm_pass) {

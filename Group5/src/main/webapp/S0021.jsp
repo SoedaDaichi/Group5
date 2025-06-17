@@ -33,7 +33,7 @@
 						<th class="col-1">個数</th>
 						<th class="col-1">小計</th>
 					</tr>
-
+					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="sales" items="${salesList}" varStatus="status">

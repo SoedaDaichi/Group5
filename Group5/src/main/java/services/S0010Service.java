@@ -24,15 +24,6 @@ public class S0010Service {
 			return true;
 		}
 	}
-	
-	public static boolean ValidInt(String intStr) {
-		try {
-			Integer.parseInt(intStr);
-			return true;
-		} catch (NumberFormatException e) {
-			return false;
-		}
-	}
 
 	public static boolean ValidNull(String str) {
 		if (str == null || str.isEmpty()) {
