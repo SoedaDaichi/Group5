@@ -107,7 +107,8 @@ public class S0042Servlet extends HttpServlet {
 		            account.setAccount_id(rs.getInt("account_id"));
 		            account.setName(rs.getString("name"));
 		            account.setMail(rs.getString("mail"));
-		            account.setPass(rs.getString("pass"));
+		            account.setPass(rs.getString("password"));
+		            account.setConfirm_pass(account.getPass());
 		            account.setAuthority(rs.getInt("authority"));
 		        }
 		    } catch (Exception e) {

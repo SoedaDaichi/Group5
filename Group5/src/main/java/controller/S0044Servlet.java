@@ -74,13 +74,15 @@ public class S0044Servlet extends HttpServlet {
 			            account.setAccount_id(rs.getInt("account_id"));
 			            account.setName(rs.getString("name"));
 			            account.setMail(rs.getString("mail"));
-			            account.setPass(rs.getString("pass"));
+			            account.setPass(rs.getString("password"));
 			            account.setConfirm_pass(account.getPass());
 			            account.setAuthority(rs.getInt("authority"));
 			        }
 			    } catch (Exception e) {
 			        e.printStackTrace();
 			    }
+		        System.out.println("Loaded account: " + account);
+
 
 		        request.setAttribute("account", account);
 		    }
@@ -88,7 +90,6 @@ public class S0044Servlet extends HttpServlet {
 		    request.getRequestDispatcher("/S0044.jsp").forward(request, response);
 		}
 
-		
 		
 //		
 //		String idStr = request.getParameter("id");
@@ -159,7 +160,13 @@ public class S0044Servlet extends HttpServlet {
 //
 //		request.getRequestDispatcher("/S0042.jsp").forward(request, response);
 //	}
+		String action = request.getParameter("action");
 
+	    if ("cancel".equals(action)) {
+	        // キャンセル処理：一覧画面に戻るだけ
+	        response.sendRedirect("S0041.html");
+	        return;
+	    }
 		
 		String idStr = request.getParameter("id");
 
@@ -169,14 +176,17 @@ public class S0044Servlet extends HttpServlet {
 	        boolean success = dao.delete(accountId);
 
 	        HttpSession session = request.getSession();
+	        
 
 		if (success) {
 			session.setAttribute("success", "アカウントが削除されました。");
-			response.sendRedirect("S0044.html?id=" + accountId);
+			response.sendRedirect("S0044.html");
 		} else {
 			session.setAttribute("error", "削除に失敗しました");
 			response.sendRedirect("S0044.html?id=" + accountId);
 		}
+		System.out.println("Received id for deletion: " + idStr);
+
 		
         return;
     }
