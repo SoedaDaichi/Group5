@@ -40,11 +40,10 @@ public class S0010Servlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		HttpSession session = request.getSession();
-
 		Map<String, String> errors = null;
 		SalesForm salesform = null;
+		
 		if (session != null) {
 			String success = (String) session.getAttribute("success");
 			errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
