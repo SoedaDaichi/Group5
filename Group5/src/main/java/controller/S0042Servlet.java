@@ -90,6 +90,7 @@ public class S0042Servlet extends HttpServlet {
 //		
 		
 		String idStr = request.getParameter("id");
+		System.out.println("aa" + idStr);
 		Accounts account = null;
 		
 		if (idStr != null && !idStr.isEmpty()) {

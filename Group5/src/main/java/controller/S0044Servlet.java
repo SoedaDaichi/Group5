@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -131,6 +132,11 @@ public class S0044Servlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
+		
+		
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		
@@ -162,11 +168,29 @@ public class S0044Servlet extends HttpServlet {
 //	}
 		String action = request.getParameter("action");
 
+//	    if ("cancel".equals(action)) {
+//	        // キャンセル処理：一覧画面に戻るだけ
+//	        response.sendRedirect("S0041.html");
+//	        return;
+//	    }
+	    
 	    if ("cancel".equals(action)) {
-	        // キャンセル処理：一覧画面に戻るだけ
-	        response.sendRedirect("S0041.html");
+	        HttpSession session = request.getSession();
+	        List<Accounts> accountList = (List<Accounts>) session.getAttribute("searchResultList");
+	        String keyword = (String) session.getAttribute("searchKeyword");
+	        
+	        
+	        System.out.println("[S0044Servlet] キャンセル時 searchResultList: " + (accountList == null ? "null" : accountList.size() + "件"));  // ←ここ
+	        System.out.println("[S0044Servlet] キャンセル時 searchKeyword: " + keyword);  // ←ここ
+
+	        
+	        request.setAttribute("accountList", accountList);
+	        request.setAttribute("keyword", keyword);
+
+	        request.getRequestDispatcher("/S0041.jsp").forward(request, response);
 	        return;
 	    }
+
 		
 		String idStr = request.getParameter("id");
 
