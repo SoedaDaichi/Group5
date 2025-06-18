@@ -7,12 +7,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import beans.Sales;
+import beans.SalesSearchForm;
 import utils.Db;
 
 public class S0020Dao {
 
-	public ArrayList<Sales> select(String firststr, String laststr, String account_idstr, String category_idstr, String trade,
-			String note) {
+	public ArrayList<Sales> select(SalesSearchForm ssform) {
 		ArrayList<Sales> salesList = new ArrayList<>();
 		ArrayList<Object> sqlList = new ArrayList<>();
 		ArrayList<String> where = new ArrayList<>();
@@ -21,33 +21,50 @@ public class S0020Dao {
 						+ "s.unit_price * s.sale_number AS price_all "
 						+ "FROM sales s INNER JOIN accounts a ON s.account_id = a.account_id "
 						+ "INNER JOIN categories c ON s.category_id = c.category_id");
+		
+		String firstStr = ssform.getFirstStr();
+		String lastStr = ssform.getLastStr();
+		String account_idStr = ssform.getAccount_idStr();
+		String category_idStr = ssform.getCategory_idStr();
+		String trade_name = ssform.getTrade_name();
+		String note = ssform.getNote();
+		
 		System.out.println("備考: " + note);
-		System.out.println("商品名: " + trade);
+		System.out.println("商品名: " + trade_name);
 
-		if (trade != null && !trade.isEmpty()) {
+		if (trade_name != null && !trade_name.isEmpty()) {
 			// nullでないかつ空文字でない
 			where.add("s.trade_name LIKE ?");
-			sqlList.add("%" + trade + "%");
+			sqlList.add("%" + trade_name + "%");
 		}
 		if (note != null && !note.isEmpty()) {
 			where.add("s.note LIKE ?");
 			sqlList.add("%" + note + "%");
 		}
-		if (firststr != null && laststr != null && !firststr.isEmpty() && !laststr.isEmpty()) {
-			Date first = Date.valueOf(firststr);
-			Date last = Date.valueOf(laststr);
+		if (firstStr != null && lastStr != null && !firstStr.isEmpty() && !lastStr.isEmpty()) {
+			Date first = Date.valueOf(firstStr);
+			Date last = Date.valueOf(lastStr);
 			where.add("s.sale_date BETWEEN ? AND ?");
 			sqlList.add(first);
 			sqlList.add(last);
+		} else if (firstStr != null && !firstStr.isEmpty()) { // 追加
+			Date first = Date.valueOf(firstStr);
+			where.add("s.sale_date >= ?");
+			sqlList.add(first);
+		} else if (lastStr != null && !lastStr.isEmpty()) { // 追加
+			Date last = Date.valueOf(lastStr);
+			where.add("s.sale_date <= ?");
+			sqlList.add(last);
 		}
-		if (account_idstr != null && !account_idstr.isEmpty()) {
-			int account_id = Integer.parseInt(account_idstr);
+		
+		if (account_idStr != null && !account_idStr.isEmpty()) {
+			int account_id = Integer.parseInt(account_idStr);
 			System.out.println(account_id);
 			where.add("s.account_id = ?");
 			sqlList.add(account_id);
 		}
-		if (category_idstr != null && !category_idstr.isEmpty()) {
-			int category_id = Integer.parseInt(category_idstr);
+		if (category_idStr != null && !category_idStr.isEmpty()) {
+			int category_id = Integer.parseInt(category_idStr);
 			where.add("s.category_id = ?");
 			sqlList.add(category_id);
 		}

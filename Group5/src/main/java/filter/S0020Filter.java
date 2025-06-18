@@ -49,8 +49,8 @@ public class S0020Filter extends HttpFilter implements Filter {
 		HttpSession session = req.getSession(false);
 
 		if (session != null) {
-			Accounts loginUser = (Accounts) session.getAttribute("accounts");
-			if (loginUser != null && (loginUser.getAuthority() == 0 || loginUser.getAuthority() == 2)) {
+			Accounts accounts = (Accounts) session.getAttribute("accounts");
+			if (accounts != null && (accounts.getAuthority() == 0 || accounts.getAuthority() == 2)) {
 				System.out.println("不正");
 				session.removeAttribute("accounts");
 				res.sendRedirect(req.getContextPath() + "/C001.html");

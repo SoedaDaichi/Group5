@@ -17,7 +17,7 @@
 			</div>
 		</div>
 
-		<form id="create-task-form" action="S0020.html" method="post">
+		<form id="create-task-form" action="S0020.html" method="post" novalidate>
 			<c:choose>
 				<c:when test="${not empty notFound.sales_notfound}">
 					<div class="alert alert-danger text-center py-1">
