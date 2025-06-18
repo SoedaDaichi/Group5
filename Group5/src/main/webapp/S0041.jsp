@@ -13,8 +13,7 @@
 	<%@ include file="navbar.jsp"%>
 
 		<div class="container mt-5">
-<!--	<div class="container-fluid mx-5">-->
-<!--		<div class="col-10 offset-3">-->
+
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント検索結果表示</h1>
 
 

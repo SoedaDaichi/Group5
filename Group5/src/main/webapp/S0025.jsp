@@ -11,14 +11,14 @@
 </head>
 <body>
 	<%@ include file="navbar.jsp"%>
-	<div class="container-fluid mx-5">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-10 offset-3">
+			<div class="col-9 offset-3">
 				<p class="fs-1 fw-bold mx-5 mt-4">売上詳細削除</p>
 			</div>
 		</div>
 			<div class="row">
-				<div class="col-10 offset-3">
+				<div class="col-9 offset-3">
 					<div class="row my-4">
 						<div class="col-2 text-end">
 							<h5>販売日</h5>

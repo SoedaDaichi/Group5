@@ -10,9 +10,9 @@
 </head>
 <body>
 	<%@ include file="navbar.jsp"%>
-	<div class="container-fluid mx-5">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-10 offset-3">
+			<div class="col-19 offset-3">
 				<p class="fs-1 fw-bold mx-5 mt-4">売上検索条件入力</p>
 			</div>
 		</div>

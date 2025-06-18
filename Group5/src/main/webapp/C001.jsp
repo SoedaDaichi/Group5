@@ -12,7 +12,7 @@
 <body>
 	<div class="container-fluid">
 		<div class="row mt-5">
-			<div class="col-10 offset-4 fs-2 fw-bold ">物品売上管理システム</div>
+			<div class="col-8 offset-4 fs-2 fw-bold ">物品売上管理システム</div>
 		</div>
 	</div>
 
