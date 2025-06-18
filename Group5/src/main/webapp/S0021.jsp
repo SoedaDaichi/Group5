@@ -20,6 +20,18 @@
 		</div>
 
 		<div class="row mx-2">
+			<c:choose>
+				<c:when test="${not empty success}">
+					<div class="alert alert-success text-center py-1">
+						<c:out value="${success}" />
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="alert alert-success text-center
+									py-1"
+						style="visibility: hidden;">&nbsp;</div>
+				</c:otherwise>
+			</c:choose>
 			<table class="table table-bordered table-hover">
 				<thead class="table-light">
 					<tr>

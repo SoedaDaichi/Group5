@@ -102,17 +102,16 @@ public class S0020Servlet extends HttpServlet {
 
 		SalesSearchForm ssform = new SalesSearchForm(firstStr, lastStr, account_idStr, category_idStr,
 				trade_name, note);
+		session.setAttribute("ssform", ssform);
 
 		if (errors != null && !errors.isEmpty()) {
-			session.setAttribute("ssform", ssform);
 			session.setAttribute("errors", errors);
 			response.sendRedirect("S0020.html");
 			return;
 		}
 
 		S0020Dao s0020dao = new S0020Dao();
-		ArrayList<Sales> salesList = s0020dao.select(firstStr, lastStr, account_idStr, category_idStr, trade_name,
-				note);
+		ArrayList<Sales> salesList = s0020dao.select(ssform);
 		System.out.println("検索結果: " + salesList);
 
 		Map<String, String> notFound = es.ValidateNotFoundSales(salesList);
@@ -120,7 +119,6 @@ public class S0020Servlet extends HttpServlet {
 
 		if (notFound != null && !notFound.isEmpty()) {
 			session.setAttribute("notFound", notFound);
-			session.setAttribute("ssform", ssform);
 			response.sendRedirect("S0020.html");
 			return;
 		}

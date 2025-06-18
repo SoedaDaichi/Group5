@@ -29,8 +29,18 @@
 						</div>
 
 						<div class="col-3">
-							<input type="date" id="date" name="sale_date" class="form-control"
-								value="${salesdata.sale_date}" />
+							<input type="date" id="date" name="sale_date"
+								class="form-control" value="${salesdata.sale_date}" />
+							<c:choose>
+								<c:when test="${not empty errors.sale_date}">
+									<div class="text-danger small">
+										<c:out value="${errors.sale_date}" />
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="small" style="visibility: hidden;">&nbsp;</div>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 					<div class="row my-4">
@@ -63,9 +73,9 @@
 								aria-label=".form-select-sm example" name="category_id">
 								<option value="${salesdata.category_id}" selected>${salesdata.category_name}</option>
 								<c:forEach var="categories" items="${categoryList}">
-								<c:if test="${categories.category_id != salesdata.category_id}">
-									<option value="${categories.category_id}">${categories.category_name}</option>
-								</c:if>
+									<c:if test="${categories.category_id != salesdata.category_id}">
+										<option value="${categories.category_id}">${categories.category_name}</option>
+									</c:if>
 								</c:forEach>
 							</select>
 						</div>
@@ -78,8 +88,18 @@
 							</h5>
 						</div>
 						<div class="col-3">
-							<input type="text" id="text" name="trade_name" class="form-control"
-								value="${salesdata.trade_name}" />
+							<input type="text" id="text" name="trade_name"
+								class="form-control" value="${salesdata.trade_name}" />
+							<c:choose>
+								<c:when test="${not empty errors.trade_name}">
+									<div class="text-danger small">
+										<c:out value="${errors.trade_name}" />
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="small" style="visibility: hidden;">&nbsp;</div>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 
@@ -92,6 +112,16 @@
 						<div class="col-3">
 							<input type="text" id="text" name="unit_price"
 								class="form-control" value="${salesdata.unit_price}" />
+							<c:choose>
+								<c:when test="${not empty errors.unit_price}">
+									<div class="text-danger small">
+										<c:out value="${errors.unit_price}" />
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="small" style="visibility: hidden;">&nbsp;</div>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 
@@ -104,6 +134,16 @@
 						<div class="col-3">
 							<input type="text" id="text" name="sale_number"
 								class="form-control" value="${salesdata.sale_number}" />
+							<c:choose>
+								<c:when test="${not empty errors.sale_number}">
+									<div class="text-danger small">
+										<c:out value="${errors.sale_number}" />
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="small" style="visibility: hidden;">&nbsp;</div>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 
@@ -115,14 +155,14 @@
 						</div>
 						<div class="col-3">
 							<textarea input type="text" id="text" name="note"
-								class="form-control" value="${salesdata.note}" rows="4" /></textarea>
+								class="form-control" rows="4" />${salesdata.note}</textarea>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-3 my-3 text-end">
 							<button type="submit" class="btn btn-primary">✓更新</button>
-							<a href="#" button type="submit"
+							<a href="S0021.html" button type="submit"
 								class="btn btn-outline-secondary"> キャンセル </a>
 						</div>
 					</div>

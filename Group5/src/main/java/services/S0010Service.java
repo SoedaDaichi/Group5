@@ -2,17 +2,19 @@ package services;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class S0010Service {
 	public static boolean ValidDate(String dateStr) {
-
+		dateStr = dateStr.trim();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		sdf.setLenient(false);
 		try {
-			sdf.parse(dateStr);
-			return false;
+			Date parsedDate = sdf.parse(dateStr);
+			String formattedDate = sdf.format(parsedDate);
+			return formattedDate.equals(dateStr);
 		} catch (ParseException e) {
-			return true;
+			return false;
 		}
 	}
 
@@ -41,5 +43,4 @@ public class S0010Service {
 			return false;
 		}
 	}
-
 }

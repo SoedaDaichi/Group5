@@ -90,7 +90,7 @@
 							<button type="submit" class="btn btn-danger">×削除</button>
 						</form>
 						
-						<a href="#" button type="submit" class="btn btn-outline-secondary">
+						<a href="S0021.html" button type="submit" class="btn btn-outline-secondary">
 							キャンセル </a>
 					</div>
 				</div>

@@ -89,18 +89,20 @@ public class ErrorService {
 		}
 		return errors;
 	}
-	
+
 	public Map<String, String> ValidateSalesSearch(String firstStr, String lastStr) {
+		System.out.println(firstStr);
+
 		Map<String, String> errors = new HashMap<>();
-		if (!S0010Service.ValidNull(firstStr) && S0010Service.ValidDate(firstStr)) {
+		if (!S0010Service.ValidNull(firstStr) && !S0010Service.ValidDate(firstStr)) {
 			errors.put("first", "販売日（検索開始日）を正しく入力して下さい。");
 		}
-		if (!S0010Service.ValidNull(firstStr) && S0010Service.ValidDate(lastStr)) {
-			errors.put("last", "販売日（検索開始日）を正しく入力して下さい。");
+		if (!S0010Service.ValidNull(lastStr) && !S0010Service.ValidDate(lastStr)) {
+			errors.put("last", "販売日（検索終了日）を正しく入力して下さい。");
 		}
 		return errors;
 	}
-	
+
 	public Map<String, String> ValidateNotFoundSales(ArrayList<Sales> sales) {
 		Map<String, String> notFound = new HashMap<>();
 		if (sales == null || sales.isEmpty()) {
@@ -112,7 +114,7 @@ public class ErrorService {
 	public Map<String, String> ValidateAccounts(String name, String mail, String pass, String confirm_pass) {
 		Map<String, String> errors = new HashMap<>();
 		S0030Dao s0030dao = new S0030Dao();
-		
+
 		if (S0010Service.ValidNull(name)) {
 			errors.put("name", "氏名を入力して下さい。");
 		} else if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
