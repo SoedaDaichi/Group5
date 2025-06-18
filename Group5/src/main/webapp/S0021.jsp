@@ -14,7 +14,7 @@
 
 	<div class="container-fluid mt-2">
 		<div class="row">
-			<div class="col-10 offset-3">
+			<div class="col-9 offset-3">
 				<h1 class="mb-4">売上検索結果表示</h1>
 			</div>
 		</div>
