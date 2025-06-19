@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.Accounts;
+import beans.loginAccount;
 import services.ErrorService;
 import services.auth;
 
@@ -54,9 +54,9 @@ public class C001Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String mail = request.getParameter("mail");
-		System.out.println(mail);
+//		System.out.println(mail);
 		String pass = request.getParameter("pass");
-		System.out.println(pass);
+//		System.out.println(pass);
 		String hashed_pass = auth.hashPassword(pass);
 
 		ErrorService es = new ErrorService();
@@ -70,10 +70,11 @@ public class C001Servlet extends HttpServlet {
 			return;
 		}
 
-		Accounts loginAccount = auth.login(mail, pass); // ユーザー取得
+		loginAccount loginAccount = auth.login(mail, pass); // ユーザー取得
 
 		// ログイン成功処理
 		session.setAttribute("loginAccount", loginAccount);
+		System.out.println("sessionにログイン情報保存: " + session.getAttribute("loginAccount"));
 		response.sendRedirect("C002.html");
 	}
 

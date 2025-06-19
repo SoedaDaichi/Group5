@@ -33,4 +33,12 @@ public class S0040Service {
 		}
 		return s0040dao.select(name, mail, authority);
 	}
+	
+	public int parseAuthority(String authorityStr) {
+		if (authorityStr != null && !authorityStr.isEmpty()) {
+			System.out.println("権限： " + authorityStr);
+			return Integer.parseInt(authorityStr);
+		}
+		return 5;
+	}
 }

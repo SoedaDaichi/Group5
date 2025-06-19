@@ -65,7 +65,6 @@ public class S0021Servlet extends HttpServlet {
 		} else if (ssform != null) {
 			System.out.println("検索結果: " + salesList);
 			request.setAttribute("salesList", salesList);
-			session.removeAttribute("salesList");
 		} else {
 			Map<String, String> notFound = new HashMap<>();
 			notFound.put("sales_notfound", "エラーが発生しました。");
@@ -83,7 +82,7 @@ public class S0021Servlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
-		int sale_id = Integer.valueOf(request.getParameter("id"));
+		int sale_id = Integer.valueOf(request.getParameter("sale_id"));
 		HttpSession session = request.getSession();
 
 		S0021Dao s0021dao = new S0021Dao();

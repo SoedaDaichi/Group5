@@ -43,16 +43,17 @@ public class S0010Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String success = (String) session.getAttribute("success");
 		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
-		SalesForm salesform = (SalesForm) session.getAttribute("salesform");
+		SalesForm Register_salesform = (SalesForm) session.getAttribute("Register_salesform");
+//		System.out.println("絶対呼ばれる: " + Register_salesform);
 
 		if (success != null) {
 			request.setAttribute("success", success);
 			session.removeAttribute("success");
 		} else if (errors != null) {
 			request.setAttribute("errors", errors);
-			request.setAttribute("salesform", salesform);
+			request.setAttribute("Register_salesform", Register_salesform);
 			session.removeAttribute("errors");
-			session.removeAttribute("salesform");
+			session.removeAttribute("Register_salesform");
 		}
 
 		ArrayList<Accounts> accountList = new ArrayList<>();
@@ -94,9 +95,11 @@ public class S0010Servlet extends HttpServlet {
 		System.out.println(errors);
 
 		if (errors != null && !errors.isEmpty()) {
-			SalesForm salesform = new SalesForm(sale_dateStr, account_idStr, category_idStr, trade_name, unit_priceStr,
+			SalesForm Register_salesform = new SalesForm(sale_dateStr, account_idStr, category_idStr, trade_name, unit_priceStr,
 					sale_numberStr, note);
-			session.setAttribute("salesform", salesform);
+//			System.out.println("エラー時: " + Register_salesform);
+			session.setAttribute("Register_salesform", Register_salesform);
+//			System.out.println("session保存後" + session.getAttribute("Register_salesform"));
 			session.setAttribute("errors", errors);
 			response.sendRedirect("S0010.html");
 			return;
@@ -117,11 +120,11 @@ public class S0010Servlet extends HttpServlet {
 			Categories category = ss.identificationCategory(category_id);
 			String category_name = category.getCategory_name();
 
-			SalesData salesdata = new SalesData(sale_date, name, account_id, category_name, category_id, trade_name,
+			SalesData Register_salesdata = new SalesData(sale_date, name, account_id, category_name, category_id, trade_name,
 					unit_price,
 					sale_number, note);
 
-			session.setAttribute("salesdata", salesdata);
+			session.setAttribute("Register_salesdata", Register_salesdata);
 			//			request.getRequestDispatcher("S0011.html").forward(request, response);
 			response.sendRedirect("S0011.html");
 		}

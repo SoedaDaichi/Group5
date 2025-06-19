@@ -56,11 +56,14 @@ public class S0041Servlet extends HttpServlet {
 
 		if ((accontsList == null || accontsList.isEmpty()) && asform != null) {
 			S0040Service s0040service = new S0040Service();
-			ArrayList<Accounts> accountsListRe = s0040service.select(asform);
-			request.setAttribute("accontsList", accountsListRe);
+			ArrayList<Accounts> accountsList = s0040service.select(asform);
+			request.setAttribute("accontsList", accountsList);
+			session.removeAttribute("accountList");
+			System.out.println("再検索");
 		} else if (asform != null) {
 			request.setAttribute("accontsList", accontsList);
 			session.removeAttribute("accontsList");
+			System.out.println("初回検索");
 		} else {
 			Map<String, String> notFound = new HashMap<>();
 			notFound.put("acconts_notfound", "エラーが発生しました。");
@@ -77,18 +80,19 @@ public class S0041Servlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		int account_id = Integer.valueOf(request.getParameter("account_id"));
+		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
 
 		S0041Dao s0041dao = new S0041Dao();
 		Accounts accounts = s0041dao.getAccountsByAccount_id(account_id);
-		
-//		//account_idに紐づいた情報を取ってくる作業
-//		String name = accounts.getName();
-//		String mail = accounts.getMail();
-//		int authority = accounts.getAuthority();
+
 		session.setAttribute("account_id", account_id);
 		session.setAttribute("accounts", accounts);
 
-		response.sendRedirect("S0042.html");
+		if ("edit".equals(action)) {
+			response.sendRedirect("S0042.html");
+		} else if ("delete".equals(action)) {
+			response.sendRedirect("S0044.html");
+		}
 	}
 }

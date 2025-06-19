@@ -59,13 +59,10 @@ public class S0020Servlet extends HttpServlet {
 			session.removeAttribute("ssform");
 		}
 
-		ArrayList<Accounts> accountList = new ArrayList<>();
-		ArrayList<Categories> categoryList = new ArrayList<>();
-
 		S0010Dao ss = new S0010Dao();
-		accountList = ss.selectAccount();
-		System.out.println(accountList.size());
-		categoryList = ss.selectCategory();
+		ArrayList<Accounts> accountList = ss.selectAccount();
+//		System.out.println(accountList.size());
+		ArrayList<Categories> categoryList = ss.selectCategory();
 
 		request.setAttribute("accountList", accountList);
 		request.setAttribute("categoryList", categoryList);

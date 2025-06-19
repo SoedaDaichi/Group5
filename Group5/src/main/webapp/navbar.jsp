@@ -19,7 +19,7 @@
 					<ul class="dropdown-menu dropdown-menu-lg-end"
 						aria-labelledby="salesDropdown">
 						<c:if
-							test="${sessionScope.accounts.authority == 1 || sessionScope.accounts.authority == 3}">
+							test="${sessionScope.loginAccount.authority == 1 || sessionScope.loginAccount.authority == 3}">
 							<li>
 								<form action="S0010.html" method="get">
 									<button type="submit" class="dropdown-item">売上登録</button>
@@ -41,7 +41,7 @@
 					<ul class="dropdown-menu dropdown-menu-lg-end"
 						aria-labelledby="accountDropdown">
 						<c:if
-							test="${sessionScope.accounts.authority == 2 || sessionScope.accounts.authority == 3}">
+							test="${sessionScope.loginAccount.authority == 2 || sessionScope.loginAccount.authority == 3}">
 							<li>
 								<form action="S0030.html" method="get">
 									<button type="submit" class="dropdown-item">アカウント登録</button>
@@ -62,7 +62,8 @@
 					<button class="btn dropdown-toggle nav-link ps-5" type="button"
 						id="logoutDropdown" data-bs-toggle="dropdown"
 						aria-expanded="false">
-						<c:out value="${sessionScope.accounts.name}" />
+						<c:out value="${sessionScope.loginAccount
+						.name}" />
 					</button>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="logoutDropdown">

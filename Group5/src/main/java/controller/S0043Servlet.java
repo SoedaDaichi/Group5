@@ -37,7 +37,7 @@ public class S0043Servlet extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 		
-		AccountsData accountsdata = (AccountsData) session.getAttribute("accountdata");
+		AccountsData accountsdata = (AccountsData) session.getAttribute("accountsdata");
 		int account_id = (int) session.getAttribute("account_id");
 		
 		request.setAttribute("accountsdata", accountsdata);
@@ -60,7 +60,7 @@ public class S0043Servlet extends HttpServlet {
 		String name = accountsdata.getName();
 		String mail = accountsdata.getMail();
 		String pass = accountsdata.getPass();
-		String authority = accountsdata.getAuthorityStr(); 
+		String authority = accountsdata.getAuthority(); 
 		
 		session.removeAttribute("account_id");
 		session.removeAttribute("accountsdata");

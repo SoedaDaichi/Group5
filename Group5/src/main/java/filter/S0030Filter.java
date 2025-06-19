@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.Accounts;
+import beans.loginAccount;
 
 /**
  * Servlet Filter implementation class S0030Filter
@@ -50,7 +50,8 @@ public class S0030Filter extends HttpFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 
 		HttpSession session = req.getSession(false);
-		Accounts loginAccount = (Accounts) session.getAttribute("loginAccount");
+		loginAccount loginAccount = (loginAccount) session.getAttribute("loginAccount");
+		String uri = req.getRequestURI();
 
 		if (loginAccount.getAuthority() == 0 || loginAccount.getAuthority() == 1) {
 			System.out.println("S0030Filter: 不正");
@@ -60,6 +61,19 @@ public class S0030Filter extends HttpFilter implements Filter {
 			session.setAttribute("errors", errors);
 			res.sendRedirect("C001.html");
 			return;
+		}
+		
+		// アカウント登録系のsession破棄
+		boolean isTargetPage = uri.matches(".*/S003[0-1]\\.(html|jsp)$");
+		String[] sales_sessionKeys = { "Register_accountsform", "Register_accountsdata" };
+
+		if (session != null && !isTargetPage) {
+			for (String sales_sessionKey : sales_sessionKeys) {
+				if (session.getAttribute(sales_sessionKey) != null) {
+					session.removeAttribute(sales_sessionKey);
+					System.out.println("アカウント登録系: " + sales_sessionKey + "を削除。");
+				}
+			}
 		}
 
 		// pass the request along the filter chain

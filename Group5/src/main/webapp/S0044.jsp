@@ -16,17 +16,10 @@
 		<div class="col-9 offset-3">
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント詳細削除確認</h1>
 
-			<c:if test="${not empty success}">
-				<div class="alert alert-success" role="alert">${success}</div>
-			</c:if>
-			<c:if test="${not empty error}">
-				<div class="alert alert-danger" role="alert">${error}</div>
-			</c:if>
-
 			<form id="create-task-form" action="S0044.html" method="post">
-				<input type="hidden" name="id" value="${account.account_id}" />
+				<input type="hidden" name="id" value="${account_id}" />
 
-				<div class=row>
+				<div class="row">
 					<div
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
 						<h5>
@@ -35,11 +28,11 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="text" id="name" name="name" class="form-control"
-							value="${account.name}" readonly>
+							value="${accounts.name}" readonly>
 					</div>
 				</div>
 
-				<div class=row>
+				<div class="row">
 					<div
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
 						<h5>
@@ -47,12 +40,12 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="email" id="adless" name="mail" class="form-control"
-							value="${account.mail}" readonly>
+						<input type="email" id="mail" name="mail" class="form-control"
+							value="${accounts.mail}" readonly>
 					</div>
 				</div>
 
-				<div class=row>
+				<div class="row">
 					<div
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
 						<h5>
@@ -61,11 +54,11 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="password" id="password" name="pass"
-							class="form-control" value="${account.pass}" readonly>
+							class="form-control" value="${accounts.pass}" readonly>
 					</div>
 				</div>
 
-				<div class=row>
+				<div class="row">
 					<div
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
 						<h5>
@@ -74,7 +67,8 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="password" id="confirm_password" name="confirm_pass"
-							class="form-control" value="${account.confirm_pass}" readonly>
+							class="form-control" value="${accounts.pass}"
+							readonly>
 					</div>
 				</div>
 
@@ -87,24 +81,35 @@
 					</div>
 					<div class="col-4 my-3">
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-none" value="none"
-								<c:if test="${account.authority eq 0}">checked</c:if> disabled>
-							<label class="form-check-label" for="role-none">権限なし</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-none" value="0"
+								<c:if test="${accounts.authority eq 0}">checked</c:if>
+								disabled> <label class="form-check-label"
+								for="authority-none">権限なし</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-read" value="read"
-								<c:if test="${account.authority eq 1}">checked</c:if> disabled>
-							<label class="form-check-label" for="role-read">売上登録</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-sales" value="1"
+								<c:if test="${accounts.authority eq 1}">checked</c:if>
+								disabled> <label class="form-check-label"
+								for="authority-sales">売上登録</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-update" value="update"
-								<c:if test="${account.authority eq 2}">checked</c:if> disabled>
-							<label class="form-check-label" for="role-update">アカウント登録</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-accounts" value="2"
+								<c:if test="${accounts.authority eq 2}">checked</c:if>
+								disabled> <label class="form-check-label"
+								for="authority-accounts">アカウント登録</label>
 						</div>
-						<input type="hidden" name="role" value="${param.role}">
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-all" value="3"
+								<c:if test="${accounts.authority eq 3}">checked</c:if>
+								disabled> <label class="form-check-label"
+								for="authority-all">管理者</label>
+						</div>
+						<input type="hidden" name="authority"
+							value="${accounts.authority}">
 					</div>
 				</div>
 

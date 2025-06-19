@@ -36,9 +36,9 @@ public class S0031Servlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
-		AccountsData accountsdata = (AccountsData) session.getAttribute("accountsdata");
+		AccountsData Register_accountsdata = (AccountsData) session.getAttribute("Register_accountsdata");
 		
-		request.setAttribute("accountsdata", accountsdata);
+		request.setAttribute("Register_accountsdata", Register_accountsdata);
 		request.getRequestDispatcher("/S0031.jsp").forward(request, response);
 	}
 
@@ -50,12 +50,12 @@ public class S0031Servlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		HttpSession session = request.getSession();
-		AccountsData accountsdata = (AccountsData) session.getAttribute("accountsdata");
+		AccountsData Register_accountsdata = (AccountsData) session.getAttribute("Register_accountsdata");
 		
-		String name = accountsdata.getName();
-		String mail = accountsdata.getMail();
-		String pass = accountsdata.getPass();
-		String authorityStr = accountsdata.getAuthorityStr();
+		String name = Register_accountsdata.getName();
+		String mail = Register_accountsdata.getMail();
+		String pass = Register_accountsdata.getPass();
+		String authorityStr = Register_accountsdata.getAuthority();
 
 		String hashedPass = auth.hashPassword(pass);
 
