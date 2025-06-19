@@ -10,14 +10,26 @@
 </head>
 <body>
 	<%@ include file="navbar.jsp"%>
-	<div class="container-fluid mx-5">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-10 offset-3">
+			<div class="col-19 offset-3">
 				<p class="fs-1 fw-bold mx-5 mt-4">売上検索条件入力</p>
 			</div>
 		</div>
 
-		<form id="create-task-form" action="S0020.html" method="post">
+		<form id="create-task-form" action="S0020.html" method="post" novalidate>
+			<c:choose>
+				<c:when test="${not empty notFound.sales_notfound}">
+					<div class="alert alert-danger text-center py-1">
+						<c:out value="${notFound.sales_notfound}" />
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="alert alert-danger text-center
+									py-1"
+						style="visibility: hidden;">&nbsp;</div>
+				</c:otherwise>
+			</c:choose>
 			<div class="row">
 				<div class="col-10 offset-3">
 					<div class="row my-4">

@@ -15,29 +15,12 @@
 
 	<!--		<div class="content">-->
 
-	<div class="container-fluid mx-5">
-		<div class="col-10 offset-3">
+	<div class="container-fluid">
+		<div class="col-9 offset-3">
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント登録</h1>
 
 
 			<form id="create-task-form" action="S0030.html" method="post">
-
-				<!--				<div class="mt-3">-->
-				<!--				<div class=row>-->
-				<!--					<div class="col-2 text-end my-3">-->
-				<!--						<label for="name" class="form-label">氏名 <span-->
-				<!--							class="badge bg-secondary">必須</span>-->
-				<!--						</label>-->
-				<!--					</div>-->
-
-				<!--					<div class="col-2 my-3">-->
-				<!--						<input type="text" required="required" id="name" name="name"-->
-				<!--							class="form-control ${not empty error ? ' is-invalid' : ''} my-3 px-2"-->
-				<!--							placeholder="氏名" required>-->
-				<!--					</div>-->
-				<!--				</div>-->
-
-
 				<div class=row>
 					<div class="col-offset-2 col-6">
 						<c:if test="${not empty success}">
@@ -56,7 +39,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="text" id="name" value="${accountsform.name}"
+						<input type="text" id="name" value="${Register_accountsform.name}"
 							name="name"
 							class="form-control ${not empty error ? ' is-invalid' : ''}"
 							placeholder="氏名">
@@ -73,24 +56,6 @@
 					</div>
 				</div>
 
-
-
-
-				<!--						<div class="mt-3">-->
-				<!--				<div class=row>-->
-				<!--					<div class="col-2 text-end my-3">-->
-				<!--						<label for="adless" class="form-label">メールアドレス <span-->
-				<!--							class="badge bg-secondary">必須</span>-->
-				<!--						</label>-->
-				<!--					</div>-->
-
-				<!--					<div class="col-2 my-3">-->
-				<!--						<input type="email" required="required" id="adless" name="mail"-->
-				<!--							class="form-control ${not empty error ? ' is-invalid' : ''} my-3 px-2"-->
-				<!--							placeholder="メールアドレス" required>-->
-				<!--					</div>-->
-				<!--				</div>-->
-
 				<div class=row>
 					<div
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
@@ -100,8 +65,8 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="email" id="adless" value="${accountsform.mail}"
-							name="mail"
+						<input type="email" id="adless"
+							value="${Register_accountsform.mail}" name="mail"
 							class="form-control ${not empty error ? ' is-invalid' : ''}"
 							placeholder="メールアドレス">
 						<c:choose>
@@ -116,27 +81,6 @@
 						</c:choose>
 					</div>
 				</div>
-
-
-
-
-
-				<!--						<div class="mt-3">-->
-				<!--				<div class=row>-->
-				<!--					<div class="col-2 text-end my-3">-->
-				<!--						<label for="password" class="form-label">パスワード <span-->
-				<!--							class="badge bg-secondary">必須</span>-->
-				<!--						</label>-->
-				<!--					</div>-->
-
-				<!--					<div class="col-2 my-3">-->
-				<!--						<input type="password" required="required" id="password"-->
-				<!--							name="pass"-->
-				<!--							class="form-control ${not empty error ? ' is-invalid' : ''} my-3 px-2"-->
-				<!--							placeholder="パスワード" required>-->
-				<!--					</div>-->
-				<!--				</div>-->
-
 
 				<div class=row>
 					<div
@@ -163,29 +107,6 @@
 					</div>
 				</div>
 
-
-
-
-
-
-
-				<!--					<div class="mt-3">-->
-				<!--				<div class=row>-->
-				<!--					<div class="col-2 text-end my-3">-->
-				<!--						<label for="confirm-password" class="form-label">パスワード（確認）-->
-				<!--							<span class="badge bg-secondary">必須</span>-->
-				<!--						</label>-->
-				<!--					</div>-->
-
-				<!--					<div class="col-2 my-3">-->
-				<!--						<input type="password" required="required" id="confirm_password"-->
-				<!--							name="confirm_pass"-->
-				<!--							class="form-control ${not empty error ? ' is-invalid' : ''} my-3 px-2"-->
-				<!--							placeholder="パスワード（確認）" required>-->
-				<!--					</div>-->
-				<!--				</div>-->
-
-
 				<div class=row>
 					<div
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
@@ -210,38 +131,6 @@
 					</div>
 				</div>
 
-
-
-
-
-				<!--					<div class="mt-3">-->
-				<!--				<div class=row>-->
-				<!--					<div class="col-2 text-end my-3">-->
-				<!--						<label class="form-label">権限 <span-->
-				<!--							class="badge bg-secondary">必須</span>-->
-				<!--						</label>-->
-				<!--					</div>-->
-
-				<!--					<div class="col-2 my-3">-->
-				<!--						<div class="form-check">-->
-				<!--							<input class="form-check-input" type="radio" name="role"-->
-				<!--								id="role-none" value="0" required> <label-->
-				<!--								class="form-check-label" for="role-none">権限なし</label>-->
-				<!--						</div>-->
-				<!--						<div class="form-check">-->
-				<!--							<input class="form-check-input" type="radio" name="role"-->
-				<!--								id="role-read" value="1"> <label-->
-				<!--								class="form-check-label" for="role-read">売上登録</label>-->
-				<!--						</div>-->
-				<!--						<div class="form-check">-->
-				<!--							<input class="form-check-input" type="radio" name="role"-->
-				<!--								id="role-update" value="2"> <label-->
-				<!--								class="form-check-label" for="role-update">アカウント登録</label>-->
-				<!--						</div>-->
-				<!--					</div>-->
-				<!--				</div>-->
-
-
 				<div class="row">
 					<div
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
@@ -252,40 +141,33 @@
 
 					<div class="col-4 my-3">
 						<div class="form-check form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-none" value="0"
-								${accountsform.roleStr == '0' ? 'checked' : ''} checked>
-							<label class="form-check-label" for="role-none">権限なし</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-none" value="0"
+								${Register_accountsform.authority == '0' ? 'checked' : ''}
+								checked> <label class="form-check-label"
+								for="authority-none">権限なし</label>
 						</div>
 						<div class="form-check form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-read" value="1"
-								${accountsform.roleStr == '1' ? 'checked' : ''}> <label
-								class="form-check-label" for="role-read">売上登録</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-sales" value="1"
+								${Register_accountsform.authority == '1' ? 'checked' : ''}>
+							<label class="form-check-label" for="authority-sales">売上登録</label>
 						</div>
 						<div class="form-check form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-update" value="2"
-								${accountsform.roleStr == '2' ? 'checked' : ''}> <label
-								class="form-check-label" for="role-update">アカウント登録</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-accounts" value="2"
+								${Register_accountsform.authority == '2' ? 'checked' : ''}>
+							<label class="form-check-label" for="authority-accounts">アカウント登録</label>
 						</div>
 						<div class="form-check form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-all" value="3"
-								${accountsform.roleStr == '3' ? 'checked' : ''}> <label
-				
-				
-								class="form-check-label" for="role-all">管理者</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-all" value="3"
+								${Register_accountsform.authority == '3' ? 'checked' : ''}>
+							<label class="form-check-label" for="authority-all">管理者</label>
 						</div>
 					</div>
 				</div>
 
-
-
-
-
-				<!--				<div class="row my-5">-->
-				<!--					<div class="col-3 text-end">-->
 				<div class="row my-2">
 					<div class="col-2 offset-2 my-3">
 						<button type="submit" class="btn btn-primary">✓登録</button>

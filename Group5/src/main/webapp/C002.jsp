@@ -13,8 +13,8 @@
 </head>
 <body>
 	<%@ include file="navbar.jsp"%>
-	<div class="container-fluid mx-5">
-		<p class="fs-1 fw-bold mx-5 mt-4">ダッシュボード</p>
+	<div class="container-fluid">
+		<p class="fs-1 fw-bold mt-4">ダッシュボード</p>
 
 
 		<div class="d-flex gap-4 py-3">

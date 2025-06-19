@@ -12,45 +12,73 @@
 <body>
 	<%@ include file="navbar.jsp"%>
 
-		<div class="container mt-5">
-<!--	<div class="container-fluid mx-5">-->
-<!--		<div class="col-10 offset-3">-->
-			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント検索結果表示</h1>
+	<div class="container mt-5">
 
+		<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント検索結果表示</h1>
 
-			<table class="table table-bordered table-hover">
-				<thead class="table-light">
+		<c:choose>
+			<c:when test="${not empty success}">
+				<div class="alert alert-success text-center py-1">
+					<c:out value="${success}" />
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="alert alert-success text-center
+									py-1"
+					style="visibility: hidden;">&nbsp;</div>
+			</c:otherwise>
+		</c:choose>
+		<c:choose>
+			<c:when test="${not empty error}">
+				<div class="alert alert-danger text-center py-1">
+					<c:out value="${error}" />
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="alert alert-danger text-center
+									py-1"
+					style="visibility: hidden;">&nbsp;</div>
+			</c:otherwise>
+		</c:choose>
+		<table class="table table-bordered table-hover">
+			<thead class="table-light">
+				<tr>
+					<th>操作</th>
+					<th>No.</th>
+					<th>氏名</th>
+					<th>メールアドレス</th>
+					<th>権限</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="accounts" items="${accountsList}" varStatus="status">
 					<tr>
-						<th>操作</th>
-						<th>No.</th>
-						<th>氏名</th>
-						<th>メールアドレス</th>
-						<th>権限</th>
+						<td>
+							<form action="S0041.html" method="post">
+								<input type="hidden" name="account_id"
+									value="${accounts.account_id}">
+								<button type="submit" name="action" value="edit"
+									class="btn btn-sm btn-primary">編集</button>
+								<button type="submit" name="action" value="delete"
+									class="btn btn-sm btn-primary">削除</button>
+							</form>
+						</td>
+						<td>${accounts.account_id}</td>
+						<td>${accounts.name}</td>
+						<td>${accounts.mail}</td>
+						<td><c:choose>
+								<c:when test="${accounts.authority == '0'}">権限なし</c:when>
+								<c:when test="${accounts.authority == '1'}">売上登録</c:when>
+								<c:when test="${accounts.authority == '2'}">アカウント登録</c:when>
+								<c:when test="${accounts.authority == '3'}">管理者</c:when>
+							</c:choose></td>
 					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="account" items="${accountList}" varStatus="status">
-						<tr>
-							<td><a href="S0042.html?id=${account.account_id}"
-								class="btn btn-sm btn-primary">編集</a> <a
-								href="S0044.html?id=${account.account_id}"
-								class="btn btn-sm btn-danger">削除</a></td>
-							<td>${account.account_id}</td>
-							<td>${account.name}</td>
-							<td>${account.mail}</td>
-							<td><c:choose>
-									<c:when test="${account.authority == '0'}">権限なし</c:when>
-									<c:when test="${account.authority == '1'}">売上登録</c:when>
-									<c:when test="${account.authority == '2'}">アカウント登録</c:when>
-									<c:when test="${account.authority == '3'}">管理者</c:when>
-								</c:choose></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+				</c:forEach>
+			</tbody>
+		</table>
 
 
-		</div>
+	</div>
 	</div>
 	<script src="js/bootstrap.bundle.min.js"></script>
 </body>

@@ -12,7 +12,7 @@
 <body>
 	<div class="container-fluid">
 		<div class="row mt-5">
-			<div class="col-10 offset-4 fs-2 fw-bold ">物品売上管理システム</div>
+			<div class="col-8 offset-4 fs-2 fw-bold ">物品売上管理システム</div>
 		</div>
 	</div>
 
@@ -82,19 +82,5 @@
 			</div>
 		</div>
 	</form>
-
-	<!--    <div class="container-fluid">-->
-	<!--    	<div class="col text-center">-->
-	<!--        <div class="row">-->
-	<!--            <p>-->
-	<!--                <a href="#">パスワードをお忘れの方はこちら</a>-->
-	<!--            </p>-->
-	<!--        </div>-->
-	<!--        <div class="row">-->
-	<!--            <p>-->
-	<!--                <a href="#">新規登録（無料）</a>-->
-	<!--            </p>-->
-	<!--        </div>-->
-	<!--    </div>-->
 </body>
 </html>

@@ -9,22 +9,22 @@ public class S0043Dao {
 	private static final String DB_USER = "root";
 	private static final String DB_PASS = "root";
 
-	public boolean update(int accountId, String name, String mail, String hashedPass, String role) {
+	public boolean update(int account_id, String name, String mail, String hashedPass, String authority) {
 		String sql = "UPDATE accounts SET name=?, mail=?, password=?, authority=? WHERE account_id=?";
 
 		try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-			 PreparedStatement stmt = conn.prepareStatement(sql)) {
+			 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 			// ※ account_id の取得はとりあえず
 			//int accountId = 1;
 
-			stmt.setString(1, name);
-			stmt.setString(2, mail);
-			stmt.setString(3, hashedPass);
-			stmt.setInt(4, Integer.parseInt(role));
-			stmt.setInt(5, accountId);
+			pstmt.setString(1, name);
+			pstmt.setString(2, mail);
+			pstmt.setString(3, hashedPass);
+			pstmt.setInt(4, Integer.parseInt(authority));
+			pstmt.setInt(5, account_id);
 
-			int rowsAffected = stmt.executeUpdate();
+			int rowsAffected = pstmt.executeUpdate();
 			return rowsAffected > 0;
 
 		} catch (Exception e) {

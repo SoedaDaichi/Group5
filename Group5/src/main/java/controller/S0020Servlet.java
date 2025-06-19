@@ -59,13 +59,10 @@ public class S0020Servlet extends HttpServlet {
 			session.removeAttribute("ssform");
 		}
 
-		ArrayList<Accounts> accountList = new ArrayList<>();
-		ArrayList<Categories> categoryList = new ArrayList<>();
-
 		S0010Dao ss = new S0010Dao();
-		accountList = ss.selectAccount();
-		System.out.println(accountList.size());
-		categoryList = ss.selectCategory();
+		ArrayList<Accounts> accountList = ss.selectAccount();
+//		System.out.println(accountList.size());
+		ArrayList<Categories> categoryList = ss.selectCategory();
 
 		request.setAttribute("accountList", accountList);
 		request.setAttribute("categoryList", categoryList);
@@ -86,7 +83,6 @@ public class S0020Servlet extends HttpServlet {
 		System.out.print("日付範囲: " + firstStr + "～");
 		String lastStr = request.getParameter("last");
 		System.out.println(lastStr);
-		ErrorService es = new ErrorService();
 
 		String account_idStr = request.getParameter("account_id");
 		System.out.println("アカウントID: " + account_idStr);
@@ -97,22 +93,23 @@ public class S0020Servlet extends HttpServlet {
 		String note = request.getParameter("note");
 		System.out.println("備考： " + note);
 
+		ErrorService es = new ErrorService();
+		
 		Map<String, String> errors = es.ValidateSalesSearch(firstStr, lastStr);
 		System.out.println("日付エラー: " + errors);
-
-		SalesSearchForm ssform = new SalesSearchForm(firstStr, lastStr, account_idStr, category_idStr,
-				trade_name, note);
-
 		if (errors != null && !errors.isEmpty()) {
-			session.setAttribute("ssform", ssform);
 			session.setAttribute("errors", errors);
 			response.sendRedirect("S0020.html");
 			return;
 		}
 
+		SalesSearchForm ssform = new SalesSearchForm(firstStr, lastStr, account_idStr, category_idStr,
+				trade_name, note);
+		session.setAttribute("ssform", ssform);
+
+
 		S0020Dao s0020dao = new S0020Dao();
-		ArrayList<Sales> salesList = s0020dao.select(firstStr, lastStr, account_idStr, category_idStr, trade_name,
-				note);
+		ArrayList<Sales> salesList = s0020dao.select(ssform);
 		System.out.println("検索結果: " + salesList);
 
 		Map<String, String> notFound = es.ValidateNotFoundSales(salesList);
@@ -120,7 +117,6 @@ public class S0020Servlet extends HttpServlet {
 
 		if (notFound != null && !notFound.isEmpty()) {
 			session.setAttribute("notFound", notFound);
-			session.setAttribute("ssform", ssform);
 			response.sendRedirect("S0020.html");
 			return;
 		}

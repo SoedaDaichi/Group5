@@ -8,7 +8,7 @@ import utils.Db;
 
 public class S0023Dao {
 
-	public void updateSales(Date sale_date, int account_id, int category_id, String trade_name, int unit_price, int sale_number, String note, int sale_id) {
+	public boolean updateSales(Date sale_date, int account_id, int category_id, String trade_name, int unit_price, int sale_number, String note, int sale_id) {
 		String updateSales = "update sales set sale_date = ?, account_id = ?, category_id = ?, trade_name = ?, unit_price = ?, sale_number = ?, note = ? where sale_id = ?";
 
 		try (
@@ -22,11 +22,14 @@ public class S0023Dao {
 			pstmt.setInt(6, sale_number);
 			pstmt.setString(7, note);
 			pstmt.setInt(8, sale_id);
-			pstmt.executeUpdate();
+			
+			int rowsAffected = pstmt.executeUpdate();
+			return rowsAffected > 0;
 		}
 
 		catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 
 	}

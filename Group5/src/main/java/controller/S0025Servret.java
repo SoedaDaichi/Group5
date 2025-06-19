@@ -52,7 +52,7 @@ public class S0025Servret extends HttpServlet {
 	    S0025Dao s0025dao = new S0025Dao();
 	    s0025dao.daleteSales(sale_id);
 	    
-	    response.sendRedirect("S0020.html");	    
+	    response.sendRedirect("S0021.html");	    
 	}
 
 }

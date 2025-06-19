@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,7 +17,9 @@ import beans.Accounts;
 import beans.Categories;
 import beans.Sales;
 import beans.SalesData;
+import beans.SalesSearchForm;
 import daos.S0010Dao;
+import daos.S0020Dao;
 import daos.S0021Dao;
 
 /**
@@ -40,10 +44,34 @@ public class S0021Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+
+		String success = (String) session.getAttribute("success");
+		String error = (String) session.getAttribute("error");
+		SalesSearchForm ssform = (SalesSearchForm) session.getAttribute("ssform");
 		ArrayList<Sales> salesList = (ArrayList<Sales>) session.getAttribute("salesList");
-		System.out.println("検索結果: " + salesList);
-		request.setAttribute("salesList", salesList);
-		session.removeAttribute("salesList");
+
+		if (success != null) {
+			request.setAttribute("success", success);
+			session.removeAttribute("success");
+		} else if (error != null) {
+			request.setAttribute("error", error);
+			session.removeAttribute("error");
+		}
+
+		if ((salesList == null || salesList.isEmpty()) && ssform != null) {
+			S0020Dao s0020dao = new S0020Dao();
+			ArrayList<Sales> salesListRe = s0020dao.select(ssform);
+			request.setAttribute("salesList", salesListRe);
+		} else if (ssform != null) {
+			System.out.println("検索結果: " + salesList);
+			request.setAttribute("salesList", salesList);
+		} else {
+			Map<String, String> notFound = new HashMap<>();
+			notFound.put("sales_notfound", "エラーが発生しました。");
+			request.setAttribute("notFound", notFound); // 検索画面の上部にエラー文が出る
+			response.sendRedirect("S0020.html");
+			return;
+		}
 		request.getRequestDispatcher("/S0021.jsp").forward(request, response);
 	}
 
@@ -54,7 +82,7 @@ public class S0021Servlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
-		int sale_id = Integer.valueOf(request.getParameter("id"));
+		int sale_id = Integer.valueOf(request.getParameter("sale_id"));
 		HttpSession session = request.getSession();
 
 		S0021Dao s0021dao = new S0021Dao();

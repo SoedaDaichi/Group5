@@ -11,123 +11,124 @@
 </head>
 <body>
 	<%@ include file="navbar.jsp"%>
-	<div class="container-fluid mx-5">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-10 offset-3">
+			<div class="col-9 offset-3">
 				<p class="fs-1 fw-bold mx-5 mt-4">売上詳細編集</p>
 			</div>
 		</div>
 
+		<c:set var="formData"
+			value="${not empty salesform ? salesform : salesdata}" />
+
 		<form id="create-task-form" action="S0023.html" method="post">
 			<div class="row">
-				<div class="col-10 offset-3">
+				<div class="col-9 offset-3">
 					<div class="row my-4">
 						<div class="col-2 text-end">
 							<h5>
-								<span class>販売日</span>
+								<span>販売日</span>
 							</h5>
 						</div>
-
 						<div class="col-3">
-							<input type="date" id="date" name="sale_date" class="form-control"
-								value="${data.sale_date}" />
+							<input type="date" id="date" name="sale_date"
+								class="form-control" value="${formData.sale_date}" />
+							<c:if test="${not empty errors.sale_date}">
+								<div class="text-danger small">${errors.sale_date}</div>
+							</c:if>
 						</div>
 					</div>
 					<div class="row my-4">
 						<div class="col-2 text-end">
 							<h5>
-								<span class>担当</span>
+								<span>担当</span>
 							</h5>
 						</div>
 						<div class="col-3">
-							<select class="form-select form-select-sm"
-								aria-label=".form-select-sm example" name="account_id">
-								<option value="${data.account_id}" selected>${data.name}</option>
+							<select class="form-select form-select-sm" name="account_id">
 								<c:forEach var="account" items="${accountList}">
-									<c:if test="${account.account_id != data.account_id}">
-										<option value="${account.account_id}">${account.name}</option>
-									</c:if>
+									<option value="${account.account_id}"
+										${formData.account_id eq account.account_id ? 'selected' : ''}>${account.name}</option>
 								</c:forEach>
 							</select>
 						</div>
 					</div>
-
 					<div class="row my-4">
 						<div class="col-2 text-end">
 							<h5>
-								<span class>商品カテゴリー</span>
+								<span>商品カテゴリー</span>
 							</h5>
 						</div>
 						<div class="col-3">
-							<select class="form-select form-select-sm"
-								aria-label=".form-select-sm example" name="category_id">
-								<option value="${data.category_id}" selected>${data.category_name}</option>
-								<c:forEach var="category" items="${categoryList}">
-								<c:if test="${category.category_id != data.category_id}">
-									<option value="${category.category_id}">${category.category_name}</option>
-								</c:if>
+							<select class="form-select form-select-sm" name="category_id">
+								<c:forEach var="categories" items="${categoryList}">
+									<option value="${categories.category_id}"
+										${formData.category_id eq categories.category_id ? 'selected' : ''}>${categories.category_name}</option>
 								</c:forEach>
 							</select>
 						</div>
 					</div>
-
 					<div class="row my-4">
 						<div class="col-2 text-end">
 							<h5>
-								<span class>商品名</span>
+								<span>商品名</span>
 							</h5>
 						</div>
 						<div class="col-3">
-							<input type="text" id="text" name="trade_name" class="form-control"
-								value="${data.trade_name}" />
+							<input type="text" name="trade_name" class="form-control"
+								value="${formData.trade_name}" />
+							<c:if test="${not empty errors.trade_name}">
+								<div class="text-danger small">${errors.trade_name}</div>
+							</c:if>
 						</div>
 					</div>
-
 					<div class="row my-4">
 						<div class="col-2 text-end">
 							<h5>
-								<span class>単価</span>
+								<span>単価</span>
 							</h5>
 						</div>
 						<div class="col-3">
-							<input type="text" id="text" name="unit_price"
-								class="form-control" value="${data.unit_price}" />
+							<input type="text" name="unit_price" class="form-control"
+								value="${formData.unit_price}" />
+							<c:if test="${not empty errors.unit_price}">
+								<div class="text-danger small">${errors.unit_price}</div>
+							</c:if>
 						</div>
 					</div>
-
 					<div class="row my-4">
 						<div class="col-2 text-end">
 							<h5>
-								<span class>個数</span>
+								<span>個数</span>
 							</h5>
 						</div>
 						<div class="col-3">
-							<input type="text" id="text" name="sale_number"
-								class="form-control" value="${data.sale_number}" />
+							<input type="text" name="sale_number" class="form-control"
+								value="${formData.sale_number}" />
+							<c:if test="${not empty errors.sale_number}">
+								<div class="text-danger small">${errors.sale_number}</div>
+							</c:if>
 						</div>
 					</div>
-
 					<div class="row my-4">
 						<div class="col-2 text-end">
 							<h5>
-								<span class>備考</span>
+								<span>備考</span>
 							</h5>
 						</div>
 						<div class="col-3">
-							<textarea input type="text" id="text" name="note"
-								class="form-control" value="${data.note}" rows="4" /></textarea>
+							<textarea name="note" class="form-control" rows="4">${formData.note}</textarea>
 						</div>
 					</div>
-
 					<div class="row">
 						<div class="col-3 my-3 text-end">
 							<button type="submit" class="btn btn-primary">✓更新</button>
-							<a href="#" button type="submit"
-								class="btn btn-outline-secondary"> キャンセル </a>
+							<a href="S0021.html" class="btn btn-outline-secondary">キャンセル</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</form>
+	</div>
 </body>
 </html>

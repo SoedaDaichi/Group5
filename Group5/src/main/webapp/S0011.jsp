@@ -8,115 +8,112 @@
 <title>S0010</title>
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 </head>
-	<body>
+<body>
 	<%@ include file="navbar.jsp"%>
-	<div class="container-fluid mx-5">
-		<div class = "col-10 offset-3">
+	<div class="container-fluid">
+		<div class="col-9 offset-3">
 			<p class="fs-1 fw-bold mx-5 mt-4">売上登録確認</p>
-		
 
-		<form id="create-sales-form" action="S0011.html" method="post">
-			<div class=row>
-				<div class="col-2 text-end my-3">
-					<h5>
-						<span class>販売日</span> <span class="badge bg-secondary">必須</span>
-					</h5>
-				</div>
-				<div class="col-2 my-3">
-					<input type="date" id="date" name="sale_date" class="form-control" 
 
-					value = "${salesdata.sale_date}" disable>
-					
-				</div>
-			</div>
-			<div class=row>
-				<div class="col-2 text-end my-3">
-					<h5>
-						<span class>担当</span> <span class="badge bg-secondary">必須</span>
-					</h5>
-				</div>
-				<div class="col-2  my-3">
-					<class = input type="text" class="form-control" 
-					id="exampleFormControlInput1" name="account_name" 
+			<form id="create-sales-form" action="S0011.html" method="post">
+				<div class=row>
+					<div class="col-2 text-end my-3">
+						<h5>
+							<span class>販売日</span> <span class="badge bg-secondary">必須</span>
+						</h5>
+					</div>
+					<div class="col-2 my-3">
+						<input type="date" id="date" name="sale_date" class="form-control"
+							value="${Register_salesdata.sale_date}" disabled>
 
-					value = "${salesdata.account_id}" disable>${salesdata.name}</class>
+					</div>
+				</div>
+				<div class=row>
+					<div class="col-2 text-end my-3">
+						<h5>
+							<span class>担当</span> <span class="badge bg-secondary">必須</span>
+						</h5>
+					</div>
+					<div class="col-2  my-3">
+						<class = input type="text" class="form-control"
+							id="exampleFormControlInput1" name="account_name"
+							value="${Register_salesdata.account_id}" disabled>${Register_salesdata.name}</class>
 
+					</div>
 				</div>
-			</div>
-			<div class=row>
-				<div class="col-2 text-end my-3">
-					<h5>
-						<span class>商品カテゴリー</span> <span class="badge bg-secondary">必須</span>
-					</h5>
-				</div>
-				<div class="col-4 my-3">
-					<class = input type="text" class="form-control" 
-					id="exampleFormControlInput1" name="category_name" var = "category" 
+				<div class=row>
+					<div class="col-2 text-end my-3">
+						<h5>
+							<span class>商品カテゴリー</span> <span class="badge bg-secondary">必須</span>
+						</h5>
+					</div>
+					<div class="col-4 my-3">
+						<class = input type="text" class="form-control"
+							id="exampleFormControlInput1" name="category_name" var="category"
+							value="${Register_salesdata.category_id}" disabled>${Register_salesdata.category_name}</class>
 
-				value = "${salesdata.category_id}" disable>${salesdata.category_name}</class>
+					</div>
+				</div>
+				<div class=row>
+					<div class="col-2 text-end my-3">
+						<h5>
+							<span class>商品名</span> <span class="badge bg-secondary">必須</span>
+						</h5>
+					</div>
+					<div class="col-4 my-3">
+						<input type="text" class="form-control"
+							id="exampleFormControlInput1" name="trade_name"
+							value="${Register_salesdata.trade_name}" disabled>
 
+					</div>
 				</div>
-			</div>
-			<div class=row>
-				<div class="col-2 text-end my-3">
-					<h5>
-						<span class>商品名</span> <span class="badge bg-secondary">必須</span>
-					</h5>
-				</div>
-				<div class="col-4 my-3">
-					<input type="text" class="form-control" 
+				<div class=row>
+					<div class="col-2 text-end my-3">
+						<h5>
+							<span class>単価</span> <span class="badge bg-secondary">必須</span>
+						</h5>
+					</div>
+					<div class="col-2 my-3">
+						<input type="text" class="form-control"
+							id="exampleFormControlInput1" name="unit_price" placeholder="単価"
+							value="${Register_salesdata.unit_price}" disabled>
 
-					id="exampleFormControlInput1" name="trade" value = "${salesdata.trade}" disable>
+					</div>
+				</div>
+				<div class=row>
+					<div class="col-2 text-end my-3">
+						<h5>
+							<span class>個数</span> <span class="badge bg-secondary">必須</span>
+						</h5>
+					</div>
+					<div class="col-2 my-3">
+						<input type="text" class="form-control"
+							id="exampleFormControlInput1" name="sale_number" placeholder="個数"
+							value="${Register_salesdata.sale_number}" disabled>
 
+					</div>
 				</div>
-			</div>
-			<div class=row>
-				<div class="col-2 text-end my-3">
-					<h5>
-						<span class>単価</span> <span class="badge bg-secondary">必須</span>
-					</h5>
-				</div>
-				<div class="col-2 my-3">
-					<input type="text" class="form-control" id="exampleFormControlInput1" 
+				<div class=row>
+					<div class="col-2 text-end my-3">
+						<h5>
+							<span class>備考</span>
+						</h5>
+					</div>
+					<div class="col-5 my-3">
+						<textarea class="form-control" id="exampleFormControlTextarea1"
+							name="note" rows="5" placeholder="備考" disabled>${Register_salesdata.note}</textarea>
 
-					name="unit_price" placeholder="単価" value = "${salesdata.unit_price}" disable>
-
+					</div>
 				</div>
-			</div>
-			<div class=row>
-				<div class="col-2 text-end my-3">
-					<h5>
-						<span class>個数</span> <span class="badge bg-secondary">必須</span>
-					</h5>
+				<div class="row my-5">
+					<div class="col-3 text-end">
+						<button type="submit" class="btn btn-primary">✓登録</button>
+						<a href="S0010.html" button type="submit"
+							class="btn btn-outline-secondary">キャンセル</a>
+					</div>
 				</div>
-				<div class="col-2 my-3">
-					<input type="text" class="form-control" id="exampleFormControlInput1" 
-
-					name="sale_number" placeholder="個数" value = "${salesdata.sale_number}" disable>
-
-				</div>
-			</div>
-			<div class=row>
-				<div class="col-2 text-end my-3">
-					<h5>
-						<span class>備考</span>
-					</h5>
-				</div>
-				<div class="col-5 my-3">
-					<textarea class="form-control" id="exampleFormControlTextarea1" 
-
-					name="note" rows="5" placeholder="備考" disable>${salesdata.note}</textarea>
-
-				</div>
-			</div>
-			<div class="row my-5">
-				<div class="col-3 text-end">
-					<button type="submit" class="btn btn-primary">✓登録</button>
-					<a href="S0010.html" button type="submit" class="btn btn-outline-secondary">キャンセル</a>
-				</div>
-			</div>
-		</form>
+			</form>
 		</div>
-		</div>
-	</body>
+	</div>
+</body>
 </html>

@@ -14,12 +14,36 @@
 
 	<div class="container-fluid mt-2">
 		<div class="row">
-			<div class="col-10 offset-3">
+			<div class="col-9 offset-3">
 				<h1 class="mb-4">売上検索結果表示</h1>
 			</div>
 		</div>
 
 		<div class="row mx-2">
+			<c:choose>
+				<c:when test="${not empty success}">
+					<div class="alert alert-success text-center py-1">
+						<c:out value="${success}" />
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="alert alert-success text-center
+									py-1"
+						style="visibility: hidden;">&nbsp;</div>
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${not empty error}">
+					<div class="alert alert-danger text-center py-1">
+						<c:out value="${error}" />
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="alert alert-danger text-center
+									py-1"
+						style="visibility: hidden;">&nbsp;</div>
+				</c:otherwise>
+			</c:choose>
 			<table class="table table-bordered table-hover">
 				<thead class="table-light">
 					<tr>
@@ -39,7 +63,7 @@
 					<c:forEach var="sales" items="${salesList}" varStatus="status">
 						<tr>
 							<td><form action="S0021.html" method="post">
-									<input type="hidden" name="id" value="${sales.sale_id}">
+									<input type="hidden" name="sale_id" value="${sales.sale_id}">
 									<button type="submit" class="btn btn-sm btn-primary">詳細</button>
 								</form></td>
 							<td>${sales.sale_id}</td>
