@@ -16,7 +16,17 @@
 	<div class="container-fluid">
 		<p class="fs-1 fw-bold mt-4">ダッシュボード</p>
 
-<!--		<div class="row justify-content-center mt-5">-->
+
+		<div class="d-flex gap-4 py-3">
+			<div class="border rounded p-3 bg-light fw-bold fs-4">総売り上げ:
+				${totalSales} 円</div>
+			<div class="border rounded p-3 bg-light fw-bold fs-4">年間総売り上げ:
+				${annualSales} 円</div>
+		</div>
+
+
+
+		<!--		<div class="row justify-content-center mt-5">-->
 <!--			<div class="col-lg-5 d-flex justify-content-center">-->
 <!--				<div class="card shadow p-4 g-3" style="width: 500px;">-->
 <!--					<div class="card-body">-->
