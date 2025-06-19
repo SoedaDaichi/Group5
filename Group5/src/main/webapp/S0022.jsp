@@ -35,7 +35,9 @@
 						<h5>担当</h5>
 					</div>
 					<div class="col-3">
-						<h5><c:out value="${salesdata.name}" /></h5>
+						<h5>
+							<c:out value="${salesdata.name}" />
+						</h5>
 					</div>
 				</div>
 				<div class="row my-4">
@@ -80,21 +82,22 @@
 				</div>
 				<div class="row">
 					<div class="col-3 my-3 text-end">
-						
+
 						<form method="get" action="S0023.html" class="d-inline">
 							<button type="submit" class="btn btn-primary">✓編集</button>
 						</form>
 
-					
+
 						<form method="get" action="S0025.html" class="d-inline">
 							<button type="submit" class="btn btn-danger">×削除</button>
 						</form>
-						
-						<a href="S0021.html" button type="submit" class="btn btn-outline-secondary">
-							キャンセル </a>
+
+						<a href="S0021.html" button type="submit"
+							class="btn btn-outline-secondary"> キャンセル </a>
 					</div>
 				</div>
 			</div>
 		</div>
+		<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

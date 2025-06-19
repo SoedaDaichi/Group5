@@ -65,7 +65,6 @@ public class S0040Servlet extends HttpServlet {
 		
 		session.setAttribute("asform", asform);
 		ArrayList<Accounts> accountsList = s0040service.select(asform);
-		System.out.println("検索結果: " + accountsList);
 
 		session.setAttribute("accountsList", accountsList);
 		response.sendRedirect("S0041.html");

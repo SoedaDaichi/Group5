@@ -123,9 +123,9 @@
 						<a href="S0030.jsp" class="btn btn-outline-secondary">キャンセル</a>
 					</div>
 				</div>
-
 			</form>
 		</div>
 	</div>
+	<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
