@@ -10,8 +10,8 @@ import beans.Accounts;
 import utils.Db;
 
 public class S0040Dao {
-	public ArrayList<Accounts> select(String name, String mail, ArrayList<Integer> roles) {
-		ArrayList<Accounts> accountList = new ArrayList<>();
+	public ArrayList<Accounts> select(String name, String mail, ArrayList<Integer> authority) {
+		ArrayList<Accounts> accountsList = new ArrayList<>();
 		ArrayList<Object> sqlList = new ArrayList<>();
 		ArrayList<String> where = new ArrayList<>();
 		StringBuilder select = new StringBuilder("SELECT account_id, name, mail, authority FROM accounts");
@@ -26,10 +26,10 @@ public class S0040Dao {
 			sqlList.add(mail);
 		}
 
-		if (!roles.isEmpty()) {
+		if (!authority.isEmpty()) {
 			where.add("authority IN (" +
-					String.join(",", Collections.nCopies(roles.size(), "?")) + ")");
-			sqlList.addAll(roles);
+					String.join(",", Collections.nCopies(authority.size(), "?")) + ")");
+			sqlList.addAll(authority);
 		}
 
 		if (!where.isEmpty()) {
@@ -53,13 +53,12 @@ public class S0040Dao {
 					accounts.setName(rs.getString("name"));
 					accounts.setMail(rs.getString("mail"));
 					accounts.setAuthority(rs.getInt("authority"));
-					accountList.add(accounts);
+					accountsList.add(accounts);
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return accountList;
+		return accountsList;
 	}
-
 }

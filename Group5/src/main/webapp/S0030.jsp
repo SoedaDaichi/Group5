@@ -141,28 +141,28 @@
 
 					<div class="col-4 my-3">
 						<div class="form-check form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-none" value="0"
-								${accountsform.roleStr == '0' ? 'checked' : ''} checked>
-							<label class="form-check-label" for="role-none">権限なし</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-none" value="0"
+								${accountsform.authorityStr == '0' ? 'checked' : ''} checked>
+							<label class="form-check-label" for="authority-none">権限なし</label>
 						</div>
 						<div class="form-check form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-read" value="1"
-								${accountsform.roleStr == '1' ? 'checked' : ''}> <label
-								class="form-check-label" for="role-read">売上登録</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-sales" value="1"
+								${accountsform.authorityStr == '1' ? 'checked' : ''}> <label
+								class="form-check-label" for="authority-sales">売上登録</label>
 						</div>
 						<div class="form-check form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-update" value="2"
-								${accountsform.roleStr == '2' ? 'checked' : ''}> <label
-								class="form-check-label" for="role-update">アカウント登録</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-accounts" value="2"
+								${accountsform.authorityStr == '2' ? 'checked' : ''}> <label
+								class="form-check-label" for="authority-accounts">アカウント登録</label>
 						</div>
 						<div class="form-check form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-all" value="3"
-								${accountsform.roleStr == '3' ? 'checked' : ''}> <label
-								class="form-check-label" for="role-all">管理者</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-all" value="3"
+								${accountsform.authorityStr == '3' ? 'checked' : ''}> <label
+								class="form-check-label" for="authority-all">管理者</label>
 						</div>
 					</div>
 				</div>

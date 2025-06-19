@@ -70,8 +70,8 @@ public class S0030Servlet extends HttpServlet {
 		System.out.println("メールアドレス： " + mail);
 		String pass = request.getParameter("pass");
 		String confirm_pass = request.getParameter("confirm_pass");
-		String role = request.getParameter("role");
-		System.out.println("権限： " + role);
+		String authority = request.getParameter("authority");
+		System.out.println("権限： " + authority);
 
 		ErrorService es = new ErrorService();
 		Map<String, String> errors = new HashMap<>();
@@ -80,7 +80,7 @@ public class S0030Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		if (errors != null && !errors.isEmpty()) {
-			AccountsForm accountsform = new AccountsForm(name, mail, role);
+			AccountsForm accountsform = new AccountsForm(name, mail, authority);
 			session.setAttribute("accountsform", accountsform);
 			session.setAttribute("errors", errors);
 			response.sendRedirect("S0030.html");
@@ -88,7 +88,7 @@ public class S0030Servlet extends HttpServlet {
 		}
 
 		if (errors == null || errors.isEmpty()) {
-			AccountsData accountsdata = new AccountsData(name, mail, pass, confirm_pass, role);
+			AccountsData accountsdata = new AccountsData(name, mail, pass, confirm_pass, authority);
 			session.setAttribute("accountsdata", accountsdata);
 			response.sendRedirect("S0031.html");
 		}

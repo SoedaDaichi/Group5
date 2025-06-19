@@ -84,30 +84,30 @@
 					</div>
 					<div class="col-10 my-3">
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-none" value="0"
-								<c:if test="${accountsdata.role eq '0'}">checked</c:if> disabled>
-							<label class="form-check-label" for="role-none">権限なし</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-none" value="0"
+								<c:if test="${accountsdata.authorityStr eq '0'}">checked</c:if> disabled>
+							<label class="form-check-label" for="authority-none">権限なし</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-read" value="1"
-								<c:if test="${accountsdata.role eq '1'}">checked</c:if> disabled>
-							<label class="form-check-label" for="role-read">売上登録</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-sales" value="1"
+								<c:if test="${accountsdata.authorityStr eq '1'}">checked</c:if> disabled>
+							<label class="form-check-label" for="authority-sales">売上登録</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-update" value="2"
-								<c:if test="${accountsdata.role eq '2'}">checked</c:if> disabled>
-							<label class="form-check-label" for="role-update">アカウント登録</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-accounts" value="2"
+								<c:if test="${accountsdata.authorityStr eq '2'}">checked</c:if> disabled>
+							<label class="form-check-label" for="authority-accounts">アカウント登録</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="role"
-								id="role-update" value="3"
-								<c:if test="${accountsdata.role eq '3'}">checked</c:if> disabled>
-							<label class="form-check-label" for="role-update">管理者</label>
+							<input class="form-check-input" type="radio" name="authority"
+								id="authority-all" value="3"
+								<c:if test="${accountsdata.authorityStr eq '3'}">checked</c:if> disabled>
+							<label class="form-check-label" for="authority-all">管理者</label>
 						</div>
-						<input type="hidden" name="role" value="${accountsdata.role}">
+						<input type="hidden" name="authority" value="${accountsdata.authorityStr}">
 					</div>
 				</div>
 

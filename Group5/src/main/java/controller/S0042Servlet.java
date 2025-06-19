@@ -1,10 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.Map;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,7 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
-
+import beans.AccountsData;
+import services.ErrorService;
 
 /**
  * Servlet implementation class S0042Servlet
@@ -22,142 +20,72 @@ import beans.Accounts;
 @WebServlet("/S0042.html")
 public class S0042Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public S0042Servlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    
-    private static final String DB_URL = "jdbc:mariadb://localhost:3306/group5";
-	private static final String DB_USER = "root";
-	private static final String DB_PASS = "root";
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public S0042Servlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@SuppressWarnings("unchecked")
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession();
 
-		
-//		HttpSession session = request.getSession();
-//		session.removeAttribute("success");
-//		session.removeAttribute("error");
+		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
+		AccountsData accountsdata = (AccountsData) session.getAttribute("accountsdata");
 
-		
-//		
-//		String idStr = request.getParameter("id");
-//		if (idStr == null || idStr.isEmpty()) {
-//			//エラー処理とりあえず消してる
-//			//response.sendRedirect("error.jsp");
-//			//return;
-//			idStr = "1"; // とりあえず確認用に書いてるだけ
-//			}
-//
-//
-//		int accountId = Integer.parseInt(idStr);
-//		Accounts account = null;
-//
-//		try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-//			String sql = "SELECT * FROM accounts WHERE account_id = ?";
-//			PreparedStatement stmt = conn.prepareStatement(sql);
-//			stmt.setInt(1, accountId);
-//
-//			ResultSet rs = stmt.executeQuery();
-//			if (rs.next()) {
-//				account = new Accounts();
-//				account.setAccount_id(rs.getInt("account_id"));
-//				account.setName(rs.getString("name"));
-//				account.setMail(rs.getString("mail"));
-//				account.setPass(rs.getString("pass"));
-//				account.setAuthority(rs.getInt("authority"));
-//			}
-//
-//			rs.close();
-//			stmt.close();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			//エラー処理とりあえず消してる
-//			//response.sendRedirect("error.jsp");
-//            //return;
-//		}
-//			request.setAttribute("account", account);
-//		request.getRequestDispatcher("/S0042.jsp").forward(request, response);
-//		
-//		
-		
-		String idStr = request.getParameter("id");
-		System.out.println("aa" + idStr);
-		Accounts account = null;
-		
-		if (idStr != null && !idStr.isEmpty()) {
-		    int accountId = Integer.parseInt(idStr);
-		    //Accounts account = null;
-
-		    try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-		        String sql = "SELECT * FROM accounts WHERE account_id = ?";
-		        PreparedStatement stmt = conn.prepareStatement(sql);
-		        stmt.setInt(1, accountId);
-
-		        ResultSet rs = stmt.executeQuery();
-		        if (rs.next()) {
-		            account = new Accounts();
-		            account.setAccount_id(rs.getInt("account_id"));
-		            account.setName(rs.getString("name"));
-		            account.setMail(rs.getString("mail"));
-		            account.setPass(rs.getString("password"));
-		            account.setConfirm_pass(account.getPass());
-		            account.setAuthority(rs.getInt("authority"));
-		        }
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    }
-
+		if (errors != null) {
+			request.setAttribute("errors", errors);
+			request.setAttribute("accountsdata", accountsdata);
+			session.removeAttribute("errors");
+			session.removeAttribute("accountsdata");
+		} else {
+			Accounts accounts = (Accounts) session.getAttribute("accounts");
+			request.setAttribute("accounts", accounts);
 		}
+		int account_id = (int) session.getAttribute("account_id");
+		request.setAttribute("account_id", account_id);
+		request.getRequestDispatcher("S0042.jsp").forward(request, response);
 
-		request.setAttribute("account", account);
-	    request.getRequestDispatcher("/S0042.jsp").forward(request, response);		
-		
-		
 	}
-
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		
-		
+
 		HttpSession session = request.getSession();
-		String successMessage = (String) session.getAttribute("success");
-		String errorMessage = (String) session.getAttribute("error");
 
-		request.setAttribute("success", successMessage);
-		request.setAttribute("error", errorMessage);
+		String name = request.getParameter("name");
+		String mail = request.getParameter("mail");
+		String pass = request.getParameter("pass");
+		String confirm_pass = request.getParameter("confirm_pass");
+		String authorityStr = request.getParameter("authority");
+		int account_id = (int) session.getAttribute("account_id");
 
-		// 一度使ったら削除
-		session.removeAttribute("success");
-		session.removeAttribute("error");
-	
-		
-			String name = request.getParameter("name");
-			String mail = request.getParameter("mail");
-			String pass = request.getParameter("pass");
-			String confirm_pass = request.getParameter("confirm_pass");
-			String role = request.getParameter("role");
+		AccountsData accountsdata = new AccountsData(name, mail, pass, confirm_pass, authorityStr);
 
-			request.setAttribute("name", name);
-			request.setAttribute("mail", mail);
-			request.setAttribute("pass", pass);
-			request.setAttribute("confirm_pass", confirm_pass);
-			request.setAttribute("role", role);
-
-			request.getRequestDispatcher("/S0043.jsp").forward(request, response);
+		ErrorService es = new ErrorService();
+		Map<String, String> errors = es.ValidateAccountsUpdate(account_id, name, mail, pass, confirm_pass);
+		if (errors != null && !errors.isEmpty()) {
+			session.setAttribute("accountsdata", accountsdata);
+			session.setAttribute("errors", errors);
+			response.sendRedirect("S0042.html");
+			return;
 		}
+
+		session.setAttribute("accountsdata", accountsdata);
+		response.sendRedirect("S0043.html");
+	}
 
 }

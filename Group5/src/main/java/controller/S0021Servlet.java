@@ -44,21 +44,25 @@ public class S0021Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		
+
 		String success = (String) session.getAttribute("success");
+		String error = (String) session.getAttribute("error");
 		SalesSearchForm ssform = (SalesSearchForm) session.getAttribute("ssform");
 		ArrayList<Sales> salesList = (ArrayList<Sales>) session.getAttribute("salesList");
 
 		if (success != null) {
 			request.setAttribute("success", success);
 			session.removeAttribute("success");
+		} else if (error != null) {
+			request.setAttribute("error", error);
+			session.removeAttribute("error");
 		}
-		
+
 		if ((salesList == null || salesList.isEmpty()) && ssform != null) {
 			S0020Dao s0020dao = new S0020Dao();
 			ArrayList<Sales> salesListRe = s0020dao.select(ssform);
 			request.setAttribute("salesList", salesListRe);
-		} else if (ssform != null){
+		} else if (ssform != null) {
 			System.out.println("検索結果: " + salesList);
 			request.setAttribute("salesList", salesList);
 			session.removeAttribute("salesList");

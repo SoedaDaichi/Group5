@@ -86,7 +86,6 @@ public class S0020Servlet extends HttpServlet {
 		System.out.print("日付範囲: " + firstStr + "～");
 		String lastStr = request.getParameter("last");
 		System.out.println(lastStr);
-		ErrorService es = new ErrorService();
 
 		String account_idStr = request.getParameter("account_id");
 		System.out.println("アカウントID: " + account_idStr);
@@ -97,18 +96,20 @@ public class S0020Servlet extends HttpServlet {
 		String note = request.getParameter("note");
 		System.out.println("備考： " + note);
 
+		ErrorService es = new ErrorService();
+		
 		Map<String, String> errors = es.ValidateSalesSearch(firstStr, lastStr);
 		System.out.println("日付エラー: " + errors);
-
-		SalesSearchForm ssform = new SalesSearchForm(firstStr, lastStr, account_idStr, category_idStr,
-				trade_name, note);
-		session.setAttribute("ssform", ssform);
-
 		if (errors != null && !errors.isEmpty()) {
 			session.setAttribute("errors", errors);
 			response.sendRedirect("S0020.html");
 			return;
 		}
+
+		SalesSearchForm ssform = new SalesSearchForm(firstStr, lastStr, account_idStr, category_idStr,
+				trade_name, note);
+		session.setAttribute("ssform", ssform);
+
 
 		S0020Dao s0020dao = new S0020Dao();
 		ArrayList<Sales> salesList = s0020dao.select(ssform);

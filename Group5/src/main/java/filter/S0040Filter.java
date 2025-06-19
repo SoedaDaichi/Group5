@@ -19,15 +19,15 @@ import jakarta.servlet.http.HttpSession;
 import beans.Accounts;
 
 /**
- * Servlet Filter implementation class S0020Filter
+ * Servlet Filter implementation class S0040Filter
  */
 @WebFilter("/*")
-public class S0020Filter extends HttpFilter implements Filter {
+public class S0040Filter extends HttpFilter implements Filter {
 
 	/**
 	 * @see HttpFilter#HttpFilter()
 	 */
-	public S0020Filter() {
+	public S0040Filter() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -50,14 +50,14 @@ public class S0020Filter extends HttpFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpSession session = req.getSession(false);
 		String uri = req.getRequestURI();
-		boolean authorityUrlCheck = uri.matches(".*/S002[3-5]\\.(html|jsp)$");
+		boolean authorityUrlCheck = uri.matches(".*/S004[2-4]\\.(html|jsp)$");
 
 		// 権限なしアカウント排除処理
 		if (session != null) {
 			Accounts loginAccount = (Accounts) session.getAttribute("loginAccount");
 			if (loginAccount != null && authorityUrlCheck
-					&& (loginAccount.getAuthority() == 0 || loginAccount.getAuthority() == 2)) {
-				System.out.println("S0020Filter: 不正");
+					&& (loginAccount.getAuthority() == 0 || loginAccount.getAuthority() == 1)) {
+				System.out.println("S0040Filter: 不正");
 				session.removeAttribute("loginAccount");
 				Map<String, String> errors = new HashMap<>();
 				errors.put("account", "不正なアクセスを確認しました。");
@@ -68,13 +68,12 @@ public class S0020Filter extends HttpFilter implements Filter {
 		}
 
 		// 商品検索系のsession破棄
-		boolean isTargetPage = uri.matches(".*/S002[1-5]\\.(html|jsp)$");
-		
+		boolean isTargetPage = uri.matches(".*/S004[1-4]\\.(html|jsp)$");
 		if (session != null && !isTargetPage) {
-			session.removeAttribute("salesList");
-			session.removeAttribute("salesdata");
-			session.removeAttribute("sale_id");
-			System.out.println("売上検索系のセッションを削除。");
+			session.removeAttribute("accountsList");
+			session.removeAttribute("accountsdata");
+			session.removeAttribute("account_id");
+			System.out.println("アカウント検索系のセッションを削除。");
 		}
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
