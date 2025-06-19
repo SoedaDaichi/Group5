@@ -40,10 +40,14 @@
 					style="visibility: hidden;">&nbsp;</div>
 			</c:otherwise>
 		</c:choose>
+
 		<table class="table table-bordered table-hover">
 			<thead class="table-light">
 				<tr>
-					<th>操作</th>
+					<c:if
+						test="${sessionScope.loginAccount.authority == 2 || sessionScope.loginAccount.authority == 3}">
+						<th>操作</th>
+					</c:if>
 					<th>No.</th>
 					<th>氏名</th>
 					<th>メールアドレス</th>
@@ -53,16 +57,19 @@
 			<tbody>
 				<c:forEach var="accounts" items="${accountsList}" varStatus="status">
 					<tr>
-						<td>
-							<form action="S0041.html" method="post">
-								<input type="hidden" name="account_id"
-									value="${accounts.account_id}">
-								<button type="submit" name="action" value="edit"
-									class="btn btn-sm btn-primary">編集</button>
-								<button type="submit" name="action" value="delete"
-									class="btn btn-sm btn-primary">削除</button>
-							</form>
-						</td>
+						<c:if
+							test="${sessionScope.loginAccount.authority == 1 || sessionScope.loginAccount.authority == 3}">
+							<td>
+								<form action="S0041.html" method="post">
+									<input type="hidden" name="account_id"
+										value="${accounts.account_id}">
+									<button type="submit" name="action" value="edit"
+										class="btn btn-sm btn-primary">編集</button>
+									<button type="submit" name="action" value="delete"
+										class="btn btn-sm btn-primary">削除</button>
+								</form>
+							</td>
+						</c:if>
 						<td>${accounts.account_id}</td>
 						<td>${accounts.name}</td>
 						<td>${accounts.mail}</td>
