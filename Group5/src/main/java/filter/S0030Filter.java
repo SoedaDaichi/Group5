@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.Accounts;
+import beans.loginAccount;
 
 /**
  * Servlet Filter implementation class S0030Filter
@@ -50,7 +50,7 @@ public class S0030Filter extends HttpFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 
 		HttpSession session = req.getSession(false);
-		Accounts loginAccount = (Accounts) session.getAttribute("loginAccount");
+		loginAccount loginAccount = (loginAccount) session.getAttribute("loginAccount");
 
 		if (loginAccount.getAuthority() == 0 || loginAccount.getAuthority() == 1) {
 			System.out.println("S0030Filter: 不正");

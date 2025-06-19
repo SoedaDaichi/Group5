@@ -57,9 +57,11 @@
 							<form action="S0041.html" method="post">
 								<input type="hidden" name="account_id"
 									value="${accounts.account_id}">
-								<button type="submit" class="btn btn-sm btn-primary">編集</button>
-							</form> <a href="S0044.html?id=${accounts.account_id}"
-							class="btn btn-sm btn-danger">削除</a>
+								<button type="submit" name="action" value="edit"
+									class="btn btn-sm btn-primary">編集</button>
+								<button type="submit" name="action" value="delete"
+									class="btn btn-sm btn-primary">削除</button>
+							</form>
 						</td>
 						<td>${accounts.account_id}</td>
 						<td>${accounts.name}</td>

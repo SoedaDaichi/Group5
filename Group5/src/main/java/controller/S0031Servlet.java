@@ -55,7 +55,7 @@ public class S0031Servlet extends HttpServlet {
 		String name = accountsdata.getName();
 		String mail = accountsdata.getMail();
 		String pass = accountsdata.getPass();
-		String authorityStr = accountsdata.getAuthorityStr();
+		String authorityStr = accountsdata.getAuthority();
 
 		String hashedPass = auth.hashPassword(pass);
 

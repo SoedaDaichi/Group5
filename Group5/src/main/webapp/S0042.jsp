@@ -75,7 +75,7 @@
 					<div class="col-4 my-3">
 						<input type="password" id="confirm_password" name="confirm_pass"
 							class="form-control" placeholder="パスワード(確認)"
-							value="${formData.confirm_pass}">
+							value="${formData.pass}">
 						<c:if test="${not empty errors.confirm_pass}">
 							<div class="text-danger small">${errors.confirm_pass}</div>
 						</c:if>

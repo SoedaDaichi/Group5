@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.Accounts;
+import beans.loginAccount;
 
 /**
  * Servlet Filter implementation class S0040Filter
@@ -54,7 +54,7 @@ public class S0040Filter extends HttpFilter implements Filter {
 
 		// 権限なしアカウント排除処理
 		if (session != null) {
-			Accounts loginAccount = (Accounts) session.getAttribute("loginAccount");
+			loginAccount loginAccount = (loginAccount) session.getAttribute("loginAccount");
 			if (loginAccount != null && authorityUrlCheck
 					&& (loginAccount.getAuthority() == 0 || loginAccount.getAuthority() == 1)) {
 				System.out.println("S0040Filter: 不正");
@@ -69,13 +69,16 @@ public class S0040Filter extends HttpFilter implements Filter {
 
 		// 商品検索系のsession破棄
 		boolean isTargetPage = uri.matches(".*/S004[1-4]\\.(html|jsp)$");
+		String[] accounts_sessionKeys = { "asform", "accountList", "account_id", "accoutns", "accountsdata" };
+
 		if (session != null && !isTargetPage) {
-			session.removeAttribute("accountsList");
-			session.removeAttribute("accountsdata");
-			session.removeAttribute("account_id");
-			System.out.println("アカウント検索系のセッションを削除。");
+			for (String accounts_sessionKey : accounts_sessionKeys) {
+				if (session.getAttribute(accounts_sessionKey) != null) {
+					session.removeAttribute(accounts_sessionKey);
+					System.out.println("アカウント検索系: " + accounts_sessionKey + "を削除。");
+				}
+			}
 		}
-		// pass the request along the filter chain
 		chain.doFilter(request, response);
 	}
 

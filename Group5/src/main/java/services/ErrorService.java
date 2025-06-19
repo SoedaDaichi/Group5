@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import beans.Accounts;
 import beans.Sales;
+import beans.loginAccount;
 import daos.S0010Dao;
 import daos.S0030Dao;
 import daos.S0042Dao;
@@ -31,7 +31,7 @@ public class ErrorService {
 			errors.put("pass", "パスワードが長すぎます。");
 		}
 
-		Accounts account = auth.findByEmail(mail);
+		loginAccount account = auth.findByEmail(mail);
 		if (account == null && errors.isEmpty()) {
 			errors.put("account", "メールアドレス、パスワードを正しく入力して下さい。");
 			return errors;

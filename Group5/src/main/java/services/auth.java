@@ -8,29 +8,30 @@ import java.sql.ResultSet;
 import java.util.Base64;
 
 import beans.Accounts;
+import beans.loginAccount;
 import utils.Db;
 
 public class auth {
 
-	public static Accounts findByEmail(String mail) {
-		Accounts accounts = null;
+	public static loginAccount findByEmail(String mail) {
+		loginAccount loginAccount = null;
 		String select = "SELECT mail, password, account_id, name, authority FROM accounts WHERE mail = ?";
 		try (Connection conn = Db.open();
 				PreparedStatement ps = conn.prepareStatement(select)) {
 			ps.setString(1, mail);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				accounts = new Accounts();
-				accounts.setMail(rs.getString("mail"));
-				accounts.setPass(rs.getString("password"));
-				accounts.setAccount_id(rs.getInt("account_id"));
-				accounts.setName(rs.getString("name"));
-				accounts.setAuthority(rs.getInt("authority"));
+				loginAccount = new loginAccount();
+				loginAccount.setMail(rs.getString("mail"));
+				loginAccount.setPass(rs.getString("password"));
+				loginAccount.setAccount_id(rs.getInt("account_id"));
+				loginAccount.setName(rs.getString("name"));
+				loginAccount.setAuthority(rs.getInt("authority"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return accounts;
+		return loginAccount;
 	}
 	
 	public static String checkManager(Accounts accounts) {
@@ -43,9 +44,9 @@ public class auth {
 	public auth() {
 	}
 
-	public static Accounts login(String mail, String pass) {
-		Accounts accounts = findByEmail(mail);
-			return accounts;
+	public static loginAccount login(String mail, String pass) {
+		loginAccount loginAccount = findByEmail(mail);
+			return loginAccount;
 	}
 
 	public static boolean passCheck(int account_id, String cPass) {
