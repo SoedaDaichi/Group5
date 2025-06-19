@@ -67,7 +67,7 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="password" id="confirm_password" name="confirm_pass"
-							class="form-control" value="${accounts.confirm_pass}"
+							class="form-control" value="${accounts.pass}"
 							readonly>
 					</div>
 				</div>

@@ -40,7 +40,7 @@ public class S0030Servlet extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
-		AccountsForm accountsform = (AccountsForm) session.getAttribute("accountsform");
+		AccountsForm Register_accountsform = (AccountsForm) session.getAttribute("Register_accountsform");
 
 		String success = (String) session.getAttribute("success");
 		if (success != null) {
@@ -48,9 +48,9 @@ public class S0030Servlet extends HttpServlet {
 			session.removeAttribute("success");
 		} else if (errors != null) {
 			request.setAttribute("errors", errors);
-			request.setAttribute("accountsform", accountsform);
+			request.setAttribute("Register_accountsform", Register_accountsform);
 			session.removeAttribute("errors");
-			session.removeAttribute("accountsform");
+			session.removeAttribute("Register_accountsform");
 		}
 		request.getRequestDispatcher("/S0030.jsp").forward(request, response);
 	}
@@ -80,16 +80,16 @@ public class S0030Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		if (errors != null && !errors.isEmpty()) {
-			AccountsForm accountsform = new AccountsForm(name, mail, authority);
-			session.setAttribute("accountsform", accountsform);
+			AccountsForm Register_accountsform = new AccountsForm(name, mail, authority);
+			session.setAttribute("Register_accountsform", Register_accountsform);
 			session.setAttribute("errors", errors);
 			response.sendRedirect("S0030.html");
 			return;
 		}
 
 		if (errors == null || errors.isEmpty()) {
-			AccountsData accountsdata = new AccountsData(name, mail, pass, confirm_pass, authority);
-			session.setAttribute("accountsdata", accountsdata);
+			AccountsData Register_accountsdata = new AccountsData(name, mail, pass, confirm_pass, authority);
+			session.setAttribute("Register_accountsdata", Register_accountsdata);
 			response.sendRedirect("S0031.html");
 		}
 	}

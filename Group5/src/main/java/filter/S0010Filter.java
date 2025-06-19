@@ -51,6 +51,7 @@ public class S0010Filter extends HttpFilter implements Filter {
 
 		HttpSession session = req.getSession(false);
 		loginAccount loginAccount = (loginAccount) session.getAttribute("loginAccount");
+		String uri = req.getRequestURI();
 
 		if (loginAccount.getAuthority() == 0 || loginAccount.getAuthority() == 2) {
 			System.out.println("S0010Filter: 不正");
@@ -60,6 +61,19 @@ public class S0010Filter extends HttpFilter implements Filter {
 			session.setAttribute("errors", errors);
 			res.sendRedirect("C001.html");
 			return;
+		}
+
+		// 売上登録系のsession破棄
+		boolean isTargetPage = uri.matches(".*/S001[0-1]\\.(html|jsp)$");
+		String[] sales_sessionKeys = { "Register_salesform", "Register_salesdata" };
+
+		if (session != null && !isTargetPage) {
+			for (String sales_sessionKey : sales_sessionKeys) {
+				if (session.getAttribute(sales_sessionKey) != null) {
+					session.removeAttribute(sales_sessionKey);
+					System.out.println("売上登録系: " + sales_sessionKey + "を削除。");
+				}
+			}
 		}
 
 		// pass the request along the filter chain
