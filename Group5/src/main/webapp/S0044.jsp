@@ -67,8 +67,7 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="password" id="confirm_password" name="confirm_pass"
-							class="form-control" value="${accounts.pass}"
-							readonly>
+							class="form-control" value="${accounts.pass}" readonly>
 					</div>
 				</div>
 
@@ -83,30 +82,26 @@
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
 								id="authority-none" value="0"
-								<c:if test="${accounts.authority eq 0}">checked</c:if>
-								disabled> <label class="form-check-label"
-								for="authority-none">権限なし</label>
+								<c:if test="${accounts.authority eq 0}">checked</c:if> disabled>
+							<label class="form-check-label" for="authority-none">権限なし</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
 								id="authority-sales" value="1"
-								<c:if test="${accounts.authority eq 1}">checked</c:if>
-								disabled> <label class="form-check-label"
-								for="authority-sales">売上登録</label>
+								<c:if test="${accounts.authority eq 1}">checked</c:if> disabled>
+							<label class="form-check-label" for="authority-sales">売上登録</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
 								id="authority-accounts" value="2"
-								<c:if test="${accounts.authority eq 2}">checked</c:if>
-								disabled> <label class="form-check-label"
-								for="authority-accounts">アカウント登録</label>
+								<c:if test="${accounts.authority eq 2}">checked</c:if> disabled>
+							<label class="form-check-label" for="authority-accounts">アカウント登録</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
 								id="authority-all" value="3"
-								<c:if test="${accounts.authority eq 3}">checked</c:if>
-								disabled> <label class="form-check-label"
-								for="authority-all">管理者</label>
+								<c:if test="${accounts.authority eq 3}">checked</c:if> disabled>
+							<label class="form-check-label" for="authority-all">管理者</label>
 						</div>
 						<input type="hidden" name="authority"
 							value="${accounts.authority}">
@@ -127,5 +122,6 @@
 			</form>
 		</div>
 	</div>
+	<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

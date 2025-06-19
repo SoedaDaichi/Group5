@@ -42,7 +42,6 @@ public class S0043Servlet extends HttpServlet {
 		
 		request.setAttribute("accountsdata", accountsdata);
 		request.setAttribute("account_id", account_id);
-		session.removeAttribute("accountsdata");
 		request.getRequestDispatcher("/S0043.jsp").forward(request, response);
 	}
 
