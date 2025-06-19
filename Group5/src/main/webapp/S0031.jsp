@@ -14,12 +14,13 @@
 	<div class="container-fluid">
 		<div class="col-9 offset-3">
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウントを登録してよろしいですか？</h1>
-
+			<div class="mb-5"></div>
 			<form action="S0031.html" method="post">
 
 				<div class=row>
 					<div
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
+
 						<h5>
 							<label for="name" class="form-label">氏名 <span
 								class="badge bg-secondary ms-2">必須</span></label>
@@ -30,7 +31,6 @@
 							value="${Register_accountsdata.name}" disabled>
 					</div>
 				</div>
-
 
 				<div class=row>
 					<div
