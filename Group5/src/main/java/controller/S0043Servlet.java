@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import beans.AccountsData;
 import daos.S0043Dao;
 import services.auth;
 
@@ -34,11 +35,15 @@ public class S0043Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession();
 		
+		AccountsData accountsdata = (AccountsData) session.getAttribute("accountdata");
+		int account_id = (int) session.getAttribute("account_id");
 		
-
+		request.setAttribute("accountsdata", accountsdata);
+		request.setAttribute("account_id", account_id);
+		session.removeAttribute("accountsdata");
 		request.getRequestDispatcher("/S0043.jsp").forward(request, response);
-
 	}
 
 	/**
@@ -48,40 +53,33 @@ public class S0043Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		HttpSession session = request.getSession();
 		
-		int accountId = Integer.parseInt(request.getParameter("account_id"));
-
-		String action = request.getParameter("action");
-		if ("cancel".equals(action)) {
-			response.sendRedirect("S0042.html?id=" + request.getParameter("id"));
-			return;
-		}
-
-		String name = request.getParameter("name");
-		String mail = request.getParameter("mail");
-		String pass = request.getParameter("pass");
-		String role = request.getParameter("role");
-
-		System.out.println(name);
-
+		int account_id = (int) session.getAttribute("account_id");
+		AccountsData accountsdata = (AccountsData) session.getAttribute("accountsdata");
+		String name = accountsdata.getName();
+		String mail = accountsdata.getMail();
+		String pass = accountsdata.getPass();
+		String authority = accountsdata.getAuthorityStr(); 
+		
+		session.removeAttribute("account_id");
+		session.removeAttribute("accountsdata");
+		
 		String hashedPass = auth.hashPassword(pass);
 
 		S0043Dao s0043dao = new S0043Dao();
-		boolean success = s0043dao.update(accountId, name, mail, hashedPass, role);
+		boolean success = s0043dao.update(account_id, name, mail, hashedPass, authority);
 
-		HttpSession session = request.getSession();
 		if (success) {
 			session.setAttribute("success", "アカウントが更新されました。");
 			//response.sendRedirect("S0042.html");
-			response.sendRedirect("S0042.html?id=" + request.getParameter("id"));
+			response.sendRedirect("S0041.html");
 
 		} else {
 			session.setAttribute("error", "更新に失敗しました");
 			//response.sendRedirect("S0042.html");
-			response.sendRedirect("S0042.html?id=" + request.getParameter("id"));
-
+			response.sendRedirect("S0041.html");
 		}
-
 	}
 
 }

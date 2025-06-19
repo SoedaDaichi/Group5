@@ -70,10 +70,10 @@ public class C001Servlet extends HttpServlet {
 			return;
 		}
 
-		Accounts accounts = auth.login(mail, pass); // ユーザー取得
+		Accounts loginAccount = auth.login(mail, pass); // ユーザー取得
 
 		// ログイン成功処理
-		session.setAttribute("accounts", accounts);
+		session.setAttribute("loginAccount", loginAccount);
 		response.sendRedirect("C002.html");
 	}
 

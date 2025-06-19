@@ -51,18 +51,14 @@ public class S0023Servlet extends HttpServlet {
 			request.setAttribute("salesform", salesform);
 			session.removeAttribute("errors");
 			session.removeAttribute("salesform");
+		} else {
+			SalesData salesdata = (SalesData) session.getAttribute("salesdata");
+			request.setAttribute("salesdata", salesdata);
 		}
 
-		ArrayList<Accounts> accountList = new ArrayList<>();
-		ArrayList<Categories> categoryList = new ArrayList<>();
-
 		S0010Dao ss = new S0010Dao();
-		accountList = ss.selectAccount();
-		categoryList = ss.selectCategory();
-
-		SalesData salesdata = (SalesData) session.getAttribute("salesdata");
-
-		request.setAttribute("salesdata", salesdata);
+		ArrayList<Accounts> accountList = ss.selectAccount();
+		ArrayList<Categories> categoryList = ss.selectCategory();
 
 		request.setAttribute("accountList", accountList);
 		request.setAttribute("categoryList", categoryList);
@@ -91,6 +87,7 @@ public class S0023Servlet extends HttpServlet {
 				unit_priceStr, sale_numberStr, note);
 
 		if (errors != null && !errors.isEmpty()) {
+			System.out.println("エラー: " + errors); 
 			SalesForm salesform = new SalesForm(sale_dateStr, account_idStr, category_idStr, trade_name, unit_priceStr,
 					sale_numberStr, note);
 			session.setAttribute("salesform", salesform);

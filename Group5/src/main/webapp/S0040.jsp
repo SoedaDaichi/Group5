@@ -53,19 +53,24 @@
 					</div>
 					<div class="col-2 my-3">
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="checkbox" name="role0"
-								id="role-none" value="0"> <label
-								class="form-check-label" for="role-none">権限なし</label>
+							<input class="form-check-input" type="checkbox"
+								name="authority_0" id="authority_none" value="0"> <label
+								class="form-check-label" for="authority-none">権限なし</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="checkbox" name="role1"
-								id="role-sales" value="1"> <label
-								class="form-check-label" for="role-sales">売上登録</label>
+							<input class="form-check-input" type="checkbox"
+								name="authority_1" id="authority-sales" value="1"> <label
+								class="form-check-label" for="authority-sales">売上登録</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="checkbox" name="role10"
-								id="role-account" value="2"> <label
-								class="form-check-label" for="role-account">アカウント登録</label>
+							<input class="form-check-input" type="checkbox"
+								name="authority_2" id="authority-accounts" value="2"> <label
+								class="form-check-label" for="authority_accounts">アカウント登録</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox"
+								name="authority_3" id="authority-all" value="3"> <label
+								class="form-check-label" for="authority_all">管理者</label>
 						</div>
 					</div>
 				</div>

@@ -10,11 +10,13 @@ import beans.Accounts;
 import beans.Sales;
 import daos.S0010Dao;
 import daos.S0030Dao;
+import daos.S0042Dao;
 
 public class ErrorService {
 
+	Map<String, String> errors = new HashMap<>();
+
 	public Map<String, String> ValidateLogin(String mail, String pass, String hashed_pass) {
-		Map<String, String> errors = new HashMap<>();
 		if (S0010Service.ValidNull(mail)) {
 			errors.put("mail", "メールアドレスを入力して下さい。");
 		} else if (mail.getBytes(StandardCharsets.UTF_8).length >= 100) {
@@ -41,12 +43,11 @@ public class ErrorService {
 
 	public Map<String, String> ValidateSales(String sale_dateStr, String account_idStr, String category_idStr,
 			String trade_name, String unit_priceStr, String sale_numberStr, String note) {
-		Map<String, String> errors = new HashMap<>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		sdf.setLenient(false);
 		if (S0010Service.ValidNull(sale_dateStr)) {
 			errors.put("sale_date", "販売日を入力してください。");
-		} else if (S0010Service.ValidDate(sale_dateStr)) {
+		} else if (!S0010Service.ValidDate(sale_dateStr)) {
 			errors.put("sale_date", "販売日を正しく入力してください。");
 		}
 
@@ -91,9 +92,6 @@ public class ErrorService {
 	}
 
 	public Map<String, String> ValidateSalesSearch(String firstStr, String lastStr) {
-		System.out.println(firstStr);
-
-		Map<String, String> errors = new HashMap<>();
 		if (!S0010Service.ValidNull(firstStr) && !S0010Service.ValidDate(firstStr)) {
 			errors.put("first", "販売日（検索開始日）を正しく入力して下さい。");
 		}
@@ -112,7 +110,6 @@ public class ErrorService {
 	}
 
 	public Map<String, String> ValidateAccounts(String name, String mail, String pass, String confirm_pass) {
-		Map<String, String> errors = new HashMap<>();
 		S0030Dao s0030dao = new S0030Dao();
 
 		if (S0010Service.ValidNull(name)) {
@@ -150,4 +147,51 @@ public class ErrorService {
 		return errors;
 	}
 
+	public Map<String, String> ValidateAccountsSearch(String name, String mail) {
+		if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
+			errors.put("name", "氏名の指定が長すぎます。");
+		}
+		if (mail.getBytes(StandardCharsets.UTF_8).length > 20) {
+			errors.put("mail", "メールアドレスの指定が長すぎます。");
+		}
+		return errors;
+	}
+
+	public Map<String, String> ValidateAccountsUpdate(int account_id, String name, String mail, String pass, String confirm_pass) {
+		S0042Dao s0042dao = new S0042Dao();
+
+		if (S0010Service.ValidNull(name)) {
+			errors.put("name", "氏名を入力して下さい。");
+		} else if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
+			errors.put("name", "氏名が長すぎます。");
+		} else if (s0042dao.accountUpdateNameCheck(name, account_id)) {
+			errors.put("name", "このユーザー名は既に使用されています。");
+		}
+
+		if (S0010Service.ValidNull(mail)) {
+			errors.put("mail", "メールアドレスを入力して下さい。");
+		} else if (mail.getBytes(StandardCharsets.UTF_8).length > 100) {
+			errors.put("mail", "メールアドレスが長すぎます。");
+		} else if (!mail.matches("^[\\w\\-.]+@[\\w\\-]+\\.[a-zA-Z]{2,}$")) {
+			errors.put("mail", "メールアドレスを正しく入力して下さい。");
+		} else if (s0042dao.accountUpdateEmailCheck(mail, account_id)) {
+			errors.put("mail", "このメールアドレスは既に使用されています。");
+		}
+
+		if (S0010Service.ValidNull(pass)) {
+			errors.put("pass", "パスワードを入力して下さい。");
+		} else if (pass.getBytes(StandardCharsets.UTF_8).length > 30) {
+			errors.put("pass", "パスワードが長すぎます。");
+		}
+
+		if (S0010Service.ValidNull(confirm_pass)) {
+			errors.put("confirm_pass", "パスワード（確認）を入力して下さい。");
+		}
+
+		if (!S0010Service.ValidNull(pass) && !S0010Service.ValidNull(confirm_pass) && !pass.equals(confirm_pass)) {
+			errors.put("pass", "パスワードとパスワード（確認）の入力内容が異なっています。");
+			errors.put("confirm_pass", "パスワードとパスワード（確認）の入力内容が異なっています。");
+		}
+		return errors;
+	}
 }

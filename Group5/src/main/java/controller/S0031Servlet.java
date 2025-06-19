@@ -55,12 +55,12 @@ public class S0031Servlet extends HttpServlet {
 		String name = accountsdata.getName();
 		String mail = accountsdata.getMail();
 		String pass = accountsdata.getPass();
-		String role = accountsdata.getRole();
+		String authorityStr = accountsdata.getAuthorityStr();
 
 		String hashedPass = auth.hashPassword(pass);
 
 		S0031Dao s0031dao = new S0031Dao();
-		boolean success = s0031dao.insert(name, mail, hashedPass, role);
+		boolean success = s0031dao.insert(name, mail, hashedPass, authorityStr);
 
 		if (success) {
 			session.setAttribute("success", "アカウントが作成されました。");

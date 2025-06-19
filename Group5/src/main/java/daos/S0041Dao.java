@@ -1,4 +1,4 @@
-package services;
+package daos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.util.List;
 import beans.Accounts;
 import utils.Db;
 
-public class S0041Service {
+public class S0041Dao {
 	
 	
 	public List<Accounts> getAccountsByKeyword(String keyword) {
@@ -49,32 +49,28 @@ public class S0041Service {
 	
 	
 
-    public List<Accounts> getAccountsByUserId(int userId) {
-        List<Accounts> taskList = new ArrayList<>();
-        String sql = "SELECT * FROM accounts WHERE user_id = ?";
-
+    public Accounts getAccountsByAccount_id(int account_id) {
+        String sql = "SELECT account_id, name,  mail, password, authority FROM accounts WHERE account_id = ?";
+        Accounts accounts = null;
         try (
             Connection conn = Db.open();
             PreparedStatement pstmt = conn.prepareStatement(sql);
         ) {
-            pstmt.setInt(1, userId);
+            pstmt.setInt(1, account_id);
             ResultSet rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-            	Accounts task = new Accounts();
-                task.setAccount_id(rs.getInt("account_id"));
-                task.setName(rs.getString("name"));
-                task.setMail(rs.getString("mail"));
-                task.setPass(rs.getString("password"));
-                task.setAuthority(rs.getInt("authority"));
-                
-
-                taskList.add(task);
+            accounts = new Accounts();
+            if (rs.next()) {
+            	accounts.setAccount_id(rs.getInt("account_id"));
+                accounts.setName(rs.getString("name"));
+                accounts.setMail(rs.getString("mail"));
+                accounts.setPass(rs.getString("password"));
+                accounts.setAuthority(rs.getInt("authority"));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return taskList;
+        return accounts;
     }
 }
