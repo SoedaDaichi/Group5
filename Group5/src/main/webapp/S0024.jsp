@@ -18,7 +18,7 @@
 			</div>
 		</div>
 
-		<form id="create-task-form" action="S0024.html" method="post">
+		<form action="S0024.html" method="post">
 		<div class = "row">
 		<div class = "col-9 offset-3">
 			<div class="row my-4">
@@ -39,7 +39,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<input type="text" id="text" name="name" class="form-control" value = "${salesdata.name}" disabled/>
+					<input type="text" name="name" class="form-control" value = "${salesdata.name}" disabled/>
 					
 					</select>
 				</div>
@@ -52,7 +52,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<input type="text" id="text" name="category_name" class="form-control" value = "${salesdata.category_name}" disabled/>
+					<input type="text" name="category_name" class="form-control" value = "${salesdata.category_name}" disabled/>
 					
 					</select>
 				</div>
@@ -65,7 +65,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<input type="text" id="text" name="trade_name" class="form-control" value = "${salesdata.trade_name}" disabled/>
+					<input type="text" name="trade_name" class="form-control" value = "${salesdata.trade_name}" disabled/>
 				</div>
 			</div>
 			
@@ -76,7 +76,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<input type="text" id="text" name="unit_price" class="form-control" value = "${salesdata.unit_price}" disabled/>
+					<input type="text" name="unit_price" class="form-control" value = "${salesdata.unit_price}" disabled/>
 				</div>
 			</div>
 			
@@ -87,7 +87,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<input type="text" id="text" name="sale_number" class="form-control" value = "${salesdata.sale_number}" disabled/>
+					<input type="text" name="sale_number" class="form-control" value = "${salesdata.sale_number}" disabled/>
 				</div>
 			</div>
 			
@@ -98,7 +98,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<textarea input type="text" id="text" name="note" class="form-control" value = "${salesdata.note}" rows = "4" disabled/></textarea>
+					<textarea input type="text" name="note" class="form-control" value = "${salesdata.note}" rows = "4" disabled/></textarea>
 				</div>
 			</div>
 			
