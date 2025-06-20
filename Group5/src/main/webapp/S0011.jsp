@@ -24,7 +24,7 @@
 					</div>
 					<div class="col-2 my-3">
 						<input type="date" id="date" name="sale_date" class="form-control"
-							value="${Register_salesdata.sale_date}" disabled>
+							value="${registerSalesdata.saleDate}" disabled>
 
 					</div>
 				</div>
@@ -37,7 +37,7 @@
 					<div class="col-2  my-3">
 						<class = input type="text" class="form-control"
 							id="exampleFormControlInput1" name="account_name"
-							value="${Register_salesdata.account_id}" disabled>${Register_salesdata.name}</class>
+							value="${registerSalesdata.accountId}" disabled>${registerSalesdata.name}</class>
 
 					</div>
 				</div>
@@ -50,7 +50,7 @@
 					<div class="col-4 my-3">
 						<class = input type="text" class="form-control"
 							id="exampleFormControlInput1" name="category_name" var="category"
-							value="${Register_salesdata.category_id}" disabled>${Register_salesdata.category_name}</class>
+							value="${registerSalesdata.categoryId}" disabled>${registerSalesdata.categoryName}</class>
 
 					</div>
 				</div>
@@ -63,7 +63,7 @@
 					<div class="col-4 my-3">
 						<input type="text" class="form-control"
 							id="exampleFormControlInput1" name="trade_name"
-							value="${Register_salesdata.trade_name}" disabled>
+							value="${registerSalesdata.tradeName}" disabled>
 
 					</div>
 				</div>
@@ -76,7 +76,7 @@
 					<div class="col-2 my-3">
 						<input type="text" class="form-control"
 							id="exampleFormControlInput1" name="unit_price" placeholder="単価"
-							value="${Register_salesdata.unit_price}" disabled>
+							value="${registerSalesdata.unitPrice}" disabled>
 
 					</div>
 				</div>
@@ -89,7 +89,7 @@
 					<div class="col-2 my-3">
 						<input type="text" class="form-control"
 							id="exampleFormControlInput1" name="sale_number" placeholder="個数"
-							value="${Register_salesdata.sale_number}" disabled>
+							value="${registerSalesdata.saleNumber}" disabled>
 
 					</div>
 				</div>
@@ -101,7 +101,7 @@
 					</div>
 					<div class="col-5 my-3">
 						<textarea class="form-control" 
-							name="note" rows="5" placeholder="備考" disabled>${Register_salesdata.note}</textarea>
+							name="note" rows="5" placeholder="備考" disabled>${registerSalesdata.note}</textarea>
 
 					</div>
 				</div>

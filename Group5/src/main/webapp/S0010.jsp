@@ -40,11 +40,11 @@
 					</div>
 					<div class="col-2 my-3">
 						<input type="date" name="sale_date" class="form-control"
-							value="${Register_salesform.sale_date}">
+							value="${registerSalesform.saleDate}">
 						<c:choose>
 							<c:when test="${not empty errors.sale_date}">
 								<div class="text-danger small">
-									<c:out value="${errors.sale_date}" />
+									<c:out value="${errors.saleDate}" />
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -63,16 +63,16 @@
 						<select class="form-select form-select-sm"
 							aria-label=".form-select-sm example" name="account_id">
 							<option value=""
-								${empty Register_salesform.account_id ? 'selected' : ''}>選択してください</option>
+								${empty registerSalesform.accountId ? 'selected' : ''}>選択してください</option>
 							<c:forEach var="account" items="${accountList}">
-								<option value="${account.account_id}"
-									${Register_salesform.account_id eq account.account_id ? 'selected' : ''}>${account.name}</option>
+								<option value="${account.accountId}"
+									${registerSalesform.accountId eq account.accountId ? 'selected' : ''}>${account.name}</option>
 							</c:forEach>
 						</select>
 						<c:choose>
-							<c:when test="${not empty errors.account_id}">
+							<c:when test="${not empty errors.accountId}">
 								<div class="text-danger small">
-									<c:out value="${errors.account_id}" />
+									<c:out value="${errors.accountId}" />
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -91,16 +91,16 @@
 						<select class="form-select form-select-sm"
 							aria-label=".form-select-sm example" name="category_id">
 							<option value=""
-								${empty Register_salesform.category_id ? 'selected' : ''}>選択してください</option>
+								${empty registerSalesform.categoryId ? 'selected' : ''}>選択してください</option>
 							<c:forEach var="category" items="${categoryList}">
-								<option value="${category.category_id}"
-									${Register_salesform.category_id eq category.category_id ? 'selected' : ''}>${category.category_name}</option>
+								<option value="${category.categoryId}"
+									${registerSalesform.categoryId eq category.categoryId ? 'selected' : ''}>${category.categoryName}</option>
 							</c:forEach>
 						</select>
 						<c:choose>
-							<c:when test="${not empty errors.category_id}">
+							<c:when test="${not empty errors.categoryId}">
 								<div class="text-danger small">
-									<c:out value="${errors.category_id}" />
+									<c:out value="${errors.categoryId}" />
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -118,11 +118,11 @@
 					<div class="col-4 my-3">
 						<input type="text" class="form-control"
 							id="exampleFormControlInput1" name="trade_name"
-							value="${Register_salesform.trade_name}" placeholder="商品名">
+							value="${registerSalesform.tradeName}" placeholder="商品名">
 						<c:choose>
-							<c:when test="${not empty errors.trade_name}">
+							<c:when test="${not empty errors.tradeName}">
 								<div class="text-danger small">
-									<c:out value="${errors.trade_name}" />
+									<c:out value="${errors.tradeName}" />
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -140,11 +140,11 @@
 					<div class="col-2 my-3">
 						<input type="text" class="form-control"
 							id="exampleFormControlInput1" name="unit_price"
-							value="${Register_salesform.unit_price}" placeholder="単価">
+							value="${registerSalesform.unitPrice}" placeholder="単価">
 						<c:choose>
-							<c:when test="${not empty errors.unit_price}">
+							<c:when test="${not empty errors.unitPrice}">
 								<div class="text-danger small">
-									<c:out value="${errors.unit_price}" />
+									<c:out value="${errors.unitPrice}" />
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -162,11 +162,11 @@
 					<div class="col-2 my-3">
 						<input type="text" class="form-control"
 							id="exampleFormControlInput1" name="sale_number"
-							value="${Register_salesform.sale_number}" placeholder="個数">
+							value="${registerSalesform.saleNumber}" placeholder="個数">
 						<c:choose>
-							<c:when test="${not empty errors.sale_number}">
+							<c:when test="${not empty errors.saleNumber}">
 								<div class="text-danger small">
-									<c:out value="${errors.sale_number}" />
+									<c:out value="${errors.saleNumber}" />
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -183,7 +183,7 @@
 					</div>
 					<div class="col-5 my-3">
 						<textarea class="form-control" id="exampleFormControlTextarea1"
-							name="note" rows="5" placeholder="備考">${Register_salesform.note}</textarea>
+							name="note" rows="5" placeholder="備考">${registerSalesform.note}</textarea>
 						<c:choose>
 							<c:when test="${not empty errors.note}">
 								<div class="text-danger small">

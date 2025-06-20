@@ -57,10 +57,10 @@ public class C001Servlet extends HttpServlet {
 //		System.out.println(mail);
 		String pass = request.getParameter("pass");
 //		System.out.println(pass);
-		String hashed_pass = auth.hashPassword(pass);
+		String hashedPass = auth.hashPassword(pass);
 
 		ErrorService es = new ErrorService();
-		Map<String, String> errors = es.ValidateLogin(mail, pass, hashed_pass);
+		Map<String, String> errors = es.ValidateLogin(mail, pass, hashedPass);
 		System.out.println(errors);
 		HttpSession session = request.getSession();
 
