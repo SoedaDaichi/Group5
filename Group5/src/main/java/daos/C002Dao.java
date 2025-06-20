@@ -60,30 +60,29 @@ public class C002Dao {
 	}
 	
 	
-//	public Map<String ,Integer> getCategorySales() {
-////		String sql ="SELECT category_id AS categor, SUM(unit_price * sale_number) AS total FROM sales GROUP BY category_id";
-////		
-//		String sql ="select c.category_name, sum(s.unit_price * s.sale_number) as total from sales s join categories c on s.category_id = c.category_id group by c.category_name";
-//		Map<String ,Integer> map = new WMap<>();
+	public Map<String ,Integer> getCategorySales() {
+//		String sql ="SELECT category_id AS categor, SUM(unit_price * sale_number) AS total FROM sales GROUP BY category_id";
 //		
-//		
-//		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//				PreparedStatement stmt = conn.prepareStatement(sql);
-//		        ResultSet rs = stmt.executeQuery()){
-//
-//			while
-//			stmt.setInt();
-//			try () {
-//				if (rs.next()) {
-//					return rs.getInt("");
-//				}
-//			}
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return 0;
-//	}
-}
+		String sql ="select c.category_name, sum(s.unit_price * s.sale_number) as total from sales s join categories c on s.category_id = c.category_id group by c.category_name";
+		Map<String ,Integer> map = new HashMap<>();
+		
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+				PreparedStatement stmt = conn.prepareStatement(sql);
+		        ResultSet rs = stmt.executeQuery()){
+
+			while(rs.next()){
+
+				String category = rs.getString("category_name");
+	            int total = rs.getInt("total");
+	            map.put(category, total);
+			}
+
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+
 	
 
