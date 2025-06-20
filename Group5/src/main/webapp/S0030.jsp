@@ -20,7 +20,7 @@
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント登録</h1>
 
 
-			<form id="create-task-form" action="S0030.html" method="post">
+			<form action="S0030.html" method="post">
 				<div class=row>
 					<div class="col-offset-2 col-6">
 						<c:choose>

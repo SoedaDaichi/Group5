@@ -31,7 +31,7 @@
 				</div>
 			</div>
 
-			<form id="create-sales-form" action="S0010.html" method="post">
+			<form action="S0010.html" method="post">
 				<div class=row>
 					<div class="col-2 text-end my-3">
 						<h5>
@@ -39,7 +39,7 @@
 						</h5>
 					</div>
 					<div class="col-2 my-3">
-						<input type="date" id="date" name="sale_date" class="form-control"
+						<input type="date" name="sale_date" class="form-control"
 							value="${Register_salesform.sale_date}">
 						<c:choose>
 							<c:when test="${not empty errors.sale_date}">

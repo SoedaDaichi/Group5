@@ -25,7 +25,7 @@
 						</div>
 
 						<div class="col-3">
-							<input type="date" id="date" name="date" class="form-control"
+							<input type="date" name="date" class="form-control"
 								value="${salesdata.sale_date}" disabled />
 						</div>
 					</div>
@@ -34,7 +34,7 @@
 							<h5>担当</h5>
 						</div>
 						<div class="col-3">
-							<input type="text" id="text" name="name" class="form-control"
+							<input type="text" name="name" class="form-control"
 								value="${salesdata.name}" disabled />
 						</div>
 					</div>
@@ -44,7 +44,7 @@
 							<h5>商品カテゴリー</h5>
 						</div>
 						<div class="col-3">
-							<input type="text" id="text" name="categroy_name"
+							<input type="text" name="categroy_name"
 								class="form-control" value="${salesdata.category_name}" disabled />
 						</div>
 					</div>
@@ -56,7 +56,7 @@
 							</h5>
 						</div>
 						<div class="col-3">
-							<input type="text" id="text" name="trade_name"
+							<input type="text" name="trade_name"
 								class="form-control" value="${salesdata.trade_name}" disabled />
 						</div>
 					</div>
@@ -68,7 +68,7 @@
 							</h5>
 						</div>
 						<div class="col-3">
-							<input type="text" id="text" name="unit_price"
+							<input type="text" name="unit_price"
 								class="form-control" value="${salesdata.unit_price}" disabled />
 						</div>
 					</div>
@@ -80,7 +80,7 @@
 							</h5>
 						</div>
 						<div class="col-3">
-							<input type="text" id="text" name="sale_number"
+							<input type="text" name="sale_number"
 								class="form-control" value="${salesdata.sale_number}" disabled />
 						</div>
 					</div>
@@ -92,7 +92,7 @@
 							</h5>
 						</div>
 						<div class="col-3">
-							<textarea input type="text" id="text" name="note"
+							<textarea input type="text" name="note"
 								class="form-control" value="${salesdata.note}" rows="4" disabled /></textarea>
 						</div>
 					</div>

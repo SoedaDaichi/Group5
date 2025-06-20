@@ -27,7 +27,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="text" id="name" name="name" class="form-control"
+						<input type="text" name="name" class="form-control"
 							placeholder="氏名" value="${formData.name}">
 						<c:if test="${not empty errors.name}">
 							<div class="text-danger small">${errors.name}</div>
@@ -42,7 +42,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="email" id="adless" name="mail" class="form-control"
+						<input type="email" name="mail" class="form-control"
 							placeholder="メールアドレス" value="${formData.mail}">
 						<c:if test="${not empty errors.mail}">
 							<div class="text-danger small">${errors.mail}</div>
@@ -57,7 +57,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="password" id="password" name="pass"
+						<input type="password"name="pass"
 							class="form-control" placeholder="パスワード"
 							value="${accountsdata.pass}">
 						<c:if test="${not empty errors.pass}">
@@ -73,7 +73,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="password" id="confirm_password" name="confirm_pass"
+						<input type="password" name="confirm_pass"
 							class="form-control" placeholder="パスワード(確認)"
 							value="${accountsdata.pass}">
 						<c:if test="${not empty errors.confirm_pass}">
@@ -91,25 +91,25 @@
 					<div class="col-4 my-3">
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
-								id="authority-none" value="0"
+								 value="0"
 								<c:if test="${formData.authority == 0}">checked</c:if>>
 							<label class="form-check-label" for="authority-none">権限なし</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
-								id="authority-sales" value="1"
+								 value="1"
 								<c:if test="${formData.authority == 1}">checked</c:if>>
 							<label class="form-check-label" for="authority-sales">売上登録</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
-								id="authority-accounts" value="2"
+								 value="2"
 								<c:if test="${formData.authority == 2}">checked</c:if>>
 							<label class="form-check-label" for="authority-accounts">アカウント登録</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
-								id="authority-all" value="3"
+								 value="3"
 								<c:if test="${formData.authority == 3}">checked</c:if>>
 							<label class="form-check-label" for="authority-all">全権限</label>
 						</div>
