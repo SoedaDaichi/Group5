@@ -81,14 +81,14 @@ public class S0041Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		int account_id = Integer.valueOf(request.getParameter("account_id"));
+		int accountId = Integer.valueOf(request.getParameter("accountId"));
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
 
 		S0041Dao s0041dao = new S0041Dao();
-		Accounts accounts = s0041dao.getAccountsByAccount_id(account_id);
+		Accounts accounts = s0041dao.getAccountsByAccount_id(accountId);
 
-		session.setAttribute("account_id", account_id);
+		session.setAttribute("accountId", accountId);
 		session.setAttribute("accounts", accounts);
 
 		if ("edit".equals(action)) {

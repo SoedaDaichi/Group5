@@ -16,9 +16,9 @@
 		<div class="col-9 offset-3">
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント詳細編集</h1>
 			<c:set var="formData"
-				value="${not empty accountsdata ? accountsdata : accounts}" />
+				value="${not empty accountsData ? accountsData : accounts}" />
 			<form id="create-task-form" action="S0042.html" method="post">
-				<input type="hidden" name="account_id" value="${account_id}">
+				<input type="hidden" name="accountId" value="${accountId}">
 				<div class="row">
 					<div
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
@@ -59,7 +59,7 @@
 					<div class="col-4 my-3">
 						<input type="password"name="pass"
 							class="form-control" placeholder="パスワード"
-							value="${accountsdata.pass}">
+							value="${accountsData.pass}">
 						<c:if test="${not empty errors.pass}">
 							<div class="text-danger small">${errors.pass}</div>
 						</c:if>
@@ -73,11 +73,11 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="password" name="confirm_pass"
+						<input type="password" name="confirmPass"
 							class="form-control" placeholder="パスワード(確認)"
-							value="${accountsdata.pass}">
-						<c:if test="${not empty errors.confirm_pass}">
-							<div class="text-danger small">${errors.confirm_pass}</div>
+							value="${accountsData.pass}">
+						<c:if test="${not empty errors.confirmPass}">
+							<div class="text-danger small">${errors.confirmPass}</div>
 						</c:if>
 					</div>
 				</div>
