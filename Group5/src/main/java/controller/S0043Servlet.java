@@ -37,11 +37,11 @@ public class S0043Servlet extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 		
-		AccountsData accountsdata = (AccountsData) session.getAttribute("accountsdata");
-		int account_id = (int) session.getAttribute("account_id");
+		AccountsData accountsData = (AccountsData) session.getAttribute("accountsData");
+		int accountId = (int) session.getAttribute("accountId");
 		
-		request.setAttribute("accountsdata", accountsdata);
-		request.setAttribute("account_id", account_id);
+		request.setAttribute("accountsData", accountsData);
+		request.setAttribute("accountId", accountId);
 		request.getRequestDispatcher("/S0043.jsp").forward(request, response);
 	}
 
@@ -54,20 +54,20 @@ public class S0043Servlet extends HttpServlet {
 		//doGet(request, response);
 		HttpSession session = request.getSession();
 		
-		int account_id = (int) session.getAttribute("account_id");
-		AccountsData accountsdata = (AccountsData) session.getAttribute("accountsdata");
-		String name = accountsdata.getName();
-		String mail = accountsdata.getMail();
-		String pass = accountsdata.getPass();
-		String authority = accountsdata.getAuthority(); 
+		int accountId = (int) session.getAttribute("accountId");
+		AccountsData accountsData = (AccountsData) session.getAttribute("accountsData");
+		String name = accountsData.getName();
+		String mail = accountsData.getMail();
+		String pass = accountsData.getPass();
+		String authority = accountsData.getAuthority(); 
 		
-		session.removeAttribute("account_id");
-		session.removeAttribute("accountsdata");
+		session.removeAttribute("accountId");
+		session.removeAttribute("accountsData");
 		
 		String hashedPass = auth.hashPassword(pass);
 
 		S0043Dao s0043dao = new S0043Dao();
-		boolean success = s0043dao.update(account_id, name, mail, hashedPass, authority);
+		boolean success = s0043dao.update(accountId, name, mail, hashedPass, authority);
 
 		if (success) {
 			session.setAttribute("success", "アカウントが更新されました。");
