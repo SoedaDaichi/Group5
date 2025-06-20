@@ -44,7 +44,9 @@ public class S0041Servlet extends HttpServlet {
 		String success = (String) session.getAttribute("success");
 		String error = (String) session.getAttribute("error");
 		AccountsSearchForm asform = (AccountsSearchForm) session.getAttribute("asform");
-		ArrayList<Accounts> accontsList = (ArrayList<Accounts>) session.getAttribute("accountsList");
+		System.out.println("検索入力保持: " + asform);
+		ArrayList<Accounts> accountsList = (ArrayList<Accounts>) session.getAttribute("accountsList");
+		System.out.println("検索結果: " + accountsList);
 
 		if (success != null) {
 			request.setAttribute("success", success);
@@ -54,19 +56,19 @@ public class S0041Servlet extends HttpServlet {
 			session.removeAttribute("error");
 		}
 
-		if ((accontsList == null || accontsList.isEmpty()) && asform != null) {
+		if ((accountsList == null || accountsList.isEmpty()) && asform != null) {
 			S0040Service s0040service = new S0040Service();
-			ArrayList<Accounts> accountsList = s0040service.select(asform);
-			request.setAttribute("accontsList", accountsList);
+			ArrayList<Accounts> accountsListRe = s0040service.select(asform);
+			request.setAttribute("accountsList", accountsListRe);
 			session.removeAttribute("accountList");
 			System.out.println("再検索");
 		} else if (asform != null) {
-			request.setAttribute("accontsList", accontsList);
-			session.removeAttribute("accontsList");
+			request.setAttribute("accountsList", accountsList);
+			session.removeAttribute("accountsList");
 			System.out.println("初回検索");
 		} else {
 			Map<String, String> notFound = new HashMap<>();
-			notFound.put("acconts_notfound", "エラーが発生しました。");
+			notFound.put("accounts_notfound", "エラーが発生しました。");
 			request.setAttribute("notFound", notFound); // 検索画面の上部にエラー文が出る
 			response.sendRedirect("S0040.html");
 			return;

@@ -12,7 +12,7 @@
 <body>
 	<%@ include file="navbar.jsp"%>
 
-	<div class="container-fluid mt-2">
+	<div class="container mt-5">
 		<div class="row">
 			<div class="col-9 offset-3">
 				<h1 class="mb-4">売上検索結果表示</h1>
@@ -47,7 +47,10 @@
 			<table class="table table-bordered table-hover">
 				<thead class="table-light">
 					<tr>
-						<th class="col-1">操作</th>
+						<c:if
+							test="${sessionScope.loginAccount.authority == 1 || sessionScope.loginAccount.authority == 3}">
+							<th class="col-1">操作</th>
+						</c:if>
 						<th class="col-1">No.</th>
 						<th class="col-1">販売日</th>
 						<th class="col-1">担当</th>
@@ -62,10 +65,15 @@
 				<tbody>
 					<c:forEach var="sales" items="${salesList}" varStatus="status">
 						<tr>
-							<td><form action="S0021.html" method="post">
-									<input type="hidden" name="sale_id" value="${sales.sale_id}">
-									<button type="submit" class="btn btn-sm btn-primary">詳細</button>
-								</form></td>
+							<c:if
+								test="${sessionScope.loginAccount.authority == 1 || sessionScope.loginAccount.authority == 3}">
+								<td>
+									<form action="S0021.html" method="post">
+										<input type="hidden" name="sale_id" value="${sales.sale_id}">
+										<button type="submit" class="btn btn-sm btn-primary">詳細</button>
+									</form>
+								</td>
+							</c:if>
 							<td>${sales.sale_id}</td>
 							<td>${sales.sale_date}</td>
 							<td>${sales.name}</td>

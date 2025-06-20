@@ -23,11 +23,18 @@
 			<form id="create-task-form" action="S0030.html" method="post">
 				<div class=row>
 					<div class="col-offset-2 col-6">
-						<c:if test="${not empty success}">
-							<div class="alert alert-success text-center py-2">
-								<c:out value="${success}" />
-							</div>
-						</c:if>
+						<c:choose>
+							<c:when test="${not empty success}">
+								<div class="alert alert-success text-center py-1">
+									<c:out value="${success}" />
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="alert alert-success text-center
+									py-1"
+									style="visibility: hidden;">&nbsp;</div>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 				<div class=row>

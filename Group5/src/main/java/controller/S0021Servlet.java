@@ -62,9 +62,11 @@ public class S0021Servlet extends HttpServlet {
 			S0020Dao s0020dao = new S0020Dao();
 			ArrayList<Sales> salesListRe = s0020dao.select(ssform);
 			request.setAttribute("salesList", salesListRe);
+			session.removeAttribute("salesList");
 		} else if (ssform != null) {
 			System.out.println("検索結果: " + salesList);
 			request.setAttribute("salesList", salesList);
+			session.removeAttribute("salesList");
 		} else {
 			Map<String, String> notFound = new HashMap<>();
 			notFound.put("sales_notfound", "エラーが発生しました。");

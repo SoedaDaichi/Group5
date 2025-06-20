@@ -18,8 +18,7 @@
 			<c:set var="formData"
 				value="${not empty accountsdata ? accountsdata : accounts}" />
 			<form id="create-task-form" action="S0042.html" method="post">
-				<input type="hidden" name="account_id"
-					value="${account_id}">
+				<input type="hidden" name="account_id" value="${account_id}">
 				<div class="row">
 					<div
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
@@ -59,7 +58,8 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="password" id="password" name="pass"
-							class="form-control" placeholder="パスワード" value="${accountsdata.pass}">
+							class="form-control" placeholder="パスワード"
+							value="${accountsdata.pass}">
 						<c:if test="${not empty errors.pass}">
 							<div class="text-danger small">${errors.pass}</div>
 						</c:if>
@@ -128,5 +128,6 @@
 			</form>
 		</div>
 	</div>
+	<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
