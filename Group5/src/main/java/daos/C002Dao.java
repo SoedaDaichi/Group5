@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class C002Dao {
 
@@ -83,6 +85,6 @@ public class C002Dao {
 		}
 		return map;
 	}
-
+}
 	
 
