@@ -21,14 +21,14 @@ public class S0020Dao {
 						+ "s.unit_price * s.sale_number AS price_all "
 						+ "FROM sales s INNER JOIN accounts a ON s.account_id = a.account_id "
 						+ "INNER JOIN categories c ON s.category_id = c.category_id");
-		
+
 		String firstStr = ssform.getFirstStr();
 		String lastStr = ssform.getLastStr();
 		String account_idStr = ssform.getAccount_idStr();
 		String category_idStr = ssform.getCategory_idStr();
 		String trade_name = ssform.getTrade_name();
 		String note = ssform.getNote();
-		
+
 		System.out.println("備考: " + note);
 		System.out.println("商品名: " + trade_name);
 
@@ -56,7 +56,7 @@ public class S0020Dao {
 			where.add("s.sale_date <= ?");
 			sqlList.add(last);
 		}
-		
+
 		if (account_idStr != null && !account_idStr.isEmpty()) {
 			int account_id = Integer.parseInt(account_idStr);
 			System.out.println(account_id);
@@ -87,7 +87,7 @@ public class S0020Dao {
 				while (rs.next()) {
 					Sales sales = new Sales();
 					sales.setSale_id(rs.getInt("sale_id"));
-					sales.setSale_date(rs.getDate("sale_date"));
+					sales.setSale_date(rs.getDate("sale_date").toLocalDate());
 					sales.setName(rs.getString("name"));
 					sales.setCategory_name(rs.getString("category_name"));
 					sales.setTrade_name(rs.getString("trade_name"));
