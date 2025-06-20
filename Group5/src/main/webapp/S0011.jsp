@@ -15,7 +15,7 @@
 			<p class="fs-1 fw-bold mx-5 mt-4">売上登録確認</p>
 
 
-			<form id="create-sales-form" action="S0011.html" method="post">
+			<form action="S0011.html" method="post">
 				<div class=row>
 					<div class="col-2 text-end my-3">
 						<h5>
@@ -100,7 +100,7 @@
 						</h5>
 					</div>
 					<div class="col-5 my-3">
-						<textarea class="form-control" id="exampleFormControlTextarea1"
+						<textarea class="form-control" 
 							name="note" rows="5" placeholder="備考" disabled>${Register_salesdata.note}</textarea>
 
 					</div>

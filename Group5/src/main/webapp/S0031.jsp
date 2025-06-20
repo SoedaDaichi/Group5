@@ -27,7 +27,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="text" id="name" name="name" class="form-control"
+						<input type="text" name="name" class="form-control"
 							value="${Register_accountsdata.name}" disabled>
 					</div>
 				</div>
@@ -41,7 +41,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="email" id="adless" name="mail" class="form-control"
+						<input type="email" name="mail" class="form-control"
 							value="${Register_accountsdata.mail}" disabled>
 					</div>
 				</div>
@@ -56,7 +56,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="password" id="password" name="pass"
+						<input type="password" name="pass"
 							class="form-control" value="${Register_accountsdata.pass}"
 							disabled>
 					</div>
@@ -70,7 +70,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="password" id="confirm_password" name="confirm_pass"
+						<input type="password" name="confirm_pass"
 							class="form-control"
 							value="${Register_accountsdata.confirm_pass}" disabled>
 					</div>
@@ -93,21 +93,21 @@
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
-								id="authority-sales" value="1"
+								 value="1"
 								<c:if test="${Register_accountsdata.authority eq '1'}">checked</c:if>
 								disabled> <label class="form-check-label"
 								for="authority-sales">売上登録</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
-								id="authority-accounts" value="2"
+								 value="2"
 								<c:if test="${Register_accountsdata.authority eq '2'}">checked</c:if>
 								disabled> <label class="form-check-label"
 								for="authority-accounts">アカウント登録</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
-								id="authority-all" value="3"
+								 value="3"
 								<c:if test="${Register_accountsdata.authority eq '3'}">checked</c:if>
 								disabled> <label class="form-check-label"
 								for="authority-all">管理者</label>

@@ -21,7 +21,7 @@
 		<c:set var="formData"
 			value="${not empty salesform ? salesform : salesdata}" />
 
-		<form id="create-task-form" action="S0023.html" method="post">
+		<form action="S0023.html" method="post">
 			<div class="row">
 				<div class="col-9 offset-3">
 					<div class="row my-4">
@@ -31,7 +31,7 @@
 							</h5>
 						</div>
 						<div class="col-3">
-							<input type="date" id="date" name="sale_date"
+							<input type="date"name="sale_date"
 								class="form-control" value="${formData.sale_date}" />
 							<c:if test="${not empty errors.sale_date}">
 								<div class="text-danger small">${errors.sale_date}</div>

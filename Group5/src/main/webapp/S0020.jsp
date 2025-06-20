@@ -17,7 +17,7 @@
 			</div>
 		</div>
 
-		<form id="create-task-form" action="S0020.html" method="post" novalidate>
+		<form action="S0020.html" method="post" novalidate>
 			<c:choose>
 				<c:when test="${not empty notFound.sales_notfound}">
 					<div class="alert alert-danger text-center py-1">
@@ -39,7 +39,7 @@
 							</h5>
 						</div>
 						<div class="col-2">
-							<input type="date" id="date" name="first"
+							<input type="date" name="first"
 								value="${ssform.firstStr}" class="form-control">
 							<c:choose>
 								<c:when test="${not empty errors.first}">
@@ -56,7 +56,7 @@
 							<p>～</p>
 						</div>
 						<div class="col-2">
-							<input type="date" id="date" name="last"
+							<input type="date" name="last"
 								value="${ssform.lastStr}" class="form-control">
 							<c:choose>
 								<c:when test="${not empty errors.last}">
