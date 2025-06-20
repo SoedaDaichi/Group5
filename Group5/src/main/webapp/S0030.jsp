@@ -46,7 +46,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="text" id="name" value="${Register_accountsform.name}"
+						<input type="text" id="name" value="${RegisterAccountsform.name}"
 							name="name"
 							class="form-control ${not empty error ? ' is-invalid' : ''}"
 							placeholder="氏名">
@@ -73,7 +73,7 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="email" id="adless"
-							value="${Register_accountsform.mail}" name="mail"
+							value="${RegisterAccountsform.mail}" name="mail"
 							class="form-control ${not empty error ? ' is-invalid' : ''}"
 							placeholder="メールアドレス">
 						<c:choose>
@@ -126,9 +126,9 @@
 							class="form-control ${not empty error ? ' is-invalid' : ''}"
 							placeholder="パスワード（確認）">
 						<c:choose>
-							<c:when test="${not empty errors.confirm_pass}">
+							<c:when test="${not empty errors.confirmPass}">
 								<div class="text-danger small">
-									<c:out value="${errors.confirm_pass}" />
+									<c:out value="${errors.confirmPass}" />
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -150,26 +150,26 @@
 						<div class="form-check form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
 								id="authority-none" value="0"
-								${Register_accountsform.authority == '0' ? 'checked' : ''}
+								${RegisterAccountsform.authority == '0' ? 'checked' : ''}
 								checked> <label class="form-check-label"
 								for="authority-none">権限なし</label>
 						</div>
 						<div class="form-check form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
 								id="authority-sales" value="1"
-								${Register_accountsform.authority == '1' ? 'checked' : ''}>
+								${RegisterAccountsform.authority == '1' ? 'checked' : ''}>
 							<label class="form-check-label" for="authority-sales">売上登録</label>
 						</div>
 						<div class="form-check form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
 								id="authority-accounts" value="2"
-								${Register_accountsform.authority == '2' ? 'checked' : ''}>
+								${RegisterAccountsform.authority == '2' ? 'checked' : ''}>
 							<label class="form-check-label" for="authority-accounts">アカウント登録</label>
 						</div>
 						<div class="form-check form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
 								id="authority-all" value="3"
-								${Register_accountsform.authority == '3' ? 'checked' : ''}>
+								${RegisterAccountsform.authority == '3' ? 'checked' : ''}>
 							<label class="form-check-label" for="authority-all">管理者</label>
 						</div>
 					</div>

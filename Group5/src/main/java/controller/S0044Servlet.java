@@ -37,10 +37,10 @@ public class S0044Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		Accounts accounts = (Accounts) session.getAttribute("accounts");
-		int account_id = (int) session.getAttribute("account_id");
+		int accountId = (int) session.getAttribute("accountId");
 
 		request.setAttribute("accounts", accounts);
-		request.setAttribute("account_id", account_id);
+		request.setAttribute("accountId", accountId);
 		//		session.removeAttribute("accounts");
 		request.getRequestDispatcher("/S0044.jsp").forward(request, response);
 	}
@@ -53,13 +53,13 @@ public class S0044Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
 		if ("delete".equals(action)) {
-			int account_id = (int) session.getAttribute("account_id");
+			int accountId = (int) session.getAttribute("accountId");
 
-			session.removeAttribute("account_id");
+			session.removeAttribute("accountId");
 			session.removeAttribute("accounts");
 
 			S0044Dao s0044dao = new S0044Dao();
-			boolean success = s0044dao.deleteAccount(account_id);
+			boolean success = s0044dao.deleteAccount(accountId);
 
 			if (success) {
 				session.setAttribute("success", "アカウントが削除されました。");
