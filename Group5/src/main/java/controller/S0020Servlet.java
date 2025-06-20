@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,10 +15,8 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import beans.Categories;
-import beans.Sales;
 import beans.SalesSearchForm;
 import daos.S0010Dao;
-import daos.S0020Dao;
 import services.ErrorService;
 
 /**
@@ -61,7 +61,7 @@ public class S0020Servlet extends HttpServlet {
 
 		S0010Dao ss = new S0010Dao();
 		ArrayList<Accounts> accountList = ss.selectAccount();
-//		System.out.println(accountList.size());
+		//		System.out.println(accountList.size());
 		ArrayList<Categories> categoryList = ss.selectCategory();
 
 		request.setAttribute("accountList", accountList);
@@ -77,51 +77,20 @@ public class S0020Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-
-		System.out.println("----------売上検索-----------");
-		String firstStr = request.getParameter("first");
-		System.out.print("日付範囲: " + firstStr + "～");
-		String lastStr = request.getParameter("last");
-		System.out.println(lastStr);
-
-		String account_idStr = request.getParameter("account_id");
-		System.out.println("アカウントID: " + account_idStr);
-		String category_idStr = request.getParameter("category_id");
-		System.out.println("カテゴリーID： " + category_idStr);
-		String trade_name = request.getParameter("trade_name");
-		System.out.println("商品名" + trade_name);
-		String note = request.getParameter("note");
-		System.out.println("備考： " + note);
-
 		ErrorService es = new ErrorService();
-		
-		Map<String, String> errors = es.ValidateSalesSearch(firstStr, lastStr);
+
+		Map<String, String> errors = es.ValidateSalesSearch(request);
 		System.out.println("日付エラー: " + errors);
 		if (errors != null && !errors.isEmpty()) {
-			session.setAttribute("errors", errors);
+			Queue<Map<String, String>> errorQueue = new ConcurrentLinkedQueue<>();
+			errorQueue.add(errors);
+			session.setAttribute("errorsQueue", errorQueue);
 			response.sendRedirect("S0020.html");
 			return;
 		}
 
-		SalesSearchForm ssform = new SalesSearchForm(firstStr, lastStr, account_idStr, category_idStr,
-				trade_name, note);
+		SalesSearchForm ssform = new SalesSearchForm(request);
 		session.setAttribute("ssform", ssform);
-
-
-		S0020Dao s0020dao = new S0020Dao();
-		ArrayList<Sales> salesList = s0020dao.select(ssform);
-		System.out.println("検索結果: " + salesList);
-
-		Map<String, String> notFound = es.ValidateNotFoundSales(salesList);
-		System.out.println("検索結果なし: " + notFound);
-
-		if (notFound != null && !notFound.isEmpty()) {
-			session.setAttribute("notFound", notFound);
-			response.sendRedirect("S0020.html");
-			return;
-		}
-
-		session.setAttribute("salesList", salesList);
 		response.sendRedirect("S0021.html");
 	}
 }

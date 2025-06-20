@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.SalesData;
 import daos.S0023Dao;
+import services.SessionDataService;
 
 /**
  * Servlet implementation class S0024Servlet
@@ -33,10 +33,7 @@ public class S0024Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		SalesData salesdata = (SalesData) session.getAttribute("salesdata");
-
-		request.setAttribute("salesdata", salesdata);
+		SessionDataService.SalesDataSession(request);
 		request.getRequestDispatcher("/S0024.jsp").forward(request, response);
 	}
 
@@ -49,20 +46,12 @@ public class S0024Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		SalesData salesdata = (SalesData) session.getAttribute("salesdata");
 		int sale_id = (int) session.getAttribute("sale_id");
-		Date sale_date = salesdata.getSale_date();
-		int account_id = salesdata.getAccount_id();
-		int category_id = salesdata.getCategory_id();
-		String trade_name = salesdata.getTrade_name();
-		int unit_price = salesdata.getUnit_price();
-		int sale_number = salesdata.getSale_number();
-		String note = salesdata.getNote();
-
+		
 		session.removeAttribute("sale_id");
 		session.removeAttribute("salesdata");
 
 		S0023Dao s0023dao = new S0023Dao();
-		boolean success = s0023dao.updateSales(sale_date, account_id, category_id, trade_name, unit_price, sale_number,
-				note, sale_id);
+		boolean success = s0023dao.updateSales(sale_id, salesdata);
 
 		if (success) {
 			session.setAttribute("success", "売上が更新されました。");

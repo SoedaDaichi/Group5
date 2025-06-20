@@ -1,5 +1,7 @@
 package beans;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.Data;
 
 @Data
@@ -10,6 +12,15 @@ public class SalesSearchForm {
 	private String category_idStr;
 	private String trade_name;
 	private String note;
+	
+	public SalesSearchForm(HttpServletRequest request) {
+		this.firstStr = request.getParameter("first");
+		this.lastStr = request.getParameter("last");
+		this.account_idStr = request.getParameter("account_id");
+		this.category_idStr = request.getParameter("category_id");
+		this.trade_name = request.getParameter("trade_name");
+		this.note = request.getParameter("note");
+	}
 
 	public SalesSearchForm(String firstStr, String lastStr, String account_idStr, String category_idStr,
 			String trade_name, String note) {

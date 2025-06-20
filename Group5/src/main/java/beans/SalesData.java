@@ -1,12 +1,16 @@
 package beans;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
+import jakarta.servlet.http.HttpServletRequest;
+
+import daos.S0010Dao;
 import lombok.Data;
 
 @Data
 public class SalesData {
-	private Date sale_date;
+	private LocalDate sale_date;
 	private String name;
 	private int account_id;
 	private String category_name;
@@ -16,7 +20,30 @@ public class SalesData {
 	private int sale_number;
 	private String note;
 
-	public SalesData(Date sale_date, String name, int account_id, String category_name, int category_id,
+	public SalesData(HttpServletRequest request, S0010Dao dao) {
+		String saleDateStr = request.getParameter("sale_date");
+		int accountId = Integer.parseInt(request.getParameter("account_id"));
+		int categoryId = Integer.parseInt(request.getParameter("category_id"));
+		String tradeName = request.getParameter("trade_name");
+		int unitPrice = Integer.parseInt(request.getParameter("unit_price"));
+		int saleNumber = Integer.parseInt(request.getParameter("sale_number"));
+		String note = request.getParameter("note");
+
+		Accounts account = dao.identificationAccount(accountId);
+		Categories category = dao.identificationCategory(categoryId);
+
+		this.sale_date = LocalDate.parse(saleDateStr, DateTimeFormatter.ISO_DATE); // yyyy-MM-dd形式
+		this.name = account.getName();
+		this.account_id = accountId;
+		this.category_name = category.getCategory_name();
+		this.category_id = categoryId;
+		this.trade_name = tradeName;
+		this.unit_price = unitPrice;
+		this.sale_number = saleNumber;
+		this.note = note;
+	}
+
+	public SalesData(LocalDate sale_date, String name, int account_id, String category_name, int category_id,
 			String trade_name,
 			int unit_price, int sale_number,
 			String note) {

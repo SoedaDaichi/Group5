@@ -1,13 +1,14 @@
 package beans;
 
-import java.util.Date;
+import java.time.LocalDate;
 
+import daos.S0010Dao;
 import lombok.Data;
 
 @Data
 public class Sales {
 	private int sale_id;
-	private Date sale_date;
+	private LocalDate sale_date;
 	private int account_id;
 	private int category_id;
 	private String trade_name;
@@ -22,4 +23,19 @@ public class Sales {
 	
 	public Sales() {
 	}
+	
+	public SalesData toSalesData(S0010Dao dao) { // Sales -> SalesData
+	    return new SalesData(
+	        (LocalDate) getSale_date(),
+	        dao.identificationAccount(getAccount_id()).getName(),
+	        getAccount_id(),
+	        dao.identificationCategory(getCategory_id()).getCategory_name(),
+	        getCategory_id(),
+	        getTrade_name(),
+	        getUnit_price(),
+	        getSale_number(),
+	        getNote()
+	    );
+	}
+
 }
