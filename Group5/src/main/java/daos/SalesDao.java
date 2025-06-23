@@ -100,12 +100,12 @@ public class SalesDao {
 	}
 
 	public boolean insert(SalesData RegisterSalesdata) {
-		LocalDate sale_date = RegisterSalesdata.getSaleDate();
-		int account_id = RegisterSalesdata.getAccountId();
-		int category_id = RegisterSalesdata.getCategoryId();
-		String trade_name = RegisterSalesdata.getTradeName();
-		int unit_price = RegisterSalesdata.getUnitPrice();
-		int sale_number = RegisterSalesdata.getSaleNumber();
+		LocalDate saleDate = RegisterSalesdata.getSaleDate();
+		int accountId = RegisterSalesdata.getAccountId();
+		int categoryId = RegisterSalesdata.getCategoryId();
+		String tradeName = RegisterSalesdata.getTradeName();
+		int unitPrice = RegisterSalesdata.getUnitPrice();
+		int saleNumber = RegisterSalesdata.getSaleNumber();
 		String note = RegisterSalesdata.getNote();
 
 		String insert = """
@@ -123,12 +123,12 @@ public class SalesDao {
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(insert);) {
-			pstmt.setObject(1, sale_date);
-			pstmt.setInt(2, account_id);
-			pstmt.setInt(3, category_id);
-			pstmt.setString(4, trade_name);
-			pstmt.setInt(5, unit_price);
-			pstmt.setInt(6, sale_number);
+			pstmt.setObject(1, saleDate);
+			pstmt.setInt(2, accountId);
+			pstmt.setInt(3, categoryId);
+			pstmt.setString(4, tradeName);
+			pstmt.setInt(5, unitPrice);
+			pstmt.setInt(6, saleNumber);
 			if (note != null) {
 				pstmt.setString(7, note);
 			} else {
@@ -166,18 +166,18 @@ public class SalesDao {
 
 		String firstStr = ssform.getFirstStr();
 		String lastStr = ssform.getLastStr();
-		String account_idStr = ssform.getAccountIdStr();
-		String category_idStr = ssform.getCategoryIdStr();
-		String trade_name = ssform.getTradeName();
+		String accountIdStr = ssform.getAccountIdStr();
+		String categoryIdStr = ssform.getCategoryIdStr();
+		String tradeName = ssform.getTradeName();
 		String note = ssform.getNote();
 
 		System.out.println("備考: " + note);
-		System.out.println("商品名: " + trade_name);
+		System.out.println("商品名: " + tradeName);
 
-		if (trade_name != null && !trade_name.isEmpty()) {
+		if (tradeName != null && !tradeName.isEmpty()) {
 			// nullでないかつ空文字でない
 			where.add("s.trade_name LIKE ?");
-			sqlList.add("%" + trade_name + "%");
+			sqlList.add("%" + tradeName + "%");
 		}
 		if (note != null && !note.isEmpty()) {
 			where.add("s.note LIKE ?");
@@ -199,14 +199,14 @@ public class SalesDao {
 			sqlList.add(last);
 		}
 
-		if (account_idStr != null && !account_idStr.isEmpty()) {
-			int account_id = Integer.parseInt(account_idStr);
+		if (accountIdStr != null && !accountIdStr.isEmpty()) {
+			int account_id = Integer.parseInt(accountIdStr);
 			System.out.println(account_id);
 			where.add("s.account_id = ?");
 			sqlList.add(account_id);
 		}
-		if (category_idStr != null && !category_idStr.isEmpty()) {
-			int category_id = Integer.parseInt(category_idStr);
+		if (categoryIdStr != null && !categoryIdStr.isEmpty()) {
+			int category_id = Integer.parseInt(categoryIdStr);
 			where.add("s.category_id = ?");
 			sqlList.add(category_id);
 		}
@@ -260,15 +260,15 @@ public class SalesDao {
 
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				int account_id = rs.getInt("account_id");
-				int category_id = rs.getInt("sale_id");
+				int accountId = rs.getInt("account_id");
+				int categoryId = rs.getInt("sale_id");
 				new SalesData(
 						saleId,
 						rs.getDate("sale_date").toLocalDate(),
-						sd.identificationAccount(account_id).getName(),
-						account_id,
-						sd.identificationCategory(category_id).getCategoryName(),
-						category_id,
+						sd.identificationAccount(accountId).getName(),
+						accountId,
+						sd.identificationCategory(categoryId).getCategoryName(),
+						categoryId,
 						rs.getString("trade_name"),
 						rs.getInt("unit_price"),
 						rs.getInt("sale_number"),

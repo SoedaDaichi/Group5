@@ -24,7 +24,7 @@ public class auth {
 				loginAccount = new loginAccount();
 				loginAccount.setMail(rs.getString("mail"));
 				loginAccount.setPass(rs.getString("password"));
-				loginAccount.setAccount_id(rs.getInt("account_id"));
+				loginAccount.setAccountId(rs.getInt("account_id"));
 				loginAccount.setName(rs.getString("name"));
 				loginAccount.setAuthority(rs.getInt("authority"));
 			}
@@ -49,13 +49,13 @@ public class auth {
 			return loginAccount;
 	}
 
-	public static boolean passCheck(int account_id, String cPass) {
+	public static boolean passCheck(int accountId, String cPass) {
 		String select = "SELECT password FROM accounts WHERE account_id = ?";
 		String pass = null;
 
 		try (Connection conn = Db.open();
 				PreparedStatement ps = conn.prepareStatement(select)) {
-			ps.setInt(1, account_id);
+			ps.setInt(1, accountId);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				pass = rs.getString("password");

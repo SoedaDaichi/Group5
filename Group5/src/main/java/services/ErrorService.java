@@ -35,7 +35,7 @@ public class ErrorService {
 		if (account == null && errors.isEmpty()) {
 			errors.put("account", "メールアドレス、パスワードを正しく入力して下さい。");
 			return errors;
-		} else if (account != null && !auth.passCheck(account.getAccount_id(), hashedPass)) {
+		} else if (account != null && !auth.passCheck(account.getAccountId(), hashedPass)) {
 			errors.put("account", "メールアドレス、パスワードを正しく入力して下さい。");
 		}
 		return errors;

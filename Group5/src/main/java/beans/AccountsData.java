@@ -13,19 +13,19 @@ public class AccountsData {
 	private String confirmPass;
 	private String authority;
 	
-	public AccountsData(String name, String mail, String pass, String confirm_pass, String authorityStr) {
+	public AccountsData(String name, String mail, String pass, String confirmPass, String authorityStr) {
 		this.name = name;
 		this.mail = mail;
 		this.pass = pass;
-		this.confirmPass = confirm_pass;
+		this.confirmPass = confirmPass;
 		this.authority = authorityStr;
 	}
-	public AccountsData(int accountId, String name, String mail, String pass, String confirm_pass, String authorityStr) {
+	public AccountsData(int accountId, String name, String mail, String pass, String confirmPass, String authorityStr) {
 		this.accountId = accountId;
 		this.name = name;
 		this.mail = mail;
 		this.pass = pass;
-		this.confirmPass = confirm_pass;
+		this.confirmPass = confirmPass;
 		this.authority = authorityStr;
 	}
 

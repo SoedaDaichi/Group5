@@ -38,15 +38,15 @@ public class SessionDataService {
 		Queue<?> errorQueue = (Queue<?>) session.getAttribute("errorQueue");
 		
 		if (errorQueue == null || errorQueue.isEmpty()) {
-			AccountsData accountsdata = (AccountsData) session.getAttribute("accountssdata");
-			request.setAttribute("accountsdata", accountsdata);
+			AccountsData accountsData = (AccountsData) session.getAttribute("accountssData");
+			request.setAttribute("accountsdata", accountsData);
 		}
 	}
 	
 	public static void AccountsRegisterDataSession(HttpServletRequest request) {
 		
-		AccountsData RegisterAccountsdata = new AccountsData(request);
+		AccountsData registerAccountsData = new AccountsData(request);
 		
-		request.setAttribute("RegisterAccountsdata", RegisterAccountsdata);
+		request.setAttribute("registerAccountsData", registerAccountsData);
 	}
 }

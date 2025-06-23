@@ -14,10 +14,10 @@ public class SessionFormService {
 		HttpSession session = request.getSession(false);
 		Queue<?> errorQueue = (Queue<?>) session.getAttribute("errorQueue"); // ?はどの型でもOK
 		if (errorQueue != null && !errorQueue.isEmpty()) {
-			SalesForm salesform = (SalesForm) session.getAttribute("salesform");
-			if (salesform != null) {
-				request.setAttribute("salesform", salesform);
-				session.removeAttribute("salesform");
+			SalesForm salesForm = (SalesForm) session.getAttribute("salesForm");
+			if (salesForm != null) {
+				request.setAttribute("salesForm", salesForm);
+				session.removeAttribute("salesForm");
 			}
 		}
 	}
@@ -26,10 +26,10 @@ public class SessionFormService {
 		HttpSession session = request.getSession(false);
 		Queue<?> errorQueue = (Queue<?>) session.getAttribute("errorQueue"); // ?はどの型でもOK
 		if (errorQueue != null && !errorQueue.isEmpty()) {
-			SalesForm RegisterSalesForm = (SalesForm) session.getAttribute("RegisterSalesForm");
-			if (RegisterSalesForm != null) {
-				request.setAttribute("RegisterSalesForm", RegisterSalesForm);
-				session.removeAttribute("RegisterSalesForm");
+			SalesForm registerSalesForm = (SalesForm) session.getAttribute("RegisterSalesForm");
+			if (registerSalesForm != null) {
+				request.setAttribute("registerSalesForm", registerSalesForm);
+				session.removeAttribute("registerSalesForm");
 			}
 		}
 	}
@@ -40,8 +40,8 @@ public class SessionFormService {
 		if (errorQueue != null && !errorQueue.isEmpty()) {
 			AccountsData registerAccountsForm = (AccountsData) session.getAttribute("RegisterAccountsForm");
 			if (registerAccountsForm != null) {
-				request.setAttribute("RegisterAccountsForm", registerAccountsForm);
-				session.removeAttribute("RegisterAccountsForm");
+				request.setAttribute("registerAccountsForm", registerAccountsForm);
+				session.removeAttribute("registerAccountsForm");
 			}
 		}
 	}

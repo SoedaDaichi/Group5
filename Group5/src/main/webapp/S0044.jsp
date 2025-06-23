@@ -17,7 +17,7 @@
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント詳細削除確認</h1>
 
 			<form action="S0044.html" method="post">
-				<input type="hidden" name="id" value="${account_id}" />
+				<input type="hidden" name="id" value="${accountId}" />
 
 				<div class="row">
 					<div
@@ -66,7 +66,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="password" name="confirm_pass"
+						<input type="password" name="confirmPass"
 							class="form-control" value="${accounts.pass}" readonly>
 					</div>
 				</div>

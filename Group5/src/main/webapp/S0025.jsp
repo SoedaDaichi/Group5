@@ -26,7 +26,7 @@
 
 						<div class="col-3">
 							<input type="date" name="date" class="form-control"
-								value="${salesdata.sale_date}" disabled />
+								value="${salesData.saleDate}" disabled />
 						</div>
 					</div>
 					<div class="row my-4">
@@ -35,7 +35,7 @@
 						</div>
 						<div class="col-3">
 							<input type="text" name="name" class="form-control"
-								value="${salesdata.name}" disabled />
+								value="${salesData.name}" disabled />
 						</div>
 					</div>
 
@@ -45,7 +45,7 @@
 						</div>
 						<div class="col-3">
 							<input type="text" name="categroy_name"
-								class="form-control" value="${salesdata.category_name}" disabled />
+								class="form-control" value="${salesData.categoryName}" disabled />
 						</div>
 					</div>
 
@@ -57,7 +57,7 @@
 						</div>
 						<div class="col-3">
 							<input type="text" name="trade_name"
-								class="form-control" value="${salesdata.trade_name}" disabled />
+								class="form-control" value="${salesData.tradeName}" disabled />
 						</div>
 					</div>
 
@@ -69,7 +69,7 @@
 						</div>
 						<div class="col-3">
 							<input type="text" name="unit_price"
-								class="form-control" value="${salesdata.unit_price}" disabled />
+								class="form-control" value="${salesData.unitPrice}" disabled />
 						</div>
 					</div>
 
@@ -81,7 +81,7 @@
 						</div>
 						<div class="col-3">
 							<input type="text" name="sale_number"
-								class="form-control" value="${salesdata.sale_number}" disabled />
+								class="form-control" value="${salesData.saleNumber}" disabled />
 						</div>
 					</div>
 
@@ -93,7 +93,7 @@
 						</div>
 						<div class="col-3">
 							<textarea input type="text" name="note"
-								class="form-control" value="${salesdata.note}" rows="4" disabled /></textarea>
+								class="form-control" value="${salesData.note}" rows="4" disabled /></textarea>
 						</div>
 					</div>
 
