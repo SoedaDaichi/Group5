@@ -17,7 +17,7 @@ import beans.Accounts;
 import beans.Categories;
 import beans.SalesData;
 import beans.SalesForm;
-import daos.S0010Dao;
+import daos.SalesDao;
 import services.ErrorMessageService;
 import services.ErrorService;
 import services.SessionDataService;
@@ -50,9 +50,9 @@ public class S0023Servlet extends HttpServlet {
 		// 上のメソッドでerrorがセットされていない場合（初回）
 		SessionDataService.SalesDataSession(request);
 
-		S0010Dao ss = new S0010Dao();
-		ArrayList<Accounts> accountList = ss.selectAccount();
-		ArrayList<Categories> categoryList = ss.selectCategory();
+		SalesDao sd = new SalesDao();
+		ArrayList<Accounts> accountList = sd.selectAccount();
+		ArrayList<Categories> categoryList = sd.selectCategory();
 
 		request.setAttribute("accountList", accountList);
 		request.setAttribute("categoryList", categoryList);
@@ -81,8 +81,8 @@ public class S0023Servlet extends HttpServlet {
 			return;
 		}
 
-		S0010Dao ss = new S0010Dao();
-		SalesData salesdata = new SalesData(request, ss);
+		SalesDao sd = new SalesDao();
+		SalesData salesdata = new SalesData(request, sd);
 		session.setAttribute("salesdata", salesdata);
 		response.sendRedirect("S0024.html");
 	}

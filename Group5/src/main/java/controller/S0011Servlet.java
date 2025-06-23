@@ -1,17 +1,18 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import beans.SalesData;
-import daos.S0010Dao;
+import daos.SalesDao;
+import services.SessionConfirmService;
+import services.SuccessMessageService;
+import services.SuccessMessageService.SuccessMessage;
 
 /**
  * Servlet implementation class S0011Servlet
@@ -19,55 +20,40 @@ import daos.S0010Dao;
 @WebServlet("/S0011.html")
 public class S0011Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public S0011Servlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public S0011Servlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		SalesData Register_salesdata = (SalesData) session.getAttribute("Register_salesdata");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		SessionConfirmService.S0011SessionConfirmPostService(request); // 入力内容をJSPにセット
 		
-		request.setAttribute("salesdata", Register_salesdata);
 		request.getRequestDispatcher("/S0011.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		S0010Dao s0010dao = new S0010Dao();
+		// 入力内容をsessionから獲得
+		SalesData RegisterSalesdata = SessionConfirmService.S0011SessionConfirmPostService(request);
+
+		SalesDao sd = new SalesDao();
+		boolean success = sd.insert(RegisterSalesdata);
 		
-		HttpSession session = request.getSession();
-		SalesData Register_salesdata = (SalesData) session.getAttribute("Register_salesdata");
+		// S0010ページ上部の処理成功、失敗メッセージをsessionにセット
+		SuccessMessageService.SuccessSet(request, success, SuccessMessage.S0011Success, SuccessMessage.S0011Error);
 		
-		Date sale_date = Register_salesdata.getSale_date();
-	    int account_id = Register_salesdata.getAccount_id();
-	    int category_id = Register_salesdata.getCategory_id();
-	    String trade_name = Register_salesdata.getTrade_name();
-	    int unit_price = Register_salesdata.getUnit_price();
-	    int sale_number = Register_salesdata.getSale_number();
-	    String note = Register_salesdata.getNote();
-		
-	    session.removeAttribute("Register_salesdata"); // Filter範囲外
-		
-	    boolean success = s0010dao.insert(sale_date, account_id,category_id, trade_name,
-	    									unit_price, sale_number, note);
-		
-		if (success) {
-			session.setAttribute("success", "商品が登録されました");
-			response.sendRedirect("S0010.html");
-		} else {
-			session.setAttribute("error", "登録に失敗しました");
-			response.sendRedirect("S0010.html");
-		}	
+		response.sendRedirect("S0010Servlet");
 	}
 }

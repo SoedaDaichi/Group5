@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-import daos.S0010Dao;
+import daos.SalesDao;
 import lombok.Data;
 
 @Data
@@ -22,7 +22,7 @@ public class SalesData {
 	private String note;
 	private int price_all;
 	
-	public SalesData(HttpServletRequest request, S0010Dao dao) {
+	public SalesData(HttpServletRequest request, SalesDao sd) {
 		String saleDateStr = request.getParameter("sale_date");
 		int accountId = Integer.parseInt(request.getParameter("account_id"));
 		int categoryId = Integer.parseInt(request.getParameter("category_id"));
@@ -31,8 +31,8 @@ public class SalesData {
 		int saleNumber = Integer.parseInt(request.getParameter("sale_number"));
 		String note = request.getParameter("note");
 
-		Accounts account = dao.identificationAccount(accountId);
-		Categories category = dao.identificationCategory(categoryId);
+		Accounts account = sd.identificationAccount(accountId);
+		Categories category = sd.identificationCategory(categoryId);
 
 		this.sale_date = LocalDate.parse(saleDateStr, DateTimeFormatter.ISO_DATE); // yyyy-MM-dd形式
 		this.name = account.getName();
