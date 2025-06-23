@@ -108,7 +108,7 @@ public class AccountsDao {
 			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
 					Accounts accounts = new Accounts();
-					accounts.setAccount_id(rs.getInt("account_id"));
+					accounts.setAccountId(rs.getInt("account_id"));
 					accounts.setName(rs.getString("name"));
 					accounts.setMail(rs.getString("mail"));
 					accounts.setAuthority(rs.getInt("authority"));
@@ -132,7 +132,7 @@ public class AccountsDao {
 
 			accounts = new Accounts();
 			if (rs.next()) {
-				accounts.setAccount_id(rs.getInt("account_id"));
+				accounts.setAccountId(rs.getInt("account_id"));
 				accounts.setName(rs.getString("name"));
 				accounts.setMail(rs.getString("mail"));
 				accounts.setPass(rs.getString("password"));

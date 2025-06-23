@@ -24,7 +24,7 @@ public class SalesDao {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Accounts accounts = new Accounts();
-				accounts.setAccount_id(rs.getInt("account_id"));
+				accounts.setAccountId(rs.getInt("account_id"));
 				accounts.setName(rs.getString("name"));
 				accountList.add(accounts);
 			}
@@ -67,7 +67,7 @@ public class SalesDao {
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				account = new Accounts();
-				account.setAccount_id(rs.getInt("account_id"));
+				account.setAccountId(rs.getInt("account_id"));
 				account.setName(rs.getString("name"));
 			}
 		} catch (Exception e) {
@@ -166,9 +166,9 @@ public class SalesDao {
 
 		String firstStr = ssform.getFirstStr();
 		String lastStr = ssform.getLastStr();
-		String account_idStr = ssform.getAccount_idStr();
-		String category_idStr = ssform.getCategory_idStr();
-		String trade_name = ssform.getTrade_name();
+		String account_idStr = ssform.getAccountIdStr();
+		String category_idStr = ssform.getCategoryIdStr();
+		String trade_name = ssform.getTradeName();
 		String note = ssform.getNote();
 
 		System.out.println("備考: " + note);
