@@ -20,4 +20,16 @@ public class SessionFormService {
 			}
 		}
 	}
+
+	public static void salesRegisterFormSession(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		Queue<?> errorQueue = (Queue<?>) session.getAttribute("errorQueue"); // ?はどの型でもOK
+		if (errorQueue != null && !errorQueue.isEmpty()) {
+			SalesForm RegisterSalesForm = (SalesForm) session.getAttribute("RegisterSalesForm");
+			if (RegisterSalesForm != null) {
+				request.setAttribute("RegisterSalesForm", RegisterSalesForm);
+				session.removeAttribute("RegisterSalesForm");
+			}
+		}
+	}
 }

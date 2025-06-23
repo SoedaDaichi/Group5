@@ -18,6 +18,7 @@ import beans.Categories;
 import beans.SalesSearchForm;
 import daos.S0010Dao;
 import services.ErrorService;
+import services.S0020ErrorMessageService;
 
 /**
  * Servlet implementation class S0020Servlet
@@ -37,28 +38,12 @@ public class S0020Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
-		Map<String, String> notFound = (Map<String, String>) session.getAttribute("notFound");
-		SalesSearchForm ssform = (SalesSearchForm) session.getAttribute("ssform");
-
-		if (errors != null) {
-			request.setAttribute("errors", errors);
-			session.removeAttribute("errors");
-		}
-		if (notFound != null) {
-			request.setAttribute("notFound", notFound);
-			session.removeAttribute("notFound");
-		}
-		if (ssform != null) {
-			request.setAttribute("ssform", ssform);
-			session.removeAttribute("ssform");
-		}
-
+		
+		S0020ErrorMessageService.processSessionMessages(request);
+		
 		S0010Dao ss = new S0010Dao();
 		ArrayList<Accounts> accountList = ss.selectAccount();
 		//		System.out.println(accountList.size());
@@ -79,6 +64,9 @@ public class S0020Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		ErrorService es = new ErrorService();
 
+		SalesSearchForm ssform = new SalesSearchForm(request);
+		session.setAttribute("ssform", ssform);
+
 		Map<String, String> errors = es.ValidateSalesSearch(request);
 		System.out.println("日付エラー: " + errors);
 		if (errors != null && !errors.isEmpty()) {
@@ -88,9 +76,13 @@ public class S0020Servlet extends HttpServlet {
 			response.sendRedirect("S0020.html");
 			return;
 		}
+		Map<String, String> notFound = es.ValidateNotFoundSales(request);
+		if (notFound != null && !notFound.isEmpty()) {
+			session.setAttribute("notFound", notFound);
+			response.sendRedirect("S0020.html");
+			return;
+		}
 
-		SalesSearchForm ssform = new SalesSearchForm(request);
-		session.setAttribute("ssform", ssform);
 		response.sendRedirect("S0021.html");
 	}
 }
