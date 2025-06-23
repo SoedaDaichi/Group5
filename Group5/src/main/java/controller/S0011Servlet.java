@@ -33,9 +33,9 @@ public class S0011Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		SalesData Register_salesdata = (SalesData) session.getAttribute("Register_salesdata");
+		SalesData registerSalesdata = (SalesData) session.getAttribute("registerSalesdata");
 		
-		request.setAttribute("salesdata", Register_salesdata);
+		request.setAttribute("salesdata", registerSalesdata);
 		request.getRequestDispatcher("/S0011.jsp").forward(request, response);
 	}
 
@@ -47,20 +47,20 @@ public class S0011Servlet extends HttpServlet {
 		S0010Dao s0010dao = new S0010Dao();
 		
 		HttpSession session = request.getSession();
-		SalesData Register_salesdata = (SalesData) session.getAttribute("Register_salesdata");
+		SalesData registerSalesdata = (SalesData) session.getAttribute("registerSalesdata");
 		
-		Date sale_date = Register_salesdata.getSale_date();
-	    int account_id = Register_salesdata.getAccount_id();
-	    int category_id = Register_salesdata.getCategory_id();
-	    String trade_name = Register_salesdata.getTrade_name();
-	    int unit_price = Register_salesdata.getUnit_price();
-	    int sale_number = Register_salesdata.getSale_number();
-	    String note = Register_salesdata.getNote();
+		Date saleDate = registerSalesdata.getSale_date();
+	    int accountId = registerSalesdata.getAccount_id();
+	    int categoryId = registerSalesdata.getCategory_id();
+	    String tradeName = registerSalesdata.getTrade_name();
+	    int unitPrice = registerSalesdata.getUnit_price();
+	    int saleNumber = registerSalesdata.getSale_number();
+	    String note = registerSalesdata.getNote();
 		
-	    session.removeAttribute("Register_salesdata"); // Filter範囲外
+	    session.removeAttribute("registerSalesdata"); // Filter範囲外
 		
-	    boolean success = s0010dao.insert(sale_date, account_id,category_id, trade_name,
-	    									unit_price, sale_number, note);
+	    boolean success = s0010dao.insert(saleDate, accountId,categoryId, tradeName,
+	    									unitPrice, saleNumber, note);
 		
 		if (success) {
 			session.setAttribute("success", "商品が登録されました");
