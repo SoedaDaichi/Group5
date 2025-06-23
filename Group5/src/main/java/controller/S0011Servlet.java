@@ -32,6 +32,7 @@ public class S0011Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		SessionConfirmService.S0011SessionConfirmPostService(request); // 入力内容をJSPにセット
@@ -45,6 +46,7 @@ public class S0011Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+
 		// 入力内容をsessionから獲得
 		SalesData RegisterSalesdata = SessionConfirmService.S0011SessionConfirmPostService(request);
 
@@ -53,7 +55,7 @@ public class S0011Servlet extends HttpServlet {
 		
 		// S0010ページ上部の処理成功、失敗メッセージをsessionにセット
 		SuccessMessageService.SuccessSet(request, success, SuccessMessage.S0011Success, SuccessMessage.S0011Error);
-		
+	
 		response.sendRedirect("S0010Servlet");
 	}
 }
