@@ -53,7 +53,7 @@ public class C001Servlet extends HttpServlet {
 		String pass = request.getParameter("pass");
 
 		//		System.out.println(pass);
-		String hashed_pass = auth.hashPassword(pass);
+		String hashedPass = auth.hashPassword(pass);
 
 
 		ErrorService es = new ErrorService();
