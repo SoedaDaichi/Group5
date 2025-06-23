@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import beans.Accounts;
+import beans.AccountsSearchForm;
 import utils.Db;
 
 public class AccountsDao {
@@ -63,11 +65,15 @@ public class AccountsDao {
 		}
 	}
 
-	public ArrayList<Accounts> selectSearch(String name, String mail, ArrayList<Integer> authority) {
+	public ArrayList<Accounts> selectSearch(AccountsSearchForm asform) {
 		ArrayList<Accounts> accountsList = new ArrayList<>();
 		ArrayList<Object> sqlList = new ArrayList<>();
 		ArrayList<String> where = new ArrayList<>();
+		List<Integer> authorityList = new ArrayList<>();
 		StringBuilder select = new StringBuilder("SELECT account_id, name, mail, authority FROM accounts");
+
+		String name = asform.getName();
+		String mail = asform.getMail();
 
 		if (name != null && !name.isEmpty()) {
 			// nullでないかつ空文字でない
@@ -79,10 +85,10 @@ public class AccountsDao {
 			sqlList.add(mail);
 		}
 
-		if (!authority.isEmpty()) {
+		if (!authorityList.isEmpty()) {
 			where.add("authority IN (" +
-					String.join(",", Collections.nCopies(authority.size(), "?")) + ")");
-			sqlList.addAll(authority);
+					String.join(",", Collections.nCopies(authorityList.size(), "?")) + ")");
+			sqlList.addAll(authorityList);
 		}
 
 		if (!where.isEmpty()) {
