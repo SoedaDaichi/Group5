@@ -10,6 +10,7 @@ import lombok.Data;
 
 @Data
 public class SalesData {
+	private int sale_id;
 	private LocalDate sale_date;
 	private String name;
 	private int account_id;
@@ -19,7 +20,8 @@ public class SalesData {
 	private int unit_price;
 	private int sale_number;
 	private String note;
-
+	private int price_all;
+	
 	public SalesData(HttpServletRequest request, S0010Dao dao) {
 		String saleDateStr = request.getParameter("sale_date");
 		int accountId = Integer.parseInt(request.getParameter("account_id"));
@@ -43,10 +45,11 @@ public class SalesData {
 		this.note = note;
 	}
 
-	public SalesData(LocalDate sale_date, String name, int account_id, String category_name, int category_id,
+	public SalesData(int sale_id, LocalDate sale_date, String name, int account_id, String category_name, int category_id,
 			String trade_name,
 			int unit_price, int sale_number,
-			String note) {
+			String note, int price_all) {
+		this.sale_id = sale_id;
 		this.sale_date = sale_date;
 		this.name = name;
 		this.account_id = account_id;
@@ -56,5 +59,6 @@ public class SalesData {
 		this.unit_price = unit_price;
 		this.sale_number = sale_number;
 		this.note = note;
+		this.price_all = price_all;
 	}
 }

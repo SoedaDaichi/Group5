@@ -32,9 +32,9 @@ public class S0021Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		SuccessMessageService.processSessionMessages(request);
-
 		SearchService.SalesSearchService(request);
+
+		SuccessMessageService.processSessionMessages(request);
 
 		request.getRequestDispatcher("/S0021.jsp").forward(request, response);
 	}

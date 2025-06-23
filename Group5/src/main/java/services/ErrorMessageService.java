@@ -15,7 +15,7 @@ public class ErrorMessageService {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static void processMessage(HttpSession session,
+	public static void processMessage(HttpSession session,
 			HttpServletRequest request,
 			String sessionKey,
 			String requestKey) {
@@ -29,6 +29,15 @@ public class ErrorMessageService {
 			if (queue.isEmpty()) {
 				session.removeAttribute(sessionKey);
 			}
+		}
+	}
+	
+	// jspにset&session削除用メソッド
+	public static void moveAttribute(HttpSession session, HttpServletRequest request, String attributeName,
+			Object value) {
+		if (value != null) {
+			request.setAttribute(attributeName, value);
+			session.removeAttribute(attributeName);
 		}
 	}
 }

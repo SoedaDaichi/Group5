@@ -6,14 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import beans.Sales;
+import beans.SalesData;
 import beans.SalesSearchForm;
 import utils.Db;
 
 public class S0020Dao {
 
-	public ArrayList<Sales> select(SalesSearchForm ssform) {
-		ArrayList<Sales> salesList = new ArrayList<>();
+	public ArrayList<SalesData> select(SalesSearchForm ssform) {
+		ArrayList<SalesData> salesList = new ArrayList<>();
 		ArrayList<Object> sqlList = new ArrayList<>();
 		ArrayList<String> where = new ArrayList<>();
 		StringBuilder select = new StringBuilder(
@@ -85,16 +85,16 @@ public class S0020Dao {
 
 			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
-					Sales sales = new Sales();
-					sales.setSale_id(rs.getInt("sale_id"));
-					sales.setSale_date(rs.getDate("sale_date").toLocalDate());
-					sales.setName(rs.getString("name"));
-					sales.setCategory_name(rs.getString("category_name"));
-					sales.setTrade_name(rs.getString("trade_name"));
-					sales.setUnit_price(rs.getInt("unit_price"));
-					sales.setSale_number(rs.getInt("sale_number"));
-					sales.setPrice_all(rs.getInt("price_all"));
-					salesList.add(sales);
+					SalesData salesdata = new SalesData(
+							rs.getInt("sale_id"),
+							rs.getDate("sale_date").toLocalDate(),
+							rs.getString("name"),
+							rs.getInt("account_id"), rs.getString("category_name"),
+							rs.getInt("category_id"), rs.getString("trade_name"),
+							rs.getInt("unit_price"),
+							rs.getInt("sale_number"),
+							rs.getString("note"), rs.getInt("price_all"));
+					salesList.add(salesdata);
 				}
 			}
 		} catch (Exception e) {
