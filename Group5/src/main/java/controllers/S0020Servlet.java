@@ -41,9 +41,9 @@ public class S0020Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		S0020ErrorMessageService.processSessionMessages(request);
-		
+
 		SalesDao sd = new SalesDao();
 		ArrayList<Accounts> accountList = sd.selectAccount();
 		//		System.out.println(accountList.size());
@@ -63,26 +63,27 @@ public class S0020Servlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		ErrorService es = new ErrorService();
-
 		SalesSearchForm ssform = new SalesSearchForm(request);
-		session.setAttribute("ssform", ssform);
 
 		Map<String, String> errors = es.ValidateSalesSearch(request);
 		System.out.println("日付エラー: " + errors);
 		if (errors != null && !errors.isEmpty()) {
+			session.setAttribute("ssform", ssform);
 			Queue<Map<String, String>> errorQueue = new ConcurrentLinkedQueue<>();
 			errorQueue.add(errors);
-			session.setAttribute("errorsQueue", errorQueue);
+			session.setAttribute("errorQueue", errorQueue);
 			response.sendRedirect("S0020.html");
 			return;
 		}
 		Map<String, String> notFound = es.ValidateNotFoundSales(request);
 		if (notFound != null && !notFound.isEmpty()) {
-			session.setAttribute("notFound", notFound);
+			session.setAttribute("ssform", ssform);
+			session.setAttribute("NotFound", notFound);
 			response.sendRedirect("S0020.html");
 			return;
 		}
 
+		session.setAttribute("ssform", ssform);
 		response.sendRedirect("S0021.html");
 	}
 }
