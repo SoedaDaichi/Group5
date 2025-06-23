@@ -44,9 +44,9 @@
 							value="${RegisterSalesForm.saleDate}">
 
 						<c:choose>
-							<c:when test="${not empty errors.saleDate}">
+							<c:when test="${not empty errorQueue.saleDate}">
 								<div class="text-danger small">
-									<c:out value="${errors.saleDate}" />
+									<c:out value="${errorQueue.saleDate}" />
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -73,9 +73,9 @@
 							</c:forEach>
 						</select>
 						<c:choose>
-							<c:when test="${not empty errors.accountId}">
+							<c:when test="${not empty errorQueue.accountId}">
 								<div class="text-danger small">
-									<c:out value="${errors.accountId}" />
+									<c:out value="${errorQueue.accountId}" />
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -102,9 +102,9 @@
 							</c:forEach>
 						</select>
 						<c:choose>
-							<c:when test="${not empty errors.categoryId}">
+							<c:when test="${not empty errorQueue.categoryId}">
 								<div class="text-danger small">
-									<c:out value="${errors.categoryId}" />
+									<c:out value="${errorQueue.categoryId}" />
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -126,9 +126,9 @@
 							value="${RegisterSalesForm.tradeName}" placeholder="商品名">
 
 						<c:choose>
-							<c:when test="${not empty errors.tradeName}">
+							<c:when test="${not empty errorQueue.tradeName}">
 								<div class="text-danger small">
-									<c:out value="${errors.tradeName}" />
+									<c:out value="${errorQueue.tradeName}" />
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -150,9 +150,9 @@
 							value="${RegisterSalesForm.unitPrice}" placeholder="単価">
 
 						<c:choose>
-							<c:when test="${not empty errors.unitPrice}">
+							<c:when test="${not empty errorQueue.unitPrice}">
 								<div class="text-danger small">
-									<c:out value="${errors.unitPrice}" />
+									<c:out value="${errorQueue.unitPrice}" />
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -174,9 +174,9 @@
 							value="${RegisterSalesForm.saleNumber}" placeholder="個数">
 
 						<c:choose>
-							<c:when test="${not empty errors.saleNumber}">
+							<c:when test="${not empty errorQueue.saleNumber}">
 								<div class="text-danger small">
-									<c:out value="${errors.saleNumber}" />
+									<c:out value="${errorQueue.saleNumber}" />
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -197,9 +197,9 @@
 							name="note" rows="5" placeholder="備考">${RegisterSalesForm.note}</textarea>
 
 						<c:choose>
-							<c:when test="${not empty errors.note}">
+							<c:when test="${not empty errorQueue.note}">
 								<div class="text-danger small">
-									<c:out value="${errors.note}" />
+									<c:out value="${errorQueue.note}" />
 								</div>
 							</c:when>
 							<c:otherwise>

@@ -15,7 +15,7 @@ import daos.SalesDao;
 public class SearchService {
 
 	public static void SalesSearchService(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		SalesSearchForm ssform = (SalesSearchForm) session.getAttribute("ssform");
 
 		SalesDao sd = new SalesDao();
@@ -25,7 +25,7 @@ public class SearchService {
 	}
 
 	public static void AccountsSearchService(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		
 		AccountsSearchForm asform = (AccountsSearchForm)session.getAttribute("asform");
 		

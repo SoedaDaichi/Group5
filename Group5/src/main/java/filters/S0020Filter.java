@@ -68,7 +68,7 @@ public class S0020Filter extends HttpFilter implements Filter {
 		}
 
 		// 商品検索系のsession破棄
-		boolean isTargetPage = uri.matches(".*/S002[1-5]\\.(html|jsp)$");
+		boolean isTargetPage = uri.matches(".*/S002[0-5]\\.(html|jsp)$");
 		String[] sales_sessionKeys = {"ssform", "salesList", "sale_id", "salesdata", "salesform"};
 		
 		if (session != null && !isTargetPage) {

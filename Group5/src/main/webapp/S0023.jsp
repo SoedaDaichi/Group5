@@ -19,7 +19,7 @@
 		</div>
 
 		<c:set var="formData"
-			value="${not empty salesform ? salesform : salesdata}" />
+			value="${not empty salesForm ? salesForm : salesData}" />
 
 		<form action="S0023.html" method="post">
 			<div class="row">
@@ -31,10 +31,10 @@
 							</h5>
 						</div>
 						<div class="col-3">
-							<input type="date"name="sale_date"
-								class="form-control" value="${formData.sale_date}" />
-							<c:if test="${not empty errors.sale_date}">
-								<div class="text-danger small">${errors.sale_date}</div>
+							<input type="date" name="saleDate" class="form-control"
+								value="${formData.saleDate}" />
+							<c:if test="${not empty errorQueue.sale_date}">
+								<div class="text-danger small">${errorQueue.saleDate}</div>
 							</c:if>
 						</div>
 					</div>
@@ -45,10 +45,10 @@
 							</h5>
 						</div>
 						<div class="col-3">
-							<select class="form-select form-select-sm" name="account_id">
+							<select class="form-select form-select-sm" name="accountId">
 								<c:forEach var="account" items="${accountList}">
-									<option value="${account.account_id}"
-										${formData.account_id eq account.account_id ? 'selected' : ''}>${account.name}</option>
+									<option value="${account.accountId}"
+										${formData.accountId eq account.accountId ? 'selected' : ''}>${account.name}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -60,10 +60,10 @@
 							</h5>
 						</div>
 						<div class="col-3">
-							<select class="form-select form-select-sm" name="category_id">
+							<select class="form-select form-select-sm" name="categoryId">
 								<c:forEach var="categories" items="${categoryList}">
-									<option value="${categories.category_id}"
-										${formData.category_id eq categories.category_id ? 'selected' : ''}>${categories.category_name}</option>
+									<option value="${categories.categoryId}"
+										${formData.categoryId eq categories.categoryId ? 'selected' : ''}>${categories.categoryName}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -75,10 +75,10 @@
 							</h5>
 						</div>
 						<div class="col-3">
-							<input type="text" name="trade_name" class="form-control"
-								value="${formData.trade_name}" />
-							<c:if test="${not empty errors.trade_name}">
-								<div class="text-danger small">${errors.trade_name}</div>
+							<input type="text" name="tradeName" class="form-control"
+								value="${formData.tradeName}" />
+							<c:if test="${not empty errorQueue.tradeName}">
+								<div class="text-danger small">${errorQueue.tradeName}</div>
 							</c:if>
 						</div>
 					</div>
@@ -89,10 +89,10 @@
 							</h5>
 						</div>
 						<div class="col-3">
-							<input type="text" name="unit_price" class="form-control"
-								value="${formData.unit_price}" />
-							<c:if test="${not empty errors.unit_price}">
-								<div class="text-danger small">${errors.unit_price}</div>
+							<input type="text" name="unitPrice" class="form-control"
+								value="${formData.unitPrice}" />
+							<c:if test="${not empty errorQueue.unit_price}">
+								<div class="text-danger small">${errorQueue.unitPrice}</div>
 							</c:if>
 						</div>
 					</div>
@@ -103,10 +103,10 @@
 							</h5>
 						</div>
 						<div class="col-3">
-							<input type="text" name="sale_number" class="form-control"
-								value="${formData.sale_number}" />
-							<c:if test="${not empty errors.sale_number}">
-								<div class="text-danger small">${errors.sale_number}</div>
+							<input type="text" name="saleNumber" class="form-control"
+								value="${formData.saleNumber}" />
+							<c:if test="${not empty errorQueue.saleNumber}">
+								<div class="text-danger small">${errorQueue.saleNumber}</div>
 							</c:if>
 						</div>
 					</div>
