@@ -69,19 +69,19 @@
 								test="${sessionScope.loginAccount.authority == 1 || sessionScope.loginAccount.authority == 3}">
 								<td>
 									<form action="S0021.html" method="post">
-										<input type="hidden" name="sale_id" value="${sales.sale_id}">
+										<input type="hidden" name="saleId" value="${sales.saleId}">
 										<button type="submit" class="btn btn-sm btn-primary">詳細</button>
 									</form>
 								</td>
 							</c:if>
-							<td>${sales.sale_id}</td>
-							<td>${sales.sale_date}</td>
+							<td>${sales.saleId}</td>
+							<td>${sales.saleDate}</td>
 							<td>${sales.name}</td>
-							<td>${sales.category_name}</td>
-							<td>${sales.trade_name}</td>
-							<td>${sales.unit_price}</td>
-							<td>${sales.sale_number}</td>
-							<td>${sales.price_all}</td>
+							<td>${sales.categoryName}</td>
+							<td>${sales.tradeName}</td>
+							<td>${sales.unitPrice}</td>
+							<td>${sales.saleNumber}</td>
+							<td>${sales.priceAll}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

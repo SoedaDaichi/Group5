@@ -15,9 +15,9 @@ public class S0020ErrorMessageService {
 
 		SalesForm ssform = (SalesForm) session.getAttribute("ssform");
 		@SuppressWarnings("unchecked")
-		Map<String, String> notFound = (Map<String, String>) session.getAttribute("notFound");
+		Map<String, String> notFound = (Map<String, String>) session.getAttribute("NotFound");
 
-		ErrorMessageService.moveAttribute(session, request, "notFound", notFound);
+		ErrorMessageService.moveAttribute(session, request, "NotFound", notFound);
 		ErrorMessageService.moveAttribute(session, request, "ssform", ssform);
 	}
 }

@@ -19,9 +19,9 @@
 
 		<form action="S0020.html" method="post" novalidate>
 			<c:choose>
-				<c:when test="${not empty notFound.salesNotFound}">
+				<c:when test="${not empty NotFound.salesNotFound}">
 					<div class="alert alert-danger text-center py-1">
-						<c:out value="${notFound.salesNotFound}" />
+						<c:out value="${NotFound.salesNotFound}" />
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -42,9 +42,9 @@
 							<input type="date" name="first"
 								value="${ssform.firstStr}" class="form-control">
 							<c:choose>
-								<c:when test="${not empty errors.first}">
+								<c:when test="${not empty errorQueue.first}">
 									<div class="text-danger small">
-										<c:out value="${errors.first}" />
+										<c:out value="${errorQueue.first}" />
 									</div>
 								</c:when>
 								<c:otherwise>
@@ -59,9 +59,9 @@
 							<input type="date" name="last"
 								value="${ssform.lastStr}" class="form-control">
 							<c:choose>
-								<c:when test="${not empty errors.last}">
+								<c:when test="${not empty errorQueue.last}">
 									<div class="text-danger small">
-										<c:out value="${errors.last}" />
+										<c:out value="${errorQueue.last}" />
 									</div>
 								</c:when>
 								<c:otherwise>
