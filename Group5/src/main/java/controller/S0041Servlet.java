@@ -7,10 +7,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
-import beans.Accounts;
-import daos.S0041Dao;
+import services.DetailSearchService;
 import services.SearchService;
 import services.SuccessMessageService;
 
@@ -35,9 +33,9 @@ public class S0041Servlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		SuccessMessageService.processSessionMessages(request);
-		
 		SearchService.AccountsSearchService(request);
+		
+		SuccessMessageService.processSessionMessages(request);
 		
 
 
@@ -73,17 +71,10 @@ public class S0041Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
-		int accountId = Integer.valueOf(request.getParameter("accountId"));
 		String action = request.getParameter("action");
-		HttpSession session = request.getSession();
-
-		S0041Dao s0041dao = new S0041Dao();
-		Accounts accounts = s0041dao.getAccountsByAccount_id(accountId);
-
-		session.setAttribute("accountId", accountId);
-		session.setAttribute("accounts", accounts);
-
+		
+		DetailSearchService.createAccountsDetail(request);
+		
 		if ("edit".equals(action)) {
 			response.sendRedirect("S0042.html");
 		} else if ("delete".equals(action)) {
