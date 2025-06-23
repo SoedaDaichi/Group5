@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import beans.loginAccount;
 import daos.AccountsDao;
-import daos.S0042Dao;
 import daos.SalesDao;
 
 public class ErrorService {
@@ -170,13 +169,13 @@ public class ErrorService {
 	}
 
 	public Map<String, String> ValidateAccountsUpdate(int account_id, String name, String mail, String pass, String confirm_pass) {
-		S0042Dao s0042dao = new S0042Dao();
+		AccountsDao ad = new AccountsDao();
 
 		if (S0010Service.ValidNull(name)) {
 			errors.put("name", "氏名を入力して下さい。");
 		} else if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
 			errors.put("name", "氏名が長すぎます。");
-		} else if (s0042dao.accountUpdateNameCheck(name, account_id)) {
+		} else if (ad.accountUpdateNameCheck(name, account_id)) {
 			errors.put("name", "このユーザー名は既に使用されています。");
 		}
 
@@ -186,7 +185,7 @@ public class ErrorService {
 			errors.put("mail", "メールアドレスが長すぎます。");
 		} else if (!mail.matches("^[\\w\\-.]+@[\\w\\-]+\\.[a-zA-Z]{2,}$")) {
 			errors.put("mail", "メールアドレスを正しく入力して下さい。");
-		} else if (s0042dao.accountUpdateEmailCheck(mail, account_id)) {
+		} else if (ad.accountUpdateEmailCheck(mail, account_id)) {
 			errors.put("mail", "このメールアドレスは既に使用されています。");
 		}
 

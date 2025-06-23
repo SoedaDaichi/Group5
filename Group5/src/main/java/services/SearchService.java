@@ -9,6 +9,7 @@ import beans.Accounts;
 import beans.AccountsSearchForm;
 import beans.SalesData;
 import beans.SalesSearchForm;
+import daos.AccountsDao;
 import daos.SalesDao;
 
 public class SearchService {
@@ -28,8 +29,8 @@ public class SearchService {
 		
 		AccountsSearchForm asform = (AccountsSearchForm)session.getAttribute("asform");
 		
-		S0040Dao s0040dao = new S0040Dao();
-		ArrayList<Accounts> accountsList = s0040dao.select(asform);
+		AccountsDao ad = new AccountsDao();
+		ArrayList<Accounts> accountsList = ad.selectSearch(asform);
 		
 		request.setAttribute("accountsList", accountsList);
 
