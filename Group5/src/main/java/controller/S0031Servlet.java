@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import beans.AccountsData;
-import daos.S0031Dao;
+import daos.AccountsDao;
 import services.auth;
 
 /**
@@ -59,8 +59,8 @@ public class S0031Servlet extends HttpServlet {
 
 		String hashedPass = auth.hashPassword(pass);
 
-		S0031Dao s0031dao = new S0031Dao();
-		boolean success = s0031dao.insert(name, mail, hashedPass, authorityStr);
+		AccountsDao ad = new AccountsDao();
+		boolean success = ad.insert(name, mail, hashedPass, authorityStr);
 
 		if (success) {
 			session.setAttribute("success", "アカウントが作成されました。");

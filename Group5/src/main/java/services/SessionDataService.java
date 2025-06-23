@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.AccountsData;
 import beans.SalesData;
-import daos.S0010Dao;
+import daos.SalesDao;
 
 public class SessionDataService {
 	
@@ -24,9 +24,9 @@ public class SessionDataService {
 	}
 	
 	public static void SalesRegisterDataSession(HttpServletRequest request) {
-		S0010Dao s0010dao = new S0010Dao();
+		SalesDao sd = new SalesDao();
 		
-		SalesData RegisterSaleData = new SalesData(request, s0010dao);
+		SalesData RegisterSaleData = new SalesData(request, sd);
 		
 		request.setAttribute("RegisterSaleData", RegisterSaleData);
 	}

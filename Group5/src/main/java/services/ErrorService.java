@@ -8,9 +8,9 @@ import java.util.Map;
 import jakarta.servlet.http.HttpServletRequest;
 
 import beans.loginAccount;
-import daos.S0010Dao;
-import daos.S0030Dao;
+import daos.AccountsDao;
 import daos.S0042Dao;
+import daos.SalesDao;
 
 public class ErrorService {
 
@@ -58,15 +58,15 @@ public class ErrorService {
 			errors.put("sale_date", "販売日を正しく入力してください。");
 		}
 
-		S0010Dao s0010dao = new S0010Dao();
+		SalesDao sd = new SalesDao();
 		if (S0010Service.ValidNull(account_idStr)) {
 			errors.put("account_id", "担当が未選択です。");
-		} else if (s0010dao.identificationAccount(Integer.valueOf(account_idStr)) == null) {
+		} else if (sd.identificationAccount(Integer.valueOf(account_idStr)) == null) {
 			errors.put("account_id", "アカウントテーブルに存在しません。");
 		}
 		if (S0010Service.ValidNull(category_idStr)) {
 			errors.put("category_id", "商品カテゴリーが未選択です。");
-		} else if (s0010dao.identificationCategory(Integer.valueOf(category_idStr)) == null) {
+		} else if (sd.identificationCategory(Integer.valueOf(category_idStr)) == null) {
 			errors.put("category_id", "商品カテゴリーテーブルに存在しません。");
 		}
 
@@ -122,13 +122,13 @@ public class ErrorService {
 	}
 
 	public Map<String, String> ValidateAccounts(String name, String mail, String pass, String confirm_pass) {
-		S0030Dao s0030dao = new S0030Dao();
+		AccountsDao ad = new AccountsDao();
 
 		if (S0010Service.ValidNull(name)) {
 			errors.put("name", "氏名を入力して下さい。");
 		} else if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
 			errors.put("name", "氏名が長すぎます。");
-		} else if (s0030dao.accountNameCheck(name)) {
+		} else if (ad.accountNameCheck(name)) {
 			errors.put("name", "このユーザー名は既に使用されています。");
 		}
 
@@ -138,7 +138,7 @@ public class ErrorService {
 			errors.put("mail", "メールアドレスが長すぎます。");
 		} else if (!mail.matches("^[\\w\\-.]+@[\\w\\-]+\\.[a-zA-Z]{2,}$")) {
 			errors.put("mail", "メールアドレスを正しく入力して下さい。");
-		} else if (s0030dao.accountEmailCheck(mail)) {
+		} else if (ad.accountEmailCheck(mail)) {
 			errors.put("mail", "このメールアドレスは既に使用されています。");
 		}
 

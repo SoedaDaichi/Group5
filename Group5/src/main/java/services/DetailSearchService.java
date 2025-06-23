@@ -5,8 +5,6 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import beans.SalesData;
-import daos.S0021Dao;
-import daos.S0041Dao;
 
 public class DetailSearchService {
 
@@ -14,8 +12,8 @@ public class DetailSearchService {
 		int sale_id = Integer.valueOf(request.getParameter("sale_id"));
 		HttpSession session = request.getSession();
 		
-		S0021Dao s0021dao = new S0021Dao();
-		SalesData salesdata = s0021dao.identificationSalesData(sale_id);
+		SalesDao sd = new SalesDao();
+		SalesData salesdata = sd.identificationSalesData(sale_id);
 
 		session.setAttribute("sale_id", sale_id);
 		session.setAttribute("salesdata", salesdata);

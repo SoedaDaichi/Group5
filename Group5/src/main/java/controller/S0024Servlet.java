@@ -1,3 +1,4 @@
+
 package controller;
 
 import java.io.IOException;
@@ -10,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import beans.SalesData;
-import daos.S0023Dao;
+import daos.SalesDao;
 import services.SessionDataService;
 
 /**
@@ -50,8 +51,8 @@ public class S0024Servlet extends HttpServlet {
 		session.removeAttribute("sale_id");
 		session.removeAttribute("salesdata");
 
-		S0023Dao s0023dao = new S0023Dao();
-		boolean success = s0023dao.updateSales(sale_id, salesdata);
+		SalesDao sd = new SalesDao();
+		boolean success = sd.updateSales(sale_id, salesdata);
 
 		if (success) {
 			session.setAttribute("success", "売上が更新されました。");
