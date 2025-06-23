@@ -13,7 +13,7 @@ public class AccountsSearchForm {
 	public AccountsSearchForm(HttpServletRequest request) {
 		this.name = request.getParameter("name");
 		this.mail = request.getParameter("mail");
-		this.authorityList = request.getParameterValues("authorityList");
+		this.authorityList = request.getParameterValues("authority");
 	}
 	public AccountsSearchForm(String name, String mail, String[] authorityList) {
 		this.name = name;

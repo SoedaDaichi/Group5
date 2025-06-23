@@ -24,14 +24,14 @@ public class SearchService {
 	}
 
 	public static void AccountsSearchService(HttpServletRequest request) {
-
 		HttpSession session = request.getSession(false);
+		
 		AccountsSearchForm asform = (AccountsSearchForm)session.getAttribute("asform");
 		
 		S0040Dao s0040dao = new S0040Dao();
 		ArrayList<Accounts> accountsList = s0040dao.select(asform);
 		
-		request.setAttribute("accountList", accountsList);
+		request.setAttribute("accountsList", accountsList);
 
 	}
 

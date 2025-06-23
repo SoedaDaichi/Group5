@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,9 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.Accounts;
 import beans.AccountsSearchForm;
-import daos.S0040Dao;
 
 /**
  * Servlet implementation class S0040Servlet
@@ -44,6 +41,8 @@ public class S0040Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String[] authorityArray = request.getParameterValues("authority");
+		
 		HttpSession session = request.getSession();
 
 		System.out.println("----------アカウント検索-----------");
@@ -53,16 +52,10 @@ public class S0040Servlet extends HttpServlet {
 		String mail = request.getParameter("mail");
 		System.out.println("メールアドレス： " + mail);
 
-		S0040Dao s0040dao = new S0040Dao();
-		
 
-		
-		AccountsSearchForm asform = new AccountsSearchForm(name, mail,);
-		
+		AccountsSearchForm asform = new AccountsSearchForm(name, mail, authorityArray);
 		session.setAttribute("asform", asform);
-		ArrayList<Accounts> accountsList = s0040dao.select(asform);
-
-		session.setAttribute("accountsList", accountsList);
+		
 		response.sendRedirect("S0041.html");
 	}
 

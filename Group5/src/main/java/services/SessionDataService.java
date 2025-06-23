@@ -5,6 +5,7 @@ import java.util.Queue;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import beans.AccountsData;
 import beans.SalesData;
 import daos.SalesDao;
 
@@ -28,5 +29,17 @@ public class SessionDataService {
 		SalesData RegisterSaleData = new SalesData(request, sd);
 		
 		request.setAttribute("RegisterSaleData", RegisterSaleData);
+	}
+	
+	public static void AccountsDataSession(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		
+		session.getAttribute("accountdata");
+		Queue<?> errorQueue = (Queue<?>) session.getAttribute("errorQueue");
+		
+		if (errorQueue == null || errorQueue.isEmpty()) {
+			AccountsData accountsdata = (AccountsData) session.getAttribute("accountssdata");
+			request.setAttribute("accountsdata", accountsdata);
+		}
 	}
 }

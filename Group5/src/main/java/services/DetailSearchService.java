@@ -3,8 +3,8 @@ package services;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import beans.Accounts;
 import beans.SalesData;
-import daos.SalesDao;
 
 public class DetailSearchService {
 
@@ -17,5 +17,16 @@ public class DetailSearchService {
 
 		session.setAttribute("sale_id", sale_id);
 		session.setAttribute("salesdata", salesdata);
+	}
+	
+	public static void createAccountsDetail(HttpServletRequest request) {
+		int account_id = Integer.valueOf(request.getParameter("account_id"));
+		HttpSession session = request.getSession();
+		
+		S0041Dao s0041dao = new S0041Dao();
+		Accounts accountdata = s0041dao .getAccountsByAccount_id(account_id);
+		
+		session.setAttribute("account_id", account_id);
+		session.setAttribute("accountdata", accountdata);
 	}
 }
