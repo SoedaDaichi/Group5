@@ -5,6 +5,7 @@ import java.util.Queue;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import beans.AccountsForm;
 import beans.SalesForm;
 
 public class SessionFormService {
@@ -29,6 +30,18 @@ public class SessionFormService {
 			if (RegisterSalesForm != null) {
 				request.setAttribute("RegisterSalesForm", RegisterSalesForm);
 				session.removeAttribute("RegisterSalesForm");
+			}
+		}
+	}
+	
+	public static void accountsRegisterFormSession(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		Queue<?> errorQueue = (Queue<?>) session.getAttribute("errorQueue"); // ?はどの型でもOK
+		if (errorQueue != null && !errorQueue.isEmpty()) {
+			AccountsForm RegisterAccountsform = (AccountsForm) session.getAttribute("RegisterAccountsform");
+			if (RegisterAccountsform != null) {
+				request.setAttribute("RegisterAccountsform", RegisterAccountsform);
+				session.removeAttribute("RegisterAccountsform");
 			}
 		}
 	}

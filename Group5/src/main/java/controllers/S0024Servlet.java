@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpSession;
 import beans.SalesData;
 import daos.SalesDao;
 import services.SessionDataService;
+import services.SuccessMessageService;
+import services.SuccessMessageService.SuccessMessage;
 
 /**
  * Servlet implementation class S0024Servlet
@@ -47,21 +49,18 @@ public class S0024Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		SalesData salesdata = (SalesData) session.getAttribute("salesdata");
 		int sale_id = (int) session.getAttribute("sale_id");
-		
+
 		session.removeAttribute("sale_id");
 		session.removeAttribute("salesdata");
 
 		SalesDao sd = new SalesDao();
 		boolean success = sd.updateSales(sale_id, salesdata);
 
-		if (success) {
-			session.setAttribute("success", "売上が更新されました。");
-			response.sendRedirect("S0021.html");
+		// S0010ページ上部の処理成功、失敗メッセージをsessionにセット
+		SuccessMessageService.SuccessSet(
+				request, success, SuccessMessage.S0024Success, SuccessMessage.S0024Error);
 
-		} else {
-			session.setAttribute("error", "更新に失敗しました");
-			response.sendRedirect("S0021.html");
-		}
+		response.sendRedirect("S0021.html");
 	}
 
 }

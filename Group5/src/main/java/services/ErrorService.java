@@ -120,7 +120,15 @@ public class ErrorService {
 		return notFound;
 	}
 
-	public Map<String, String> ValidateAccounts(String name, String mail, String pass, String confirm_pass) {
+	public Map<String, String> ValidateAccounts(HttpServletRequest request) {
+		String name = request.getParameter("name");
+		System.out.println("アカウント名： " + name);
+		String mail = request.getParameter("mail");
+		System.out.println("メールアドレス： " + mail);
+		String pass = request.getParameter("pass");
+		String confirmPass = request.getParameter("confirmPass");
+		String authority = request.getParameter("authority");
+		System.out.println("権限： " + authority);
 		AccountsDao ad = new AccountsDao();
 
 		if (S0010Service.ValidNull(name)) {
@@ -147,11 +155,11 @@ public class ErrorService {
 			errors.put("pass", "パスワードが長すぎます。");
 		}
 
-		if (S0010Service.ValidNull(confirm_pass)) {
+		if (S0010Service.ValidNull(confirmPass)) {
 			errors.put("confirm_pass", "パスワード（確認）を入力して下さい。");
 		}
 
-		if (!S0010Service.ValidNull(pass) && !S0010Service.ValidNull(confirm_pass) && !pass.equals(confirm_pass)) {
+		if (!S0010Service.ValidNull(pass) && !S0010Service.ValidNull(confirmPass) && !pass.equals(confirmPass)) {
 			errors.put("pass", "パスワードとパスワード（確認）の入力内容が異なっています。");
 			errors.put("confirm_pass", "パスワードとパスワード（確認）の入力内容が異なっています。");
 		}
