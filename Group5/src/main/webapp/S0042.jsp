@@ -28,7 +28,7 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="text" name="name" class="form-control"
-							placeholder="氏名" value="${formData.name}">
+							placeholder="氏名" value="${accountsData.name}">
 						<c:if test="${not empty errors.name}">
 							<div class="text-danger small">${errors.name}</div>
 						</c:if>
@@ -43,7 +43,7 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="email" name="mail" class="form-control"
-							placeholder="メールアドレス" value="${formData.mail}">
+							placeholder="メールアドレス" value="${sessionScope.accountsData.mail}">
 						<c:if test="${not empty errors.mail}">
 							<div class="text-danger small">${errors.mail}</div>
 						</c:if>

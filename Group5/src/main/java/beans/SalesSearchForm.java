@@ -8,27 +8,27 @@ import lombok.Data;
 public class SalesSearchForm {
 	private String firstStr;
 	private String lastStr;
-	private String account_idStr;
-	private String category_idStr;
-	private String trade_name;
+	private String accountIdStr;
+	private String categoryIdStr;
+	private String tradeName;
 	private String note;
 	
 	public SalesSearchForm(HttpServletRequest request) {
 		this.firstStr = request.getParameter("first");
 		this.lastStr = request.getParameter("last");
-		this.account_idStr = request.getParameter("account_id");
-		this.category_idStr = request.getParameter("category_id");
-		this.trade_name = request.getParameter("trade_name");
+		this.accountIdStr = request.getParameter("accountId");
+		this.categoryIdStr = request.getParameter("categoryId");
+		this.tradeName = request.getParameter("tradeName");
 		this.note = request.getParameter("note");
 	}
 
-	public SalesSearchForm(String firstStr, String lastStr, String account_idStr, String category_idStr,
-			String trade_name, String note) {
+	public SalesSearchForm(String firstStr, String lastStr, String accountIdStr, String categoryIdStr,
+			String tradeName, String note) {
 		this.firstStr = firstStr;
 		this.lastStr = lastStr;
-		this.account_idStr = account_idStr;
-		this.category_idStr = category_idStr;
-		this.trade_name = trade_name;
+		this.accountIdStr = accountIdStr;
+		this.categoryIdStr = categoryIdStr;
+		this.tradeName = tradeName;
 		this.note = note;
 	}
 }

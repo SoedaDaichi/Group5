@@ -22,13 +22,13 @@ public class DetailSearchService {
 	}
 
 	public static void createAccountsDetail(HttpServletRequest request) {
-		int account_id = Integer.valueOf(request.getParameter("account_id"));
+		int accountId = Integer.valueOf(request.getParameter("accountId"));
 		HttpSession session = request.getSession();
 
 		AccountsDao ad = new AccountsDao();
-		Accounts accountdata = ad.getAccountsByAccount_id(account_id);
+		Accounts accountData = ad.getAccountsByAccount_id(accountId);
 
-		session.setAttribute("account_id", account_id);
-		session.setAttribute("accountdata", accountdata);
+		session.setAttribute("accountId", accountId);
+		session.setAttribute("accountData", accountData);
 	}
 }
