@@ -19,9 +19,9 @@
 
 		<form action="S0020.html" method="post" novalidate>
 			<c:choose>
-				<c:when test="${not empty notFound.sales_notfound}">
+				<c:when test="${not empty notFound.salesNotFound}">
 					<div class="alert alert-danger text-center py-1">
-						<c:out value="${notFound.sales_notfound}" />
+						<c:out value="${notFound.salesNotFound}" />
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -80,10 +80,10 @@
 							<select class="form-select form-select-sm"
 								aria-label=".form-select-sm example" name="account_id">
 								<option selected value=""
-									${empty ssform.account_idStr ? 'selected' : ''}>選択してください</option>
+									${empty ssform.accountIdStr ? 'selected' : ''}>選択してください</option>
 								<c:forEach var="accounts" items="${accountList}">
-									<option value="${accounts.account_id}"
-										${ssform.account_idStr eq accounts.account_id ? 'selected' : ''}>${accounts.name}</option>
+									<option value="${accounts.accountId}"
+										${ssform.accountIdStr eq accounts.accountId ? 'selected' : ''}>${accounts.name}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -98,10 +98,10 @@
 							<select class="form-select form-select-sm"
 								aria-label=".form-select-sm example" name="category_id">
 								<option selected value=""
-									${empty ssform.category_idStr ? 'selected' : ''}>選択してください</option>
+									${empty ssform.categoryIdStr ? 'selected' : ''}>選択してください</option>
 								<c:forEach var="categories" items="${categoryList}">
-									<option value="${categories.category_id}"
-										${ssform.category_idStr eq categories.category_id ? 'selected' : ''}>${categories.category_name}</option>
+									<option value="${categories.categoryId}"
+										${ssform.categoryIdStr eq categories.categoryId ? 'selected' : ''}>${categories.categoryName}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -115,7 +115,7 @@
 						<div class="col-4">
 							<input type="text" class="form-control"
 								id="exampleFormControlInput1" name="trade_name"
-								value="${ssform.trade_name}" placeholder="商品名">
+								value="${ssform.tradeName}" placeholder="商品名">
 						</div>
 					</div>
 					<div class="row my-4">

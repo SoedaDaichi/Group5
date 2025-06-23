@@ -9,7 +9,8 @@ public class SuccessMessageService {
 
 	public enum SuccessMessage {
 		S0011Success("商品が登録されました"), S0011Error("登録に失敗しました"), 
-		S0024Success("売り上げが更新されました。"), S0024Error("更新に失敗しました。");
+		S0024Success("売り上げが更新されました。"), S0024Error("更新に失敗しました。"), 
+		S0031Success("アカウントが作成されました。"), S0031Error("登録に失敗しました。");
 
 		@Getter
 		private String message;

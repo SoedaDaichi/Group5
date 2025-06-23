@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import beans.Accounts;
 import beans.AccountsData;
 import services.ErrorService;
+import services.S0042DataSetService;
 
 /**
  * Servlet implementation class S0042Servlet
@@ -66,17 +67,10 @@ public class S0042Servlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		String name = request.getParameter("name");
-		String mail = request.getParameter("mail");
-		String pass = request.getParameter("pass");
-		String confirmPass = request.getParameter("confirmPass");
-		String authorityStr = request.getParameter("authority");
-		int accountId = (int) session.getAttribute("accountId");
-
-		AccountsData accountsData = new AccountsData(name, mail, pass, confirmPass, authorityStr);
+		AccountsData accountsData = S0042DataSetService.setAccountData(request);
 
 		ErrorService es = new ErrorService();
-		Map<String, String> errors = es.ValidateAccountsUpdate(accountId, name, mail, pass, confirmPass);
+		Map<String, String> errors = es.ValidateAccountsUpdate(accountsData);
 		if (errors != null && !errors.isEmpty()) {
 			session.setAttribute("accountsData", accountsData);
 			session.setAttribute("errors", errors);

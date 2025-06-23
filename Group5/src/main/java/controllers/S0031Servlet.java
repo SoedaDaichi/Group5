@@ -11,7 +11,8 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.AccountsData;
 import daos.AccountsDao;
-import services.auth;
+import services.SuccessMessageService;
+import services.SuccessMessageService.SuccessMessage;
 
 /**
  * Servlet implementation class S0031Servlet
@@ -36,9 +37,8 @@ public class S0031Servlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
-		AccountsData RegisterAccountsdata = (AccountsData) session.getAttribute("RegisterAccountsdata");
-		
-		request.setAttribute("RegisterAccountsdata", RegisterAccountsdata);
+		AccountsData registerAccountsData = (AccountsData) session.getAttribute("RegisterAccountsData");
+		request.setAttribute("RegisterAccountsData", registerAccountsData);
 		request.getRequestDispatcher("/S0031.jsp").forward(request, response);
 	}
 
@@ -50,17 +50,10 @@ public class S0031Servlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		HttpSession session = request.getSession();
-		AccountsData RegisterAccountsdata = (AccountsData) session.getAttribute("RegisterAccountsdata");
-		
-		String name = RegisterAccountsdata.getName();
-		String mail = RegisterAccountsdata.getMail();
-		String pass = RegisterAccountsdata.getPass();
-		String authorityStr = RegisterAccountsdata.getAuthority();
-
-		String hashedPass = auth.hashPassword(pass);
+		AccountsData registerAccountsData = (AccountsData) session.getAttribute("RegisterAccountsData");
 
 		AccountsDao ad = new AccountsDao();
-		boolean success = ad.insert(name, mail, hashedPass, authorityStr);
+		boolean success = ad.insert(registerAccountsData);
 
 		if (success) {
 			session.setAttribute("success", "アカウントが作成されました。");
@@ -69,7 +62,9 @@ public class S0031Servlet extends HttpServlet {
 			session.setAttribute("error", "登録に失敗しました");
 			response.sendRedirect("S0030.html");
 		}
+		SuccessMessageService.SuccessSet(request, success, SuccessMessage.S0031Success, SuccessMessage.S0031Error);
 
+		response.sendRedirect("S0030Servlet");
 		//request.getRequestDispatcher("/C002.jsp").forward(request, response);
 
 	}
