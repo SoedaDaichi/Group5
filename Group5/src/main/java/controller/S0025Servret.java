@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import beans.SalesData;
-import daos.S0025Dao;
+import daos.SalesDao;
 
 /**
  * Servlet implementation class S0025Servret
@@ -49,8 +49,8 @@ public class S0025Servret extends HttpServlet {
 		System.out.println("削除"+sale_id);
 	    session.removeAttribute("sale_id");
 	    
-	    S0025Dao s0025dao = new S0025Dao();
-	    s0025dao.daleteSales(sale_id);
+	    SalesDao sd = new SalesDao();
+	    sd.deleteSales(sale_id);
 	    
 	    response.sendRedirect("S0021.html");	    
 	}

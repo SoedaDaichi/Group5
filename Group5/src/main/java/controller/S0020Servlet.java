@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import beans.Accounts;
 import beans.Categories;
 import beans.SalesSearchForm;
-import daos.S0010Dao;
+import daos.SalesDao;
 import services.ErrorService;
 import services.S0020ErrorMessageService;
 
@@ -44,10 +44,10 @@ public class S0020Servlet extends HttpServlet {
 		
 		S0020ErrorMessageService.processSessionMessages(request);
 		
-		S0010Dao ss = new S0010Dao();
-		ArrayList<Accounts> accountList = ss.selectAccount();
+		SalesDao sd = new SalesDao();
+		ArrayList<Accounts> accountList = sd.selectAccount();
 		//		System.out.println(accountList.size());
-		ArrayList<Categories> categoryList = ss.selectCategory();
+		ArrayList<Categories> categoryList = sd.selectCategory();
 
 		request.setAttribute("accountList", accountList);
 		request.setAttribute("categoryList", categoryList);
