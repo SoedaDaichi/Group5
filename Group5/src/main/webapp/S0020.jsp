@@ -19,9 +19,9 @@
 
 		<form action="S0020.html" method="post" novalidate>
 			<c:choose>
-				<c:when test="${not empty notFound.sales_notfound}">
+				<c:when test="${not empty notFound.salesNotFound}">
 					<div class="alert alert-danger text-center py-1">
-						<c:out value="${notFound.sales_notfound}" />
+						<c:out value="${notFound.salesNotFound}" />
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -82,7 +82,7 @@
 								<option selected value=""
 									${empty ssform.accountIdStr ? 'selected' : ''}>選択してください</option>
 								<c:forEach var="accounts" items="${accountList}">
-									<option value="${accounts.account_id}"
+									<option value="${accounts.accountId}"
 										${ssform.accountIdStr eq accounts.accountId ? 'selected' : ''}>${accounts.name}</option>
 								</c:forEach>
 							</select>
@@ -100,8 +100,8 @@
 								<option selected value=""
 									${empty ssform.categoryIdStr ? 'selected' : ''}>選択してください</option>
 								<c:forEach var="categories" items="${categoryList}">
-									<option value="${categories.category_id}"
-										${ssform.categoryIdStr eq categories.categoryId ? 'selected' : ''}>${categories.category_name}</option>
+									<option value="${categories.categoryId}"
+										${ssform.categoryIdStr eq categories.categoryId ? 'selected' : ''}>${categories.categoryName}</option>
 								</c:forEach>
 							</select>
 						</div>

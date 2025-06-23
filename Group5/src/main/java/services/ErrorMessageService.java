@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpSession;
 
 public class ErrorMessageService {
 	public static void processSessionMessages(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 
 		// エラーメッセージの処理
 		processMessage(session, request, "errorQueue", "errors");

@@ -63,14 +63,13 @@
 					</div>
 					<div class="col-2  my-3">
 						<select class="form-select form-select-sm"
-							aria-label=".form-select-sm example" name="account_id">
+							aria-label=".form-select-sm example" name="accountId">
 							<option value=""
 
 								${empty RegisterSalesForm.accountId ? 'selected' : ''}>選択してください</option>
 							<c:forEach var="account" items="${accountList}">
 								<option value="${account.accountId}"
-									${RegisterSalesForm.accountId eq account.accountid ? 'selected' : ''}>${account.name}</option>
-
+									${RegisterSalesForm.accountId eq account.accountId ? 'selected' : ''}>${account.name}</option>
 							</c:forEach>
 						</select>
 						<c:choose>
@@ -99,8 +98,7 @@
 								${empty RegisterSalesForm.categoryId ? 'selected' : ''}>選択してください</option>
 							<c:forEach var="category" items="${categoryList}">
 								<option value="${category.categoryId}"
-									${RegisterSalesForm.categoryId eq category.categoryId ? 'selected' : ''}>${category.category_name}</option>
-
+									${RegisterSalesForm.categoryId eq category.categoryId ? 'selected' : ''}>${category.categoryName}</option>
 							</c:forEach>
 						</select>
 						<c:choose>
