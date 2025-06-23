@@ -1,4 +1,4 @@
-package filter;
+package filters;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,13 +21,13 @@ import beans.loginAccount;
 /**
  * Servlet Filter implementation class S0030Filter
  */
-@WebFilter(urlPatterns = { "/S0010.html", "/S0011.html" })
-public class S0010Filter extends HttpFilter implements Filter {
+@WebFilter(urlPatterns = { "/S0030.html", "/S0031.html" })
+public class S0030Filter extends HttpFilter implements Filter {
 
 	/**
 	 * @see HttpFilter#HttpFilter()
 	 */
-	public S0010Filter() {
+	public S0030Filter() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -53,8 +53,8 @@ public class S0010Filter extends HttpFilter implements Filter {
 		loginAccount loginAccount = (loginAccount) session.getAttribute("loginAccount");
 		String uri = req.getRequestURI();
 
-		if (loginAccount.getAuthority() == 0 || loginAccount.getAuthority() == 2) {
-			System.out.println("S0010Filter: 不正");
+		if (loginAccount.getAuthority() == 0 || loginAccount.getAuthority() == 1) {
+			System.out.println("S0030Filter: 不正");
 			session.removeAttribute("loginAccount");
 			Map<String, String> errors = new HashMap<>();
 			errors.put("account", "不正なアクセスを確認しました。");
@@ -62,16 +62,16 @@ public class S0010Filter extends HttpFilter implements Filter {
 			res.sendRedirect("C001.html");
 			return;
 		}
-
-		// 売上登録系のsession破棄
-		boolean isTargetPage = uri.matches(".*/S001[0-1]\\.(html|jsp)$");
-		String[] sales_sessionKeys = { "Register_salesform", "Register_salesdata" };
+		
+		// アカウント登録系のsession破棄
+		boolean isTargetPage = uri.matches(".*/S003[0-1]\\.(html|jsp)$");
+		String[] sales_sessionKeys = { "Register_accountsform", "Register_accountsdata" };
 
 		if (session != null && !isTargetPage) {
 			for (String sales_sessionKey : sales_sessionKeys) {
 				if (session.getAttribute(sales_sessionKey) != null) {
 					session.removeAttribute(sales_sessionKey);
-					System.out.println("売上登録系: " + sales_sessionKey + "を削除。");
+					System.out.println("アカウント登録系: " + sales_sessionKey + "を削除。");
 				}
 			}
 		}

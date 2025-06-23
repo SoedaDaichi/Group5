@@ -1,4 +1,5 @@
-package controller;
+
+package controllers;
 
 import java.io.IOException;
 
@@ -7,24 +8,23 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import beans.SalesData;
 import daos.SalesDao;
-import services.SessionConfirmService;
-import services.SuccessMessageService;
-import services.SuccessMessageService.SuccessMessage;
+import services.SessionDataService;
 
 /**
- * Servlet implementation class S0011Servlet
+ * Servlet implementation class S0024Servlet
  */
-@WebServlet("/S0011.html")
-public class S0011Servlet extends HttpServlet {
+@WebServlet("/S0024.html")
+public class S0024Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public S0011Servlet() {
+	public S0024Servlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -32,12 +32,10 @@ public class S0011Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		SessionConfirmService.S0011SessionConfirmPostService(request); // 入力内容をJSPにセット
-		
-		request.getRequestDispatcher("/S0011.jsp").forward(request, response);
+		SessionDataService.SalesDataSession(request);
+		request.getRequestDispatcher("/S0024.jsp").forward(request, response);
 	}
 
 	/**
@@ -45,17 +43,25 @@ public class S0011Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 
-		// 入力内容をsessionから獲得
-		SalesData RegisterSalesdata = SessionConfirmService.S0011SessionConfirmPostService(request);
+		HttpSession session = request.getSession();
+		SalesData salesdata = (SalesData) session.getAttribute("salesdata");
+		int sale_id = (int) session.getAttribute("sale_id");
+		
+		session.removeAttribute("sale_id");
+		session.removeAttribute("salesdata");
 
 		SalesDao sd = new SalesDao();
-		boolean success = sd.insert(RegisterSalesdata);
-		
-		// S0010ページ上部の処理成功、失敗メッセージをsessionにセット
-		SuccessMessageService.SuccessSet(request, success, SuccessMessage.S0011Success, SuccessMessage.S0011Error);
-	
-		response.sendRedirect("S0010Servlet");
+		boolean success = sd.updateSales(sale_id, salesdata);
+
+		if (success) {
+			session.setAttribute("success", "売上が更新されました。");
+			response.sendRedirect("S0021.html");
+
+		} else {
+			session.setAttribute("error", "更新に失敗しました");
+			response.sendRedirect("S0021.html");
+		}
 	}
+
 }

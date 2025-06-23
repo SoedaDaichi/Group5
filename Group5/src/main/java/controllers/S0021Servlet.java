@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 
 import java.io.IOException;
 
@@ -7,19 +7,22 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+
+import services.DetailSearchService;
+import services.SearchService;
+import services.SuccessMessageService;
 
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class S0021Servlet
  */
-@WebServlet("/Logout.html")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/S0021.html")
+public class S0021Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LogoutServlet() {
+	public S0021Servlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -29,8 +32,11 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		SearchService.SalesSearchService(request);
 
+		SuccessMessageService.processSessionMessages(request);
+
+		request.getRequestDispatcher("/S0021.jsp").forward(request, response);
 	}
 
 	/**
@@ -38,11 +44,8 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(false);
-		if (session != null) {
-			session.invalidate();
-		}
-		response.sendRedirect("C001.html");
+		DetailSearchService.createSalesDetail(request);
+		
+		response.sendRedirect("S0022.html");
 	}
 }
