@@ -74,8 +74,8 @@ public class S0023Servlet extends HttpServlet {
 			System.out.println("エラー: " + errors);
 			Queue<Map<String, String>> errorQueue = new ConcurrentLinkedQueue<>();
 			errorQueue.add(errors);
-			SalesForm salesform = new SalesForm(request);
-			session.setAttribute("salesform", salesform);
+			SalesForm salesForm = new SalesForm(request);
+			session.setAttribute("salesForm", salesForm);
 			session.setAttribute("errorQueue", errorQueue);
 			response.sendRedirect("S0023.html");
 			return;

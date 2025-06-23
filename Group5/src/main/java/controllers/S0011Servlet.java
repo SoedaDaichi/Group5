@@ -48,10 +48,10 @@ public class S0011Servlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		// 入力内容をsessionから獲得
-		SalesData RegisterSalesdata = SessionConfirmService.S0011SessionConfirmPostService(request);
+		SalesData registerSalesData = SessionConfirmService.S0011SessionConfirmPostService(request);
 
 		SalesDao sd = new SalesDao();
-		boolean success = sd.insert(RegisterSalesdata);
+		boolean success = sd.insert(registerSalesData);
 		
 		// S0010ページ上部の処理成功、失敗メッセージをsessionにセット
 		SuccessMessageService.SuccessSet(request, success, SuccessMessage.S0011Success, SuccessMessage.S0011Error);
