@@ -27,6 +27,8 @@ public class DetailSearchService {
 
 		AccountsDao ad = new AccountsDao();
 		Accounts accountData = ad.getAccountsByAccount_id(accountId);
+		
+		
 
 		session.setAttribute("accountId", accountId);
 		session.setAttribute("accountData", accountData);

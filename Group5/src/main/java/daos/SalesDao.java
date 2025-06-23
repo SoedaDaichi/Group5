@@ -45,8 +45,8 @@ public class SalesDao {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Categories categories = new Categories();
-				categories.setCategory_id(rs.getInt("category_id"));
-				categories.setCategory_name(rs.getString("category_name"));
+				categories.setCategoryId(rs.getInt("category_id"));
+				categories.setCategoryName(rs.getString("category_name"));
 				categoryList.add(categories);
 			}
 		} catch (Exception e) {
@@ -89,8 +89,8 @@ public class SalesDao {
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				category = new Categories();
-				category.setCategory_name(rs.getString("category_name"));
-				category.setCategory_id(rs.getInt("category_id"));
+				category.setCategoryName(rs.getString("category_name"));
+				category.setCategoryId(rs.getInt("category_id"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -100,12 +100,12 @@ public class SalesDao {
 	}
 
 	public boolean insert(SalesData RegisterSalesdata) {
-		LocalDate sale_date = RegisterSalesdata.getSale_date();
-		int account_id = RegisterSalesdata.getAccount_id();
-		int category_id = RegisterSalesdata.getCategory_id();
-		String trade_name = RegisterSalesdata.getTrade_name();
-		int unit_price = RegisterSalesdata.getUnit_price();
-		int sale_number = RegisterSalesdata.getSale_number();
+		LocalDate sale_date = RegisterSalesdata.getSaleDate();
+		int account_id = RegisterSalesdata.getAccountId();
+		int category_id = RegisterSalesdata.getCategoryId();
+		String trade_name = RegisterSalesdata.getTradeName();
+		int unit_price = RegisterSalesdata.getUnitPrice();
+		int sale_number = RegisterSalesdata.getSaleNumber();
 		String note = RegisterSalesdata.getNote();
 
 		String insert = """
@@ -245,8 +245,8 @@ public class SalesDao {
 		return salesList;
 	}
 
-	public SalesData identificationSalesData(int sale_id) {
-		SalesData salesdata = null;
+	public SalesData identificationSalesData(int saleId) {
+		SalesData salesData = null;
 		String identificationSalesData = """
 				SELECT sale_date, account_id, category_id, trade_name,
 				unit_price, sale_number, note, unit_price * sale_number AS price_all
@@ -256,18 +256,18 @@ public class SalesDao {
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(identificationSalesData);) {
-			pstmt.setInt(1, sale_id);
+			pstmt.setInt(1, saleId);
 
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				int account_id = rs.getInt("account_id");
 				int category_id = rs.getInt("sale_id");
 				new SalesData(
-						sale_id,
+						saleId,
 						rs.getDate("sale_date").toLocalDate(),
 						sd.identificationAccount(account_id).getName(),
 						account_id,
-						sd.identificationCategory(category_id).getCategory_name(),
+						sd.identificationCategory(category_id).getCategoryName(),
 						category_id,
 						rs.getString("trade_name"),
 						rs.getInt("unit_price"),
@@ -280,10 +280,10 @@ public class SalesDao {
 			e.printStackTrace();
 		}
 
-		return salesdata;
+		return salesData;
 	}
 
-	public boolean updateSales(int sale_id, SalesData salesdata) {
+	public boolean updateSales(int saleId, SalesData salesData) {
 		String updateSales = """
 				UPDATE sales SET
 				sale_date = ?, account_id = ?, category_id = ?,
@@ -291,25 +291,25 @@ public class SalesDao {
 				WHERE sale_id = ?
 				""";
 
-		LocalDate sale_date = salesdata.getSale_date();
-		int account_id = salesdata.getAccount_id();
-		int category_id = salesdata.getCategory_id();
-		String trade_name = salesdata.getTrade_name();
-		int unit_price = salesdata.getUnit_price();
-		int sale_number = salesdata.getSale_number();
-		String note = salesdata.getNote();
+		LocalDate saleDate = salesData.getSaleDate();
+		int accountId = salesData.getAccountId();
+		int categoryId = salesData.getCategoryId();
+		String tradeName = salesData.getTradeName();
+		int unitPrice = salesData.getUnitPrice();
+		int saleNumber = salesData.getSaleNumber();
+		String note = salesData.getNote();
 
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(updateSales);) {
-			pstmt.setObject(1, sale_date);
-			pstmt.setInt(2, account_id);
-			pstmt.setInt(3, category_id);
-			pstmt.setString(4, trade_name);
-			pstmt.setInt(5, unit_price);
-			pstmt.setInt(6, sale_number);
+			pstmt.setObject(1, saleDate);
+			pstmt.setInt(2, accountId);
+			pstmt.setInt(3, categoryId);
+			pstmt.setString(4, tradeName);
+			pstmt.setInt(5, unitPrice);
+			pstmt.setInt(6, saleNumber);
 			pstmt.setString(7, note);
-			pstmt.setInt(8, sale_id);
+			pstmt.setInt(8, saleId);
 
 			int rowsAffected = pstmt.executeUpdate();
 			return rowsAffected > 0;
@@ -322,13 +322,13 @@ public class SalesDao {
 		}
 	}
 
-	public void deleteSales(int sale_id) {
+	public void deleteSales(int saleId) {
 		String deleteSales = "DELETE FROM sales where sale_id = ?";
 
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(deleteSales);) {
-			pstmt.setInt(1, sale_id);
+			pstmt.setInt(1, saleId);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

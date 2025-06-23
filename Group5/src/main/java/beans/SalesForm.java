@@ -6,33 +6,33 @@ import lombok.Data;
 
 @Data
 public class SalesForm {
-	private String sale_date;
-	private String account_id;
-	private String category_id;
-	private String trade_name;
-	private String unit_price;
-	private String sale_number;
+	private String saleDate;
+	private String accountId;
+	private String categoryId;
+	private String tradeName;
+	private String unitPrice;
+	private String saleNumber;
 	private String note;
 
-	public SalesForm(String sale_dateStr, String account_idStr, String category_idStr, String trade_name,
-			String unit_priceStr,
-			String sale_numberStr, String note) {
-		this.sale_date = sale_dateStr;
-		this.account_id = account_idStr;
-		this.category_id = category_idStr;
-		this.trade_name = trade_name;
-		this.unit_price = unit_priceStr;
-		this.sale_number = sale_numberStr;
+	public SalesForm(String saleDateStr, String accountIdStr, String categoryIdStr, String tradeName,
+			String unitPriceStr,
+			String saleNumberStr, String note) {
+		this.saleDate = saleDateStr;
+		this.accountId = accountIdStr;
+		this.categoryId = categoryIdStr;
+		this.tradeName = tradeName;
+		this.unitPrice = unitPriceStr;
+		this.saleNumber = saleNumberStr;
 		this.note = note;
 	}
 
 	public SalesForm(HttpServletRequest request) {
-		this.sale_date = request.getParameter("sale_data");
-		this.account_id = request.getParameter("account_id");
-		this.category_id = request.getParameter("category_id");
-		this.trade_name = request.getParameter("trade_name");
-		this.unit_price = request.getParameter("unit_price");
-		this.sale_number = request.getParameter("sale_number");
+		this.saleDate = request.getParameter("saleData");
+		this.accountId = request.getParameter("accountId");
+		this.categoryId = request.getParameter("categoryId");
+		this.tradeName = request.getParameter("tradeName");
+		this.unitPrice = request.getParameter("unitPrice");
+		this.saleNumber = request.getParameter("saleNumber");
 		this.note = request.getParameter("note");
 	}
 }

@@ -47,14 +47,14 @@ public class S0024Servlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		SalesData salesdata = (SalesData) session.getAttribute("salesdata");
-		int sale_id = (int) session.getAttribute("sale_id");
+		SalesData salesData = (SalesData) session.getAttribute("salesData");
+		int saleId = (int) session.getAttribute("saleId");
 
-		session.removeAttribute("sale_id");
-		session.removeAttribute("salesdata");
+		session.removeAttribute("saleId");
+		session.removeAttribute("salesData");
 
 		SalesDao sd = new SalesDao();
-		boolean success = sd.updateSales(sale_id, salesdata);
+		boolean success = sd.updateSales(saleId, salesData);
 
 		// S0010ページ上部の処理成功、失敗メッセージをsessionにセット
 		SuccessMessageService.SuccessSet(

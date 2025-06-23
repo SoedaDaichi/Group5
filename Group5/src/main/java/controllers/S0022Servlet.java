@@ -32,9 +32,9 @@ public class S0022Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		SalesData salesdata = (SalesData) session.getAttribute("salesdata");
+		SalesData salesData = (SalesData) session.getAttribute("salesData");
 		
-		session.setAttribute("salesdata", salesdata);
+		session.setAttribute("salesData", salesData);
 		request.getRequestDispatcher("S0022.jsp").forward(request, response);
 	}
 

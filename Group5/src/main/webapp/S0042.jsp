@@ -28,7 +28,7 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="text" name="name" class="form-control"
-							placeholder="氏名" value="${accountsData.name}">
+							placeholder="氏名" value="${sessionScope.accountData.name}">
 						<c:if test="${not empty errors.name}">
 							<div class="text-danger small">${errors.name}</div>
 						</c:if>
@@ -43,7 +43,7 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="email" name="mail" class="form-control"
-							placeholder="メールアドレス" value="${sessionScope.accountsData.mail}">
+							placeholder="メールアドレス" value="${sessionScope.accountData.mail}">
 						<c:if test="${not empty errors.mail}">
 							<div class="text-danger small">${errors.mail}</div>
 						</c:if>
@@ -92,25 +92,25 @@
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
 								 value="0"
-								<c:if test="${formData.authority == 0}">checked</c:if>>
+								<c:if test="${sessionScope.accountData.authority == 0}">checked</c:if>>
 							<label class="form-check-label" for="authority-none">権限なし</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
 								 value="1"
-								<c:if test="${formData.authority == 1}">checked</c:if>>
+								<c:if test="${sessionScope.accountData.authority == 1}">checked</c:if>>
 							<label class="form-check-label" for="authority-sales">売上登録</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
 								 value="2"
-								<c:if test="${formData.authority == 2}">checked</c:if>>
+								<c:if test="${sessionScope.accountData.authority == 2}">checked</c:if>>
 							<label class="form-check-label" for="authority-accounts">アカウント登録</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="authority"
 								 value="3"
-								<c:if test="${formData.authority == 3}">checked</c:if>>
+								<c:if test="${sessionScope.accountData.authority == 3}">checked</c:if>>
 							<label class="form-check-label" for="authority-all">全権限</label>
 						</div>
 						<c:if test="${not empty errors.authority}">

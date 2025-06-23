@@ -70,7 +70,6 @@
 							<c:forEach var="account" items="${accountList}">
 								<option value="${account.accountId}"
 									${RegisterSalesForm.accountId eq account.accountId ? 'selected' : ''}>${account.name}</option>
-
 							</c:forEach>
 						</select>
 						<c:choose>
@@ -100,7 +99,6 @@
 							<c:forEach var="category" items="${categoryList}">
 								<option value="${category.categoryId}"
 									${RegisterSalesForm.categoryId eq category.categoryId ? 'selected' : ''}>${category.categoryName}</option>
-
 							</c:forEach>
 						</select>
 						<c:choose>
