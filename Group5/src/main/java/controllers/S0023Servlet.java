@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,24 +15,25 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import beans.Categories;
+import beans.SalesData;
+import beans.SalesForm;
 import daos.SalesDao;
 import services.ErrorMessageService;
 import services.ErrorService;
 import services.SessionDataService;
 import services.SessionFormService;
-import services.SuccessMessageService;
 
 /**
- * Servlet implementation class S0010Servlet
+ * Servlet implementation class S0023Servlet
  */
-@WebServlet("/S0010.html")
-public class S0010Servlet extends HttpServlet {
+@WebServlet("/S0023.html")
+public class S0023Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public S0010Servlet() {
+	public S0023Servlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -40,26 +41,23 @@ public class S0010Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		SessionFormService.salesRegisterFormSession(request);
-		SuccessMessageService.processSessionMessages(request);
-		ErrorMessageService.processSessionMessages(request);
+		ErrorMessageService.processSessionMessages(request); // error文をjspにセット
+		SessionFormService.salesFormSession(request); // error文がセットされている場合、入力情報もセット
 
-
-		ArrayList<Accounts> accountList = new ArrayList<>();
-		ArrayList<Categories> categoryList = new ArrayList<>();
+		// 上のメソッドでerrorがセットされていない場合（初回）
+		SessionDataService.SalesDataSession(request);
 
 		SalesDao sd = new SalesDao();
-		accountList = sd.selectAccount();
-		System.out.println(accountList.size());
-		categoryList = sd.selectCategory();
+		ArrayList<Accounts> accountList = sd.selectAccount();
+		ArrayList<Categories> categoryList = sd.selectCategory();
 
 		request.setAttribute("accountList", accountList);
 		request.setAttribute("categoryList", categoryList);
 
-		request.getRequestDispatcher("/S0010.jsp").forward(request, response);
+		request.getRequestDispatcher("/S0023.jsp").forward(request, response);
 	}
 
 	/**
@@ -67,26 +65,26 @@ public class S0010Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-
 		ErrorService es = new ErrorService();
+
 		Map<String, String> errors = es.ValidateSales(request);
-		System.out.println(errors);
 
 		if (errors != null && !errors.isEmpty()) {
+			System.out.println("エラー: " + errors);
 			Queue<Map<String, String>> errorQueue = new ConcurrentLinkedQueue<>();
 			errorQueue.add(errors);
-			session.setAttribute("errorsQueue", errorQueue);
-			session.setAttribute("RegisterSalesForm", request);
-
-			response.sendRedirect("S0010.html");
+			SalesForm salesform = new SalesForm(request);
+			session.setAttribute("salesform", salesform);
+			session.setAttribute("errorQueue", errorQueue);
+			response.sendRedirect("S0023.html");
 			return;
 		}
 
-		SessionDataService.SalesRegisterDataSession(request);
-		
-		response.sendRedirect("S0011.html");
-
+		SalesDao sd = new SalesDao();
+		SalesData salesdata = new SalesData(request, sd);
+		session.setAttribute("salesdata", salesdata);
+		response.sendRedirect("S0024.html");
 	}
+
 }

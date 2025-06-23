@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,25 +15,22 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import beans.Categories;
-import beans.SalesData;
-import beans.SalesForm;
+import beans.SalesSearchForm;
 import daos.SalesDao;
-import services.ErrorMessageService;
 import services.ErrorService;
-import services.SessionDataService;
-import services.SessionFormService;
+import services.S0020ErrorMessageService;
 
 /**
- * Servlet implementation class S0023Servlet
+ * Servlet implementation class S0020Servlet
  */
-@WebServlet("/S0023.html")
-public class S0023Servlet extends HttpServlet {
+@WebServlet("/S0020.html")
+public class S0020Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public S0023Servlet() {
+	public S0020Servlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -41,23 +38,21 @@ public class S0023Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ErrorMessageService.processSessionMessages(request); // error文をjspにセット
-		SessionFormService.salesFormSession(request); // error文がセットされている場合、入力情報もセット
-
-		// 上のメソッドでerrorがセットされていない場合（初回）
-		SessionDataService.SalesDataSession(request);
-
+		// TODO Auto-generated method stub
+		
+		S0020ErrorMessageService.processSessionMessages(request);
+		
 		SalesDao sd = new SalesDao();
 		ArrayList<Accounts> accountList = sd.selectAccount();
+		//		System.out.println(accountList.size());
 		ArrayList<Categories> categoryList = sd.selectCategory();
 
 		request.setAttribute("accountList", accountList);
 		request.setAttribute("categoryList", categoryList);
 
-		request.getRequestDispatcher("/S0023.jsp").forward(request, response);
+		request.getRequestDispatcher("/S0020.jsp").forward(request, response);
 	}
 
 	/**
@@ -65,26 +60,29 @@ public class S0023Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		ErrorService es = new ErrorService();
 
-		Map<String, String> errors = es.ValidateSales(request);
+		SalesSearchForm ssform = new SalesSearchForm(request);
+		session.setAttribute("ssform", ssform);
 
+		Map<String, String> errors = es.ValidateSalesSearch(request);
+		System.out.println("日付エラー: " + errors);
 		if (errors != null && !errors.isEmpty()) {
-			System.out.println("エラー: " + errors);
 			Queue<Map<String, String>> errorQueue = new ConcurrentLinkedQueue<>();
 			errorQueue.add(errors);
-			SalesForm salesform = new SalesForm(request);
-			session.setAttribute("salesform", salesform);
-			session.setAttribute("errorQueue", errorQueue);
-			response.sendRedirect("S0023.html");
+			session.setAttribute("errorsQueue", errorQueue);
+			response.sendRedirect("S0020.html");
+			return;
+		}
+		Map<String, String> notFound = es.ValidateNotFoundSales(request);
+		if (notFound != null && !notFound.isEmpty()) {
+			session.setAttribute("notFound", notFound);
+			response.sendRedirect("S0020.html");
 			return;
 		}
 
-		SalesDao sd = new SalesDao();
-		SalesData salesdata = new SalesData(request, sd);
-		session.setAttribute("salesdata", salesdata);
-		response.sendRedirect("S0024.html");
+		response.sendRedirect("S0021.html");
 	}
-
 }

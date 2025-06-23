@@ -1,4 +1,4 @@
-package filter;
+package filters;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,15 +19,15 @@ import jakarta.servlet.http.HttpSession;
 import beans.loginAccount;
 
 /**
- * Servlet Filter implementation class S0020Filter
+ * Servlet Filter implementation class S0030Filter
  */
-@WebFilter("/*")
-public class S0020Filter extends HttpFilter implements Filter {
+@WebFilter(urlPatterns = { "/S0010.html", "/S0011.html" })
+public class S0010Filter extends HttpFilter implements Filter {
 
 	/**
 	 * @see HttpFilter#HttpFilter()
 	 */
-	public S0020Filter() {
+	public S0010Filter() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -48,37 +48,34 @@ public class S0020Filter extends HttpFilter implements Filter {
 		// place your code here
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		HttpSession session = req.getSession(false);
-		String uri = req.getRequestURI();
-		boolean authorityUrlCheck = uri.matches(".*/S002[3-5]\\.(html|jsp)$");
 
-		// 権限なしアカウント排除処理
-		if (session != null) {
-			loginAccount loginAccount = (loginAccount) session.getAttribute("loginAccount");
-			if (loginAccount != null && authorityUrlCheck
-					&& (loginAccount.getAuthority() == 0 || loginAccount.getAuthority() == 2)) {
-				System.out.println("S0020Filter: 不正");
-				session.removeAttribute("loginAccount");
-				Map<String, String> errors = new HashMap<>();
-				errors.put("account", "不正なアクセスを確認しました。");
-				session.setAttribute("errors", errors);
-				res.sendRedirect(req.getContextPath() + "/C001.html");
-				return;
-			}
+		HttpSession session = req.getSession(false);
+		loginAccount loginAccount = (loginAccount) session.getAttribute("loginAccount");
+		String uri = req.getRequestURI();
+
+		if (loginAccount.getAuthority() == 0 || loginAccount.getAuthority() == 2) {
+			System.out.println("S0010Filter: 不正");
+			session.removeAttribute("loginAccount");
+			Map<String, String> errors = new HashMap<>();
+			errors.put("account", "不正なアクセスを確認しました。");
+			session.setAttribute("errors", errors);
+			res.sendRedirect("C001.html");
+			return;
 		}
 
-		// 商品検索系のsession破棄
-		boolean isTargetPage = uri.matches(".*/S002[1-5]\\.(html|jsp)$");
-		String[] sales_sessionKeys = {"ssform", "salesList", "sale_id", "salesdata", "salesform"};
-		
+		// 売上登録系のsession破棄
+		boolean isTargetPage = uri.matches(".*/S001[0-1]\\.(html|jsp)$");
+		String[] sales_sessionKeys = { "Register_salesform", "Register_salesdata" };
+
 		if (session != null && !isTargetPage) {
 			for (String sales_sessionKey : sales_sessionKeys) {
 				if (session.getAttribute(sales_sessionKey) != null) {
 					session.removeAttribute(sales_sessionKey);
-					System.out.println("売上検索系: " + sales_sessionKey + "を削除。");
+					System.out.println("売上登録系: " + sales_sessionKey + "を削除。");
 				}
 			}
 		}
+
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
 	}
