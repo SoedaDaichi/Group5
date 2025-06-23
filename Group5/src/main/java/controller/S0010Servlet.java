@@ -1,9 +1,10 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,10 +15,12 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import beans.Categories;
-import beans.SalesData;
-import beans.SalesForm;
 import daos.S0010Dao;
+import services.ErrorMessageService;
 import services.ErrorService;
+import services.SessionDataService;
+import services.SessionFormService;
+import services.SuccessMessageService;
 
 /**
  * Servlet implementation class S0010Servlet
@@ -37,24 +40,12 @@ public class S0010Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String success = (String) session.getAttribute("success");
-		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
-		SalesForm Register_salesform = (SalesForm) session.getAttribute("Register_salesform");
-//		System.out.println("絶対呼ばれる: " + Register_salesform);
-
-		if (success != null) {
-			request.setAttribute("success", success);
-			session.removeAttribute("success");
-		} else if (errors != null) {
-			request.setAttribute("errors", errors);
-			request.setAttribute("Register_salesform", Register_salesform);
-			session.removeAttribute("errors");
-			session.removeAttribute("Register_salesform");
-		}
+		
+		SessionFormService.salesRegisterFormSession(request);
+		SuccessMessageService.processSessionMessages(request);
+		ErrorMessageService.processSessionMessages(request);
 
 		ArrayList<Accounts> accountList = new ArrayList<>();
 		ArrayList<Categories> categoryList = new ArrayList<>();
@@ -78,55 +69,21 @@ public class S0010Servlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 
-		String sale_dateStr = request.getParameter("sale_date");
-		String account_idStr = request.getParameter("account_id");
-		System.out.println(account_idStr);
-		String category_idStr = request.getParameter("category_id");
-		String trade_name = request.getParameter("trade_name");
-		String unit_priceStr = request.getParameter("unit_price");
-		String sale_numberStr = request.getParameter("sale_number");
-		String note = request.getParameter("note");
-
 		ErrorService es = new ErrorService();
-		Map<String, String> errors = es.ValidateSales(sale_dateStr, account_idStr, category_idStr, trade_name,
-				unit_priceStr,
-				sale_numberStr,
-				note);
+		Map<String, String> errors = es.ValidateSales(request);
 		System.out.println(errors);
 
 		if (errors != null && !errors.isEmpty()) {
-			SalesForm Register_salesform = new SalesForm(sale_dateStr, account_idStr, category_idStr, trade_name, unit_priceStr,
-					sale_numberStr, note);
-//			System.out.println("エラー時: " + Register_salesform);
-			session.setAttribute("Register_salesform", Register_salesform);
-//			System.out.println("session保存後" + session.getAttribute("Register_salesform"));
-			session.setAttribute("errors", errors);
+			Queue<Map<String, String>> errorQueue = new ConcurrentLinkedQueue<>();
+			errorQueue.add(errors);
+			session.setAttribute("errorsQueue", errorQueue);
+			session.setAttribute("RegisterSalesForm", request);
 			response.sendRedirect("S0010.html");
 			return;
 		}
 
-		if (errors == null || errors.isEmpty()) {
-
-			Date sale_date = Date.valueOf(sale_dateStr);
-			int account_id = Integer.valueOf(account_idStr);
-			int category_id = Integer.valueOf(category_idStr);
-			int unit_price = Integer.valueOf(unit_priceStr);
-			int sale_number = Integer.valueOf(sale_numberStr);
-
-			S0010Dao ss = new S0010Dao();
-			Accounts account = ss.identificationAccount(account_id);
-			String name = account.getName();
-
-			Categories category = ss.identificationCategory(category_id);
-			String category_name = category.getCategory_name();
-
-			SalesData Register_salesdata = new SalesData(sale_date, name, account_id, category_name, category_id, trade_name,
-					unit_price,
-					sale_number, note);
-
-			session.setAttribute("Register_salesdata", Register_salesdata);
-			//			request.getRequestDispatcher("S0011.html").forward(request, response);
-			response.sendRedirect("S0011.html");
-		}
+		SessionDataService.SalesRegisterDataSession(request);
+		
+		response.sendRedirect("S0011.html");
 	}
 }

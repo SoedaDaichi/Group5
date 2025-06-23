@@ -2,13 +2,11 @@ package services;
 
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-import beans.Sales;
 import beans.loginAccount;
 import daos.S0010Dao;
 import daos.S0030Dao;
@@ -113,9 +111,11 @@ public class ErrorService {
 		return errors;
 	}
 
-	public Map<String, String> ValidateNotFoundSales(ArrayList<Sales> sales) {
+	public Map<String, String> ValidateNotFoundSales(HttpServletRequest request) {
 		Map<String, String> notFound = new HashMap<>();
-		if (sales == null || sales.isEmpty()) {
+		String sale_idStr = request.getParameter("sale_id"); // 検索結果の中身から確認
+		
+		if (sale_idStr == null || sale_idStr.isEmpty()) {
 			notFound.put("sales_notfound", "ご指定の条件に該当するデータが見つかりませんでした。");
 		}
 		return notFound;
