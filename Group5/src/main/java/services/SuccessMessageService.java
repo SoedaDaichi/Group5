@@ -8,7 +8,8 @@ import lombok.Getter;
 public class SuccessMessageService {
 
 	public enum SuccessMessage {
-		S0011Success("商品が登録されました"), S0011Error("登録に失敗しました");
+		S0011Success("商品が登録されました"), S0011Error("登録に失敗しました"), 
+		S0024Success("売り上げが更新されました。"), S0024Error("更新に失敗しました。");
 
 		@Getter
 		private String message;
@@ -29,7 +30,7 @@ public class SuccessMessageService {
 		}
 	}
 
-	public static void processSessionMessages(HttpServletRequest request) {
+	public static void processSessionMessages(HttpServletRequest request) { // ページ上部メッセージ挿入
 		HttpSession session = request.getSession(false);
 
 		// エラーメッセージの処理
