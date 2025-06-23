@@ -29,8 +29,8 @@
 					<div class="col-4 my-3">
 						<input type="text" name="name" class="form-control"
 							placeholder="氏名" value="${sessionScope.accountData.name}">
-						<c:if test="${not empty errors.name}">
-							<div class="text-danger small">${errors.name}</div>
+						<c:if test="${not empty errorQueue.name}">
+							<div class="text-danger small">${errorQueue.name}</div>
 						</c:if>
 					</div>
 				</div>
@@ -44,8 +44,8 @@
 					<div class="col-4 my-3">
 						<input type="email" name="mail" class="form-control"
 							placeholder="メールアドレス" value="${sessionScope.accountData.mail}">
-						<c:if test="${not empty errors.mail}">
-							<div class="text-danger small">${errors.mail}</div>
+						<c:if test="${not empty errorQueue.mail}">
+							<div class="text-danger small">${errorQueue.mail}</div>
 						</c:if>
 					</div>
 				</div>
@@ -60,8 +60,8 @@
 						<input type="password"name="pass"
 							class="form-control" placeholder="パスワード"
 							value="${accountsData.pass}">
-						<c:if test="${not empty errors.pass}">
-							<div class="text-danger small">${errors.pass}</div>
+						<c:if test="${not empty errorQueue.pass}">
+							<div class="text-danger small">${errorQueue.pass}</div>
 						</c:if>
 					</div>
 				</div>
@@ -76,8 +76,8 @@
 						<input type="password" name="confirmPass"
 							class="form-control" placeholder="パスワード(確認)"
 							value="${accountsData.pass}">
-						<c:if test="${not empty errors.confirmPass}">
-							<div class="text-danger small">${errors.confirmPass}</div>
+						<c:if test="${not empty errorQueue.confirmPass}">
+							<div class="text-danger small">${errorQueue.confirmPass}</div>
 						</c:if>
 					</div>
 				</div>
@@ -113,8 +113,8 @@
 								<c:if test="${sessionScope.accountData.authority == 3}">checked</c:if>>
 							<label class="form-check-label" for="authority-all">全権限</label>
 						</div>
-						<c:if test="${not empty errors.authority}">
-							<div class="text-danger small">${errors.authority}</div>
+						<c:if test="${not empty errorQueue.authority}">
+							<div class="text-danger small">${errorQueue.authority}</div>
 						</c:if>
 					</div>
 				</div>

@@ -18,9 +18,9 @@
 
 	<form action="C001.html" method="post">
 		<c:choose>
-			<c:when test="${not empty errors.account}">
+			<c:when test="${not empty errorQueue.account}">
 				<div class="alert alert-danger text-center py-1">
-					<c:out value="${errors.account}" />
+					<c:out value="${errorQueue.account}" />
 				</div>
 			</c:when>
 			<c:otherwise>
@@ -37,12 +37,12 @@
 				<div class="row">
 					<div class="col-8 mb-4"> 
 						<input type="text"
-							class="form-control form-control-lg ${not empty errors ? ' is-invalid' : ''}"
+							class="form-control form-control-lg ${not empty errorQueue ? ' is-invalid' : ''}"
 							placeholder="メールアドレス" name="mail" value="${param.mail}" />
 						<c:choose>
-							<c:when test="${not empty errors.mail}">
+							<c:when test="${not empty errorQueue.mail}">
 								<div class="text-danger small">
-									<c:out value="${errors.mail}" />
+									<c:out value="${errorQueue..mail}" />
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -57,12 +57,12 @@
 				<div class="row">
 					<div class="col-8">
 						<input type="password"
-							class="form-control form-control-lg ${not empty errors ? ' is-invalid' : ''}"
+							class="form-control form-control-lg ${not empty errorQueue ? ' is-invalid' : ''}"
 							placeholder="パスワード" name="pass" />
 						<c:choose>
-							<c:when test="${not empty errors.pass}">
+							<c:when test="${not empty errorQueue.pass}">
 								<div class="text-danger small">
-									<c:out value="${errors.pass}" />
+									<c:out value="${errorQueue.pass}" />
 								</div>
 							</c:when>
 							<c:otherwise>

@@ -11,14 +11,15 @@ import daos.SalesDao;
 public class DetailSearchService {
 
 	public static void createSalesDetail(HttpServletRequest request) {
-		int sale_id = Integer.valueOf(request.getParameter("sale_id"));
+		int saleId = Integer.valueOf(request.getParameter("sale_id"));
 		HttpSession session = request.getSession();
 
 		SalesDao sd = new SalesDao();
-		SalesData salesdata = sd.identificationSalesData(sale_id);
+		SalesData salesData = sd.identificationSalesData(saleId);
 
-		session.setAttribute("sale_id", sale_id);
-		session.setAttribute("salesdata", salesdata);
+		session.setAttribute("saleId", saleId);
+		session.setAttribute("salesData", salesData);
+		
 	}
 
 	public static void createAccountsDetail(HttpServletRequest request) {

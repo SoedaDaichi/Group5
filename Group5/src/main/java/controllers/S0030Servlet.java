@@ -74,7 +74,7 @@ public class S0030Servlet extends HttpServlet {
 		}
 
 		AccountsData registerAccountsData = new AccountsData(request);
-		session.setAttribute("RegisterAccountsData", registerAccountsData);
+		session.setAttribute("registerAccountsData", registerAccountsData);
 		response.sendRedirect("S0031.html");
 	}
 }
