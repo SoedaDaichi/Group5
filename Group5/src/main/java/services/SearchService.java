@@ -5,13 +5,9 @@ import java.util.ArrayList;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-
 import beans.Accounts;
 import beans.AccountsSearchForm;
-import beans.Sales;
-
 import beans.SalesData;
-
 import beans.SalesSearchForm;
 import daos.S0020Dao;
 import daos.S0040Dao;
