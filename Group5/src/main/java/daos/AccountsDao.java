@@ -8,7 +8,9 @@ import java.util.Collections;
 import java.util.List;
 
 import beans.Accounts;
+import beans.AccountsData;
 import beans.AccountsSearchForm;
+import services.auth;
 import utils.Db;
 
 public class AccountsDao {
@@ -46,7 +48,12 @@ public class AccountsDao {
 		return false;
 	}
 
-	public boolean insert(String name, String mail, String hashedPass, String authority) {
+	public boolean insert(AccountsData accountsData) {
+		String name = accountsData.getName();
+		String mail = accountsData.getMail();
+		String pass = accountsData.getPass();
+		String authorityStr = accountsData.getAuthority();
+		String hashedPass = auth.hashPassword(pass);
 
 		System.out.println("insert called with: " + name + ", " + mail);
 
@@ -56,7 +63,7 @@ public class AccountsDao {
 			ps.setString(1, name);
 			ps.setString(2, mail);
 			ps.setString(3, hashedPass);
-			ps.setInt(4, Integer.parseInt(authority));
+			ps.setInt(4, Integer.parseInt(authorityStr));
 			ps.executeUpdate();
 			return true;
 		} catch (Exception e) {

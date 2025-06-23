@@ -7,6 +7,7 @@ import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import beans.AccountsData;
 import beans.loginAccount;
 import daos.AccountsDao;
 import daos.SalesDao;
@@ -15,7 +16,7 @@ public class ErrorService {
 
 	Map<String, String> errors = new HashMap<>();
 
-	public Map<String, String> ValidateLogin(String mail, String pass, String hashed_pass) {
+	public Map<String, String> ValidateLogin(String mail, String pass, String hashedPass) {
 		if (S0010Service.ValidNull(mail)) {
 			errors.put("mail", "メールアドレスを入力して下さい。");
 		} else if (mail.getBytes(StandardCharsets.UTF_8).length >= 100) {
@@ -34,61 +35,61 @@ public class ErrorService {
 		if (account == null && errors.isEmpty()) {
 			errors.put("account", "メールアドレス、パスワードを正しく入力して下さい。");
 			return errors;
-		} else if (account != null && !auth.passCheck(account.getAccount_id(), hashed_pass)) {
+		} else if (account != null && !auth.passCheck(account.getAccount_id(), hashedPass)) {
 			errors.put("account", "メールアドレス、パスワードを正しく入力して下さい。");
 		}
 		return errors;
 	}
 
 	public Map<String, String> ValidateSales(HttpServletRequest request) {
-		String sale_dateStr = request.getParameter("sale_date");
-		String account_idStr = request.getParameter("account_id");
-		String category_idStr = request.getParameter("category_id");
-		String trade_name = request.getParameter("trade_name");
-		String unit_priceStr = request.getParameter("unit_price");
-		String sale_numberStr = request.getParameter("sale_number");
+		String saleDateStr = request.getParameter("saleDate");
+		String accountIdStr = request.getParameter("accountId");
+		String categoryIdStr = request.getParameter("categoryId");
+		String tradeName = request.getParameter("tradeName");
+		String unitPriceStr = request.getParameter("unitPrice");
+		String saleNumberStr = request.getParameter("saleNumber");
 		String note = request.getParameter("note");
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		sdf.setLenient(false);
-		if (S0010Service.ValidNull(sale_dateStr)) {
-			errors.put("sale_date", "販売日を入力してください。");
-		} else if (!S0010Service.ValidDate(sale_dateStr)) {
-			errors.put("sale_date", "販売日を正しく入力してください。");
+		if (S0010Service.ValidNull(saleDateStr)) {
+			errors.put("saleDate", "販売日を入力してください。");
+		} else if (!S0010Service.ValidDate(saleDateStr)) {
+			errors.put("saleDate", "販売日を正しく入力してください。");
 		}
 
 		SalesDao sd = new SalesDao();
-		if (S0010Service.ValidNull(account_idStr)) {
-			errors.put("account_id", "担当が未選択です。");
-		} else if (sd.identificationAccount(Integer.valueOf(account_idStr)) == null) {
-			errors.put("account_id", "アカウントテーブルに存在しません。");
+		if (S0010Service.ValidNull(accountIdStr)) {
+			errors.put("accountId", "担当が未選択です。");
+		} else if (sd.identificationAccount(Integer.valueOf(accountIdStr)) == null) {
+			errors.put("accountId", "アカウントテーブルに存在しません。");
 		}
-		if (S0010Service.ValidNull(category_idStr)) {
-			errors.put("category_id", "商品カテゴリーが未選択です。");
-		} else if (sd.identificationCategory(Integer.valueOf(category_idStr)) == null) {
-			errors.put("category_id", "商品カテゴリーテーブルに存在しません。");
-		}
-
-		if (S0010Service.ValidNull(trade_name)) {
-			errors.put("trade_name", "商品名を入力してください。");
-		} else if (trade_name.getBytes(StandardCharsets.UTF_8).length > 100) {
-			errors.put("trade_name", "商品名が長すぎます。");
+		if (S0010Service.ValidNull(categoryIdStr)) {
+			errors.put("categoryId", "商品カテゴリーが未選択です。");
+		} else if (sd.identificationCategory(Integer.valueOf(categoryIdStr)) == null) {
+			errors.put("categoryId", "商品カテゴリーテーブルに存在しません。");
 		}
 
-		if (S0010Service.ValidNull(unit_priceStr)) {
-			errors.put("unit_price", "単価を入力してください。");
-		} else if (unit_priceStr.getBytes(StandardCharsets.UTF_8).length >= 10) {
-			errors.put("unit_price", "単価が長すぎます。");
-		} else if (S0010Service.InValidInt(unit_priceStr)) {
-			errors.put("unit_price", "単価を正しく入力してください。");
+		if (S0010Service.ValidNull(tradeName)) {
+			errors.put("tradeName", "商品名を入力してください。");
+		} else if (tradeName.getBytes(StandardCharsets.UTF_8).length > 100) {
+			errors.put("tradeName", "商品名が長すぎます。");
 		}
 
-		if (S0010Service.ValidNull(sale_numberStr)) {
-			errors.put("sale_number", "個数を入力してください。");
-		} else if (sale_numberStr.getBytes(StandardCharsets.UTF_8).length >= 10) {
-			errors.put("sale_number", "個数が長すぎます。");
-		} else if (S0010Service.InValidInt(sale_numberStr)) {
-			errors.put("sale_number", "個数を正しく入力してください。");
+		if (S0010Service.ValidNull(unitPriceStr)) {
+			errors.put("unitPrice", "単価を入力してください。");
+		} else if (unitPriceStr.getBytes(StandardCharsets.UTF_8).length >= 10) {
+			errors.put("unitPrice", "単価が長すぎます。");
+		} else if (S0010Service.InValidInt(unitPriceStr)) {
+			errors.put("unitPrice", "単価を正しく入力してください。");
+		}
+
+		if (S0010Service.ValidNull(saleNumberStr)) {
+			errors.put("saleNumber", "個数を入力してください。");
+		} else if (saleNumberStr.getBytes(StandardCharsets.UTF_8).length >= 10) {
+			errors.put("saleNumber", "個数が長すぎます。");
+		} else if (S0010Service.InValidInt(saleNumberStr)) {
+			errors.put("saleNumber", "個数を正しく入力してください。");
 		}
 
 		if (note != null && note.getBytes(StandardCharsets.UTF_8).length >= 400) {
@@ -100,7 +101,7 @@ public class ErrorService {
 	public Map<String, String> ValidateSalesSearch(HttpServletRequest request) {
 		String firstStr = request.getParameter("first");
 		String lastStr = request.getParameter("last");
-		
+
 		if (!S0010Service.ValidNull(firstStr) && !S0010Service.ValidDate(firstStr)) {
 			errors.put("first", "販売日（検索開始日）を正しく入力して下さい。");
 		}
@@ -112,9 +113,9 @@ public class ErrorService {
 
 	public Map<String, String> ValidateNotFoundSales(HttpServletRequest request) {
 		Map<String, String> notFound = new HashMap<>();
-		String sale_idStr = request.getParameter("sale_id"); // 検索結果の中身から確認
-		
-		if (sale_idStr == null || sale_idStr.isEmpty()) {
+		String saleIdStr = request.getParameter("saleId"); // 検索結果の中身から確認
+
+		if (saleIdStr == null || saleIdStr.isEmpty()) {
 			notFound.put("sales_notfound", "ご指定の条件に該当するデータが見つかりませんでした。");
 		}
 		return notFound;
@@ -176,14 +177,19 @@ public class ErrorService {
 		return errors;
 	}
 
-	public Map<String, String> ValidateAccountsUpdate(int account_id, String name, String mail, String pass, String confirm_pass) {
+	public Map<String, String> ValidateAccountsUpdate(AccountsData accountsdata) {
+		int accountId = accountsdata.getAccountId();
+		String name = accountsdata.getName();
+		String mail = accountsdata.getMail();
+		String pass = accountsdata.getPass();
+		String confirmPass = accountsdata.getConfirmPass();
 		AccountsDao ad = new AccountsDao();
 
 		if (S0010Service.ValidNull(name)) {
 			errors.put("name", "氏名を入力して下さい。");
 		} else if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
 			errors.put("name", "氏名が長すぎます。");
-		} else if (ad.accountUpdateNameCheck(name, account_id)) {
+		} else if (ad.accountUpdateNameCheck(name, accountId)) {
 			errors.put("name", "このユーザー名は既に使用されています。");
 		}
 
@@ -193,7 +199,7 @@ public class ErrorService {
 			errors.put("mail", "メールアドレスが長すぎます。");
 		} else if (!mail.matches("^[\\w\\-.]+@[\\w\\-]+\\.[a-zA-Z]{2,}$")) {
 			errors.put("mail", "メールアドレスを正しく入力して下さい。");
-		} else if (ad.accountUpdateEmailCheck(mail, account_id)) {
+		} else if (ad.accountUpdateEmailCheck(mail, accountId)) {
 			errors.put("mail", "このメールアドレスは既に使用されています。");
 		}
 
@@ -203,11 +209,11 @@ public class ErrorService {
 			errors.put("pass", "パスワードが長すぎます。");
 		}
 
-		if (S0010Service.ValidNull(confirm_pass)) {
+		if (S0010Service.ValidNull(confirmPass)) {
 			errors.put("confirm_pass", "パスワード（確認）を入力して下さい。");
 		}
 
-		if (!S0010Service.ValidNull(pass) && !S0010Service.ValidNull(confirm_pass) && !pass.equals(confirm_pass)) {
+		if (!S0010Service.ValidNull(pass) && !S0010Service.ValidNull(confirmPass) && !pass.equals(confirmPass)) {
 			errors.put("pass", "パスワードとパスワード（確認）の入力内容が異なっています。");
 			errors.put("confirm_pass", "パスワードとパスワード（確認）の入力内容が異なっています。");
 		}

@@ -13,9 +13,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import beans.AccountsData;
 import services.ErrorMessageService;
 import services.ErrorService;
-import services.SessionDataService;
 import services.SessionFormService;
 import services.SuccessMessageService;
 
@@ -62,18 +62,19 @@ public class S0030Servlet extends HttpServlet {
 		errors = es.ValidateAccounts(request);
 		System.out.println("アカウント登録エラー: " + errors);
 		HttpSession session = request.getSession();
+		AccountsData registerAccountsForm = new AccountsData(request);
 
 		if (errors != null && !errors.isEmpty()) {
+			session.setAttribute("RegisterAccountsForm", registerAccountsForm);
 			Queue<Map<String, String>> errorQueue = new ConcurrentLinkedQueue<>();
 			errorQueue.add(errors);
 			session.setAttribute("errorsQueue", errorQueue);
-			session.setAttribute("RegisterAccountsform", request);
-
 			response.sendRedirect("S0030.html");
 			return;
 		}
 
-			SessionDataService.AccountsRegisterDataSession(request);
-			response.sendRedirect("S0031.html");
+		AccountsData registerAccountsData = new AccountsData(request);
+		session.setAttribute("RegisterAccountsData", registerAccountsData);
+		response.sendRedirect("S0031.html");
 	}
 }
