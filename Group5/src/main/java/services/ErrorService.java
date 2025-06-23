@@ -2,11 +2,11 @@ package services;
 
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import beans.Sales;
+import jakarta.servlet.http.HttpServletRequest;
+
 import beans.loginAccount;
 import daos.S0010Dao;
 import daos.S0030Dao;
@@ -41,8 +41,15 @@ public class ErrorService {
 		return errors;
 	}
 
-	public Map<String, String> ValidateSales(String sale_dateStr, String account_idStr, String category_idStr,
-			String trade_name, String unit_priceStr, String sale_numberStr, String note) {
+	public Map<String, String> ValidateSales(HttpServletRequest request) {
+		String sale_dateStr = request.getParameter("sale_date");
+		String account_idStr = request.getParameter("account_id");
+		String category_idStr = request.getParameter("category_id");
+		String trade_name = request.getParameter("trade_name");
+		String unit_priceStr = request.getParameter("unit_price");
+		String sale_numberStr = request.getParameter("sale_number");
+		String note = request.getParameter("note");
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		sdf.setLenient(false);
 		if (S0010Service.ValidNull(sale_dateStr)) {
@@ -91,7 +98,10 @@ public class ErrorService {
 		return errors;
 	}
 
-	public Map<String, String> ValidateSalesSearch(String firstStr, String lastStr) {
+	public Map<String, String> ValidateSalesSearch(HttpServletRequest request) {
+		String firstStr = request.getParameter("first");
+		String lastStr = request.getParameter("last");
+		
 		if (!S0010Service.ValidNull(firstStr) && !S0010Service.ValidDate(firstStr)) {
 			errors.put("first", "販売日（検索開始日）を正しく入力して下さい。");
 		}
@@ -101,9 +111,11 @@ public class ErrorService {
 		return errors;
 	}
 
-	public Map<String, String> ValidateNotFoundSales(ArrayList<Sales> sales) {
+	public Map<String, String> ValidateNotFoundSales(HttpServletRequest request) {
 		Map<String, String> notFound = new HashMap<>();
-		if (sales == null || sales.isEmpty()) {
+		String sale_idStr = request.getParameter("sale_id"); // 検索結果の中身から確認
+		
+		if (sale_idStr == null || sale_idStr.isEmpty()) {
 			notFound.put("sales_notfound", "ご指定の条件に該当するデータが見つかりませんでした。");
 		}
 		return notFound;

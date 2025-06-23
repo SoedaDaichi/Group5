@@ -1,9 +1,10 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,10 +15,12 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import beans.Categories;
-import beans.SalesData;
-import beans.SalesForm;
 import daos.S0010Dao;
+import services.ErrorMessageService;
 import services.ErrorService;
+import services.SessionDataService;
+import services.SessionFormService;
+import services.SuccessMessageService;
 
 /**
  * Servlet implementation class S0010Servlet
@@ -37,9 +40,9 @@ public class S0010Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		HttpSession session = request.getSession();
 		String success = (String) session.getAttribute("success");
 		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
@@ -55,6 +58,12 @@ public class S0010Servlet extends HttpServlet {
 			session.removeAttribute("errors");
 			session.removeAttribute("registerSalesform");
 		}
+
+		
+		SessionFormService.salesRegisterFormSession(request);
+		SuccessMessageService.processSessionMessages(request);
+		ErrorMessageService.processSessionMessages(request);
+
 
 		ArrayList<Accounts> accountList = new ArrayList<>();
 		ArrayList<Categories> categoryList = new ArrayList<>();
@@ -77,6 +86,7 @@ public class S0010Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
+
 
 		String saleDateStr = request.getParameter("sale_date");
 		String accountIdStr = request.getParameter("account_id");
@@ -101,9 +111,21 @@ public class S0010Servlet extends HttpServlet {
 			session.setAttribute("registerSalesform", registerSalesform);
 //			System.out.println("session保存後" + session.getAttribute("Register_salesform"));
 			session.setAttribute("errors", errors);
+
+		ErrorService es = new ErrorService();
+		Map<String, String> errors = es.ValidateSales(request);
+		System.out.println(errors);
+
+		if (errors != null && !errors.isEmpty()) {
+			Queue<Map<String, String>> errorQueue = new ConcurrentLinkedQueue<>();
+			errorQueue.add(errors);
+			session.setAttribute("errorsQueue", errorQueue);
+			session.setAttribute("RegisterSalesForm", request);
+
 			response.sendRedirect("S0010.html");
 			return;
 		}
+
 
 		if (errors == null || errors.isEmpty()) {
 
@@ -128,5 +150,10 @@ public class S0010Servlet extends HttpServlet {
 			//			request.getRequestDispatcher("S0011.html").forward(request, response);
 			response.sendRedirect("S0011.html");
 		}
+
+		SessionDataService.SalesRegisterDataSession(request);
+		
+		response.sendRedirect("S0011.html");
+
 	}
 }

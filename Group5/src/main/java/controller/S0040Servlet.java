@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import beans.AccountsSearchForm;
-import services.S0040Service;
+import daos.S0040Dao;
 
 /**
  * Servlet implementation class S0040Servlet
@@ -53,18 +53,14 @@ public class S0040Servlet extends HttpServlet {
 		String mail = request.getParameter("mail");
 		System.out.println("メールアドレス： " + mail);
 
-		S0040Service s0040service = new S0040Service();
+		S0040Dao s0040dao = new S0040Dao();
 		
-		int authority_0 = s0040service.parseAuthority(request.getParameter("authority_0"));
-		int authority_1 = s0040service.parseAuthority(request.getParameter("authority_1"));
-		int authority_2 = s0040service.parseAuthority(request.getParameter("authority_2"));
-		int authority_3 = s0040service.parseAuthority(request.getParameter("authority_3"));
+
 		
-		AccountsSearchForm asform = new AccountsSearchForm(name, mail, authority_0, authority_1, authority_2,
-				authority_3);
+		AccountsSearchForm asform = new AccountsSearchForm(name, mail,);
 		
 		session.setAttribute("asform", asform);
-		ArrayList<Accounts> accountsList = s0040service.select(asform);
+		ArrayList<Accounts> accountsList = s0040dao.select(asform);
 
 		session.setAttribute("accountsList", accountsList);
 		response.sendRedirect("S0041.html");

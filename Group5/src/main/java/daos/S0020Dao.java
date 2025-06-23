@@ -6,14 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import beans.Sales;
+import beans.SalesData;
 import beans.SalesSearchForm;
 import utils.Db;
 
 public class S0020Dao {
 
-	public ArrayList<Sales> select(SalesSearchForm ssform) {
-		ArrayList<Sales> salesList = new ArrayList<>();
+	public ArrayList<SalesData> select(SalesSearchForm ssform) {
+		ArrayList<SalesData> salesList = new ArrayList<>();
 		ArrayList<Object> sqlList = new ArrayList<>();
 		ArrayList<String> where = new ArrayList<>();
 		StringBuilder select = new StringBuilder(
@@ -21,14 +21,14 @@ public class S0020Dao {
 						+ "s.unit_price * s.sale_number AS price_all "
 						+ "FROM sales s INNER JOIN accounts a ON s.account_id = a.account_id "
 						+ "INNER JOIN categories c ON s.category_id = c.category_id");
-		
+
 		String firstStr = ssform.getFirstStr();
 		String lastStr = ssform.getLastStr();
 		String account_idStr = ssform.getAccount_idStr();
 		String category_idStr = ssform.getCategory_idStr();
 		String trade_name = ssform.getTrade_name();
 		String note = ssform.getNote();
-		
+
 		System.out.println("備考: " + note);
 		System.out.println("商品名: " + trade_name);
 
@@ -56,7 +56,7 @@ public class S0020Dao {
 			where.add("s.sale_date <= ?");
 			sqlList.add(last);
 		}
-		
+
 		if (account_idStr != null && !account_idStr.isEmpty()) {
 			int account_id = Integer.parseInt(account_idStr);
 			System.out.println(account_id);
@@ -85,16 +85,16 @@ public class S0020Dao {
 
 			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
-					Sales sales = new Sales();
-					sales.setSale_id(rs.getInt("sale_id"));
-					sales.setSale_date(rs.getDate("sale_date"));
-					sales.setName(rs.getString("name"));
-					sales.setCategory_name(rs.getString("category_name"));
-					sales.setTrade_name(rs.getString("trade_name"));
-					sales.setUnit_price(rs.getInt("unit_price"));
-					sales.setSale_number(rs.getInt("sale_number"));
-					sales.setPrice_all(rs.getInt("price_all"));
-					salesList.add(sales);
+					SalesData salesdata = new SalesData(
+							rs.getInt("sale_id"),
+							rs.getDate("sale_date").toLocalDate(),
+							rs.getString("name"),
+							rs.getInt("account_id"), rs.getString("category_name"),
+							rs.getInt("category_id"), rs.getString("trade_name"),
+							rs.getInt("unit_price"),
+							rs.getInt("sale_number"),
+							rs.getString("note"), rs.getInt("price_all"));
+					salesList.add(salesdata);
 				}
 			}
 		} catch (Exception e) {

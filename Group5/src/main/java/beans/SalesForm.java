@@ -1,5 +1,7 @@
 package beans;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.Data;
 
 @Data
@@ -22,5 +24,15 @@ public class SalesForm {
 		this.unit_price = unit_priceStr;
 		this.sale_number = sale_numberStr;
 		this.note = note;
+	}
+
+	public SalesForm(HttpServletRequest request) {
+		this.sale_date = request.getParameter("sale_data");
+		this.account_id = request.getParameter("account_id");
+		this.category_id = request.getParameter("category_id");
+		this.trade_name = request.getParameter("trade_name");
+		this.unit_price = request.getParameter("unit_price");
+		this.sale_number = request.getParameter("sale_number");
+		this.note = request.getParameter("note");
 	}
 }

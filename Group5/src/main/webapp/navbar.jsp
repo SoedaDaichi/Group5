@@ -68,7 +68,7 @@
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="logoutDropdown">
 
-						<form action="Logout.html" method="get"
+						<form action="Logout.html" method="post"
 							onsubmit="return confirm('ログアウトしますか？');">
 							<button type="submit" class="dropdown-item">ログアウト</button>
 						</form>

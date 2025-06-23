@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import beans.loginAccount;
+import services.ErrorMessageService;
 import services.ErrorService;
 import services.auth;
 
@@ -33,18 +36,10 @@ public class C001Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(false);
-		if (session != null) {
-			Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
-			if (errors != null) {
-				request.setAttribute("errors", errors);
-				session.removeAttribute("errors");
-			}
-		}
+		ErrorMessageService.processSessionMessages(request);
 		request.getRequestDispatcher("/C001.jsp").forward(request, response);
 	}
 
@@ -54,10 +49,12 @@ public class C001Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String mail = request.getParameter("mail");
-//		System.out.println(mail);
+		//		System.out.println(mail);
 		String pass = request.getParameter("pass");
-//		System.out.println(pass);
-		String hashedPass = auth.hashPassword(pass);
+
+		//		System.out.println(pass);
+		String hashed_pass = auth.hashPassword(pass);
+
 
 		ErrorService es = new ErrorService();
 		Map<String, String> errors = es.ValidateLogin(mail, pass, hashedPass);
@@ -65,7 +62,9 @@ public class C001Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		if (errors != null && !errors.isEmpty()) {
-			session.setAttribute("errors", errors);
+			Queue<Map<String, String>> errorQueue = new ConcurrentLinkedQueue<>();
+			errorQueue.add(errors);
+			session.setAttribute("errorsQueue", errorQueue);
 			response.sendRedirect("C001.html");
 			return;
 		}

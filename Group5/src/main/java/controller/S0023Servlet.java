@@ -1,9 +1,10 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,7 +18,10 @@ import beans.Categories;
 import beans.SalesData;
 import beans.SalesForm;
 import daos.S0010Dao;
+import services.ErrorMessageService;
 import services.ErrorService;
+import services.SessionDataService;
+import services.SessionFormService;
 
 /**
  * Servlet implementation class S0023Servlet
@@ -37,24 +41,14 @@ public class S0023Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		ErrorMessageService.processSessionMessages(request); // error文をjspにセット
+		SessionFormService.salesFormSession(request); // error文がセットされている場合、入力情報もセット
 
-		HttpSession session = request.getSession();
-
-		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
-		SalesForm salesform = (SalesForm) session.getAttribute("salesform");
-
-		if (errors != null) {
-			request.setAttribute("errors", errors);
-			request.setAttribute("salesform", salesform);
-			session.removeAttribute("errors");
-			session.removeAttribute("salesform");
-		} else {
-			SalesData salesdata = (SalesData) session.getAttribute("salesdata");
-			request.setAttribute("salesdata", salesdata);
-		}
+		// 上のメソッドでerrorがセットされていない場合（初回）
+		SessionDataService.SalesDataSession(request);
 
 		S0010Dao ss = new S0010Dao();
 		ArrayList<Accounts> accountList = ss.selectAccount();
@@ -72,49 +66,24 @@ public class S0023Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-
-		String sale_dateStr = request.getParameter("sale_date");
-		String account_idStr = request.getParameter("account_id");
-		String category_idStr = request.getParameter("category_id");
-		String trade_name = request.getParameter("trade_name");
-		String unit_priceStr = request.getParameter("unit_price");
-		String sale_numberStr = request.getParameter("sale_number");
-		String note = request.getParameter("note");
-
 		ErrorService es = new ErrorService();
 
-		Map<String, String> errors = es.ValidateSales(sale_dateStr, account_idStr, category_idStr, trade_name,
-				unit_priceStr, sale_numberStr, note);
+		Map<String, String> errors = es.ValidateSales(request);
 
 		if (errors != null && !errors.isEmpty()) {
-			System.out.println("エラー: " + errors); 
-			SalesForm salesform = new SalesForm(sale_dateStr, account_idStr, category_idStr, trade_name, unit_priceStr,
-					sale_numberStr, note);
+			System.out.println("エラー: " + errors);
+			Queue<Map<String, String>> errorQueue = new ConcurrentLinkedQueue<>();
+			errorQueue.add(errors);
+			SalesForm salesform = new SalesForm(request);
 			session.setAttribute("salesform", salesform);
-			session.setAttribute("errors", errors);
+			session.setAttribute("errorQueue", errorQueue);
 			response.sendRedirect("S0023.html");
 			return;
 		}
 
-		Date sale_date = Date.valueOf(request.getParameter("sale_date"));
-		int account_id = Integer.valueOf(request.getParameter("account_id"));
-		int category_id = Integer.valueOf(request.getParameter("category_id"));
-		int unit_price = Integer.valueOf(request.getParameter("unit_price"));
-		int sale_number = Integer.valueOf(request.getParameter("sale_number"));
-
 		S0010Dao ss = new S0010Dao();
-		Accounts account = ss.identificationAccount(account_id);
-		String name = account.getName();
-
-		Categories category = ss.identificationCategory(category_id);
-		String category_name = category.getCategory_name();
-
-		SalesData salesdata = new SalesData(sale_date, name, account_id, category_name, category_id, trade_name,
-				unit_price,
-				sale_number, note);
-
+		SalesData salesdata = new SalesData(request, ss);
 		session.setAttribute("salesdata", salesdata);
-
 		response.sendRedirect("S0024.html");
 	}
 
