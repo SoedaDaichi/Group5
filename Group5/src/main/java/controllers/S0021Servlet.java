@@ -104,7 +104,7 @@ public class S0021Servlet extends HttpServlet {
 		String categoryName = category.getCategoryName();
 
 		SalesData salesData = new SalesData(
-				saleNumber, saleDate, name, accountId, categoryName, categoryId, tradeName,
+				saleId, saleDate, name, accountId, categoryName, categoryId, tradeName,
 				unitPrice, saleNumber, note);
 
 		session.setAttribute("saleId", saleId);
