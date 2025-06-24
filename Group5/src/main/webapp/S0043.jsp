@@ -64,7 +64,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="password" name="confirm_pass"
+						<input type="password" name="confirmPass"
 							class="form-control" value="${accountsData.confirmPass}"
 							disabled>
 					</div>

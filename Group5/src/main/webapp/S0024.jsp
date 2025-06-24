@@ -29,7 +29,7 @@
 				</div>
 				
 				<div class="col-3">
-					<input type="date" id="date" name="date" class="form-control" value = "${salesData.saleDate}" disabled/>
+					<input type="date" name="date" class="form-control" value = "${salesData.saleDate}" disabled/>
 				</div>
 			</div>
 			<div class="row my-4">
@@ -98,7 +98,7 @@
 					</h5>
 				</div>
 				<div class="col-3">
-					<textarea input type="text" name="note" class="form-control" value = "${salesData.note}" rows = "4" disabled/></textarea>
+					<textarea input type="text" name="note" class="form-control" rows = "4" disabled/>${salesData.note}</textarea>
 				</div>
 			</div>
 			

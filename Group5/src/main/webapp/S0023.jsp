@@ -33,7 +33,7 @@
 						<div class="col-3">
 							<input type="date" name="saleDate" class="form-control"
 								value="${formData.saleDate}" />
-							<c:if test="${not empty errorQueue.sale_date}">
+							<c:if test="${not empty errorQueue.saleDate}">
 								<div class="text-danger small">${errorQueue.saleDate}</div>
 							</c:if>
 						</div>
@@ -91,7 +91,7 @@
 						<div class="col-3">
 							<input type="text" name="unitPrice" class="form-control"
 								value="${formData.unitPrice}" />
-							<c:if test="${not empty errorQueue.unit_price}">
+							<c:if test="${not empty errorQueue.unitPrice}">
 								<div class="text-danger small">${errorQueue.unitPrice}</div>
 							</c:if>
 						</div>

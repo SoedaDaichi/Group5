@@ -63,12 +63,12 @@ public class S0020Servlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		ErrorService es = new ErrorService();
-		SalesSearchForm ssform = new SalesSearchForm(request);
+		SalesSearchForm ssForm = new SalesSearchForm(request);
 
 		Map<String, String> errors = es.ValidateSalesSearch(request);
 		System.out.println("日付エラー: " + errors);
 		if (errors != null && !errors.isEmpty()) {
-			session.setAttribute("ssform", ssform);
+			session.setAttribute("ssform", ssForm);
 			Queue<Map<String, String>> errorQueue = new ConcurrentLinkedQueue<>();
 			errorQueue.add(errors);
 			session.setAttribute("errorQueue", errorQueue);
@@ -77,13 +77,13 @@ public class S0020Servlet extends HttpServlet {
 		}
 		Map<String, String> notFound = es.ValidateNotFoundSales(request);
 		if (notFound != null && !notFound.isEmpty()) {
-			session.setAttribute("ssform", ssform);
+			session.setAttribute("ssForm", ssForm);
 			session.setAttribute("NotFound", notFound);
 			response.sendRedirect("S0020.html");
 			return;
 		}
 
-		session.setAttribute("ssform", ssform);
+		session.setAttribute("ssForm", ssForm);
 		response.sendRedirect("S0021.html");
 	}
 }

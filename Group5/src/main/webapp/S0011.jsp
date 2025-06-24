@@ -23,9 +23,9 @@
 						</h5>
 					</div>
 					<div class="col-2 my-3">
-						<input type="date" id="date" name="sale_date" class="form-control"
+						<input type="date" id="date" name="saleDate" class="form-control"
 
-							value="${RegisterSaleData.saleDate}" disabled>
+							value="${registerSaleData.saleDate}" disabled>
 
 
 					</div>
@@ -38,9 +38,9 @@
 					</div>
 					<div class="col-2  my-3">
 						<class = input type="text" class="form-control"
-							id="exampleFormControlInput1" name="account_name"
+							id="exampleFormControlInput1" name="accountName"
 
-							value="${RegisterSaleData.accountId}" disabled>${RegisterSaleData.name}</class>
+							value="${registerSaleData.accountId}" disabled>${registerSaleData.name}</class>
 
 
 					</div>
@@ -53,9 +53,9 @@
 					</div>
 					<div class="col-4 my-3">
 						<class = input type="text" class="form-control"
-							id="exampleFormControlInput1" name="category_name" var="category"
+							id="exampleFormControlInput1" name="categoryName" var="category"
 
-							value="${RegisterSaleData.categoryId}" disabled>${RegisterSaleData.categoryName}</class>
+							value="${registerSaleData.categoryId}" disabled>${registerSaleData.categoryName}</class>
 
 					</div>
 				</div>
@@ -67,9 +67,9 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="text" class="form-control"
-							id="exampleFormControlInput1" name="trade_name"
+							id="exampleFormControlInput1" name="tradeName"
 
-							value="${RegisterSaleData.tradeName}" disabled>
+							value="${registerSaleData.tradeName}" disabled>
 
 
 					</div>
@@ -82,9 +82,9 @@
 					</div>
 					<div class="col-2 my-3">
 						<input type="text" class="form-control"
-							id="exampleFormControlInput1" name="unit_price" placeholder="単価"
+							id="exampleFormControlInput1" name="unitPrice" placeholder="単価"
 
-							value="${RegisterSaleData.unitPrice}" disabled>
+							value="${registerSaleData.unitPrice}" disabled>
 
 					</div>
 				</div>
@@ -96,8 +96,8 @@
 					</div>
 					<div class="col-2 my-3">
 						<input type="text" class="form-control"
-							id="exampleFormControlInput1" name="sale_number" placeholder="個数"
-							value="${RegisterSaleData.saleNumber}" disabled>
+							id="exampleFormControlInput1" name="saleNumber" placeholder="個数"
+							value="${registerSaleData.saleNumber}" disabled>
 
 
 					</div>
@@ -111,7 +111,7 @@
 					<div class="col-5 my-3">
 						<textarea class="form-control" 
 
-							name="note" rows="5" placeholder="備考" disabled>${RegisterSaleData.note}</textarea>
+							name="note" rows="5" placeholder="備考" disabled>${registerSaleData.note}</textarea>
 
 
 					</div>

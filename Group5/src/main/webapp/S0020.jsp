@@ -21,7 +21,7 @@
 			<c:choose>
 				<c:when test="${not empty NotFound.salesNotFound}">
 					<div class="alert alert-danger text-center py-1">
-						<c:out value="${NotFound.salesNotFound}" />
+						<c:out value="${notFound.salesNotFound}" />
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -40,7 +40,7 @@
 						</div>
 						<div class="col-2">
 							<input type="date" name="first"
-								value="${ssform.firstStr}" class="form-control">
+								value="${ssForm.firstStr}" class="form-control">
 							<c:choose>
 								<c:when test="${not empty errorQueue.first}">
 									<div class="text-danger small">
@@ -57,7 +57,7 @@
 						</div>
 						<div class="col-2">
 							<input type="date" name="last"
-								value="${ssform.lastStr}" class="form-control">
+								value="${ssForm.lastStr}" class="form-control">
 							<c:choose>
 								<c:when test="${not empty errorQueue.last}">
 									<div class="text-danger small">
@@ -78,12 +78,12 @@
 						</div>
 						<div class="col-2">
 							<select class="form-select form-select-sm"
-								aria-label=".form-select-sm example" name="account_id">
+								aria-label=".form-select-sm example" name="accountId">
 								<option selected value=""
-									${empty ssform.accountIdStr ? 'selected' : ''}>選択してください</option>
+									${empty ssForm.accountIdStr ? 'selected' : ''}>選択してください</option>
 								<c:forEach var="accounts" items="${accountList}">
 									<option value="${accounts.accountId}"
-										${ssform.accountIdStr eq accounts.accountId ? 'selected' : ''}>${accounts.name}</option>
+										${ssForm.accountIdStr eq accounts.accountId ? 'selected' : ''}>${accounts.name}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -96,12 +96,12 @@
 						</div>
 						<div class="col-2">
 							<select class="form-select form-select-sm"
-								aria-label=".form-select-sm example" name="category_id">
+								aria-label=".form-select-sm example" name="categoryId">
 								<option selected value=""
-									${empty ssform.categoryIdStr ? 'selected' : ''}>選択してください</option>
+									${empty ssForm.categoryIdStr ? 'selected' : ''}>選択してください</option>
 								<c:forEach var="categories" items="${categoryList}">
 									<option value="${categories.categoryId}"
-										${ssform.categoryIdStr eq categories.categoryId ? 'selected' : ''}>${categories.categoryName}</option>
+										${ssForm.categoryIdStr eq categories.categoryId ? 'selected' : ''}>${categories.categoryName}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -114,8 +114,8 @@
 						</div>
 						<div class="col-4">
 							<input type="text" class="form-control"
-								id="exampleFormControlInput1" name="trade_name"
-								value="${ssform.tradeName}" placeholder="商品名">
+								id="exampleFormControlInput1" name="tradeName"
+								value="${ssForm.tradeName}" placeholder="商品名">
 						</div>
 					</div>
 					<div class="row my-4">
@@ -126,7 +126,7 @@
 						</div>
 						<div class="col-4">
 							<input type="text" class="form-control"
-								id="exampleFormControlInput1" name="note" value="${ssform.note}"
+								id="exampleFormControlInput1" name="note" value="${ssForm.note}"
 								placeholder="備考">
 						</div>
 					</div>

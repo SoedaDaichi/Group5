@@ -46,7 +46,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="text" id="name" value="${RegisterAccountsform.name}"
+						<input type="text" id="name" value="${registerAccountsform.name}"
 							name="name"
 							class="form-control ${not empty error ? ' is-invalid' : ''}"
 							placeholder="氏名">
@@ -73,7 +73,7 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="email" id="adless"
-							value="${RegisterAccountsform.mail}" name="mail"
+							value="${registerAccountsform.mail}" name="mail"
 							class="form-control ${not empty error ? ' is-invalid' : ''}"
 							placeholder="メールアドレス">
 						<c:choose>
@@ -98,7 +98,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="password" id="password" name="pass"
+						<input type="password" name="pass"
 							class="form-control ${not empty error ? ' is-invalid' : ''}"
 							placeholder="パスワード">
 						<c:choose>
@@ -122,7 +122,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="password" id="confirm_password" name="confirm_pass"
+						<input type="password" name="confirmPass"
 							class="form-control ${not empty error ? ' is-invalid' : ''}"
 							placeholder="パスワード（確認）">
 						<c:choose>

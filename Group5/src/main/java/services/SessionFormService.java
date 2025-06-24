@@ -26,7 +26,7 @@ public class SessionFormService {
 		HttpSession session = request.getSession(false);
 		Queue<?> errorQueue = (Queue<?>) session.getAttribute("errorQueue"); // ?はどの型でもOK
 		if (errorQueue != null && !errorQueue.isEmpty()) {
-			SalesForm registerSalesForm = (SalesForm) session.getAttribute("RegisterSalesForm");
+			SalesForm registerSalesForm = (SalesForm) session.getAttribute("registerSalesForm");
 			if (registerSalesForm != null) {
 				request.setAttribute("registerSalesForm", registerSalesForm);
 				session.removeAttribute("registerSalesForm");
@@ -38,7 +38,7 @@ public class SessionFormService {
 		HttpSession session = request.getSession(false);
 		Queue<?> errorQueue = (Queue<?>) session.getAttribute("errorQueue"); // ?はどの型でもOK
 		if (errorQueue != null && !errorQueue.isEmpty()) {
-			AccountsData registerAccountsForm = (AccountsData) session.getAttribute("RegisterAccountsForm");
+			AccountsData registerAccountsForm = (AccountsData) session.getAttribute("registerAccountsForm");
 			if (registerAccountsForm != null) {
 				request.setAttribute("registerAccountsForm", registerAccountsForm);
 				session.removeAttribute("registerAccountsForm");

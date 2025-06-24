@@ -82,8 +82,8 @@ public class S0023Servlet extends HttpServlet {
 		}
 
 		SalesDao sd = new SalesDao();
-		SalesData salesdata = new SalesData(request, sd);
-		session.setAttribute("salesdata", salesdata);
+		SalesData salesData = new SalesData(request, sd);
+		session.setAttribute("salesData", salesData);
 		response.sendRedirect("S0024.html");
 	}
 

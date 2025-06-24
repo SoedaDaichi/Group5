@@ -18,7 +18,7 @@ public class SessionConfirmService {
 		HttpSession session = request.getSession(false);
 		
 		SalesData registerSalesData = (SalesData) session.getAttribute("registerSalesData");
-		session.removeAttribute("RegisterSalesdata"); // Filter範囲外
+		session.removeAttribute("registerSalesData"); // Filter範囲外
  
 	    return registerSalesData;
 	}

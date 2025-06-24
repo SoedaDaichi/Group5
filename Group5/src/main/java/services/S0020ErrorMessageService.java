@@ -13,11 +13,11 @@ public class S0020ErrorMessageService {
 
 		ErrorMessageService.processSessionMessages(request);
 
-		SalesForm ssform = (SalesForm) session.getAttribute("ssform");
+		SalesForm ssForm = (SalesForm) session.getAttribute("ssForm");
 		@SuppressWarnings("unchecked")
-		Map<String, String> notFound = (Map<String, String>) session.getAttribute("NotFound");
+		Map<String, String> notFound = (Map<String, String>) session.getAttribute("notFound");
 
 		ErrorMessageService.moveAttribute(session, request, "NotFound", notFound);
-		ErrorMessageService.moveAttribute(session, request, "ssform", ssform);
+		ErrorMessageService.moveAttribute(session, request, "ssForm", ssForm);
 	}
 }

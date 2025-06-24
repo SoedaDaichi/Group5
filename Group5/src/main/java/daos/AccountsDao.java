@@ -128,13 +128,13 @@ public class AccountsDao {
 		return accountsList;
 	}
 
-	public Accounts getAccountsByAccount_id(int account_id) {
+	public Accounts getAccountsByAccount_id(int accountId) {
 		String sql = "SELECT account_id, name,  mail, password, authority FROM accounts WHERE account_id = ?";
 		Accounts accounts = null;
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
-			pstmt.setInt(1, account_id);
+			pstmt.setInt(1, accountId);
 			ResultSet rs = pstmt.executeQuery();
 
 			accounts = new Accounts();
@@ -152,14 +152,14 @@ public class AccountsDao {
 		return accounts;
 	}
 
-	public boolean accountUpdateNameCheck(String name, int account_id) {
+	public boolean accountUpdateNameCheck(String name, int accountId) {
 		String select = "SELECT COUNT(*) FROM accounts WHERE name = ? AND account_id <> ?";
 
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(select);) {
 			pstmt.setString(1, name);
-			pstmt.setInt(2, account_id);
+			pstmt.setInt(2, accountId);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return rs.getInt(1) > 0;
@@ -170,14 +170,14 @@ public class AccountsDao {
 		return false;
 	}
 
-	public boolean accountUpdateEmailCheck(String mail, int account_id) {
+	public boolean accountUpdateEmailCheck(String mail, int accountId) {
 		String select = "SELECT COUNT(*) FROM accounts WHERE mail = ? AND account_id <> ?";
 
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(select);) {
 			pstmt.setString(1, mail);
-			pstmt.setInt(2, account_id);
+			pstmt.setInt(2, accountId);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return rs.getInt(1) > 0;
@@ -188,7 +188,7 @@ public class AccountsDao {
 		return false;
 	}
 
-	public boolean update(int account_id, String name, String mail, String hashedPass, String authority) {
+	public boolean update(int accountId, String name, String mail, String hashedPass, String authority) {
 		String sql = "UPDATE accounts SET name=?, mail=?, password=?, authority=? WHERE account_id=?";
 
 		try (
@@ -199,7 +199,7 @@ public class AccountsDao {
 			pstmt.setString(2, mail);
 			pstmt.setString(3, hashedPass);
 			pstmt.setInt(4, Integer.parseInt(authority));
-			pstmt.setInt(5, account_id);
+			pstmt.setInt(5, accountId);
 
 			int rowsAffected = pstmt.executeUpdate();
 			return rowsAffected > 0;
