@@ -11,7 +11,7 @@ import daos.SalesDao;
 public class DetailSearchService {
 
 	public static void createSalesDetail(HttpServletRequest request) {
-		int saleId = Integer.valueOf(request.getParameter("sale_id"));
+		int saleId = Integer.valueOf(request.getParameter("saleId"));
 		HttpSession session = request.getSession();
 
 		SalesDao sd = new SalesDao();
