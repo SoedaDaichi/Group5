@@ -1,7 +1,7 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -98,7 +98,7 @@ public class S0023Servlet extends HttpServlet {
 			return;
 		}
 
-		Date saleDate = Date.valueOf(request.getParameter("saleDate"));
+		LocalDate saleDate = LocalDate.parse(request.getParameter("saleDate"));
 		int accountId = Integer.valueOf(request.getParameter("accountId"));
 		int categoryId = Integer.valueOf(request.getParameter("categoryId"));
 		int unitPrice = Integer.valueOf(request.getParameter("unitPrice"));
