@@ -1,7 +1,7 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import beans.SalesData;
-import daos.S0010Dao;
+import daos.SalesDao;
 
 /**
  * Servlet implementation class S0010Servlet
@@ -46,12 +46,12 @@ public class S0011Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		S0010Dao s0010Dao = new S0010Dao();
+		SalesDao salesDao = new SalesDao();
 
 		HttpSession session = request.getSession();
 		SalesData registerSalesData = (SalesData) session.getAttribute("registerSalesData");
 
-		Date saleDate = registerSalesData.getSaleDate();
+		LocalDate saleDate = registerSalesData.getSaleDate();
 		int accountId = registerSalesData.getAccountId();
 		int categoryId = registerSalesData.getCategoryId();
 		String tradeName = registerSalesData.getTradeName();
@@ -61,7 +61,7 @@ public class S0011Servlet extends HttpServlet {
 
 		session.removeAttribute("registerSalesData"); // Filter範囲外
 
-		boolean success = s0010Dao.insert(saleDate, accountId, categoryId, tradeName, unitPrice, saleNumber, note);
+		boolean success = salesDao.insert(saleDate, accountId, categoryId, tradeName, unitPrice, saleNumber, note);
 
 		if (success) {
 			session.setAttribute("success", "商品が登録されました");

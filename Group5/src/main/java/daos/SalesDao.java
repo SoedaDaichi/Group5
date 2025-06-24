@@ -99,14 +99,14 @@ public class SalesDao {
 		return category;
 	}
 
-	public boolean insert(SalesData RegisterSalesdata) {
-		LocalDate saleDate = RegisterSalesdata.getSaleDate();
-		int accountId = RegisterSalesdata.getAccountId();
-		int categoryId = RegisterSalesdata.getCategoryId();
-		String tradeName = RegisterSalesdata.getTradeName();
-		int unitPrice = RegisterSalesdata.getUnitPrice();
-		int saleNumber = RegisterSalesdata.getSaleNumber();
-		String note = RegisterSalesdata.getNote();
+	public boolean insert(SalesData registerSalesdata) {
+		LocalDate saleDate = registerSalesdata.getSaleDate();
+		int accountId = registerSalesdata.getAccountId();
+		int categoryId = registerSalesdata.getCategoryId();
+		String tradeName = registerSalesdata.getTradeName();
+		int unitPrice = registerSalesdata.getUnitPrice();
+		int saleNumber = registerSalesdata.getSaleNumber();
+		String note = registerSalesdata.getNote();
 
 		String insert = """
 				INSERT INTO sales (
@@ -144,7 +144,7 @@ public class SalesDao {
 		}
 	}
 
-	public ArrayList<SalesData> selectSearch(SalesSearchForm ssform) {
+	public ArrayList<SalesData> selectSearch(SalesSearchForm ssForm) {
 		ArrayList<SalesData> salesList = new ArrayList<>();
 		ArrayList<Object> sqlList = new ArrayList<>();
 		ArrayList<String> where = new ArrayList<>();
@@ -164,12 +164,12 @@ public class SalesDao {
 						    INNER JOIN categories c ON s.category_id = c.category_id
 						""");
 
-		String firstStr = ssform.getFirstStr();
-		String lastStr = ssform.getLastStr();
-		String accountIdStr = ssform.getAccountIdStr();
-		String categoryIdStr = ssform.getCategoryIdStr();
-		String tradeName = ssform.getTradeName();
-		String note = ssform.getNote();
+		String firstStr = ssForm.getFirst();
+		String lastStr = ssForm.getLast();
+		String accountIdStr = ssForm.getAccountId();
+		String categoryIdStr = ssForm.getCategoryId();
+		String tradeName = ssForm.getTradeName();
+		String note = ssForm.getNote();
 
 		System.out.println("備考: " + note);
 		System.out.println("商品名: " + tradeName);
@@ -228,7 +228,7 @@ public class SalesDao {
 			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
 					SalesData salesdata = new SalesData(
-							rs.getInt("sale_id"),
+							rs.getInt("saleId"),
 							rs.getDate("sale_date").toLocalDate(),
 							rs.getString("name"),
 							rs.getInt("account_id"), rs.getString("category_name"),
@@ -333,5 +333,11 @@ public class SalesDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean updateSales(LocalDate saleDate, int accountId, int categoryId, String tradeName, int unitPrice,
+			int saleNumber, String note, int saleId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
 	}
 }
