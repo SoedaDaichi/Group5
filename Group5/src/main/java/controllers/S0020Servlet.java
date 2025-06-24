@@ -2,7 +2,9 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,6 +18,7 @@ import beans.Categories;
 import beans.SalesData;
 import beans.SalesSearchForm;
 import daos.SalesDao;
+import services.ErrorMessageService;
 import services.ErrorService;
 
 /**
@@ -40,14 +43,19 @@ public class S0020Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
+		//		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
+		Map<String, String> errors = ErrorMessageService.processSessionMessages(request);
+		if (errors != null) {
+			request.setAttribute("errors", errors); // 必要な属性名でセット
+		}
+
 		Map<String, String> notFound = (Map<String, String>) session.getAttribute("notFound");
 		SalesSearchForm ssForm = (SalesSearchForm) session.getAttribute("ssForm");
 
-		if (errors != null) {
-			request.setAttribute("errors", errors);
-			session.removeAttribute("errors");
-		}
+		//		if (errors != null) {
+		//			request.setAttribute("errors", errors);
+		//			session.removeAttribute("errors");
+		//		}
 		if (notFound != null) {
 			request.setAttribute("notFound", notFound);
 			session.removeAttribute("notFound");
@@ -85,7 +93,13 @@ public class S0020Servlet extends HttpServlet {
 
 		Map<String, String> errors = es.validateSalesSearch(firstStr, lastStr);
 		if (errors != null && !errors.isEmpty()) {
-			session.setAttribute("errors", errors);
+			@SuppressWarnings("unchecked")
+			Queue<Map<String, String>> errorQueue = (Queue<Map<String, String>>) session.getAttribute("errorQueue");
+			if (errorQueue == null) {
+				errorQueue = new LinkedList<>();
+			}
+			errorQueue.add(errors);
+			session.setAttribute("errorQueue", errorQueue);
 			response.sendRedirect("S0020.html");
 			return;
 		}

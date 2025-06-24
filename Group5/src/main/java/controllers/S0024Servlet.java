@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -49,20 +48,12 @@ public class S0024Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		SalesData salesData = (SalesData) session.getAttribute("salesData");
 		int saleId = (int) session.getAttribute("saleId");
-		LocalDate saleDate = salesData.getSaleDate();
-		int accountId = salesData.getAccountId();
-		int categoryId = salesData.getCategoryId();
-		String tradeName = salesData.getTradeName();
-		int unitPrice = salesData.getUnitPrice();
-		int saleNumber = salesData.getSaleNumber();
-		String note = salesData.getNote();
 
 		session.removeAttribute("saleId");
 		session.removeAttribute("salesData");
 
 		SalesDao salesDao = new SalesDao();
-		boolean success = salesDao.updateSales(
-				saleDate, accountId, categoryId, tradeName, unitPrice, saleNumber, note, saleId);
+		boolean success = salesDao.updateSales(saleId, salesData);
 
 		if (success) {
 			session.setAttribute("success", "売上が更新されました。");
