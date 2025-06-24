@@ -18,6 +18,7 @@ public class SalesData {
 	private String note;
 	private int priceAll;
 
+	//小計あり
 	public SalesData(int saleId, LocalDate saleDate, String name, int accountId, String categoryName, int categoryId,
 			String tradeName, int unitPrice, int saleNumber, String note, int priceAll) {
 		this.saleId = saleId;
@@ -32,7 +33,21 @@ public class SalesData {
 		this.note = note;
 		this.priceAll = priceAll;
 	}
-
+	//主キーあり
+	public SalesData(int saleId, LocalDate saleDate, String name, int accountId, String categoryName, int categoryId,
+			String tradeName, int unitPrice, int saleNumber, String note) {
+		this.saleId = saleId;
+		this.saleDate = saleDate;
+		this.name = name;
+		this.accountId = accountId;
+		this.categoryName = categoryName;
+		this.categoryId = categoryId;
+		this.tradeName = tradeName;
+		this.unitPrice = unitPrice;
+		this.saleNumber = saleNumber;
+		this.note = note;
+	}
+	//主キーなし
 	public SalesData(LocalDate saleDate, String name, int accountId, String categoryName, int categoryId,
 			String tradeName, int unitPrice, int saleNumber, String note) {
 		this.saleDate = saleDate;

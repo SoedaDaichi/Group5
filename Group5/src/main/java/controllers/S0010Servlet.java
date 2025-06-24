@@ -77,6 +77,7 @@ public class S0010Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
+		
 
 		String saleDateStr = request.getParameter("saleDate");
 		String accountIdStr = request.getParameter("accountId");
