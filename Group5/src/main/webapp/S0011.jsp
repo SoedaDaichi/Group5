@@ -14,7 +14,6 @@
 		<div class="col-9 offset-3">
 			<p class="fs-1 fw-bold mx-5 mt-4">売上登録確認</p>
 
-
 			<form id="create-sales-form" action="S0011.html" method="post">
 				<div class=row>
 					<div class="col-2 text-end my-3">
@@ -23,9 +22,8 @@
 						</h5>
 					</div>
 					<div class="col-2 my-3">
-						<input type="date" id="date" name="sale_date" class="form-control"
-							value="${Register_salesdata.sale_date}" disabled>
-
+						<input type="date" name="saleNate" class="form-control"
+							value="${registerSalesData.saleDate}" disabled>
 					</div>
 				</div>
 				<div class=row>
@@ -36,9 +34,8 @@
 					</div>
 					<div class="col-2  my-3">
 						<class = input type="text" class="form-control"
-							id="exampleFormControlInput1" name="account_name"
-							value="${Register_salesdata.account_id}" disabled>${Register_salesdata.name}</class>
-
+							 name="accountName"
+							value="${registerSalesData.accountId}" disabled>${registerSalesData.name}</class>
 					</div>
 				</div>
 				<div class=row>
@@ -49,9 +46,8 @@
 					</div>
 					<div class="col-4 my-3">
 						<class = input type="text" class="form-control"
-							id="exampleFormControlInput1" name="category_name" var="category"
-							value="${Register_salesdata.category_id}" disabled>${Register_salesdata.category_name}</class>
-
+							 name="categoryName" var="category"
+							value="${registerSalesData.categoryId}" disabled>${registerSalesData.categoryName}</class>
 					</div>
 				</div>
 				<div class=row>
@@ -62,9 +58,8 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="text" class="form-control"
-							id="exampleFormControlInput1" name="trade_name"
-							value="${Register_salesdata.trade_name}" disabled>
-
+							 name="tradeName"
+							value="${registerSalesData.tradeName}" disabled>
 					</div>
 				</div>
 				<div class=row>
@@ -75,9 +70,8 @@
 					</div>
 					<div class="col-2 my-3">
 						<input type="text" class="form-control"
-							id="exampleFormControlInput1" name="unit_price" placeholder="単価"
-							value="${Register_salesdata.unit_price}" disabled>
-
+							 name="unitPrice" placeholder="単価"
+							value="${registerSalesData.unitPrice}" disabled>
 					</div>
 				</div>
 				<div class=row>
@@ -88,9 +82,8 @@
 					</div>
 					<div class="col-2 my-3">
 						<input type="text" class="form-control"
-							id="exampleFormControlInput1" name="sale_number" placeholder="個数"
-							value="${Register_salesdata.sale_number}" disabled>
-
+							name="saleNumber" placeholder="個数"
+							value="${registerSalesData.saleNumber}" disabled>
 					</div>
 				</div>
 				<div class=row>
@@ -100,9 +93,8 @@
 						</h5>
 					</div>
 					<div class="col-5 my-3">
-						<textarea class="form-control" id="exampleFormControlTextarea1"
-							name="note" rows="5" placeholder="備考" disabled>${Register_salesdata.note}</textarea>
-
+						<textarea class="form-control" 
+							name="note" rows="5" placeholder="備考" disabled>${registerSalesData.note}</textarea>
 					</div>
 				</div>
 				<div class="row my-5">

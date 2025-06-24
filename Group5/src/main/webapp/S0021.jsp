@@ -27,9 +27,7 @@
 					</div>
 				</c:when>
 				<c:otherwise>
-					<div class="alert alert-success text-center
-									py-1"
-						style="visibility: hidden;">&nbsp;</div>
+					<div class="alert alert-success text-center py-1" style="visibility: hidden;">&nbsp;</div>
 				</c:otherwise>
 			</c:choose>
 			<c:choose>
@@ -39,16 +37,13 @@
 					</div>
 				</c:when>
 				<c:otherwise>
-					<div class="alert alert-danger text-center
-									py-1"
-						style="visibility: hidden;">&nbsp;</div>
+					<div class="alert alert-danger text-center py-1" style="visibility: hidden;">&nbsp;</div>
 				</c:otherwise>
 			</c:choose>
 			<table class="table table-bordered table-hover">
 				<thead class="table-light">
 					<tr>
-						<c:if
-							test="${sessionScope.loginAccount.authority == 1 || sessionScope.loginAccount.authority == 3}">
+						<c:if test="${sessionScope.loginAccount.authority == 1 || sessionScope.loginAccount.authority == 3}">
 							<th class="col-1">操作</th>
 						</c:if>
 						<th class="col-1">No.</th>
@@ -60,28 +55,26 @@
 						<th class="col-1">個数</th>
 						<th class="col-1">小計</th>
 					</tr>
-
 				</thead>
 				<tbody>
 					<c:forEach var="sales" items="${salesList}" varStatus="status">
 						<tr>
-							<c:if
-								test="${sessionScope.loginAccount.authority == 1 || sessionScope.loginAccount.authority == 3}">
+							<c:if test="${sessionScope.loginAccount.authority == 1 || sessionScope.loginAccount.authority == 3}">
 								<td>
 									<form action="S0021.html" method="post">
-										<input type="hidden" name="sale_id" value="${sales.sale_id}">
+										<input type="hidden" name="saleId" value="${sales.saleId}">
 										<button type="submit" class="btn btn-sm btn-primary">詳細</button>
 									</form>
 								</td>
 							</c:if>
-							<td>${sales.sale_id}</td>
-							<td>${sales.sale_date}</td>
+							<td>${sales.saleId}</td>
+							<td>${sales.saleDate}</td>
 							<td>${sales.name}</td>
-							<td>${sales.category_name}</td>
-							<td>${sales.trade_name}</td>
-							<td>${sales.unit_price}</td>
-							<td>${sales.sale_number}</td>
-							<td>${sales.price_all}</td>
+							<td>${sales.categoryName}</td>
+							<td>${sales.tradeName}</td>
+							<td>${sales.unitPrice}</td>
+							<td>${sales.saleNumber}</td>
+							<td>${sales.priceAll}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
