@@ -61,7 +61,7 @@
 							test="${sessionScope.loginAccount.authority == 1 || sessionScope.loginAccount.authority == 3}">
 							<td>
 								<form action="S0041.html" method="post">
-									<input type="hidden" name="account_id"
+									<input type="hidden" name="accountId"
 										value="${accounts.account_id}">
 									<button type="submit" name="action" value="edit"
 										class="btn btn-sm btn-primary">編集</button>
@@ -70,7 +70,7 @@
 								</form>
 							</td>
 						</c:if>
-						<td>${accounts.account_id}</td>
+						<td>${accounts.accountId}</td>
 						<td>${accounts.name}</td>
 						<td>${accounts.mail}</td>
 						<td><c:choose>
