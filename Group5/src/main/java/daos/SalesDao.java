@@ -334,10 +334,4 @@ public class SalesDao {
 			e.printStackTrace();
 		}
 	}
-
-	public boolean updateSales(LocalDate saleDate, int accountId, int categoryId, String tradeName, int unitPrice,
-			int saleNumber, String note, int saleId) {
-		// TODO 自動生成されたメソッド・スタブ
-		return false;
-	}
 }
