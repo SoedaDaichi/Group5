@@ -1,18 +1,14 @@
 package daos;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class C002Dao {
+import utils.Db;
 
-	private static final String URL = "jdbc:mariadb://localhost:3306/group5";
-	private static final String USER = "root";
-	private static final String PASSWORD = "root";
+public class C002Dao {
 
 	static {
 		try {
@@ -22,10 +18,12 @@ public class C002Dao {
 		}
 	}
 
+	//月の売上
 	public int getMonthSales(int year, int month) {
 		String sql = "select sum(unit_price * sale_number) as month_sales from sales where year(sale_date) = ? and month(sale_date) = ?";
 
-		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+		try (
+				Connection conn = Db.open();
 				PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setInt(1, year);
 			stmt.setInt(2, month);
@@ -36,16 +34,19 @@ public class C002Dao {
 				}
 			}
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
 
+	
+	//年の売上
 	public int getNennkannSales(int year) {
 		String sql = "select sum(unit_price * sale_number) as nennkann_sales from sales where year(sale_date) = ?";
 
-		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+		try (
+				Connection conn = Db.open();
 				PreparedStatement stmt = conn.prepareStatement(sql)) {
 
 			stmt.setInt(1, year);
@@ -55,36 +56,88 @@ public class C002Dao {
 				}
 			}
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
 	
 	
-	public Map<String ,Integer> getCategorySales() {
-//		String sql ="SELECT category_id AS categor, SUM(unit_price * sale_number) AS total FROM sales GROUP BY category_id";
-//		
-		String sql ="select c.category_name, sum(s.unit_price * s.sale_number) as total from sales s join categories c on s.category_id = c.category_id group by c.category_name";
-		Map<String ,Integer> map = new HashMap<>();
-		
-		
-		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-				PreparedStatement stmt = conn.prepareStatement(sql);
-		        ResultSet rs = stmt.executeQuery()){
+//月間のカテゴリー別売上(グラフ)
+	public Map<String, Integer> getCategorySalesMonth(int year, int month) {
+		String sql ="SELECT c.category_name, SUM(s.unit_price * s.sale_number) AS total FROM sales s JOIN categories c ON s.category_id = c.category_id WHERE YEAR(s.sale_date) = ? AND MONTH(s.sale_date) = ? GROUP BY c.category_name";
 
-			while(rs.next()){
+		Map<String, Integer> map = new HashMap<>();
 
-				String category = rs.getString("category_name");
-	            int total = rs.getInt("total");
-	            map.put(category, total);
+		try (Connection conn = Db.open();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+			stmt.setInt(1, year);
+			stmt.setInt(2, month);
+
+			try (ResultSet rs = stmt.executeQuery()) {
+				while (rs.next()) {
+					String category = rs.getString("category_name");
+					int total = rs.getInt("total");
+					map.put(category, total);
+				}
 			}
 
-		}catch (SQLException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return map;
+	}
+
+//年間のカテゴリー別売上(グラフ)
+	public Map<String, Integer> getCategorySalesYear(int year) {
+		String sql ="SELECT c.category_name, SUM(s.unit_price * s.sale_number) AS total FROM sales s JOIN categories c ON s.category_id = c.category_id WHERE YEAR(s.sale_date) = ? GROUP BY c.category_name";
+
+		Map<String, Integer> map = new HashMap<>();
+
+		try (Connection conn = Db.open();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+			stmt.setInt(1, year);
+
+			try (ResultSet rs = stmt.executeQuery()) {
+				while (rs.next()) {
+					String category = rs.getString("category_name");
+					int total = rs.getInt("total");
+					map.put(category, total);
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return map;
+	}
+	
+//全体のカテゴリー別売上(グラフ)
+	public Map<String, Integer> getCategorySales() {
+		//		String sql ="SELECT category_id AS categor, SUM(unit_price * sale_number) AS total FROM sales GROUP BY category_id";
+		//		
+		String sql = "select c.category_name, sum(s.unit_price * s.sale_number) as total from sales s join categories c on s.category_id = c.category_id group by c.category_name";
+		Map<String, Integer> map = new HashMap<>();
+
+		try (
+				Connection conn = Db.open();
+				PreparedStatement stmt = conn.prepareStatement(sql);
+				ResultSet rs = stmt.executeQuery()) {
+
+			while (rs.next()) {
+
+				String category = rs.getString("category_name");
+				int total = rs.getInt("total");
+				map.put(category, total);
+			}
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return map;
 	}
 }
-	
-
