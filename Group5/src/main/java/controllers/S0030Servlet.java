@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpSession;
 import beans.AccountsData;
 import services.ErrorMessageService;
 import services.ErrorService;
-import services.SessionFormService;
 import services.SuccessMessageService;
 
 /**
@@ -41,10 +40,18 @@ public class S0030Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		SessionFormService.accountsRegisterFormSession(request);
 		SuccessMessageService.processSessionMessages(request);
 		ErrorMessageService.processSessionMessages(request);
-
+//		SessionFormService.sessionAccountsRegisterForm(request);
+		HttpSession session = request.getSession(false);
+		Queue<?> errorQueue = (Queue<?>) session.getAttribute("errorQueue"); // ?はどの型でもOK
+		if (errorQueue != null && !errorQueue.isEmpty()) {
+			AccountsData registerAccountsForm = (AccountsData) session.getAttribute("registerAccountsForm");
+			if (registerAccountsForm != null) {
+				request.setAttribute("registerAccountsForm", registerAccountsForm);
+				session.removeAttribute("registerAccountsForm");
+			}
+		}
 		request.getRequestDispatcher("/S0030.jsp").forward(request, response);
 	}
 
@@ -62,8 +69,8 @@ public class S0030Servlet extends HttpServlet {
 		errors = es.ValidateAccounts(request);
 		System.out.println("アカウント登録エラー: " + errors);
 		HttpSession session = request.getSession();
-		AccountsData registerAccountsForm = new AccountsData(request);
 
+		AccountsData registerAccountsForm = new AccountsData(request);
 		if (errors != null && !errors.isEmpty()) {
 			session.setAttribute("RegisterAccountsForm", registerAccountsForm);
 			Queue<Map<String, String>> errorQueue = new ConcurrentLinkedQueue<>();

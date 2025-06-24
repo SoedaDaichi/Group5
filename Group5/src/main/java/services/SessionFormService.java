@@ -10,7 +10,7 @@ import beans.SalesForm;
 
 public class SessionFormService {
 
-	public static void salesFormSession(HttpServletRequest request) {
+	public static void sessionSalesForm(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		Queue<?> errorQueue = (Queue<?>) session.getAttribute("errorQueue"); // ?はどの型でもOK
 		if (errorQueue != null && !errorQueue.isEmpty()) {
@@ -22,7 +22,7 @@ public class SessionFormService {
 		}
 	}
 
-	public static void salesRegisterFormSession(HttpServletRequest request) {
+	public static void sessionSalesRegisterForm(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		Queue<?> errorQueue = (Queue<?>) session.getAttribute("errorQueue"); // ?はどの型でもOK
 		if (errorQueue != null && !errorQueue.isEmpty()) {
@@ -34,7 +34,7 @@ public class SessionFormService {
 		}
 	}
 	
-	public static void accountsRegisterFormSession(HttpServletRequest request) {
+	public static void sessionAccountsRegisterForm(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		Queue<?> errorQueue = (Queue<?>) session.getAttribute("errorQueue"); // ?はどの型でもOK
 		if (errorQueue != null && !errorQueue.isEmpty()) {

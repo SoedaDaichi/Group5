@@ -51,7 +51,7 @@
 							class="form-control ${not empty error ? ' is-invalid' : ''}"
 							placeholder="氏名">
 						<c:choose>
-							<c:when test="${not empty errorQueue..name}">
+							<c:when test="${not empty errorQueue.name}">
 								<div class="text-danger small">
 									<c:out value="${errorQueue.name}" />
 								</div>
