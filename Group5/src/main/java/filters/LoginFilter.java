@@ -46,7 +46,7 @@ public class LoginFilter extends HttpFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 
 		// セッション取得（なければnull）
-		HttpSession session = req.getSession(false);
+		HttpSession session = req.getSession();
 
 		// ログインユーザー情報の有無で判定
 		boolean loggedIn = (session != null && session.getAttribute("loginAccount") != null);
