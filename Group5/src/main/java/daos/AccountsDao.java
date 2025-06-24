@@ -128,7 +128,7 @@ public class AccountsDao {
 		return accountsList;
 	}
 
-	public Accounts getAccountsByAccount_id(int accountId) {
+	public Accounts getAccountsByAccountId(int accountId) {
 		String sql = "SELECT account_id, name,  mail, password, authority FROM accounts WHERE account_id = ?";
 		Accounts accounts = null;
 		try (

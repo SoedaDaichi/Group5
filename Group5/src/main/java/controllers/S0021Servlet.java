@@ -1,7 +1,7 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +58,7 @@ public class S0021Servlet extends HttpServlet {
 
 		if ((salesList == null || salesList.isEmpty()) && ssForm != null) {
 			SalesDao salesDao = new SalesDao();
-			ArrayList<Sales> salesListRe = salesDao.select(ssForm);
+			ArrayList<SalesData> salesListRe = salesDao.selectSearch(ssForm);
 			request.setAttribute("salesList", salesListRe);
 			session.removeAttribute("salesList");
 		} else if (ssForm != null) {
@@ -86,9 +86,9 @@ public class S0021Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		SalesDao salesDao = new SalesDao();
-		Sales sale = salesDao.identificationSales(saleId);
+		SalesData sale = salesDao.identificationSalesData(saleId);
 
-		Date saleDate = (Date) sale.getSaleDate();
+		LocalDate saleDate = (LocalDate) sale.getSaleDate();
 		int accountId = sale.getAccountId();
 		int categoryId = sale.getCategoryId();
 		String tradeName = sale.getTradeName();
@@ -98,14 +98,13 @@ public class S0021Servlet extends HttpServlet {
 
 		// 取り出したsalesテーブルのaccountIdとcategoryIdを
 		// 各テーブルの紐づいたnameを取ってくる作業
-		SalesDao salesDao = new SalesDao();
 		Accounts account = salesDao.identificationAccount(accountId);
 		String name = account.getName();
 		Categories category = salesDao.identificationCategory(categoryId);
 		String categoryName = category.getCategoryName();
 
 		SalesData salesData = new SalesData(
-				saleDate, name, accountId, categoryName, categoryId, tradeName,
+				saleNumber, saleDate, name, accountId, categoryName, categoryId, tradeName,
 				unitPrice, saleNumber, note);
 
 		session.setAttribute("saleId", saleId);
