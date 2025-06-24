@@ -177,12 +177,12 @@ public class ErrorService {
 		return errors;
 	}
 
-	public Map<String, String> ValidateAccountsUpdate(AccountsData accountsdata) {
-		int accountId = accountsdata.getAccountId();
-		String name = accountsdata.getName();
-		String mail = accountsdata.getMail();
-		String pass = accountsdata.getPass();
-		String confirmPass = accountsdata.getConfirmPass();
+	public Map<String, String> ValidateAccountsUpdate(AccountsData accountsData) {
+		int accountId = accountsData.getAccountId();
+		String name = accountsData.getName();
+		String mail = accountsData.getMail();
+		String pass = accountsData.getPass();
+		String confirmPass = accountsData.getConfirmPass();
 		AccountsDao ad = new AccountsDao();
 
 		if (S0010Service.ValidNull(name)) {

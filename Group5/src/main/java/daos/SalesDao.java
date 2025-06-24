@@ -55,14 +55,14 @@ public class SalesDao {
 		return categoryList;
 	}
 
-	public Accounts identificationAccount(int account_id) {
+	public Accounts identificationAccount(int accountId) {
 		Accounts account = null;
 		String identificationaccount = "SELECT name, account_id FROM accounts WHERE account_id = ?";
 
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(identificationaccount);) {
-			pstmt.setInt(1, account_id);
+			pstmt.setInt(1, accountId);
 
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -77,14 +77,14 @@ public class SalesDao {
 		return account;
 	}
 
-	public Categories identificationCategory(int category_id) {
+	public Categories identificationCategory(int categoryId) {
 		Categories category = null;
 		String identificationcategory = "SELECT category_name, category_id FROM categories WHERE category_id = ?";
 
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(identificationcategory);) {
-			pstmt.setInt(1, category_id);
+			pstmt.setInt(1, categoryId);
 
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -200,15 +200,15 @@ public class SalesDao {
 		}
 
 		if (accountIdStr != null && !accountIdStr.isEmpty()) {
-			int account_id = Integer.parseInt(accountIdStr);
-			System.out.println(account_id);
+			int accountId = Integer.parseInt(accountIdStr);
+			System.out.println(accountId);
 			where.add("s.account_id = ?");
-			sqlList.add(account_id);
+			sqlList.add(accountId);
 		}
 		if (categoryIdStr != null && !categoryIdStr.isEmpty()) {
-			int category_id = Integer.parseInt(categoryIdStr);
+			int categoryId = Integer.parseInt(categoryIdStr);
 			where.add("s.category_id = ?");
-			sqlList.add(category_id);
+			sqlList.add(categoryId);
 		}
 
 		if (!where.isEmpty()) {

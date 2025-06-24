@@ -42,7 +42,7 @@
 						<c:choose>
 							<c:when test="${not empty errorQueue.mail}">
 								<div class="text-danger small">
-									<c:out value="${errorQueue..mail}" />
+									<c:out value="${errorQueue.mail}" />
 								</div>
 							</c:when>
 							<c:otherwise>

@@ -14,21 +14,21 @@ public class SessionDataService {
 	public static void SalesDataSession(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		
-		session.getAttribute("salesdata");
+		session.getAttribute("salesData");
 		Queue<?> errorQueue = (Queue<?>) session.getAttribute("errorQueue"); // ?はどの型でもOK
 		
 		if (errorQueue == null || errorQueue.isEmpty()) {
-			SalesData salesdata = (SalesData) session.getAttribute("salesdata");
-			request.setAttribute("salesdata", salesdata);
+			SalesData salesData = (SalesData) session.getAttribute("salesData");
+			request.setAttribute("salesData", salesData);
 		}
 	}
 	
 	public static void SalesRegisterDataSession(HttpServletRequest request) {
 		SalesDao sd = new SalesDao();
 		
-		SalesData RegisterSaleData = new SalesData(request, sd);
+		SalesData registerSaleData = new SalesData(request, sd);
 		
-		request.setAttribute("RegisterSaleData", RegisterSaleData);
+		request.setAttribute("registerSaleData", registerSaleData);
 	}
 	
 	public static void AccountsDataSession(HttpServletRequest request) {
@@ -39,7 +39,7 @@ public class SessionDataService {
 		
 		if (errorQueue == null || errorQueue.isEmpty()) {
 			AccountsData accountsData = (AccountsData) session.getAttribute("accountssData");
-			request.setAttribute("accountsdata", accountsData);
+			request.setAttribute("accountsData", accountsData);
 		}
 	}
 	

@@ -16,10 +16,10 @@ public class SearchService {
 
 	public static void SalesSearchService(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		SalesSearchForm ssform = (SalesSearchForm) session.getAttribute("ssform");
+		SalesSearchForm ssForm = (SalesSearchForm) session.getAttribute("ssForm");
 
 		SalesDao sd = new SalesDao();
-		ArrayList<SalesData> salesList = sd.selectSearch(ssform);
+		ArrayList<SalesData> salesList = sd.selectSearch(ssForm);
 
 		request.setAttribute("salesList", salesList);
 	}
@@ -27,10 +27,10 @@ public class SearchService {
 	public static void AccountsSearchService(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		
-		AccountsSearchForm asform = (AccountsSearchForm)session.getAttribute("asform");
+		AccountsSearchForm asForm = (AccountsSearchForm)session.getAttribute("asfForm");
 		
 		AccountsDao ad = new AccountsDao();
-		ArrayList<Accounts> accountsList = ad.selectSearch(asform);
+		ArrayList<Accounts> accountsList = ad.selectSearch(asForm);
 		
 		request.setAttribute("accountsList", accountsList);
 

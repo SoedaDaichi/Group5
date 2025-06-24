@@ -39,9 +39,9 @@
 						</h5>
 					</div>
 					<div class="col-2 my-3">
-						<input type="date" name="sale_date" class="form-control"
+						<input type="date" name="saleDate" class="form-control"
 
-							value="${RegisterSalesForm.saleDate}">
+							value="${registerSalesForm.saleDate}">
 
 						<c:choose>
 							<c:when test="${not empty errorQueue.saleDate}">
@@ -66,10 +66,10 @@
 							aria-label=".form-select-sm example" name="accountId">
 							<option value=""
 
-								${empty RegisterSalesForm.accountId ? 'selected' : ''}>選択してください</option>
+								${empty registerSalesForm.accountId ? 'selected' : ''}>選択してください</option>
 							<c:forEach var="account" items="${accountList}">
 								<option value="${account.accountId}"
-									${RegisterSalesForm.accountId eq account.accountId ? 'selected' : ''}>${account.name}</option>
+									${registerSalesForm.accountId eq account.accountId ? 'selected' : ''}>${account.name}</option>
 							</c:forEach>
 						</select>
 						<c:choose>
@@ -92,13 +92,13 @@
 					</div>
 					<div class="col-4 my-3">
 						<select class="form-select form-select-sm"
-							aria-label=".form-select-sm example" name="category_id">
+							aria-label=".form-select-sm example" name="categoryId">
 							<option value=""
 
-								${empty RegisterSalesForm.categoryId ? 'selected' : ''}>選択してください</option>
+								${empty registerSalesForm.categoryId ? 'selected' : ''}>選択してください</option>
 							<c:forEach var="category" items="${categoryList}">
 								<option value="${category.categoryId}"
-									${RegisterSalesForm.categoryId eq category.categoryId ? 'selected' : ''}>${category.categoryName}</option>
+									${registerSalesForm.categoryId eq category.categoryId ? 'selected' : ''}>${category.categoryName}</option>
 							</c:forEach>
 						</select>
 						<c:choose>
@@ -121,9 +121,9 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="text" class="form-control"
-							id="exampleFormControlInput1" name="trade_name"
+							id="exampleFormControlInput1" name="tradeName"
 
-							value="${RegisterSalesForm.tradeName}" placeholder="商品名">
+							value="${registerSalesForm.tradeName}" placeholder="商品名">
 
 						<c:choose>
 							<c:when test="${not empty errorQueue.tradeName}">
@@ -145,9 +145,9 @@
 					</div>
 					<div class="col-2 my-3">
 						<input type="text" class="form-control"
-							id="exampleFormControlInput1" name="unit_price"
+							id="exampleFormControlInput1" name="unitPrice"
 
-							value="${RegisterSalesForm.unitPrice}" placeholder="単価">
+							value="${registerSalesForm.unitPrice}" placeholder="単価">
 
 						<c:choose>
 							<c:when test="${not empty errorQueue.unitPrice}">
@@ -169,9 +169,9 @@
 					</div>
 					<div class="col-2 my-3">
 						<input type="text" class="form-control"
-							id="exampleFormControlInput1" name="sale_number"
+							id="exampleFormControlInput1" name="saleNumber"
 
-							value="${RegisterSalesForm.saleNumber}" placeholder="個数">
+							value="${registerSalesForm.saleNumber}" placeholder="個数">
 
 						<c:choose>
 							<c:when test="${not empty errorQueue.saleNumber}">
@@ -194,7 +194,7 @@
 					<div class="col-5 my-3">
 						<textarea class="form-control" id="exampleFormControlTextarea1"
 
-							name="note" rows="5" placeholder="備考">${RegisterSalesForm.note}</textarea>
+							name="note" rows="5" placeholder="備考">${registerSalesForm.note}</textarea>
 
 						<c:choose>
 							<c:when test="${not empty errorQueue.note}">
