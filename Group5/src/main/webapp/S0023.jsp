@@ -18,103 +18,84 @@
 			</div>
 		</div>
 
-		<c:set var="formData"
-			value="${not empty salesform ? salesform : salesdata}" />
+		<c:set var="formData" value="${not empty salesForm ? salesForm : salesData}" />
 
 		<form id="create-task-form" action="S0023.html" method="post">
 			<div class="row">
 				<div class="col-9 offset-3">
 					<div class="row my-4">
 						<div class="col-2 text-end">
-							<h5>
-								<span>販売日</span>
-							</h5>
+							<h5><span>販売日</span></h5>
 						</div>
 						<div class="col-3">
-							<input type="date" id="date" name="sale_date"
-								class="form-control" value="${formData.sale_date}" />
-							<c:if test="${not empty errors.sale_date}">
-								<div class="text-danger small">${errors.sale_date}</div>
+							<input type="date" id="date" name="saleDate" class="form-control" value="${formData.saleDate}" />
+							<c:if test="${not empty errors.saleDate}">
+								<div class="text-danger small">${errors.saleDate}</div>
 							</c:if>
 						</div>
 					</div>
 					<div class="row my-4">
 						<div class="col-2 text-end">
-							<h5>
-								<span>担当</span>
-							</h5>
+							<h5><span>担当</span></h5>
 						</div>
 						<div class="col-3">
-							<select class="form-select form-select-sm" name="account_id">
+							<select class="form-select form-select-sm" name="accountId">
 								<c:forEach var="account" items="${accountList}">
-									<option value="${account.account_id}"
-										${formData.account_id eq account.account_id ? 'selected' : ''}>${account.name}</option>
+									<option value="${account.accountId}"
+										${formData.accountId eq account.accountId ? 'selected' : ''}>${account.name}</option>
 								</c:forEach>
 							</select>
 						</div>
 					</div>
 					<div class="row my-4">
 						<div class="col-2 text-end">
-							<h5>
-								<span>商品カテゴリー</span>
-							</h5>
+							<h5><span>商品カテゴリー</span></h5>
 						</div>
 						<div class="col-3">
-							<select class="form-select form-select-sm" name="category_id">
+							<select class="form-select form-select-sm" name="categoryId">
 								<c:forEach var="categories" items="${categoryList}">
-									<option value="${categories.category_id}"
-										${formData.category_id eq categories.category_id ? 'selected' : ''}>${categories.category_name}</option>
+									<option value="${categories.categoryId}"
+										${formData.categoryId eq categories.categoryId ? 'selected' : ''}>${categories.categoryName}</option>
 								</c:forEach>
 							</select>
 						</div>
 					</div>
 					<div class="row my-4">
 						<div class="col-2 text-end">
-							<h5>
-								<span>商品名</span>
-							</h5>
+							<h5><span>商品名</span></h5>
 						</div>
 						<div class="col-3">
-							<input type="text" name="trade_name" class="form-control"
-								value="${formData.trade_name}" />
-							<c:if test="${not empty errors.trade_name}">
-								<div class="text-danger small">${errors.trade_name}</div>
+							<input type="text" name="tradeName" class="form-control" value="${formData.tradeName}" />
+							<c:if test="${not empty errors.tradeName}">
+								<div class="text-danger small">${errors.tradeName}</div>
 							</c:if>
 						</div>
 					</div>
 					<div class="row my-4">
 						<div class="col-2 text-end">
-							<h5>
-								<span>単価</span>
-							</h5>
+							<h5><span>単価</span></h5>
 						</div>
 						<div class="col-3">
-							<input type="text" name="unit_price" class="form-control"
-								value="${formData.unit_price}" />
-							<c:if test="${not empty errors.unit_price}">
-								<div class="text-danger small">${errors.unit_price}</div>
+							<input type="text" name="unitPrice" class="form-control" value="${formData.unitPrice}" />
+							<c:if test="${not empty errors.unitPrice}">
+								<div class="text-danger small">${errors.unitPrice}</div>
 							</c:if>
 						</div>
 					</div>
 					<div class="row my-4">
 						<div class="col-2 text-end">
-							<h5>
-								<span>個数</span>
-							</h5>
+							<h5><span>個数</span></h5>
 						</div>
 						<div class="col-3">
-							<input type="text" name="sale_number" class="form-control"
-								value="${formData.sale_number}" />
-							<c:if test="${not empty errors.sale_number}">
-								<div class="text-danger small">${errors.sale_number}</div>
+							<input type="text" name="saleNumber" class="form-control" value="${formData.saleNumber}" />
+							<c:if test="${not empty errors.saleNumber}">
+								<div class="text-danger small">${errors.saleNumber}</div>
 							</c:if>
 						</div>
 					</div>
 					<div class="row my-4">
 						<div class="col-2 text-end">
-							<h5>
-								<span>備考</span>
-							</h5>
+							<h5><span>備考</span></h5>
 						</div>
 						<div class="col-3">
 							<textarea name="note" class="form-control" rows="4">${formData.note}</textarea>

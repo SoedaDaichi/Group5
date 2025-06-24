@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import daos.C002Dao;
 
+
 /**
 * Servlet implementation class C002Servlet
 */
@@ -37,21 +38,37 @@ public class C002Servlet extends HttpServlet {
 		int kotoshi = java.time.Year.now().getValue();
 		int month = java.time.LocalDate.now().getMonthValue();
 
-		int monthSales = dao.getMonthSales(kotoshi, month);
-		int nennkannSales = dao.getNennkannSales(kotoshi);
-		Map<String, Integer> categorySalesMap = dao.getCategorySales();
-		//		        ObjectMapper mapper = new ObjectMapper();
-		//		        String categorySalesJson = mapper.writeValueAsString(categorySalesMap);
-		//		        
-		StringBuilder jsonBuilder = new StringBuilder();
-		jsonBuilder.append("{");
+		        int nennkannSales = dao.getNennkannSales(kotoshi);
+		        Map<String, Integer> categorySalesMap = dao.getCategorySales();
+		        
+//		        ObjectMapper mapper = new ObjectMapper();
+//		        String categorySalesJson = mapper.writeValueAsString(categorySalesMap);
+//		        
+		        StringBuilder jsonBuilder = new StringBuilder();
+		        jsonBuilder.append("{");
 
-		int count = 0;
-		for (Map.Entry<String, Integer> entry : categorySalesMap.entrySet()) {
-			jsonBuilder.append("\"")
-					.append(entry.getKey().replace("\"", "\\\""))
-					.append("\":")
-					.append(entry.getValue());
+		        int count = 0;
+		        for (Map.Entry<String, Integer> entry : categorySalesMap.entrySet()) {
+		            jsonBuilder.append("\"")
+		                       .append(entry.getKey().replace("\"", "\\\""))
+		                       .append("\":")
+		                       .append(entry.getValue());
+
+		            if (++count < categorySalesMap.size()) {
+		                jsonBuilder.append(",");
+		            }
+		        }
+
+		        jsonBuilder.append("}");
+
+		        String categorySalesJson = jsonBuilder.toString();
+
+		        
+
+		        request.setAttribute("monthSales", monthSales);
+		        request.setAttribute("nennkannSales", nennkannSales);
+		      //  request.setAttribute("CategorySales", CategorySales);
+		        request.setAttribute("categorySalesJson", categorySalesJson);
 
 			if (++count < categorySalesMap.size()) {
 				jsonBuilder.append(",");
@@ -90,4 +107,5 @@ public class C002Servlet extends HttpServlet {
 //ObjectMapper mapper = new ObjectMapper();
 //String categorySalesJson = mapper.writeValueAsString(categorySalesMap);
 //
+
 //request.setAttribute("categorySalesJson", categorySalesJson);

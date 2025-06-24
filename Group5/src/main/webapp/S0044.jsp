@@ -16,8 +16,8 @@
 		<div class="col-9 offset-3">
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント詳細削除確認</h1>
 
-			<form id="create-task-form" action="S0044.html" method="post">
-				<input type="hidden" name="id" value="${account_id}" />
+			<form id="create-task-form" action="S0044.html" method="post"onsubmit="return confirm('本当に削除しますか？');">
+				<input type="hidden" name="accountId" value="${accountId}" />
 
 				<div class="row">
 					<div
@@ -27,7 +27,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="text" id="name" name="name" class="form-control"
+						<input type="text" name="name" class="form-control"
 							value="${accounts.name}" readonly>
 					</div>
 				</div>
@@ -40,7 +40,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="email" id="mail" name="mail" class="form-control"
+						<input type="email" name="mail" class="form-control"
 							value="${accounts.mail}" readonly>
 					</div>
 				</div>
@@ -53,7 +53,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="password" id="password" name="pass"
+						<input type="password" name="pass"
 							class="form-control" value="${accounts.pass}" readonly>
 					</div>
 				</div>
@@ -66,8 +66,8 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="password" id="confirm_password" name="confirm_pass"
-							class="form-control" value="${accounts.pass}" readonly>
+						<input type="password" name="confirmPass"
+							class="form-control" value="${accounts.pass}" disabled>
 					</div>
 				</div>
 
@@ -113,13 +113,12 @@
 						<!-- OKボタン（削除） -->
 						<button type="submit" name="action" value="delete"
 							class="btn btn-danger">×OK</button>
-
-						<!-- キャンセルボタン（一覧画面に戻る） -->
-						<button type="submit" name="action" value="cancel"
+			</form>
+			<!-- キャンセルボタン（一覧画面に戻る） -->
+						<a button href = "S0044.jsp" type="submit" name="action" value="cancel"
 							class="btn btn-outline-secondary">キャンセル</button>
 					</div>
 				</div>
-			</form>
 		</div>
 	</div>
 	<script src="js/bootstrap.bundle.min.js"></script>
