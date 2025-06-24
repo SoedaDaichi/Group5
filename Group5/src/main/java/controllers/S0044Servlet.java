@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
-import daos.S0044Dao;
+import daos.AccountsDao;
 
 /**
  * Servlet implementation class S0044Servlet
@@ -56,8 +56,8 @@ public class S0044Servlet extends HttpServlet {
 			session.removeAttribute("accountId");
 			session.removeAttribute("accounts");
 
-			S0044Dao s0044Dao = new S0044Dao();
-			boolean success = s0044Dao.deleteAccount(accountId);
+			AccountsDao accountsDao = new AccountsDao();
+			boolean success = accountsDao.deleteAccount(accountId);
 
 			if (success) {
 				session.setAttribute("success", "アカウントが削除されました。");

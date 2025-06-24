@@ -10,7 +10,7 @@ import java.util.List;
 import beans.Accounts;
 import beans.AccountsData;
 import beans.AccountsSearchForm;
-import services.auth;
+import services.Auth;
 import utils.Db;
 
 public class AccountsDao {
@@ -53,7 +53,7 @@ public class AccountsDao {
 		String mail = accountsData.getMail();
 		String pass = accountsData.getPass();
 		String authorityStr = accountsData.getAuthority();
-		String hashedPass = auth.hashPassword(pass);
+		String hashedPass = Auth.hashPassword(pass);
 
 		System.out.println("insert called with: " + name + ", " + mail);
 
