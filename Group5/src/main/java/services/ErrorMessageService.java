@@ -7,31 +7,24 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class ErrorMessageService {
-	public static void processSessionMessages(HttpServletRequest request) {
+	public static Map<String, String> processSessionMessages(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-
-		// エラーメッセージの処理
-		processMessage(session, request, "errorQueue", "errors");
+		return processMessage(session, "errorQueue");
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void processMessage(HttpSession session,
-			HttpServletRequest request,
-			String sessionKey,
-			String requestKey) {
+	public static Map<String, String> processMessage(HttpSession session, String sessionKey) {
 		Queue<Map<String, String>> queue = (Queue<Map<String, String>>) session.getAttribute(sessionKey);
 		if (queue != null && !queue.isEmpty()) {
-			// キューからメッセージを取り出し
 			Map<String, String> message = queue.poll();
-			request.setAttribute(requestKey, message);
-
-			// キューが空になったらセッションから削除
 			if (queue.isEmpty()) {
 				session.removeAttribute(sessionKey);
 			}
+			return message; // 取り出したメッセージだけ返す
 		}
+		return null;
 	}
-	
+
 	// jspにset&session削除用メソッド
 	public static void moveAttribute(HttpSession session, HttpServletRequest request, String attributeName,
 			Object value) {
