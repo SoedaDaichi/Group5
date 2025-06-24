@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import daos.C002Dao;
 
 
+
 /**
 * Servlet implementation class C002Servlet
 */
@@ -37,6 +38,8 @@ public class C002Servlet extends HttpServlet {
 		C002Dao dao = new C002Dao();
 		int kotoshi = java.time.Year.now().getValue();
 		int month = java.time.LocalDate.now().getMonthValue();
+		
+		int monthSales = dao.getMonthSales(kotoshi, month);
 
 		        int nennkannSales = dao.getNennkannSales(kotoshi);
 		        Map<String, Integer> categorySalesMap = dao.getCategorySales();
@@ -69,20 +72,6 @@ public class C002Servlet extends HttpServlet {
 		        request.setAttribute("nennkannSales", nennkannSales);
 		      //  request.setAttribute("CategorySales", CategorySales);
 		        request.setAttribute("categorySalesJson", categorySalesJson);
-
-			if (++count < categorySalesMap.size()) {
-				jsonBuilder.append(",");
-			}
-		}
-
-		jsonBuilder.append("}");
-
-		String categorySalesJson = jsonBuilder.toString();
-
-		request.setAttribute("monthSales", monthSales);
-		request.setAttribute("nennkannSales", nennkannSales);
-		//  request.setAttribute("CategorySales", CategorySales);
-		request.setAttribute("categorySalesJson", categorySalesJson);
 
 		request.getRequestDispatcher("/C002.jsp").forward(request, response);
 	}
