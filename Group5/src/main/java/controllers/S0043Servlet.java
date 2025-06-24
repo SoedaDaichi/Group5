@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import beans.AccountsData;
-import daos.S0043Dao;
+import daos.AccountsDao;
 import services.Auth;
 
 /**
@@ -62,8 +62,8 @@ public class S0043Servlet extends HttpServlet {
 
 	    String hashedPass = Auth.hashPassword(pass);
 
-	    S0043Dao s0043Dao = new S0043Dao();
-	    boolean success = s0043Dao.update(accountId, name, mail, hashedPass, authority);
+	    AccountsDao accountsDao = new AccountsDao();
+	    boolean success = accountsDao.update(accountId, name, mail, hashedPass, authority);
 
 	    if (success) {
 	        session.setAttribute("success", "アカウントが更新されました。");

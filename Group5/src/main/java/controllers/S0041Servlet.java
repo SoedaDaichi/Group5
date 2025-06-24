@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import beans.AccountsSearchForm;
-import daos.S0041Dao;
+import daos.AccountsDao;
 import services.S0040Service;
 
 /**
@@ -85,8 +85,8 @@ public class S0041Servlet extends HttpServlet {
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
 
-		S0041Dao s0041Dao = new S0041Dao();
-		Accounts accounts = s0041Dao.getAccountsByAccountId(accountId);
+		AccountsDao accountsDao = new AccountsDao();
+		Accounts accounts = accountsDao.getAccountsByAccountId(accountId);
 
 		session.setAttribute("accountId", accountId);
 		session.setAttribute("accounts", accounts);
