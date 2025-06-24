@@ -14,14 +14,14 @@ import daos.SalesDao;
 
 public class SearchService {
 
-	public static void SalesSearchService(HttpServletRequest request) {
+	public static ArrayList<SalesData> SalesSearchService(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		SalesSearchForm ssForm = (SalesSearchForm) session.getAttribute("ssForm");
 
 		SalesDao sd = new SalesDao();
 		ArrayList<SalesData> salesList = sd.selectSearch(ssForm);
 
-		request.setAttribute("salesList", salesList);
+		return salesList;
 	}
 
 	public static void AccountsSearchService(HttpServletRequest request) {

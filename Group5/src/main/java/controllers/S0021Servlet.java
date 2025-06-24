@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import beans.SalesData;
 import services.DetailSearchService;
 import services.SearchService;
 import services.SuccessMessageService;
@@ -32,10 +34,11 @@ public class S0021Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		SearchService.SalesSearchService(request);
+		ArrayList<SalesData> salesList = SearchService.SalesSearchService(request);
 
 		SuccessMessageService.processSessionMessages(request);
-
+		
+		request.setAttribute("salesList", salesList);
 		request.getRequestDispatcher("/S0021.jsp").forward(request, response);
 	}
 
