@@ -15,8 +15,7 @@ import beans.Accounts;
 import beans.Categories;
 import beans.Sales;
 import beans.SalesSearchForm;
-import daos.S0010Dao;
-import daos.S0020Dao;
+import daos.SalesDao;
 import services.ErrorService;
 
 /**
@@ -58,9 +57,9 @@ public class S0020Servlet extends HttpServlet {
 			session.removeAttribute("ssForm");
 		}
 
-		S0010Dao ss = new S0010Dao();
-		ArrayList<Accounts> accountList = ss.selectAccount();
-		ArrayList<Categories> categoryList = ss.selectCategory();
+		SalesDao salesDao = new SalesDao();
+		ArrayList<Accounts> accountList = salesDao.selectAccount();
+		ArrayList<Categories> categoryList = salesDao.selectCategory();
 
 		request.setAttribute("accountList", accountList);
 		request.setAttribute("categoryList", categoryList);
@@ -94,8 +93,8 @@ public class S0020Servlet extends HttpServlet {
 		SalesSearchForm ssForm = new SalesSearchForm(firstStr, lastStr, accountIdStr, categoryIdStr, tradeName, note);
 		session.setAttribute("ssForm", ssForm);
 
-		S0020Dao s0020Dao = new S0020Dao();
-		ArrayList<Sales> salesList = s0020Dao.select(ssForm);
+		SalesDao salesDao = new SalesDao();
+		ArrayList<Sales> salesList = salesDao.select(ssForm);
 
 		Map<String, String> notFound = es.validateNotFoundSales(salesList);
 		if (notFound != null && !notFound.isEmpty()) {

@@ -18,9 +18,7 @@ import beans.Categories;
 import beans.Sales;
 import beans.SalesData;
 import beans.SalesSearchForm;
-import daos.S0010Dao;
-import daos.S0020Dao;
-import daos.S0021Dao;
+import daos.SalesDao;
 
 /**
  * Servlet implementation class S0021Servlet
@@ -59,8 +57,8 @@ public class S0021Servlet extends HttpServlet {
 		}
 
 		if ((salesList == null || salesList.isEmpty()) && ssForm != null) {
-			S0020Dao s0020Dao = new S0020Dao();
-			ArrayList<Sales> salesListRe = s0020Dao.select(ssForm);
+			SalesDao salesDao = new SalesDao();
+			ArrayList<Sales> salesListRe = salesDao.select(ssForm);
 			request.setAttribute("salesList", salesListRe);
 			session.removeAttribute("salesList");
 		} else if (ssForm != null) {
@@ -87,8 +85,8 @@ public class S0021Servlet extends HttpServlet {
 		int saleId = Integer.valueOf(request.getParameter("saleId"));
 		HttpSession session = request.getSession();
 
-		S0021Dao s0021Dao = new S0021Dao();
-		Sales sale = s0021Dao.identificationSales(saleId);
+		SalesDao salesDao = new SalesDao();
+		Sales sale = salesDao.identificationSales(saleId);
 
 		Date saleDate = (Date) sale.getSaleDate();
 		int accountId = sale.getAccountId();
@@ -100,10 +98,10 @@ public class S0021Servlet extends HttpServlet {
 
 		// 取り出したsalesテーブルのaccountIdとcategoryIdを
 		// 各テーブルの紐づいたnameを取ってくる作業
-		S0010Dao s0010Dao = new S0010Dao();
-		Accounts account = s0010Dao.identificationAccount(accountId);
+		SalesDao salesDao = new SalesDao();
+		Accounts account = salesDao.identificationAccount(accountId);
 		String name = account.getName();
-		Categories category = s0010Dao.identificationCategory(categoryId);
+		Categories category = salesDao.identificationCategory(categoryId);
 		String categoryName = category.getCategoryName();
 
 		SalesData salesData = new SalesData(

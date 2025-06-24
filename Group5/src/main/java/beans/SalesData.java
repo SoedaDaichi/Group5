@@ -1,12 +1,13 @@
 package beans;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import lombok.Data;
 
 @Data
 public class SalesData {
-	private Date saleDate;
+	private int saleId;
+	private LocalDate saleDate;
 	private String name;
 	private int accountId;
 	private String categoryName;
@@ -15,9 +16,11 @@ public class SalesData {
 	private int unitPrice;
 	private int saleNumber;
 	private String note;
+	private int priceAll;
 
-	public SalesData(Date saleDate, String name, int accountId, String categoryName, int categoryId,
-			String tradeName, int unitPrice, int saleNumber, String note) {
+	public SalesData(int saleId,LocalDate saleDate, String name, int accountId, String categoryName, int categoryId,
+			String tradeName, int unitPrice, int saleNumber, String note, int priceAll) {
+		this.saleId = saleId;
 		this.saleDate = saleDate;
 		this.name = name;
 		this.accountId = accountId;
@@ -27,5 +30,6 @@ public class SalesData {
 		this.unitPrice = unitPrice;
 		this.saleNumber = saleNumber;
 		this.note = note;
+		this.priceAll = priceAll;
 	}
 }

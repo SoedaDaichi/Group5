@@ -16,7 +16,7 @@ import beans.Accounts;
 import beans.Categories;
 import beans.SalesData;
 import beans.SalesForm;
-import daos.S0010Dao;
+import daos.SalesDao;
 import services.ErrorService;
 
 /**
@@ -56,9 +56,9 @@ public class S0023Servlet extends HttpServlet {
 			request.setAttribute("salesdata", salesdata);
 		}
 
-		S0010Dao ss = new S0010Dao();
-		ArrayList<Accounts> accountList = ss.selectAccount();
-		ArrayList<Categories> categoryList = ss.selectCategory();
+		SalesDao salesDao = new SalesDao();
+		ArrayList<Accounts> accountList = salesDao.selectAccount();
+		ArrayList<Categories> categoryList = salesDao.selectCategory();
 
 		request.setAttribute("accountList", accountList);
 		request.setAttribute("categoryList", categoryList);
@@ -104,11 +104,11 @@ public class S0023Servlet extends HttpServlet {
 		int unitPrice = Integer.valueOf(request.getParameter("unitPrice"));
 		int saleNumber = Integer.valueOf(request.getParameter("saleNumber"));
 
-		S0010Dao s0010Dao = new S0010Dao();
-		Accounts account = s0010Dao.identificationAccount(accountId);
+		SalesDao salesDao = new SalesDao();
+		Accounts account = salesDao.identificationAccount(accountId);
 		String name = account.getName();
 
-		Categories category = s0010Dao.identificationCategory(categoryId);
+		Categories category = salesDao.identificationCategory(categoryId);
 		String categoryName = category.getCategoryName();
 
 		SalesData salesData = new SalesData(

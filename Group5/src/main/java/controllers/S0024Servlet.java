@@ -1,7 +1,7 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import beans.SalesData;
-import daos.S0023Dao;
+import daos.SalesDao;
 
 /**
  * Servlet implementation class S0024Servlet
@@ -49,7 +49,7 @@ public class S0024Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		SalesData salesData = (SalesData) session.getAttribute("salesData");
 		int saleId = (int) session.getAttribute("saleId");
-		Date saleDate = salesData.getSaleDate();
+		LocalDate saleDate = salesData.getSaleDate();
 		int accountId = salesData.getAccountId();
 		int categoryId = salesData.getCategoryId();
 		String tradeName = salesData.getTradeName();
@@ -60,8 +60,8 @@ public class S0024Servlet extends HttpServlet {
 		session.removeAttribute("saleId");
 		session.removeAttribute("salesData");
 
-		S0023Dao s0023Dao = new S0023Dao();
-		boolean success = s0023Dao.updateSales(
+		SalesDao salesDao = new SalesDao();
+		boolean success = salesDao.updateSales(
 				saleDate, accountId, categoryId, tradeName, unitPrice, saleNumber, note, saleId);
 
 		if (success) {
