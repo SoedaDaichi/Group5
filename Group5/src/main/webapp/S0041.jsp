@@ -62,7 +62,7 @@
 							<td>
 								<form action="S0041.html" method="post">
 									<input type="hidden" name="accountId"
-										value="${accounts.account_id}">
+										value="${accounts.accountId}">
 									<button type="submit" name="action" value="edit"
 										class="btn btn-sm btn-primary">編集</button>
 									<button type="submit" name="action" value="delete"
