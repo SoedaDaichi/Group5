@@ -32,10 +32,10 @@ public class S0025Servret extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		SalesData salesdata = (SalesData) session.getAttribute("salesdata");
+		SalesData salesData = (SalesData) session.getAttribute("salesData");
 		
-		request.setAttribute("salesdata", salesdata);
-		session.removeAttribute("salesdata");
+		request.setAttribute("salesData", salesData);
+		session.removeAttribute("salesData");
 		request.getRequestDispatcher("/S0025.jsp").forward(request, response);
 	}
 
@@ -45,12 +45,12 @@ public class S0025Servret extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		int sale_id = (int) session.getAttribute("sale_id");
-		System.out.println("削除"+sale_id);
-	    session.removeAttribute("sale_id");
+		int saleId = (int) session.getAttribute("saleId");
+		System.out.println("削除"+saleId);
+	    session.removeAttribute("saleId");
 	    
 	    S0025Dao s0025dao = new S0025Dao();
-	    s0025dao.daleteSales(sale_id);
+	    s0025dao.daleteSales(saleId);
 	    
 	    response.sendRedirect("S0021.html");	    
 	}

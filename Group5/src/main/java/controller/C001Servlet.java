@@ -10,9 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.loginAccount;
+import beans.LoginAccount;
+import services.Auth;
 import services.ErrorService;
-import services.auth;
 
 /**
  * Servlet implementation class LoginServlet
@@ -57,10 +57,10 @@ public class C001Servlet extends HttpServlet {
 //		System.out.println(mail);
 		String pass = request.getParameter("pass");
 //		System.out.println(pass);
-		String hashed_pass = auth.hashPassword(pass);
+		String hashedPass = Auth.hashPassword(pass);
 
 		ErrorService es = new ErrorService();
-		Map<String, String> errors = es.ValidateLogin(mail, pass, hashed_pass);
+		Map<String, String> errors = es.validateLogin(mail, pass, hashedPass);
 		System.out.println(errors);
 		HttpSession session = request.getSession();
 
@@ -70,7 +70,7 @@ public class C001Servlet extends HttpServlet {
 			return;
 		}
 
-		loginAccount loginAccount = auth.login(mail, pass); // ユーザー取得
+		LoginAccount loginAccount = Auth.login(mail, pass); // ユーザー取得
 
 		// ログイン成功処理
 		session.setAttribute("loginAccount", loginAccount);

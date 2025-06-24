@@ -34,9 +34,9 @@ public class S0024Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		SalesData salesdata = (SalesData) session.getAttribute("salesdata");
+		SalesData salesData = (SalesData) session.getAttribute("salesData");
 
-		request.setAttribute("salesdata", salesdata);
+		request.setAttribute("salesData", salesData);
 		request.getRequestDispatcher("/S0024.jsp").forward(request, response);
 	}
 
@@ -47,27 +47,26 @@ public class S0024Servlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		SalesData salesdata = (SalesData) session.getAttribute("salesdata");
-		int sale_id = (int) session.getAttribute("sale_id");
-		Date sale_date = salesdata.getSale_date();
-		int account_id = salesdata.getAccount_id();
-		int category_id = salesdata.getCategory_id();
-		String trade_name = salesdata.getTrade_name();
-		int unit_price = salesdata.getUnit_price();
-		int sale_number = salesdata.getSale_number();
-		String note = salesdata.getNote();
+		SalesData salesData = (SalesData) session.getAttribute("salesData");
+		int saleId = (int) session.getAttribute("saleId");
+		Date saleDate = salesData.getSaleDate();
+		int accountId = salesData.getAccountId();
+		int categoryId = salesData.getCategoryId();
+		String tradeName = salesData.getTradeName();
+		int unitPrice = salesData.getUnitPrice();
+		int saleNumber = salesData.getSaleNumber();
+		String note = salesData.getNote();
 
-		session.removeAttribute("sale_id");
-		session.removeAttribute("salesdata");
+		session.removeAttribute("saleId");
+		session.removeAttribute("salesData");
 
-		S0023Dao s0023dao = new S0023Dao();
-		boolean success = s0023dao.updateSales(sale_date, account_id, category_id, trade_name, unit_price, sale_number,
-				note, sale_id);
+		S0023Dao s0023Dao = new S0023Dao();
+		boolean success = s0023Dao.updateSales(
+				saleDate, accountId, categoryId, tradeName, unitPrice, saleNumber, note, saleId);
 
 		if (success) {
 			session.setAttribute("success", "売上が更新されました。");
 			response.sendRedirect("S0021.html");
-
 		} else {
 			session.setAttribute("error", "更新に失敗しました");
 			response.sendRedirect("S0021.html");

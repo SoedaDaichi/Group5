@@ -43,7 +43,6 @@ public class S0040Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 
 		System.out.println("----------アカウント検索-----------");
@@ -53,21 +52,19 @@ public class S0040Servlet extends HttpServlet {
 		String mail = request.getParameter("mail");
 		System.out.println("メールアドレス： " + mail);
 
-		S0040Service s0040service = new S0040Service();
-		
-		int authority_0 = s0040service.parseAuthority(request.getParameter("authority_0"));
-		int authority_1 = s0040service.parseAuthority(request.getParameter("authority_1"));
-		int authority_2 = s0040service.parseAuthority(request.getParameter("authority_2"));
-		int authority_3 = s0040service.parseAuthority(request.getParameter("authority_3"));
-		
-		AccountsSearchForm asform = new AccountsSearchForm(name, mail, authority_0, authority_1, authority_2,
-				authority_3);
-		
-		session.setAttribute("asform", asform);
-		ArrayList<Accounts> accountsList = s0040service.select(asform);
+		S0040Service s0040Service = new S0040Service();
+
+		int authority0 = s0040Service.parseAuthority(request.getParameter("authority0"));
+		int authority1 = s0040Service.parseAuthority(request.getParameter("authority1"));
+		int authority2 = s0040Service.parseAuthority(request.getParameter("authority2"));
+		int authority3 = s0040Service.parseAuthority(request.getParameter("authority3"));
+
+		AccountsSearchForm asForm = new AccountsSearchForm(name, mail, authority0, authority1, authority2, authority3);
+
+		session.setAttribute("asForm", asForm);
+		ArrayList<Accounts> accountsList = s0040Service.select(asForm);
 
 		session.setAttribute("accountsList", accountsList);
 		response.sendRedirect("S0041.html");
 	}
-
 }

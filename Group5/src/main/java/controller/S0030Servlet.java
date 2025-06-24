@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import jakarta.servlet.ServletException;
@@ -36,11 +35,9 @@ public class S0030Servlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
-		AccountsForm Register_accountsform = (AccountsForm) session.getAttribute("Register_accountsform");
+		AccountsForm registerAccountsForm = (AccountsForm) session.getAttribute("registerAccountsForm");
 
 		String success = (String) session.getAttribute("success");
 		if (success != null) {
@@ -48,9 +45,9 @@ public class S0030Servlet extends HttpServlet {
 			session.removeAttribute("success");
 		} else if (errors != null) {
 			request.setAttribute("errors", errors);
-			request.setAttribute("Register_accountsform", Register_accountsform);
+			request.setAttribute("registerAccountsForm", registerAccountsForm);
 			session.removeAttribute("errors");
-			session.removeAttribute("Register_accountsform");
+			session.removeAttribute("registerAccountsForm");
 		}
 		request.getRequestDispatcher("/S0030.jsp").forward(request, response);
 	}
@@ -60,8 +57,6 @@ public class S0030Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doGet(request, response);
 		System.out.println("----------アカウント登録-----------");
 
 		String name = request.getParameter("name");
@@ -69,27 +64,26 @@ public class S0030Servlet extends HttpServlet {
 		String mail = request.getParameter("mail");
 		System.out.println("メールアドレス： " + mail);
 		String pass = request.getParameter("pass");
-		String confirm_pass = request.getParameter("confirm_pass");
+		String confirmPass = request.getParameter("confirmPass");
 		String authority = request.getParameter("authority");
 		System.out.println("権限： " + authority);
 
-		ErrorService es = new ErrorService();
-		Map<String, String> errors = new HashMap<>();
-		errors = es.ValidateAccounts(name, mail, pass, confirm_pass);
+		ErrorService errorService = new ErrorService();
+		Map<String, String> errors = errorService.validateAccounts(name, mail, pass, confirmPass);
 		System.out.println("アカウント登録エラー: " + errors);
 		HttpSession session = request.getSession();
 
 		if (errors != null && !errors.isEmpty()) {
-			AccountsForm Register_accountsform = new AccountsForm(name, mail, authority);
-			session.setAttribute("Register_accountsform", Register_accountsform);
+			AccountsForm registerAccountsForm = new AccountsForm(name, mail, authority);
+			session.setAttribute("registerAccountsForm", registerAccountsForm);
 			session.setAttribute("errors", errors);
 			response.sendRedirect("S0030.html");
 			return;
 		}
 
 		if (errors == null || errors.isEmpty()) {
-			AccountsData Register_accountsdata = new AccountsData(name, mail, pass, confirm_pass, authority);
-			session.setAttribute("Register_accountsdata", Register_accountsdata);
+			AccountsData registerAccountsData = new AccountsData(name, mail, pass, confirmPass, authority);
+			session.setAttribute("registerAccountsData", registerAccountsData);
 			response.sendRedirect("S0031.html");
 		}
 	}

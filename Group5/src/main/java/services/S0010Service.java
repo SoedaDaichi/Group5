@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class S0010Service {
-	public static boolean ValidDate(String dateStr) {
+	public static boolean validDate(String dateStr) {
 		dateStr = dateStr.trim();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		sdf.setLenient(false);
@@ -18,7 +18,7 @@ public class S0010Service {
 		}
 	}
 
-	public static boolean InValidInt(String intStr) {
+	public static boolean inValidInt(String intStr) {
 		try {
 			Integer.parseInt(intStr);
 			return false;
@@ -27,7 +27,7 @@ public class S0010Service {
 		}
 	}
 	
-	public static boolean ValidInt(String intStr) {
+	public static boolean validInt(String intStr) {
 		try {
 			Integer.parseInt(intStr);
 			return true;
@@ -36,7 +36,7 @@ public class S0010Service {
 		}
 	}
 
-	public static boolean ValidNull(String str) {
+	public static boolean validNull(String str) {
 		if (str == null || str.isEmpty()) {
 			return true;
 		} else {

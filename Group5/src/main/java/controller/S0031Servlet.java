@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.AccountsData;
 import daos.S0031Dao;
-import services.auth;
+import services.Auth;
 
 /**
  * Servlet implementation class S0031Servlet
@@ -33,12 +33,10 @@ public class S0031Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
-		AccountsData Register_accountsdata = (AccountsData) session.getAttribute("Register_accountsdata");
-		
-		request.setAttribute("Register_accountsdata", Register_accountsdata);
+		AccountsData registerAccountsData = (AccountsData) session.getAttribute("registerAccountsData");
+
+		request.setAttribute("registerAccountsData", registerAccountsData);
 		request.getRequestDispatcher("/S0031.jsp").forward(request, response);
 	}
 
@@ -47,20 +45,18 @@ public class S0031Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doGet(request, response);
 		HttpSession session = request.getSession();
-		AccountsData Register_accountsdata = (AccountsData) session.getAttribute("Register_accountsdata");
-		
-		String name = Register_accountsdata.getName();
-		String mail = Register_accountsdata.getMail();
-		String pass = Register_accountsdata.getPass();
-		String authorityStr = Register_accountsdata.getAuthority();
+		AccountsData registerAccountsData = (AccountsData) session.getAttribute("registerAccountsData");
 
-		String hashedPass = auth.hashPassword(pass);
+		String name = registerAccountsData.getName();
+		String mail = registerAccountsData.getMail();
+		String pass = registerAccountsData.getPass();
+		String authorityStr = registerAccountsData.getAuthority();
 
-		S0031Dao s0031dao = new S0031Dao();
-		boolean success = s0031dao.insert(name, mail, hashedPass, authorityStr);
+		String hashedPass = Auth.hashPassword(pass);
+
+		S0031Dao s0031Dao = new S0031Dao();
+		boolean success = s0031Dao.insert(name, mail, hashedPass, authorityStr);
 
 		if (success) {
 			session.setAttribute("success", "アカウントが作成されました。");
@@ -69,9 +65,6 @@ public class S0031Servlet extends HttpServlet {
 			session.setAttribute("error", "登録に失敗しました");
 			response.sendRedirect("S0030.html");
 		}
-
-		//request.getRequestDispatcher("/C002.jsp").forward(request, response);
-
 	}
 
 }

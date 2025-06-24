@@ -32,16 +32,14 @@ public class S0044Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 
 		Accounts accounts = (Accounts) session.getAttribute("accounts");
-		int account_id = (int) session.getAttribute("account_id");
+		int accountId = (int) session.getAttribute("accountId");
 
 		request.setAttribute("accounts", accounts);
-		request.setAttribute("account_id", account_id);
-		//		session.removeAttribute("accounts");
+		request.setAttribute("accountId", accountId);
+		// session.removeAttribute("accounts");
 		request.getRequestDispatcher("/S0044.jsp").forward(request, response);
 	}
 
@@ -53,26 +51,24 @@ public class S0044Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
 		if ("delete".equals(action)) {
-			int account_id = (int) session.getAttribute("account_id");
+			int accountId = (int) session.getAttribute("accountId");
 
-			session.removeAttribute("account_id");
+			session.removeAttribute("accountId");
 			session.removeAttribute("accounts");
 
-			S0044Dao s0044dao = new S0044Dao();
-			boolean success = s0044dao.deleteAccount(account_id);
+			S0044Dao s0044Dao = new S0044Dao();
+			boolean success = s0044Dao.deleteAccount(accountId);
 
 			if (success) {
 				session.setAttribute("success", "アカウントが削除されました。");
-				//response.sendRedirect("S0042.html");
 				response.sendRedirect("S0041.html");
-
 			} else {
 				session.setAttribute("error", "削除に失敗しました");
-				//response.sendRedirect("S0042.html");
 				response.sendRedirect("S0041.html");
 			}
 		} else if ("cancel".equals(action)) {
 			response.sendRedirect("S0041.html");
 		}
 	}
+
 }

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import beans.Sales;
-import beans.loginAccount;
+import beans.LoginAccount;
 import daos.S0010Dao;
 import daos.S0030Dao;
 import daos.S0042Dao;
@@ -16,8 +16,8 @@ public class ErrorService {
 
 	Map<String, String> errors = new HashMap<>();
 
-	public Map<String, String> ValidateLogin(String mail, String pass, String hashed_pass) {
-		if (S0010Service.ValidNull(mail)) {
+	public Map<String, String> validateLogin(String mail, String pass, String hashed_pass) {
+		if (S0010Service.validNull(mail)) {
 			errors.put("mail", "メールアドレスを入力して下さい。");
 		} else if (mail.getBytes(StandardCharsets.UTF_8).length >= 100) {
 			errors.put("mail", "メールアドレスが長すぎます。");
@@ -25,13 +25,13 @@ public class ErrorService {
 			errors.put("mail", "メールアドレスを正しく入力してください。");
 		}
 
-		if (S0010Service.ValidNull(pass)) {
+		if (S0010Service.validNull(pass)) {
 			errors.put("pass", "パスワードが未入力です。");
 		} else if (pass.getBytes(StandardCharsets.UTF_8).length >= 100) {
 			errors.put("pass", "パスワードが長すぎます。");
 		}
 
-		loginAccount account = auth.findByEmail(mail);
+		LoginAccount account = auth.findByEmail(mail);
 		if (account == null && errors.isEmpty()) {
 			errors.put("account", "メールアドレス、パスワードを正しく入力して下さい。");
 			return errors;
@@ -41,47 +41,47 @@ public class ErrorService {
 		return errors;
 	}
 
-	public Map<String, String> ValidateSales(String sale_dateStr, String account_idStr, String category_idStr,
+	public Map<String, String> validateSales(String sale_dateStr, String account_idStr, String category_idStr,
 			String trade_name, String unit_priceStr, String sale_numberStr, String note) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		sdf.setLenient(false);
-		if (S0010Service.ValidNull(sale_dateStr)) {
+		if (S0010Service.validNull(sale_dateStr)) {
 			errors.put("sale_date", "販売日を入力してください。");
-		} else if (!S0010Service.ValidDate(sale_dateStr)) {
+		} else if (!S0010Service.validDate(sale_dateStr)) {
 			errors.put("sale_date", "販売日を正しく入力してください。");
 		}
 
 		S0010Dao s0010dao = new S0010Dao();
-		if (S0010Service.ValidNull(account_idStr)) {
+		if (S0010Service.validNull(account_idStr)) {
 			errors.put("account_id", "担当が未選択です。");
 		} else if (s0010dao.identificationAccount(Integer.valueOf(account_idStr)) == null) {
 			errors.put("account_id", "アカウントテーブルに存在しません。");
 		}
-		if (S0010Service.ValidNull(category_idStr)) {
+		if (S0010Service.validNull(category_idStr)) {
 			errors.put("category_id", "商品カテゴリーが未選択です。");
 		} else if (s0010dao.identificationCategory(Integer.valueOf(category_idStr)) == null) {
 			errors.put("category_id", "商品カテゴリーテーブルに存在しません。");
 		}
 
-		if (S0010Service.ValidNull(trade_name)) {
+		if (S0010Service.validNull(trade_name)) {
 			errors.put("trade_name", "商品名を入力してください。");
 		} else if (trade_name.getBytes(StandardCharsets.UTF_8).length > 100) {
 			errors.put("trade_name", "商品名が長すぎます。");
 		}
 
-		if (S0010Service.ValidNull(unit_priceStr)) {
+		if (S0010Service.validNull(unit_priceStr)) {
 			errors.put("unit_price", "単価を入力してください。");
 		} else if (unit_priceStr.getBytes(StandardCharsets.UTF_8).length >= 10) {
 			errors.put("unit_price", "単価が長すぎます。");
-		} else if (S0010Service.InValidInt(unit_priceStr)) {
+		} else if (S0010Service.inValidInt(unit_priceStr)) {
 			errors.put("unit_price", "単価を正しく入力してください。");
 		}
 
-		if (S0010Service.ValidNull(sale_numberStr)) {
+		if (S0010Service.validNull(sale_numberStr)) {
 			errors.put("sale_number", "個数を入力してください。");
 		} else if (sale_numberStr.getBytes(StandardCharsets.UTF_8).length >= 10) {
 			errors.put("sale_number", "個数が長すぎます。");
-		} else if (S0010Service.InValidInt(sale_numberStr)) {
+		} else if (S0010Service.inValidInt(sale_numberStr)) {
 			errors.put("sale_number", "個数を正しく入力してください。");
 		}
 
@@ -91,17 +91,17 @@ public class ErrorService {
 		return errors;
 	}
 
-	public Map<String, String> ValidateSalesSearch(String firstStr, String lastStr) {
-		if (!S0010Service.ValidNull(firstStr) && !S0010Service.ValidDate(firstStr)) {
+	public Map<String, String> validateSalesSearch(String firstStr, String lastStr) {
+		if (!S0010Service.validNull(firstStr) && !S0010Service.validDate(firstStr)) {
 			errors.put("first", "販売日（検索開始日）を正しく入力して下さい。");
 		}
-		if (!S0010Service.ValidNull(lastStr) && !S0010Service.ValidDate(lastStr)) {
+		if (!S0010Service.validNull(lastStr) && !S0010Service.validDate(lastStr)) {
 			errors.put("last", "販売日（検索終了日）を正しく入力して下さい。");
 		}
 		return errors;
 	}
 
-	public Map<String, String> ValidateNotFoundSales(ArrayList<Sales> sales) {
+	public Map<String, String> validateNotFoundSales(ArrayList<Sales> sales) {
 		Map<String, String> notFound = new HashMap<>();
 		if (sales == null || sales.isEmpty()) {
 			notFound.put("sales_notfound", "ご指定の条件に該当するデータが見つかりませんでした。");
@@ -109,10 +109,10 @@ public class ErrorService {
 		return notFound;
 	}
 
-	public Map<String, String> ValidateAccounts(String name, String mail, String pass, String confirm_pass) {
+	public Map<String, String> validateAccounts(String name, String mail, String pass, String confirm_pass) {
 		S0030Dao s0030dao = new S0030Dao();
 
-		if (S0010Service.ValidNull(name)) {
+		if (S0010Service.validNull(name)) {
 			errors.put("name", "氏名を入力して下さい。");
 		} else if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
 			errors.put("name", "氏名が長すぎます。");
@@ -120,7 +120,7 @@ public class ErrorService {
 			errors.put("name", "このユーザー名は既に使用されています。");
 		}
 
-		if (S0010Service.ValidNull(mail)) {
+		if (S0010Service.validNull(mail)) {
 			errors.put("mail", "メールアドレスを入力して下さい。");
 		} else if (mail.getBytes(StandardCharsets.UTF_8).length > 100) {
 			errors.put("mail", "メールアドレスが長すぎます。");
@@ -130,24 +130,24 @@ public class ErrorService {
 			errors.put("mail", "このメールアドレスは既に使用されています。");
 		}
 
-		if (S0010Service.ValidNull(pass)) {
+		if (S0010Service.validNull(pass)) {
 			errors.put("pass", "パスワードを入力して下さい。");
 		} else if (pass.getBytes(StandardCharsets.UTF_8).length > 30) {
 			errors.put("pass", "パスワードが長すぎます。");
 		}
 
-		if (S0010Service.ValidNull(confirm_pass)) {
+		if (S0010Service.validNull(confirm_pass)) {
 			errors.put("confirm_pass", "パスワード（確認）を入力して下さい。");
 		}
 
-		if (!S0010Service.ValidNull(pass) && !S0010Service.ValidNull(confirm_pass) && !pass.equals(confirm_pass)) {
+		if (!S0010Service.validNull(pass) && !S0010Service.validNull(confirm_pass) && !pass.equals(confirm_pass)) {
 			errors.put("pass", "パスワードとパスワード（確認）の入力内容が異なっています。");
 			errors.put("confirm_pass", "パスワードとパスワード（確認）の入力内容が異なっています。");
 		}
 		return errors;
 	}
 
-	public Map<String, String> ValidateAccountsSearch(String name, String mail) {
+	public Map<String, String> validateAccountsSearch(String name, String mail) {
 		if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
 			errors.put("name", "氏名の指定が長すぎます。");
 		}
@@ -157,10 +157,10 @@ public class ErrorService {
 		return errors;
 	}
 
-	public Map<String, String> ValidateAccountsUpdate(int account_id, String name, String mail, String pass, String confirm_pass) {
+	public Map<String, String> validateAccountsUpdate(int account_id, String name, String mail, String pass, String confirm_pass) {
 		S0042Dao s0042dao = new S0042Dao();
 
-		if (S0010Service.ValidNull(name)) {
+		if (S0010Service.validNull(name)) {
 			errors.put("name", "氏名を入力して下さい。");
 		} else if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
 			errors.put("name", "氏名が長すぎます。");
@@ -168,7 +168,7 @@ public class ErrorService {
 			errors.put("name", "このユーザー名は既に使用されています。");
 		}
 
-		if (S0010Service.ValidNull(mail)) {
+		if (S0010Service.validNull(mail)) {
 			errors.put("mail", "メールアドレスを入力して下さい。");
 		} else if (mail.getBytes(StandardCharsets.UTF_8).length > 100) {
 			errors.put("mail", "メールアドレスが長すぎます。");
@@ -178,17 +178,17 @@ public class ErrorService {
 			errors.put("mail", "このメールアドレスは既に使用されています。");
 		}
 
-		if (S0010Service.ValidNull(pass)) {
+		if (S0010Service.validNull(pass)) {
 			errors.put("pass", "パスワードを入力して下さい。");
 		} else if (pass.getBytes(StandardCharsets.UTF_8).length > 30) {
 			errors.put("pass", "パスワードが長すぎます。");
 		}
 
-		if (S0010Service.ValidNull(confirm_pass)) {
+		if (S0010Service.validNull(confirm_pass)) {
 			errors.put("confirm_pass", "パスワード（確認）を入力して下さい。");
 		}
 
-		if (!S0010Service.ValidNull(pass) && !S0010Service.ValidNull(confirm_pass) && !pass.equals(confirm_pass)) {
+		if (!S0010Service.validNull(pass) && !S0010Service.validNull(confirm_pass) && !pass.equals(confirm_pass)) {
 			errors.put("pass", "パスワードとパスワード（確認）の入力内容が異なっています。");
 			errors.put("confirm_pass", "パスワードとパスワード（確認）の入力内容が異なっています。");
 		}

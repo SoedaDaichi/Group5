@@ -43,8 +43,8 @@ public class S0041Servlet extends HttpServlet {
 		// セッションから検索結果とキーワードを取得
 		String success = (String) session.getAttribute("success");
 		String error = (String) session.getAttribute("error");
-		AccountsSearchForm asform = (AccountsSearchForm) session.getAttribute("asform");
-		System.out.println("検索入力保持: " + asform);
+		AccountsSearchForm asForm = (AccountsSearchForm) session.getAttribute("asForm");
+		System.out.println("検索入力保持: " + asForm);
 		ArrayList<Accounts> accountsList = (ArrayList<Accounts>) session.getAttribute("accountsList");
 		System.out.println("検索結果: " + accountsList);
 
@@ -56,19 +56,19 @@ public class S0041Servlet extends HttpServlet {
 			session.removeAttribute("error");
 		}
 
-		if ((accountsList == null || accountsList.isEmpty()) && asform != null) {
-			S0040Service s0040service = new S0040Service();
-			ArrayList<Accounts> accountsListRe = s0040service.select(asform);
+		if ((accountsList == null || accountsList.isEmpty()) && asForm != null) {
+			S0040Service s0040Service = new S0040Service();
+			ArrayList<Accounts> accountsListRe = s0040Service.select(asForm);
 			request.setAttribute("accountsList", accountsListRe);
-			session.removeAttribute("accountList");
+			session.removeAttribute("accountsList");
 			System.out.println("再検索");
-		} else if (asform != null) {
+		} else if (asForm != null) {
 			request.setAttribute("accountsList", accountsList);
 			session.removeAttribute("accountsList");
 			System.out.println("初回検索");
 		} else {
 			Map<String, String> notFound = new HashMap<>();
-			notFound.put("accounts_notfound", "エラーが発生しました。");
+			notFound.put("accountsNotFound", "エラーが発生しました。");
 			request.setAttribute("notFound", notFound); // 検索画面の上部にエラー文が出る
 			response.sendRedirect("S0040.html");
 			return;
@@ -81,14 +81,14 @@ public class S0041Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		int account_id = Integer.valueOf(request.getParameter("account_id"));
+		int accountId = Integer.valueOf(request.getParameter("accountId"));
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
 
-		S0041Dao s0041dao = new S0041Dao();
-		Accounts accounts = s0041dao.getAccountsByAccount_id(account_id);
+		S0041Dao s0041Dao = new S0041Dao();
+		Accounts accounts = s0041Dao.getAccountsByAccountId(accountId);
 
-		session.setAttribute("account_id", account_id);
+		session.setAttribute("accountId", accountId);
 		session.setAttribute("accounts", accounts);
 
 		if ("edit".equals(action)) {
@@ -97,4 +97,5 @@ public class S0041Servlet extends HttpServlet {
 			response.sendRedirect("S0044.html");
 		}
 	}
+
 }

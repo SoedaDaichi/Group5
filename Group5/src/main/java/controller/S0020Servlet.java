@@ -40,11 +40,10 @@ public class S0020Servlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
 		Map<String, String> notFound = (Map<String, String>) session.getAttribute("notFound");
-		SalesSearchForm ssform = (SalesSearchForm) session.getAttribute("ssform");
+		SalesSearchForm ssForm = (SalesSearchForm) session.getAttribute("ssForm");
 
 		if (errors != null) {
 			request.setAttribute("errors", errors);
@@ -54,14 +53,13 @@ public class S0020Servlet extends HttpServlet {
 			request.setAttribute("notFound", notFound);
 			session.removeAttribute("notFound");
 		}
-		if (ssform != null) {
-			request.setAttribute("ssform", ssform);
-			session.removeAttribute("ssform");
+		if (ssForm != null) {
+			request.setAttribute("ssForm", ssForm);
+			session.removeAttribute("ssForm");
 		}
 
 		S0010Dao ss = new S0010Dao();
 		ArrayList<Accounts> accountList = ss.selectAccount();
-//		System.out.println(accountList.size());
 		ArrayList<Categories> categoryList = ss.selectCategory();
 
 		request.setAttribute("accountList", accountList);
@@ -75,46 +73,31 @@ public class S0020Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 
-		System.out.println("----------売上検索-----------");
 		String firstStr = request.getParameter("first");
-		System.out.print("日付範囲: " + firstStr + "～");
 		String lastStr = request.getParameter("last");
-		System.out.println(lastStr);
-
-		String account_idStr = request.getParameter("account_id");
-		System.out.println("アカウントID: " + account_idStr);
-		String category_idStr = request.getParameter("category_id");
-		System.out.println("カテゴリーID： " + category_idStr);
-		String trade_name = request.getParameter("trade_name");
-		System.out.println("商品名" + trade_name);
+		String accountIdStr = request.getParameter("account_id");
+		String categoryIdStr = request.getParameter("category_id");
+		String tradeName = request.getParameter("trade_name");
 		String note = request.getParameter("note");
-		System.out.println("備考： " + note);
 
 		ErrorService es = new ErrorService();
-		
-		Map<String, String> errors = es.ValidateSalesSearch(firstStr, lastStr);
-		System.out.println("日付エラー: " + errors);
+
+		Map<String, String> errors = es.validateSalesSearch(firstStr, lastStr);
 		if (errors != null && !errors.isEmpty()) {
 			session.setAttribute("errors", errors);
 			response.sendRedirect("S0020.html");
 			return;
 		}
 
-		SalesSearchForm ssform = new SalesSearchForm(firstStr, lastStr, account_idStr, category_idStr,
-				trade_name, note);
-		session.setAttribute("ssform", ssform);
+		SalesSearchForm ssForm = new SalesSearchForm(firstStr, lastStr, accountIdStr, categoryIdStr, tradeName, note);
+		session.setAttribute("ssForm", ssForm);
 
+		S0020Dao s0020Dao = new S0020Dao();
+		ArrayList<Sales> salesList = s0020Dao.select(ssForm);
 
-		S0020Dao s0020dao = new S0020Dao();
-		ArrayList<Sales> salesList = s0020dao.select(ssform);
-		System.out.println("検索結果: " + salesList);
-
-		Map<String, String> notFound = es.ValidateNotFoundSales(salesList);
-		System.out.println("検索結果なし: " + notFound);
-
+		Map<String, String> notFound = es.validateNotFoundSales(salesList);
 		if (notFound != null && !notFound.isEmpty()) {
 			session.setAttribute("notFound", notFound);
 			response.sendRedirect("S0020.html");

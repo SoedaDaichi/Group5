@@ -35,25 +35,23 @@ public class S0042Servlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 
 		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
-		AccountsData accountsdata = (AccountsData) session.getAttribute("accountsdata");
+		AccountsData accountsData = (AccountsData) session.getAttribute("accountsData");
 
 		if (errors != null) {
 			request.setAttribute("errors", errors);
-			request.setAttribute("accountsdata", accountsdata);
+			request.setAttribute("accountsData", accountsData);
 			session.removeAttribute("errors");
-			session.removeAttribute("accountsdata");
+			session.removeAttribute("accountsData");
 		} else {
 			Accounts accounts = (Accounts) session.getAttribute("accounts");
 			request.setAttribute("accounts", accounts);
 		}
-		int account_id = (int) session.getAttribute("account_id");
-		request.setAttribute("account_id", account_id);
+		int accountId = (int) session.getAttribute("accountId");
+		request.setAttribute("accountId", accountId);
 		request.getRequestDispatcher("S0042.jsp").forward(request, response);
-
 	}
 
 	/**
@@ -61,30 +59,28 @@ public class S0042Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doGet(request, response);
 
 		HttpSession session = request.getSession();
 
 		String name = request.getParameter("name");
 		String mail = request.getParameter("mail");
 		String pass = request.getParameter("pass");
-		String confirm_pass = request.getParameter("confirm_pass");
+		String confirmPass = request.getParameter("confirmPass");
 		String authorityStr = request.getParameter("authority");
-		int account_id = (int) session.getAttribute("account_id");
+		int accountId = (int) session.getAttribute("accountId");
 
-		AccountsData accountsdata = new AccountsData(name, mail, pass, confirm_pass, authorityStr);
+		AccountsData accountsData = new AccountsData(name, mail, pass, confirmPass, authorityStr);
 
-		ErrorService es = new ErrorService();
-		Map<String, String> errors = es.ValidateAccountsUpdate(account_id, name, mail, pass, confirm_pass);
+		ErrorService errorService = new ErrorService();
+		Map<String, String> errors = errorService.validateAccountsUpdate(accountId, name, mail, pass, confirmPass);
 		if (errors != null && !errors.isEmpty()) {
-			session.setAttribute("accountsdata", accountsdata);
+			session.setAttribute("accountsData", accountsData);
 			session.setAttribute("errors", errors);
 			response.sendRedirect("S0042.html");
 			return;
 		}
 
-		session.setAttribute("accountsdata", accountsdata);
+		session.setAttribute("accountsData", accountsData);
 		response.sendRedirect("S0043.html");
 	}
 

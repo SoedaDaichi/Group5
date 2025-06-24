@@ -43,17 +43,17 @@ public class S0010Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String success = (String) session.getAttribute("success");
 		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
-		SalesForm Register_salesform = (SalesForm) session.getAttribute("Register_salesform");
-//		System.out.println("絶対呼ばれる: " + Register_salesform);
+		SalesForm registerSalesForm = (SalesForm) session.getAttribute("registerSalesForm");
+		//		System.out.println("絶対呼ばれる: " + Register_salesform);
 
 		if (success != null) {
 			request.setAttribute("success", success);
 			session.removeAttribute("success");
 		} else if (errors != null) {
 			request.setAttribute("errors", errors);
-			request.setAttribute("Register_salesform", Register_salesform);
+			request.setAttribute("registerSalesForm", registerSalesForm);
 			session.removeAttribute("errors");
-			session.removeAttribute("Register_salesform");
+			session.removeAttribute("registerSalesForm");
 		}
 
 		ArrayList<Accounts> accountList = new ArrayList<>();
@@ -78,28 +78,29 @@ public class S0010Servlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 
-		String sale_dateStr = request.getParameter("sale_date");
-		String account_idStr = request.getParameter("account_id");
-		System.out.println(account_idStr);
-		String category_idStr = request.getParameter("category_id");
-		String trade_name = request.getParameter("trade_name");
-		String unit_priceStr = request.getParameter("unit_price");
-		String sale_numberStr = request.getParameter("sale_number");
+		String saleDateStr = request.getParameter("saleDate");
+		String accountIdStr = request.getParameter("accountId");
+		System.out.println(accountIdStr);
+		String categoryIdStr = request.getParameter("categoryId");
+		String tradeName = request.getParameter("tradeName");
+		String unitPriceStr = request.getParameter("unitPrice");
+		String saleNumberStr = request.getParameter("saleNumber");
 		String note = request.getParameter("note");
 
 		ErrorService es = new ErrorService();
-		Map<String, String> errors = es.ValidateSales(sale_dateStr, account_idStr, category_idStr, trade_name,
-				unit_priceStr,
-				sale_numberStr,
+		Map<String, String> errors = es.validateSales(saleDateStr, accountIdStr, categoryIdStr, tradeName,
+				unitPriceStr,
+				saleNumberStr,
 				note);
 		System.out.println(errors);
 
 		if (errors != null && !errors.isEmpty()) {
-			SalesForm Register_salesform = new SalesForm(sale_dateStr, account_idStr, category_idStr, trade_name, unit_priceStr,
-					sale_numberStr, note);
-//			System.out.println("エラー時: " + Register_salesform);
-			session.setAttribute("Register_salesform", Register_salesform);
-//			System.out.println("session保存後" + session.getAttribute("Register_salesform"));
+			SalesForm registerSalesForm = new SalesForm(saleDateStr, accountIdStr, categoryIdStr, tradeName,
+					unitPriceStr,
+					saleNumberStr, note);
+			//			System.out.println("エラー時: " + Register_salesform);
+			session.setAttribute("registerSalesForm", registerSalesForm);
+			//			System.out.println("session保存後" + session.getAttribute("Register_salesform"));
 			session.setAttribute("errors", errors);
 			response.sendRedirect("S0010.html");
 			return;
@@ -107,25 +108,32 @@ public class S0010Servlet extends HttpServlet {
 
 		if (errors == null || errors.isEmpty()) {
 
-			Date sale_date = Date.valueOf(sale_dateStr);
-			int account_id = Integer.valueOf(account_idStr);
-			int category_id = Integer.valueOf(category_idStr);
-			int unit_price = Integer.valueOf(unit_priceStr);
-			int sale_number = Integer.valueOf(sale_numberStr);
+			Date saleDate = Date.valueOf(saleDateStr);
+			int accountId = Integer.valueOf(accountIdStr);
+			int categoryId = Integer.valueOf(categoryIdStr);
+			int unitPrice = Integer.valueOf(unitPriceStr);
+			int saleNumber = Integer.valueOf(saleNumberStr);
 
-			S0010Dao ss = new S0010Dao();
-			Accounts account = ss.identificationAccount(account_id);
-			String name = account.getName();
+			S0010Dao s0010Dao = new S0010Dao();
+			Accounts account = s0010Dao.identificationAccount(accountId);
+			String accountName = account.getName();
 
-			Categories category = ss.identificationCategory(category_id);
-			String category_name = category.getCategory_name();
+			Categories category = s0010Dao.identificationCategory(categoryId);
+			String categoryName = category.getCategoryName();
 
-			SalesData Register_salesdata = new SalesData(sale_date, name, account_id, category_name, category_id, trade_name,
-					unit_price,
-					sale_number, note);
+			SalesData registerSalesData = new SalesData(
+					saleDate,
+					accountName,
+					accountId,
+					categoryName,
+					categoryId,
+					tradeName,
+					unitPrice,
+					saleNumber,
+					note);
 
-			session.setAttribute("Register_salesdata", Register_salesdata);
-			//			request.getRequestDispatcher("S0011.html").forward(request, response);
+			session.setAttribute("registerSalesData", registerSalesData);
+			// request.getRequestDispatcher("S0011.html").forward(request, response);
 			response.sendRedirect("S0011.html");
 		}
 	}

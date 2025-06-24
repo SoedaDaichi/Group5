@@ -8,23 +8,23 @@ import java.sql.ResultSet;
 import java.util.Base64;
 
 import beans.Accounts;
-import beans.loginAccount;
+import beans.LoginAccount;
 import utils.Db;
 
-public class auth {
+public class Auth {
 
-	public static loginAccount findByEmail(String mail) {
-		loginAccount loginAccount = null;
+	public static LoginAccount findByEmail(String mail) {
+		LoginAccount loginAccount = null;
 		String select = "SELECT mail, password, account_id, name, authority FROM accounts WHERE mail = ?";
 		try (Connection conn = Db.open();
 				PreparedStatement ps = conn.prepareStatement(select)) {
 			ps.setString(1, mail);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				loginAccount = new loginAccount();
+				loginAccount = new LoginAccount();
 				loginAccount.setMail(rs.getString("mail"));
 				loginAccount.setPass(rs.getString("password"));
-				loginAccount.setAccount_id(rs.getInt("account_id"));
+				loginAccount.setAccountId(rs.getInt("account_id"));
 				loginAccount.setName(rs.getString("name"));
 				loginAccount.setAuthority(rs.getInt("authority"));
 			}
@@ -33,7 +33,7 @@ public class auth {
 		}
 		return loginAccount;
 	}
-	
+
 	public static String checkManager(Accounts accounts) {
 		if (accounts == null) {
 			return "メールアドレス、またはパスワードが違います。";
@@ -41,21 +41,21 @@ public class auth {
 		return null;
 	}
 
-	public auth() {
+	public Auth() {
 	}
 
-	public static loginAccount login(String mail, String pass) {
-		loginAccount loginAccount = findByEmail(mail);
-			return loginAccount;
+	public static LoginAccount login(String mail, String pass) {
+		LoginAccount loginAccount = findByEmail(mail);
+		return loginAccount;
 	}
 
-	public static boolean passCheck(int account_id, String cPass) {
+	public static boolean passCheck(int accountId, String cPass) {
 		String select = "SELECT password FROM accounts WHERE account_id = ?";
 		String pass = null;
 
 		try (Connection conn = Db.open();
 				PreparedStatement ps = conn.prepareStatement(select)) {
-			ps.setInt(1, account_id);
+			ps.setInt(1, accountId);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				pass = rs.getString("password");
@@ -68,7 +68,7 @@ public class auth {
 		}
 		return true;
 	}
-	
+
 	public static String hashPassword(String password) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");

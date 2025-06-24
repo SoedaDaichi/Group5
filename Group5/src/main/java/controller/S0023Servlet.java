@@ -73,47 +73,49 @@ public class S0023Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-		String sale_dateStr = request.getParameter("sale_date");
-		String account_idStr = request.getParameter("account_id");
-		String category_idStr = request.getParameter("category_id");
-		String trade_name = request.getParameter("trade_name");
-		String unit_priceStr = request.getParameter("unit_price");
-		String sale_numberStr = request.getParameter("sale_number");
+		String saleDateStr = request.getParameter("saleDate");
+		String accountIdStr = request.getParameter("accountId");
+		String categoryIdStr = request.getParameter("categoryId");
+		String tradeName = request.getParameter("tradeName");
+		String unitPriceStr = request.getParameter("unitPrice");
+		String saleNumberStr = request.getParameter("saleNumber");
 		String note = request.getParameter("note");
 
-		ErrorService es = new ErrorService();
+		ErrorService errorService = new ErrorService();
 
-		Map<String, String> errors = es.ValidateSales(sale_dateStr, account_idStr, category_idStr, trade_name,
-				unit_priceStr, sale_numberStr, note);
+		Map<String, String> errors = errorService.validateSales(
+				saleDateStr, accountIdStr, categoryIdStr, tradeName,
+				unitPriceStr, saleNumberStr, note);
 
 		if (errors != null && !errors.isEmpty()) {
-			System.out.println("エラー: " + errors); 
-			SalesForm salesform = new SalesForm(sale_dateStr, account_idStr, category_idStr, trade_name, unit_priceStr,
-					sale_numberStr, note);
-			session.setAttribute("salesform", salesform);
+			System.out.println("エラー: " + errors);
+			SalesForm salesForm = new SalesForm(
+					saleDateStr, accountIdStr, categoryIdStr, tradeName,
+					unitPriceStr, saleNumberStr, note);
+			session.setAttribute("salesForm", salesForm);
 			session.setAttribute("errors", errors);
 			response.sendRedirect("S0023.html");
 			return;
 		}
 
-		Date sale_date = Date.valueOf(request.getParameter("sale_date"));
-		int account_id = Integer.valueOf(request.getParameter("account_id"));
-		int category_id = Integer.valueOf(request.getParameter("category_id"));
-		int unit_price = Integer.valueOf(request.getParameter("unit_price"));
-		int sale_number = Integer.valueOf(request.getParameter("sale_number"));
+		Date saleDate = Date.valueOf(request.getParameter("saleDate"));
+		int accountId = Integer.valueOf(request.getParameter("accountId"));
+		int categoryId = Integer.valueOf(request.getParameter("categoryId"));
+		int unitPrice = Integer.valueOf(request.getParameter("unitPrice"));
+		int saleNumber = Integer.valueOf(request.getParameter("saleNumber"));
 
-		S0010Dao ss = new S0010Dao();
-		Accounts account = ss.identificationAccount(account_id);
+		S0010Dao s0010Dao = new S0010Dao();
+		Accounts account = s0010Dao.identificationAccount(accountId);
 		String name = account.getName();
 
-		Categories category = ss.identificationCategory(category_id);
-		String category_name = category.getCategory_name();
+		Categories category = s0010Dao.identificationCategory(categoryId);
+		String categoryName = category.getCategoryName();
 
-		SalesData salesdata = new SalesData(sale_date, name, account_id, category_name, category_id, trade_name,
-				unit_price,
-				sale_number, note);
+		SalesData salesData = new SalesData(
+				saleDate, name, accountId, categoryName, categoryId, tradeName,
+				unitPrice, saleNumber, note);
 
-		session.setAttribute("salesdata", salesdata);
+		session.setAttribute("salesData", salesData);
 
 		response.sendRedirect("S0024.html");
 	}

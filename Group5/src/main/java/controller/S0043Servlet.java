@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.AccountsData;
 import daos.S0043Dao;
-import services.auth;
+import services.Auth;
 
 /**
  * Servlet implementation class S0043Servlet
@@ -32,53 +32,45 @@ public class S0043Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session = request.getSession();
-		
-		AccountsData accountsdata = (AccountsData) session.getAttribute("accountsdata");
-		int account_id = (int) session.getAttribute("account_id");
-		
-		request.setAttribute("accountsdata", accountsdata);
-		request.setAttribute("account_id", account_id);
-		request.getRequestDispatcher("/S0043.jsp").forward(request, response);
+	        throws ServletException, IOException {
+	    HttpSession session = request.getSession();
+
+	    AccountsData accountsData = (AccountsData) session.getAttribute("accountsData");
+	    int accountId = (int) session.getAttribute("accountId");
+
+	    request.setAttribute("accountsData", accountsData);
+	    request.setAttribute("accountId", accountId);
+	    request.getRequestDispatcher("/S0043.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doGet(request, response);
-		HttpSession session = request.getSession();
-		
-		int account_id = (int) session.getAttribute("account_id");
-		AccountsData accountsdata = (AccountsData) session.getAttribute("accountsdata");
-		String name = accountsdata.getName();
-		String mail = accountsdata.getMail();
-		String pass = accountsdata.getPass();
-		String authority = accountsdata.getAuthority(); 
-		
-		session.removeAttribute("account_id");
-		session.removeAttribute("accountsdata");
-		
-		String hashedPass = auth.hashPassword(pass);
+	        throws ServletException, IOException {
+	    HttpSession session = request.getSession();
 
-		S0043Dao s0043dao = new S0043Dao();
-		boolean success = s0043dao.update(account_id, name, mail, hashedPass, authority);
+	    int accountId = (int) session.getAttribute("accountId");
+	    AccountsData accountsData = (AccountsData) session.getAttribute("accountsData");
+	    String name = accountsData.getName();
+	    String mail = accountsData.getMail();
+	    String pass = accountsData.getPass();
+	    String authority = accountsData.getAuthority();
 
-		if (success) {
-			session.setAttribute("success", "アカウントが更新されました。");
-			//response.sendRedirect("S0042.html");
-			response.sendRedirect("S0041.html");
+	    session.removeAttribute("accountId");
+	    session.removeAttribute("accountsData");
 
-		} else {
-			session.setAttribute("error", "更新に失敗しました");
-			//response.sendRedirect("S0042.html");
-			response.sendRedirect("S0041.html");
-		}
+	    String hashedPass = Auth.hashPassword(pass);
+
+	    S0043Dao s0043Dao = new S0043Dao();
+	    boolean success = s0043Dao.update(accountId, name, mail, hashedPass, authority);
+
+	    if (success) {
+	        session.setAttribute("success", "アカウントが更新されました。");
+	        response.sendRedirect("S0041.html");
+	    } else {
+	        session.setAttribute("error", "更新に失敗しました");
+	        response.sendRedirect("S0041.html");
+	    }
 	}
-
 }

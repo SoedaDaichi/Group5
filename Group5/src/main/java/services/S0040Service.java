@@ -10,26 +10,26 @@ public class S0040Service {
 
 	private S0040Dao s0040dao = new S0040Dao();
 
-	public ArrayList<Accounts> select(AccountsSearchForm asform) {
-		String name = asform.getName();
-		String mail = asform.getMail();
-		int authority_0 = asform.getAuthority_0();
-		int authority_1 = asform.getAuthority_1();
-		int authority_2 = asform.getAuthority_2();
-		int authority_3 = asform.getAuthority_3();
+	public ArrayList<Accounts> select(AccountsSearchForm asForm) {
+		String name = asForm.getName();
+		String mail = asForm.getMail();
+		int authority0 = asForm.getAuthority0();
+		int authority1 = asForm.getAuthority1();
+		int authority2 = asForm.getAuthority2();
+		int authority3 = asForm.getAuthority3();
 
 		ArrayList<Integer> authority = new ArrayList<>();
-		if (authority_0 == 0) {
-			authority.add(authority_0);
+		if (authority0 == 0) {
+			authority.add(authority0);
 		}
-		if (authority_1 == 1) {
-			authority.add(authority_1);
+		if (authority1 == 1) {
+			authority.add(authority1);
 		}
-		if (authority_2 == 2) {
-			authority.add(authority_2);
+		if (authority2 == 2) {
+			authority.add(authority2);
 		}
-		if (authority_3 == 3) {
-			authority.add(authority_3);
+		if (authority3 == 3) {
+			authority.add(authority3);
 		}
 		return s0040dao.select(name, mail, authority);
 	}

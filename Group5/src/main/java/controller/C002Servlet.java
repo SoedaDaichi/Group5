@@ -13,8 +13,8 @@ import daos.C002Dao;
 
 
 /**
- * Servlet implementation class C002Servlet
- */
+* Servlet implementation class C002Servlet
+*/
 @WebServlet("/C002.html")
 public class C002Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -34,11 +34,10 @@ public class C002Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		        C002Dao dao = new C002Dao();
-		        int kotoshi = java.time.Year.now().getValue();
-		        int month = java.time.LocalDate.now().getMonthValue();
+		C002Dao dao = new C002Dao();
+		int kotoshi = java.time.Year.now().getValue();
+		int month = java.time.LocalDate.now().getMonthValue();
 
-		        int monthSales = dao.getMonthSales(kotoshi, month);
 		        int nennkannSales = dao.getNennkannSales(kotoshi);
 		        Map<String, Integer> categorySalesMap = dao.getCategorySales();
 		        
@@ -71,10 +70,23 @@ public class C002Servlet extends HttpServlet {
 		      //  request.setAttribute("CategorySales", CategorySales);
 		        request.setAttribute("categorySalesJson", categorySalesJson);
 
-		        request.getRequestDispatcher("/C002.jsp").forward(request, response);
-		    }
+			if (++count < categorySalesMap.size()) {
+				jsonBuilder.append(",");
+			}
+		}
 
-		
+		jsonBuilder.append("}");
+
+		String categorySalesJson = jsonBuilder.toString();
+
+		request.setAttribute("monthSales", monthSales);
+		request.setAttribute("nennkannSales", nennkannSales);
+		//  request.setAttribute("CategorySales", CategorySales);
+		request.setAttribute("categorySalesJson", categorySalesJson);
+
+		request.getRequestDispatcher("/C002.jsp").forward(request, response);
+	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -86,7 +98,6 @@ public class C002Servlet extends HttpServlet {
 
 }
 
-
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //
 //
@@ -96,5 +107,5 @@ public class C002Servlet extends HttpServlet {
 //ObjectMapper mapper = new ObjectMapper();
 //String categorySalesJson = mapper.writeValueAsString(categorySalesMap);
 //
-//request.setAttribute("categorySalesJson", categorySalesJson);
 
+//request.setAttribute("categorySalesJson", categorySalesJson);

@@ -47,7 +47,7 @@ public class S0021Servlet extends HttpServlet {
 
 		String success = (String) session.getAttribute("success");
 		String error = (String) session.getAttribute("error");
-		SalesSearchForm ssform = (SalesSearchForm) session.getAttribute("ssform");
+		SalesSearchForm ssForm = (SalesSearchForm) session.getAttribute("ssForm");
 		ArrayList<Sales> salesList = (ArrayList<Sales>) session.getAttribute("salesList");
 
 		if (success != null) {
@@ -58,19 +58,19 @@ public class S0021Servlet extends HttpServlet {
 			session.removeAttribute("error");
 		}
 
-		if ((salesList == null || salesList.isEmpty()) && ssform != null) {
-			S0020Dao s0020dao = new S0020Dao();
-			ArrayList<Sales> salesListRe = s0020dao.select(ssform);
+		if ((salesList == null || salesList.isEmpty()) && ssForm != null) {
+			S0020Dao s0020Dao = new S0020Dao();
+			ArrayList<Sales> salesListRe = s0020Dao.select(ssForm);
 			request.setAttribute("salesList", salesListRe);
 			session.removeAttribute("salesList");
-		} else if (ssform != null) {
+		} else if (ssForm != null) {
 			System.out.println("検索結果: " + salesList);
 			request.setAttribute("salesList", salesList);
 			session.removeAttribute("salesList");
 		} else {
 			Map<String, String> notFound = new HashMap<>();
-			notFound.put("sales_notfound", "エラーが発生しました。");
-			request.setAttribute("notFound", notFound); // 検索画面の上部にエラー文が出る
+			notFound.put("salesNotFound", "エラーが発生しました。");
+			request.setAttribute("notFound", notFound);
 			response.sendRedirect("S0020.html");
 			return;
 		}
@@ -84,36 +84,36 @@ public class S0021Servlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
-		int sale_id = Integer.valueOf(request.getParameter("sale_id"));
+		int saleId = Integer.valueOf(request.getParameter("saleId"));
 		HttpSession session = request.getSession();
 
-		S0021Dao s0021dao = new S0021Dao();
-		Sales sale = s0021dao.identificationSales(sale_id);
+		S0021Dao s0021Dao = new S0021Dao();
+		Sales sale = s0021Dao.identificationSales(saleId);
 
-		Date sale_date = (Date) sale.getSale_date();
-		int account_id = sale.getAccount_id();
-		int category_id = sale.getCategory_id();
-		String trade_name = sale.getTrade_name();
-		int unit_price = sale.getUnit_price();
-		int sale_number = sale.getSale_number();
+		Date saleDate = (Date) sale.getSaleDate();
+		int accountId = sale.getAccountId();
+		int categoryId = sale.getCategoryId();
+		String tradeName = sale.getTradeName();
+		int unitPrice = sale.getUnitPrice();
+		int saleNumber = sale.getSaleNumber();
 		String note = sale.getNote();
 
-		//取り出したsalesテーブルのaccount_idとcategory_idを
-		//各テーブルの紐づいたNAMEを取ってくる作業
-		S0010Dao ss = new S0010Dao();
-		Accounts account = ss.identificationAccount(account_id);
+		// 取り出したsalesテーブルのaccountIdとcategoryIdを
+		// 各テーブルの紐づいたnameを取ってくる作業
+		S0010Dao s0010Dao = new S0010Dao();
+		Accounts account = s0010Dao.identificationAccount(accountId);
 		String name = account.getName();
-		Categories category = ss.identificationCategory(category_id);
-		String category_name = category.getCategory_name();
+		Categories category = s0010Dao.identificationCategory(categoryId);
+		String categoryName = category.getCategoryName();
 
-		SalesData salesdata = new SalesData(sale_date, name, account_id, category_name, category_id, trade_name,
-				unit_price,
-				sale_number, note);
+		SalesData salesData = new SalesData(
+				saleDate, name, accountId, categoryName, categoryId, tradeName,
+				unitPrice, saleNumber, note);
 
-		session.setAttribute("sale_id", sale_id);
-		session.setAttribute("salesdata", salesdata);
+		session.setAttribute("saleId", saleId);
+		session.setAttribute("salesData", salesData);
 
 		response.sendRedirect("S0022.html");
-
 	}
+
 }
