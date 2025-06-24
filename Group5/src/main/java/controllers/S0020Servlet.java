@@ -46,7 +46,6 @@ public class S0020Servlet extends HttpServlet {
 
 		SalesDao sd = new SalesDao();
 		ArrayList<Accounts> accountList = sd.selectAccount();
-		//		System.out.println(accountList.size());
 		ArrayList<Categories> categoryList = sd.selectCategory();
 
 		request.setAttribute("accountList", accountList);
@@ -86,4 +85,5 @@ public class S0020Servlet extends HttpServlet {
 		session.setAttribute("ssForm", ssForm);
 		response.sendRedirect("S0021.html");
 	}
+	
 }

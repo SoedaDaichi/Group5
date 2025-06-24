@@ -45,7 +45,7 @@ public class S0023Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ErrorMessageService.processSessionMessages(request); // error文をjspにセット
-		SessionFormService.salesFormSession(request); // error文がセットされている場合、入力情報もセット
+		SessionFormService.sessionSalesForm(request); // error文がセットされている場合、入力情報もセット
 
 		// 上のメソッドでerrorがセットされていない場合（初回）
 		SessionDataService.SalesDataSession(request);
