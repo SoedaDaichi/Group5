@@ -6,11 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import beans.Sales;
 import beans.LoginAccount;
-import daos.S0010Dao;
-import daos.S0030Dao;
-import daos.S0042Dao;
+import beans.Sales;
+import daos.AccountsDao;
+import daos.SalesDao;
 
 public class ErrorService {
 
@@ -31,11 +30,11 @@ public class ErrorService {
 			errors.put("pass", "パスワードが長すぎます。");
 		}
 
-		LoginAccount account = auth.findByEmail(mail);
+		LoginAccount account = Auth.findByEmail(mail);
 		if (account == null && errors.isEmpty()) {
 			errors.put("account", "メールアドレス、パスワードを正しく入力して下さい。");
 			return errors;
-		} else if (account != null && !auth.passCheck(account.getAccount_id(), hashed_pass)) {
+		} else if (account != null && !Auth.passCheck(account.getAccountId(), hashed_pass)) {
 			errors.put("account", "メールアドレス、パスワードを正しく入力して下さい。");
 		}
 		return errors;
@@ -51,15 +50,15 @@ public class ErrorService {
 			errors.put("sale_date", "販売日を正しく入力してください。");
 		}
 
-		S0010Dao s0010dao = new S0010Dao();
+		SalesDao salesDao = new SalesDao();
 		if (S0010Service.validNull(account_idStr)) {
 			errors.put("account_id", "担当が未選択です。");
-		} else if (s0010dao.identificationAccount(Integer.valueOf(account_idStr)) == null) {
+		} else if (salesDao.identificationAccount(Integer.valueOf(account_idStr)) == null) {
 			errors.put("account_id", "アカウントテーブルに存在しません。");
 		}
 		if (S0010Service.validNull(category_idStr)) {
 			errors.put("category_id", "商品カテゴリーが未選択です。");
-		} else if (s0010dao.identificationCategory(Integer.valueOf(category_idStr)) == null) {
+		} else if (salesDao.identificationCategory(Integer.valueOf(category_idStr)) == null) {
 			errors.put("category_id", "商品カテゴリーテーブルに存在しません。");
 		}
 
@@ -110,13 +109,13 @@ public class ErrorService {
 	}
 
 	public Map<String, String> validateAccounts(String name, String mail, String pass, String confirm_pass) {
-		S0030Dao s0030dao = new S0030Dao();
+		AccountsDao accountsDao = new AccountsDao();
 
 		if (S0010Service.validNull(name)) {
 			errors.put("name", "氏名を入力して下さい。");
 		} else if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
 			errors.put("name", "氏名が長すぎます。");
-		} else if (s0030dao.accountNameCheck(name)) {
+		} else if (accountsDao.accountNameCheck(name)) {
 			errors.put("name", "このユーザー名は既に使用されています。");
 		}
 
@@ -126,7 +125,7 @@ public class ErrorService {
 			errors.put("mail", "メールアドレスが長すぎます。");
 		} else if (!mail.matches("^[\\w\\-.]+@[\\w\\-]+\\.[a-zA-Z]{2,}$")) {
 			errors.put("mail", "メールアドレスを正しく入力して下さい。");
-		} else if (s0030dao.accountEmailCheck(mail)) {
+		} else if (accountsDao.accountEmailCheck(mail)) {
 			errors.put("mail", "このメールアドレスは既に使用されています。");
 		}
 
@@ -158,13 +157,13 @@ public class ErrorService {
 	}
 
 	public Map<String, String> validateAccountsUpdate(int account_id, String name, String mail, String pass, String confirm_pass) {
-		S0042Dao s0042dao = new S0042Dao();
+		AccountsDao accountsDao = new AccountsDao();
 
 		if (S0010Service.validNull(name)) {
 			errors.put("name", "氏名を入力して下さい。");
 		} else if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
 			errors.put("name", "氏名が長すぎます。");
-		} else if (s0042dao.accountUpdateNameCheck(name, account_id)) {
+		} else if (accountsDao.accountUpdateNameCheck(name, account_id)) {
 			errors.put("name", "このユーザー名は既に使用されています。");
 		}
 
@@ -174,7 +173,7 @@ public class ErrorService {
 			errors.put("mail", "メールアドレスが長すぎます。");
 		} else if (!mail.matches("^[\\w\\-.]+@[\\w\\-]+\\.[a-zA-Z]{2,}$")) {
 			errors.put("mail", "メールアドレスを正しく入力して下さい。");
-		} else if (s0042dao.accountUpdateEmailCheck(mail, account_id)) {
+		} else if (accountsDao.accountUpdateEmailCheck(mail, account_id)) {
 			errors.put("mail", "このメールアドレスは既に使用されています。");
 		}
 
