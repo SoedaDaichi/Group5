@@ -18,7 +18,7 @@ public class SalesData {
 	private String note;
 	private int priceAll;
 
-	public SalesData(int saleId,LocalDate saleDate, String name, int accountId, String categoryName, int categoryId,
+	public SalesData(int saleId, LocalDate saleDate, String name, int accountId, String categoryName, int categoryId,
 			String tradeName, int unitPrice, int saleNumber, String note, int priceAll) {
 		this.saleId = saleId;
 		this.saleDate = saleDate;
@@ -31,5 +31,18 @@ public class SalesData {
 		this.saleNumber = saleNumber;
 		this.note = note;
 		this.priceAll = priceAll;
+	}
+
+	public SalesData(LocalDate saleDate, String name, int accountId, String categoryName, int categoryId,
+			String tradeName, int unitPrice, int saleNumber, String note) {
+		this.saleDate = saleDate;
+		this.name = name;
+		this.accountId = accountId;
+		this.categoryName = categoryName;
+		this.categoryId = categoryId;
+		this.tradeName = tradeName;
+		this.unitPrice = unitPrice;
+		this.saleNumber = saleNumber;
+		this.note = note;
 	}
 }

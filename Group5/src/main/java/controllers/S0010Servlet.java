@@ -1,7 +1,7 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -108,7 +108,7 @@ public class S0010Servlet extends HttpServlet {
 
 		if (errors == null || errors.isEmpty()) {
 
-			Date saleDate = Date.valueOf(saleDateStr);
+			LocalDate saleDate = LocalDate.parse(saleDateStr);
 			int accountId = Integer.valueOf(accountIdStr);
 			int categoryId = Integer.valueOf(categoryIdStr);
 			int unitPrice = Integer.valueOf(unitPriceStr);

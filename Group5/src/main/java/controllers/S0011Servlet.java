@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -51,17 +50,10 @@ public class S0011Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		SalesData registerSalesData = (SalesData) session.getAttribute("registerSalesData");
 
-		LocalDate saleDate = registerSalesData.getSaleDate();
-		int accountId = registerSalesData.getAccountId();
-		int categoryId = registerSalesData.getCategoryId();
-		String tradeName = registerSalesData.getTradeName();
-		int unitPrice = registerSalesData.getUnitPrice();
-		int saleNumber = registerSalesData.getSaleNumber();
-		String note = registerSalesData.getNote();
 
 		session.removeAttribute("registerSalesData"); // Filter範囲外
 
-		boolean success = salesDao.insert(saleDate, accountId, categoryId, tradeName, unitPrice, saleNumber, note);
+		boolean success = salesDao.insert(registerSalesData);
 
 		if (success) {
 			session.setAttribute("success", "商品が登録されました");
