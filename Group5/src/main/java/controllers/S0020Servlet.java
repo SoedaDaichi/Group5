@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import beans.Categories;
-import beans.Sales;
+import beans.SalesData;
 import beans.SalesSearchForm;
 import daos.SalesDao;
 import services.ErrorService;
@@ -94,7 +94,7 @@ public class S0020Servlet extends HttpServlet {
 		session.setAttribute("ssForm", ssForm);
 
 		SalesDao salesDao = new SalesDao();
-		ArrayList<Sales> salesList = salesDao.select(ssForm);
+		ArrayList<SalesData> salesList = salesDao.selectSearch(ssForm);
 
 		Map<String, String> notFound = es.validateNotFoundSales(salesList);
 		if (notFound != null && !notFound.isEmpty()) {

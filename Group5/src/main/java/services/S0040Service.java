@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import beans.Accounts;
 import beans.AccountsSearchForm;
-import daos.S0040Dao;
+import daos.AccountsDao;
 
 public class S0040Service {
 
-	private S0040Dao s0040dao = new S0040Dao();
+	private AccountsDao accountsDao = new AccountsDao();
 
 	public ArrayList<Accounts> select(AccountsSearchForm asForm) {
 		String name = asForm.getName();
@@ -31,7 +31,7 @@ public class S0040Service {
 		if (authority3 == 3) {
 			authority.add(authority3);
 		}
-		return s0040dao.select(name, mail, authority);
+		return accountsDao.select(name, mail, authority);
 	}
 	
 	public int parseAuthority(String authorityStr) {

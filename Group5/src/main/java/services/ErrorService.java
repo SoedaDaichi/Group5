@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import beans.LoginAccount;
-import beans.Sales;
+import beans.SalesData;
 import daos.AccountsDao;
 import daos.SalesDao;
 
@@ -100,9 +100,9 @@ public class ErrorService {
 		return errors;
 	}
 
-	public Map<String, String> validateNotFoundSales(ArrayList<Sales> sales) {
+	public Map<String, String> validateNotFoundSales(ArrayList<SalesData> salesList) {
 		Map<String, String> notFound = new HashMap<>();
-		if (sales == null || sales.isEmpty()) {
+		if (salesList == null || salesList.isEmpty()) {
 			notFound.put("sales_notfound", "ご指定の条件に該当するデータが見つかりませんでした。");
 		}
 		return notFound;
