@@ -43,7 +43,7 @@ public class S0010Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		SessionFormService.salesRegisterFormSession(request);
+		SessionFormService.sessionSalesRegisterForm(request);
 		SuccessMessageService.processSessionMessages(request);
 		ErrorMessageService.processSessionMessages(request);
 
