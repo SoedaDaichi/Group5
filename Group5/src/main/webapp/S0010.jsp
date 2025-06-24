@@ -61,7 +61,7 @@
 					</div>
 					<div class="col-2  my-3">
 						<select class="form-select form-select-sm"
-							aria-label=".form-select-sm example" name="account_id">
+							aria-label=".form-select-sm example" name="accountId">
 							<option value=""
 								${empty registerSalesForm.accountId ? 'selected' : ''}>選択してください</option>
 							<c:forEach var="account" items="${accountList}">
