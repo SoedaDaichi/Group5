@@ -6,18 +6,18 @@ import lombok.Data;
 public class AccountsSearchForm {
 	private String name;
 	private String mail;
-	private int authority_0;
-	private int authority_1;
-	private int authority_2;
-	private int authority_3;
+	private int authority0;
+	private int authority1;
+	private int authority2;
+	private int authority3;
 
-	public AccountsSearchForm(String name, String mail, int authority_0, int authority_1, int authority_2,
-			int authority_3) {
+	public AccountsSearchForm(String name, String mail, int authority0, int authority1, int authority2,
+			int authority3) {
 		this.name = name;
 		this.mail = mail;
-		this.authority_0 = authority_0;
-		this.authority_1 = authority_1;
-		this.authority_2 = authority_2;
-		this.authority_3 = authority_3;
+		this.authority0 = authority0;
+		this.authority1 = authority1;
+		this.authority2 = authority2;
+		this.authority3 = authority3;
 	}
 }

@@ -6,20 +6,20 @@ import lombok.Data;
 
 @Data
 public class Sales {
-	private int sale_id;
-	private Date sale_date;
-	private int account_id;
-	private int category_id;
-	private String trade_name;
-	private int unit_price;
-	private int sale_number;
+	private int saleId;
+	private Date saleDate;
+	private int accountId;
+	private int categoryId;
+	private String tradeName;
+	private int unitPrice;
+	private int saleNumber;
 	private String note;
-	
+
 	// その他
 	private String name;
-	private String category_name;
-	private int price_all; // unit_price * sale_number
-	
+	private String categoryName;
+	private int priceAll; // unitPrice * saleNumber
+
 	public Sales() {
 	}
 }

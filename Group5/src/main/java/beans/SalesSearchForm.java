@@ -4,20 +4,20 @@ import lombok.Data;
 
 @Data
 public class SalesSearchForm {
-	private String firstStr;
-	private String lastStr;
-	private String account_idStr;
-	private String category_idStr;
-	private String trade_name;
+	private String first;
+	private String last;
+	private String accountId;
+	private String categoryId;
+	private String tradeName;
 	private String note;
 
-	public SalesSearchForm(String firstStr, String lastStr, String account_idStr, String category_idStr,
-			String trade_name, String note) {
-		this.firstStr = firstStr;
-		this.lastStr = lastStr;
-		this.account_idStr = account_idStr;
-		this.category_idStr = category_idStr;
-		this.trade_name = trade_name;
+	public SalesSearchForm(String first, String last, String accountId, String categoryId,
+			String tradeName, String note) {
+		this.first = first;
+		this.last = last;
+		this.accountId = accountId;
+		this.categoryId = categoryId;
+		this.tradeName = tradeName;
 		this.note = note;
 	}
 }
