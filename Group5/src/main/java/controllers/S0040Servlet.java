@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,9 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.Accounts;
 import beans.AccountsSearchForm;
-import services.S0040Service;
 
 /**
  * Servlet implementation class S0040Servlet
@@ -52,19 +49,11 @@ public class S0040Servlet extends HttpServlet {
 		String mail = request.getParameter("mail");
 		System.out.println("メールアドレス： " + mail);
 
-		S0040Service s0040Service = new S0040Service();
+		String[] authorityArray = request.getParameterValues("authority");
 
-		int authority0 = s0040Service.parseAuthority(request.getParameter("authority0"));
-		int authority1 = s0040Service.parseAuthority(request.getParameter("authority1"));
-		int authority2 = s0040Service.parseAuthority(request.getParameter("authority2"));
-		int authority3 = s0040Service.parseAuthority(request.getParameter("authority3"));
-
-		AccountsSearchForm asForm = new AccountsSearchForm(name, mail, authority0, authority1, authority2, authority3);
+		AccountsSearchForm asForm = new AccountsSearchForm(name, mail, authorityArray);
 
 		session.setAttribute("asForm", asForm);
-		ArrayList<Accounts> accountsList = s0040Service.select(asForm);
-
-		session.setAttribute("accountsList", accountsList);
 		response.sendRedirect("S0041.html");
 	}
 }

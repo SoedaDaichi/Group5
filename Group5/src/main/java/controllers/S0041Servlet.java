@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpSession;
 import beans.Accounts;
 import beans.AccountsSearchForm;
 import daos.AccountsDao;
-import services.S0040Service;
 
 /**
  * Servlet implementation class S0041Servlet
@@ -57,8 +56,8 @@ public class S0041Servlet extends HttpServlet {
 		}
 
 		if ((accountsList == null || accountsList.isEmpty()) && asForm != null) {
-			S0040Service s0040Service = new S0040Service();
-			ArrayList<Accounts> accountsListRe = s0040Service.select(asForm);
+			AccountsDao accountsDao = new AccountsDao();
+			ArrayList<Accounts> accountsListRe = accountsDao.selectSearch(asForm);
 			request.setAttribute("accountsList", accountsListRe);
 			session.removeAttribute("accountsList");
 			System.out.println("再検索");
