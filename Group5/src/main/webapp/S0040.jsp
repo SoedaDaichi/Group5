@@ -28,7 +28,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="text" id="name" name="name" class="form-control"
+						<input type="text" name="name" class="form-control"
 							placeholder="氏名">
 					</div>
 				</div>
@@ -41,7 +41,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="email" id="adless" name="mail" class="form-control"
+						<input type="email" name="mail" class="form-control"
 							placeholder="メールアドレス">
 					</div>
 				</div>
@@ -54,23 +54,23 @@
 					<div class="col-2 my-3">
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="checkbox"
-								name="authority_0" id="authority_none" value="0"> <label
-								class="form-check-label" for="authority-none">権限なし</label>
+								name="authority_0" value="0"> <label
+								class="form-check-label" for="authorityNone">権限なし</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="checkbox"
-								name="authority_1" id="authority-sales" value="1"> <label
-								class="form-check-label" for="authority-sales">売上登録</label>
+								name="authority_1" value="1"> <label
+								class="form-check-label" for="authoritySales">売上登録</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="checkbox"
-								name="authority_2" id="authority-accounts" value="2"> <label
-								class="form-check-label" for="authority_accounts">アカウント登録</label>
+								name="authority_2" value="2"> <label
+								class="form-check-label" for="authorityAccounts">アカウント登録</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="checkbox"
-								name="authority_3" id="authority-all" value="3"> <label
-								class="form-check-label" for="authority_all">管理者</label>
+								name="authority_3" value="3"> <label
+								class="form-check-label" for="authorityAll">管理者</label>
 						</div>
 					</div>
 				</div>
