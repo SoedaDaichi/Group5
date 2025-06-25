@@ -58,11 +58,11 @@
 				<c:forEach var="accounts" items="${accountsList}" varStatus="status">
 					<tr>
 						<c:if
-							test="${sessionScope.loginAccount.authority == 1 || sessionScope.loginAccount.authority == 3}">
+							test="${sessionScope.loginAccount.authority == 2 || sessionScope.loginAccount.authority == 3}">
 							<td>
 								<form action="S0041.html" method="post">
 									<input type="hidden" name="accountId"
-										value="${accounts.account_id}">
+										value="${accounts.accountId}">
 									<button type="submit" name="action" value="edit"
 										class="btn btn-sm btn-primary">編集</button>
 									<button type="submit" name="action" value="delete"

@@ -43,6 +43,7 @@ public class S0010Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String success = (String) session.getAttribute("success");
 		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
+//		System.out.println(errors);
 		SalesForm registerSalesForm = (SalesForm) session.getAttribute("registerSalesForm");
 		//		System.out.println("絶対呼ばれる: " + Register_salesform);
 
@@ -51,6 +52,7 @@ public class S0010Servlet extends HttpServlet {
 			session.removeAttribute("success");
 		} else if (errors != null) {
 			request.setAttribute("errors", errors);
+			System.out.println(request.getAttribute("errors"));
 			request.setAttribute("registerSalesForm", registerSalesForm);
 			session.removeAttribute("errors");
 			session.removeAttribute("registerSalesForm");
@@ -93,7 +95,7 @@ public class S0010Servlet extends HttpServlet {
 				unitPriceStr,
 				saleNumberStr,
 				note);
-		System.out.println(errors);
+//		System.out.println(errors);
 
 		if (errors != null && !errors.isEmpty()) {
 			SalesForm registerSalesForm = new SalesForm(saleDateStr, accountIdStr, categoryIdStr, tradeName,
