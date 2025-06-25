@@ -38,7 +38,7 @@ public class S0040Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
-		Map<String, String> notFound = (Map<String, String>) session.getAttribute("accountsNotFound");
+		Map<String, String> notFound = (Map<String, String>) session.getAttribute("notFound");
 		AccountsSearchForm asForm = (AccountsSearchForm) request.getAttribute("asForm");
 		
 		if (errors != null) {
@@ -51,7 +51,7 @@ public class S0040Servlet extends HttpServlet {
 		}
 		if (asForm != null) {
 			request.setAttribute("asForm", asForm);
-			session.removeAttribute("ssForm");
+//			session.removeAttribute("ssForm");
 		}
 		request.getRequestDispatcher("/S0040.jsp").forward(request, response);
 	}

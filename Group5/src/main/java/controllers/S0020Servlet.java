@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import beans.Categories;
-import beans.SalesData;
 import beans.SalesSearchForm;
 import daos.SalesDao;
 import services.ErrorMessageService;
@@ -45,9 +44,7 @@ public class S0020Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		//		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
 		Map<String, String> errors = ErrorMessageService.processSessionMessages(request);
-		if (errors != null) {
-			request.setAttribute("errors", errors); // 必要な属性名でセット
-		}
+		request.setAttribute("errors", errors);
 
 		Map<String, String> notFound = (Map<String, String>) session.getAttribute("notFound");
 		SalesSearchForm ssForm = (SalesSearchForm) session.getAttribute("ssForm");
@@ -58,11 +55,11 @@ public class S0020Servlet extends HttpServlet {
 		//		}
 		if (notFound != null) {
 			request.setAttribute("notFound", notFound);
+			System.out.println("notFound_JSP挿入後: " + notFound);
 			session.removeAttribute("notFound");
 		}
 		if (ssForm != null) {
 			request.setAttribute("ssForm", ssForm);
-			session.removeAttribute("ssForm");
 		}
 
 		SalesDao salesDao = new SalesDao();
@@ -82,16 +79,9 @@ public class S0020Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-		String firstStr = request.getParameter("first");
-		String lastStr = request.getParameter("last");
-		String accountIdStr = request.getParameter("accountId");
-		String categoryIdStr = request.getParameter("categoryId");
-		String tradeName = request.getParameter("tradeName");
-		String note = request.getParameter("note");
-
 		ErrorService es = new ErrorService();
 
-		Map<String, String> errors = es.validateSalesSearch(firstStr, lastStr);
+		Map<String, String> errors = es.validateSalesSearch(request);
 		if (errors != null && !errors.isEmpty()) {
 			@SuppressWarnings("unchecked")
 			Queue<Map<String, String>> errorQueue = (Queue<Map<String, String>>) session.getAttribute("errorQueue");
@@ -104,20 +94,9 @@ public class S0020Servlet extends HttpServlet {
 			return;
 		}
 
-		SalesSearchForm ssForm = new SalesSearchForm(firstStr, lastStr, accountIdStr, categoryIdStr, tradeName, note);
+		SalesSearchForm ssForm = new SalesSearchForm(request);
 		session.setAttribute("ssForm", ssForm);
 
-		SalesDao salesDao = new SalesDao();
-		ArrayList<SalesData> salesList = salesDao.selectSearch(ssForm);
-
-		Map<String, String> notFound = es.validateNotFoundSales(salesList);
-		if (notFound != null && !notFound.isEmpty()) {
-			session.setAttribute("notFound", notFound);
-			response.sendRedirect("S0020.html");
-			return;
-		}
-
-		session.setAttribute("salesList", salesList);
 		response.sendRedirect("S0021.html");
 	}
 }

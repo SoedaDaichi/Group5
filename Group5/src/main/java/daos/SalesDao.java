@@ -264,8 +264,8 @@ public class SalesDao {
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				int accountId = rs.getInt("account_id");
-				int categoryId = rs.getInt("sale_id");
-				new SalesData(
+				int categoryId = rs.getInt("category_id");
+				salesData = new SalesData(
 						saleId,
 						rs.getDate("sale_date").toLocalDate(),
 						sd.identificationAccount(accountId).getName(),
@@ -277,12 +277,11 @@ public class SalesDao {
 						rs.getInt("sale_number"),
 						rs.getString("note"),
 						rs.getInt("price_all"));
-						
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return salesData;
 	}
 
