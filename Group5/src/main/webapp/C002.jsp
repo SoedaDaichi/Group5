@@ -20,23 +20,24 @@
 
 
 		<div class="row py-3">
-			<div class="col-md-6">
-				<div class="card shadow-sm border-0 bg-white">
-					<div class="card-body text-center">
-						<h5 class="card-title text-muted">📊月間総売り上げ</h5>
-						<p class="card-text fs-3 fw-bold text-primary">${monthSales}円</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
+		<div class="col-md-6">
 				<div class="card shadow-sm border-0 bg-white">
 					<div class="card-body text-center">
 						<h5 class="card-title text-muted">📊年間総売り上げ</h5>
-						<p class="card-text fs-3 fw-bold text-success">${nennkannSales}
+						<p class="card-text fs-3 fw-bold text-primary">${nennkannSales}
 							円</p>
 					</div>
 				</div>
 			</div>
+			<div class="col-md-6">
+				<div class="card shadow-sm border-0 bg-white">
+					<div class="card-body text-center">
+						<h5 class="card-title text-muted">📊月間総売り上げ</h5>
+						<p class="card-text fs-3 fw-bold text-success">${monthSales}円</p>
+					</div>
+				</div>
+			</div>
+			
 			<div class="col-md-6">
 				<div class="card shadow-sm border-0 bg-white">
 					<div class="card-body text-center">
