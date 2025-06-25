@@ -11,8 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import daos.C002Dao;
 
-
-
 /**
 * Servlet implementation class C002Servlet
 */
@@ -38,40 +36,46 @@ public class C002Servlet extends HttpServlet {
 		C002Dao dao = new C002Dao();
 		int kotoshi = java.time.Year.now().getValue();
 		int month = java.time.LocalDate.now().getMonthValue();
-		
+
 		int monthSales = dao.getMonthSales(kotoshi, month);
+		int nennkannSales = dao.getNennkannSales(kotoshi);
+		Map<String, Integer> monthCategoryMap = dao.getCategorySalesMonth(kotoshi, month);
+	    Map<String, Integer> yearCategoryMap = dao.getCategorySalesYear(kotoshi);
+		Map<String, Integer> categorySalesMap = dao.getCategorySales();
 
-		        int nennkannSales = dao.getNennkannSales(kotoshi);
-		        Map<String, Integer> categorySalesMap = dao.getCategorySales();
-		        
-//		        ObjectMapper mapper = new ObjectMapper();
-//		        String categorySalesJson = mapper.writeValueAsString(categorySalesMap);
-//		        
-		        StringBuilder jsonBuilder = new StringBuilder();
-		        jsonBuilder.append("{");
+		//		        ObjectMapper mapper = new ObjectMapper();
+		//		        String categorySalesJson = mapper.writeValueAsString(categorySalesMap);
+		
+		String categorySalesMonthJson = mapToJson(monthCategoryMap);
+	    String categorySalesYearJson = mapToJson(yearCategoryMap);
+	    String categorySalesTotalJson = mapToJson(categorySalesMap);
 
-		        int count = 0;
-		        for (Map.Entry<String, Integer> entry : categorySalesMap.entrySet()) {
-		            jsonBuilder.append("\"")
-		                       .append(entry.getKey().replace("\"", "\\\""))
-		                       .append("\":")
-		                       .append(entry.getValue());
+		
+//		StringBuilder jsonBuilder = new StringBuilder();
+//		jsonBuilder.append("{");
+//
+//		int count = 0;
+//		for (Map.Entry<String, Integer> entry : categorySalesMap.entrySet()) {
+//			jsonBuilder.append("\"")
+//					.append(entry.getKey().replace("\"", "\\\""))
+//					.append("\":")
+//					.append(entry.getValue());
+//
+//			if (++count < categorySalesMap.size()) {
+//				jsonBuilder.append(",");
+//			}
+//		}
+//
+//		jsonBuilder.append("}");
+//
+//		String categorySalesJson = jsonBuilder.toString();
 
-		            if (++count < categorySalesMap.size()) {
-		                jsonBuilder.append(",");
-		            }
-		        }
-
-		        jsonBuilder.append("}");
-
-		        String categorySalesJson = jsonBuilder.toString();
-
-		        
-
-		        request.setAttribute("monthSales", monthSales);
-		        request.setAttribute("nennkannSales", nennkannSales);
-		      //  request.setAttribute("CategorySales", CategorySales);
-		        request.setAttribute("categorySalesJson", categorySalesJson);
+		request.setAttribute("monthSales", monthSales);
+		request.setAttribute("nennkannSales", nennkannSales);
+		//  request.setAttribute("CategorySales", CategorySales);
+		request.setAttribute("categorySalesMonthJson", categorySalesMonthJson);
+		request.setAttribute("categorySalesYearJson", categorySalesYearJson);
+		request.setAttribute("categorySalesJson", categorySalesTotalJson);
 
 		request.getRequestDispatcher("/C002.jsp").forward(request, response);
 	}
@@ -84,7 +88,25 @@ public class C002Servlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	private String mapToJson(Map<String, Integer> map) {
+	    StringBuilder jsonBuilder = new StringBuilder();
+	    jsonBuilder.append("{");
 
+	    int count = 0;
+	    for (Map.Entry<String, Integer> entry : map.entrySet()) {
+	        jsonBuilder.append("\"")
+	                   .append(entry.getKey().replace("\"", "\\\""))
+	                   .append("\":")
+	                   .append(entry.getValue());
+
+	        if (++count < map.size()) {
+	            jsonBuilder.append(",");
+	        }
+	    }
+
+	    jsonBuilder.append("}");
+	    return jsonBuilder.toString();
+	}
 }
 
 //import com.fasterxml.jackson.databind.ObjectMapper;
