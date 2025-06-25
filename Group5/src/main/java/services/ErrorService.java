@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import beans.Accounts;
 import beans.LoginAccount;
 import beans.SalesData;
@@ -92,7 +94,10 @@ public class ErrorService {
         return errors;
     }
 
-    public Map<String, String> validateSalesSearch(String firstStr, String lastStr) {
+    public Map<String, String> validateSalesSearch(HttpServletRequest request) {
+    	String firstStr = request.getParameter("first");
+    	String lastStr = request.getParameter("last");
+    	
         if (!S0010Service.validNull(firstStr) && !S0010Service.validDate(firstStr)) {
             errors.put("first", "販売日（検索開始日）を正しく入力して下さい。");
         }
@@ -158,15 +163,20 @@ public class ErrorService {
         return errors;
     }
     
-    public Map<String, String> validateNotFoundAccounts(ArrayList<Accounts> salesList) {
+    public Map<String, String> validateNotFoundAccounts(ArrayList<Accounts> accountsList) {
         Map<String, String> notFound = new HashMap<>();
-        if (salesList == null || salesList.isEmpty()) {
+        if (accountsList == null || accountsList.isEmpty()) {
             notFound.put("accountsNotFound", "ご指定の条件に該当するデータが見つかりませんでした。");
         }
         return notFound;
     }
 
-    public Map<String, String> validateAccountsUpdate(int accountId, String name, String mail, String pass, String confirmPass) {
+    public Map<String, String> validateAccountsUpdate(int accountId, HttpServletRequest request) {
+    	String name = request.getParameter("name");
+    	String mail = request.getParameter("mail");
+    	String pass = request.getParameter("pass");
+    	String confirmPass = request.getParameter("confirmPass");
+    	
         AccountsDao accountsDao = new AccountsDao();
 
         if (S0010Service.validNull(name)) {

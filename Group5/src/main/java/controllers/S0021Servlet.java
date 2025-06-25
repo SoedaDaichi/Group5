@@ -3,7 +3,6 @@ package controllers;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import jakarta.servlet.ServletException;
@@ -15,10 +14,10 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import beans.Categories;
-import beans.Sales;
 import beans.SalesData;
 import beans.SalesSearchForm;
 import daos.SalesDao;
+import services.ErrorService;
 
 /**
  * Servlet implementation class S0021Servlet
@@ -38,7 +37,6 @@ public class S0021Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -46,7 +44,6 @@ public class S0021Servlet extends HttpServlet {
 		String success = (String) session.getAttribute("success");
 		String error = (String) session.getAttribute("error");
 		SalesSearchForm ssForm = (SalesSearchForm) session.getAttribute("ssForm");
-		ArrayList<Sales> salesList = (ArrayList<Sales>) session.getAttribute("salesList");
 
 		if (success != null) {
 			request.setAttribute("success", success);
@@ -55,23 +52,19 @@ public class S0021Servlet extends HttpServlet {
 			request.setAttribute("error", error);
 			session.removeAttribute("error");
 		}
-
-		if ((salesList == null || salesList.isEmpty()) && ssForm != null) {
-			SalesDao salesDao = new SalesDao();
-			ArrayList<SalesData> salesListRe = salesDao.selectSearch(ssForm);
-			request.setAttribute("salesList", salesListRe);
-			session.removeAttribute("salesList");
-		} else if (ssForm != null) {
-			System.out.println("検索結果: " + salesList);
-			request.setAttribute("salesList", salesList);
-			session.removeAttribute("salesList");
-		} else {
-			Map<String, String> notFound = new HashMap<>();
-			notFound.put("salesNotFound", "エラーが発生しました。");
-			request.setAttribute("notFound", notFound);
+		
+		SalesDao salesDao = new SalesDao();
+		ArrayList<SalesData> salesList = salesDao.selectSearch(ssForm);
+		
+		ErrorService es = new ErrorService();
+		Map<String, String> notFound = es.validateNotFoundSales(salesList);
+		if (notFound != null && !notFound.isEmpty()) {
+			session.setAttribute("notFound", notFound);
+			System.out.println("notFoundError" + notFound);
 			response.sendRedirect("S0020.html");
 			return;
 		}
+		request.setAttribute("salesList", salesList);
 		request.getRequestDispatcher("/S0021.jsp").forward(request, response);
 	}
 
@@ -83,18 +76,19 @@ public class S0021Servlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		int saleId = Integer.valueOf(request.getParameter("saleId"));
+//		System.out.println("詳細を見る主キー: " + saleId);
 		HttpSession session = request.getSession();
 
 		SalesDao salesDao = new SalesDao();
-		SalesData sale = salesDao.identificationSalesData(saleId);
+		SalesData saledata = salesDao.identificationSalesData(saleId);
 		
-		LocalDate saleDate = (LocalDate) sale.getSaleDate();
-		int accountId = sale.getAccountId();
-		int categoryId = sale.getCategoryId();
-		String tradeName = sale.getTradeName();
-		int unitPrice = sale.getUnitPrice();
-		int saleNumber = sale.getSaleNumber();
-		String note = sale.getNote();
+		LocalDate saleDate = (LocalDate) saledata.getSaleDate();
+		int accountId = saledata.getAccountId();
+		int categoryId = saledata.getCategoryId();
+		String tradeName = saledata.getTradeName();
+		int unitPrice = saledata.getUnitPrice();
+		int saleNumber = saledata.getSaleNumber();
+		String note = saledata.getNote();
 
 		// 取り出したsalesテーブルのaccountIdとcategoryIdを
 		// 各テーブルの紐づいたnameを取ってくる作業

@@ -58,7 +58,7 @@ public class S0041Servlet extends HttpServlet {
 		ErrorService es = new ErrorService();
 		Map<String, String> notFound = es.validateNotFoundAccounts(accountsList);
 		if (notFound != null && !notFound.isEmpty()) {
-			session.setAttribute("accountsNotFound", notFound);
+			session.setAttribute("notFound", notFound);
 			System.out.println("notFoundError");
 			response.sendRedirect("S0040.html");
 			return;

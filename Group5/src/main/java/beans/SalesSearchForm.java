@@ -1,5 +1,7 @@
 package beans;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.Data;
 
 @Data
@@ -19,5 +21,14 @@ public class SalesSearchForm {
 		this.categoryId = categoryId;
 		this.tradeName = tradeName;
 		this.note = note;
+	}
+	
+	public SalesSearchForm(HttpServletRequest request) {
+		this.first = request.getParameter("first");
+		this.first = request.getParameter("last");
+		this.first = request.getParameter("accountId");
+		this.first = request.getParameter("categoryId");
+		this.first = request.getParameter("tradeName");
+		this.first = request.getParameter("note");
 	}
 }
