@@ -58,7 +58,7 @@
 				<c:forEach var="accounts" items="${accountsList}" varStatus="status">
 					<tr>
 						<c:if
-							test="${sessionScope.loginAccount.authority == 1 || sessionScope.loginAccount.authority == 3}">
+							test="${sessionScope.loginAccount.authority == 2 || sessionScope.loginAccount.authority == 3}">
 							<td>
 								<form action="S0041.html" method="post">
 									<input type="hidden" name="accountId"

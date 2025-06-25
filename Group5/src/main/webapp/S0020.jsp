@@ -37,7 +37,7 @@
 						</div>
 						<div class="col-2">
 							<input type="date" name="first"
-								value="${ssForm.firstStr}" class="form-control">
+								value="${ssForm.first}" class="form-control">
 							<c:choose>
 								<c:when test="${not empty errors.first}">
 									<div class="text-danger small">
@@ -54,7 +54,7 @@
 						</div>
 						<div class="col-2">
 							<input type="date" name="last"
-								value="${ssForm.lastStr}" class="form-control">
+								value="${ssForm.last}" class="form-control">
 							<c:choose>
 								<c:when test="${not empty errors.last}">
 									<div class="text-danger small">
@@ -76,10 +76,10 @@
 							<select class="form-select form-select-sm"
 								aria-label=".form-select-sm example" name="accountId">
 								<option selected value=""
-									${empty ssForm.accountIdStr ? 'selected' : ''}>選択してください</option>
+									${empty ssForm.accountId ? 'selected' : ''}>選択してください</option>
 								<c:forEach var="accounts" items="${accountList}">
 									<option value="${accounts.accountId}"
-										${ssForm.accountIdStr eq accounts.accountId ? 'selected' : ''}>${accounts.name}</option>
+										${ssForm.accountId eq accounts.accountId ? 'selected' : ''}>${accounts.name}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -93,10 +93,10 @@
 							<select class="form-select form-select-sm"
 								aria-label=".form-select-sm example" name="categoryId">
 								<option selected value=""
-									${empty ssForm.categoryIdStr ? 'selected' : ''}>選択してください</option>
+									${empty ssForm.categoryId ? 'selected' : ''}>選択してください</option>
 								<c:forEach var="categories" items="${categoryList}">
 									<option value="${categories.categoryId}"
-										${ssForm.categoryIdStr eq categories.categoryId ? 'selected' : ''}>${categories.categoryName}</option>
+										${ssForm.categoryId eq categories.categoryId ? 'selected' : ''}>${categories.categoryName}</option>
 								</c:forEach>
 							</select>
 						</div>

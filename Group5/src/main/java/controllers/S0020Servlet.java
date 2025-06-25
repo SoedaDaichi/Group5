@@ -84,9 +84,9 @@ public class S0020Servlet extends HttpServlet {
 
 		String firstStr = request.getParameter("first");
 		String lastStr = request.getParameter("last");
-		String accountIdStr = request.getParameter("account_id");
-		String categoryIdStr = request.getParameter("category_id");
-		String tradeName = request.getParameter("trade_name");
+		String accountIdStr = request.getParameter("accountId");
+		String categoryIdStr = request.getParameter("categoryId");
+		String tradeName = request.getParameter("tradeName");
 		String note = request.getParameter("note");
 
 		ErrorService es = new ErrorService();
