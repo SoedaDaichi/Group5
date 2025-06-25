@@ -67,9 +67,11 @@ public class S0043Servlet extends HttpServlet {
 
 	    if (success) {
 	        session.setAttribute("success", "アカウントが更新されました。");
+	        session.removeAttribute("asForm");
 	        response.sendRedirect("S0041.html");
 	    } else {
 	        session.setAttribute("error", "更新に失敗しました");
+	        session.removeAttribute("asForm");
 	        response.sendRedirect("S0041.html");
 	    }
 	}

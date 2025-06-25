@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import beans.Accounts;
 import beans.LoginAccount;
 import beans.SalesData;
 import daos.AccountsDao;
@@ -154,6 +155,14 @@ public class ErrorService {
             errors.put("mail", "メールアドレスの指定が長すぎます。");
         }
         return errors;
+    }
+    
+    public Map<String, String> validateNotFoundAccounts(ArrayList<Accounts> salesList) {
+        Map<String, String> notFound = new HashMap<>();
+        if (salesList == null || salesList.isEmpty()) {
+            notFound.put("accountsNotFound", "ご指定の条件に該当するデータが見つかりませんでした。");
+        }
+        return notFound;
     }
 
     public Map<String, String> validateAccountsUpdate(int accountId, String name, String mail, String pass, String confirmPass) {

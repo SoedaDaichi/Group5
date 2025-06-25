@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import beans.Accounts;
 import beans.AccountsSearchForm;
 import daos.AccountsDao;
+import services.ErrorService;
 
 /**
  * Servlet implementation class S0041Servlet
@@ -34,7 +35,6 @@ public class S0041Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -44,8 +44,6 @@ public class S0041Servlet extends HttpServlet {
 		String error = (String) session.getAttribute("error");
 		AccountsSearchForm asForm = (AccountsSearchForm) session.getAttribute("asForm");
 		System.out.println("検索入力保持: " + asForm);
-		ArrayList<Accounts> accountsList = (ArrayList<Accounts>) session.getAttribute("accountsList");
-		System.out.println("検索結果: " + accountsList);
 
 		if (success != null) {
 			request.setAttribute("success", success);
@@ -55,25 +53,28 @@ public class S0041Servlet extends HttpServlet {
 			session.removeAttribute("error");
 		}
 
-		if ((accountsList == null || accountsList.isEmpty()) && asForm != null) {
-			AccountsDao accountsDao = new AccountsDao();
-			ArrayList<Accounts> accountsListRe = accountsDao.selectSearch(asForm);
-			request.setAttribute("accountsList", accountsListRe);
-			session.removeAttribute("accountsList");
-			System.out.println("再検索");
-		} else if (asForm != null) {
-			request.setAttribute("accountsList", accountsList);
-			session.removeAttribute("accountsList");
-			System.out.println("初回検索");
-		} else {
-			Map<String, String> notFound = new HashMap<>();
-			notFound.put("accountsNotFound", "エラーが発生しました。");
-			request.setAttribute("notFound", notFound); // 検索画面の上部にエラー文が出る
+		AccountsDao ad = new AccountsDao();
+		ArrayList<Accounts> accountsList = ad.selectSearch(asForm);
+		
+		ErrorService es = new ErrorService();
+		Map<String, String> notFound = es.validateNotFoundAccounts(accountsList);
+		if (notFound != null && !notFound.isEmpty()) {
+			session.setAttribute("accountsNotFound", notFound);
 			response.sendRedirect("S0040.html");
 			return;
 		}
 
+
+		if (success == null && error == null) {
+			Map<String, String> unknownError = new HashMap<>();
+			unknownError.put("accountsNotFound", "エラーが発生しました。");
+			response.sendRedirect("S0040.html");
+			return;
+		}
+
+		request.setAttribute("accountsList", accountsList);
 		request.getRequestDispatcher("/S0041.jsp").forward(request, response);
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
