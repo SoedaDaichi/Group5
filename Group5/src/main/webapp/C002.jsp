@@ -42,11 +42,26 @@
 					<div class="card-body text-center">
 						<h5 class="card-title text-muted">📊カテゴリー別売り上げ</h5>
 						
+						<div class="btn-group mb-3" role="group" aria-label="期間選択">
+  <input type="radio" class="btn-check" name="period" id="periodAll" autocomplete="off">
+<label class="btn btn-outline-primary" for="periodAll">全体</label>
+
+<input type="radio" class="btn-check" name="period" id="periodYear" autocomplete="off">
+<label class="btn btn-outline-primary" for="periodYear">年間</label>
+
+<input type="radio" class="btn-check" name="period" id="periodMonth" autocomplete="off" checked>
+<label class="btn btn-outline-primary" for="periodMonth">月間</label>
+  
+</div>
+						
+						
+						
                         <div style="max-width: 600px; height: 400px; margin: 0 auto;">
                         <canvas id="categorySalesChart" style="display: block; margin: 0 auto;"></canvas>
                         </div>
 
 <!--          <p>カテゴリー売上JSON: ${categorySalesJson}</p>-->
+
           
 						</p>
 					</div>
@@ -57,47 +72,79 @@
 
 		<script>
 
-  
-     const categorySalesJsonStr = '${categorySalesJson}';
-     const categorySales = JSON.parse(categorySalesJsonStr);
-        
-  
-  const labels = Object.keys(categorySales);
-  const data = Object.values(categorySales);
+		
+		  const categorySalesMonthJsonStr = '${categorySalesMonthJson}';
+		  const categorySalesYearJsonStr = '${categorySalesYearJson}';
+		  const categorySalesTotalJsonStr = '${categorySalesJson}';
 
-  const ctx = document.getElementById('categorySalesChart').getContext('2d');
-  new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: labels,
-      datasets: [{
-        data: data,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.7)',
-          'rgba(54, 162, 235, 0.7)',
-          'rgba(255, 206, 86, 0.7)',
-          'rgba(75, 192, 192, 0.7)',
-          'rgba(153, 102, 255, 0.7)',
-          'rgba(255, 159, 64, 0.7)'
-        ],
-        borderColor: 'white',
-        borderWidth: 2
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: 'right' },
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              return context.label + ': ' + context.parsed.toLocaleString() + ' 円';
-            }
-          }
-        }
-      }
-    }
-  });
+		  const categorySalesMonth = JSON.parse(categorySalesMonthJsonStr);
+		  const categorySalesYear = JSON.parse(categorySalesYearJsonStr);
+		  const categorySalesTotal = JSON.parse(categorySalesTotalJsonStr);
+
+		  let currentData = categorySalesMonth; // 開いたときは月間
+
+		  const ctx = document.getElementById('categorySalesChart').getContext('2d');
+
+		  function createChart(dataObj) {
+		    const labels = Object.keys(dataObj);
+		    const data = Object.values(dataObj);
+
+		    return new Chart(ctx, {
+		      type: 'pie',
+		      data: {
+		        labels: labels,
+		        datasets: [{
+		          data: data,
+		          backgroundColor: [
+		            'rgba(255, 99, 132, 0.7)',
+		            'rgba(54, 162, 235, 0.7)',
+		            'rgba(255, 206, 86, 0.7)',
+		            'rgba(75, 192, 192, 0.7)',
+		            'rgba(153, 102, 255, 0.7)',
+		            'rgba(255, 159, 64, 0.7)'
+		          ],
+		          borderColor: 'white',
+		          borderWidth: 2
+		        }]
+		      },
+		      options: {
+		        responsive: true,
+		        plugins: {
+		          legend: { position: 'right' },
+		          tooltip: {
+		            callbacks: {
+		              label: function(context) {
+		                return context.label + ': ' + context.parsed.toLocaleString() + ' 円';
+		              }
+		            }
+		          }
+		        }
+		      }
+		    });
+		  }
+
+		  let chart = createChart(currentData);
+
+		  // ボタンで切替
+		  document.querySelectorAll('input[name="period"]').forEach((elem) => {
+		    elem.addEventListener('change', (e) => {
+		      let selectedPeriod = e.target.id;
+		      chart.destroy();  // 古いグラフを破棄
+
+		      if(selectedPeriod === 'periodAll') {
+		        currentData = categorySalesTotal;
+		      } else if(selectedPeriod === 'periodYear') {
+		        currentData = categorySalesYear;
+		      } else if(selectedPeriod === 'periodMonth') {
+		        currentData = categorySalesMonth;
+		      }
+
+		      chart = createChart(currentData);
+		    });
+		  });
+		  		  
+
+		  
 
   
 </script>
