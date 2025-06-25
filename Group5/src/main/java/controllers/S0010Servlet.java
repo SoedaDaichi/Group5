@@ -80,7 +80,6 @@ public class S0010Servlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		
-
 		String saleDateStr = request.getParameter("saleDate");
 		String accountIdStr = request.getParameter("accountId");
 		System.out.println(accountIdStr);
