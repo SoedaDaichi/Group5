@@ -61,9 +61,11 @@ public class S0044Servlet extends HttpServlet {
 
 			if (success) {
 				session.setAttribute("success", "アカウントが削除されました。");
+				session.removeAttribute("asForm");
 				response.sendRedirect("S0041.html");
 			} else {
 				session.setAttribute("error", "削除に失敗しました");
+				session.removeAttribute("asForm");
 				response.sendRedirect("S0041.html");
 			}
 		} else if ("cancel".equals(action)) {
