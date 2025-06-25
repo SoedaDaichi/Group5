@@ -54,9 +54,9 @@ public class C001Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String mail = request.getParameter("mail");
-//		System.out.println(mail);
+		System.out.println(mail);
 		String pass = request.getParameter("pass");
-//		System.out.println(pass);
+		System.out.println(pass);
 		String hashedPass = Auth.hashPassword(pass);
 
 		ErrorService es = new ErrorService();
@@ -71,6 +71,7 @@ public class C001Servlet extends HttpServlet {
 		}
 
 		LoginAccount loginAccount = Auth.login(mail, pass); // ユーザー取得
+		System.out.println("Auth.login終わりのloginAccount" + loginAccount);
 
 		// ログイン成功処理
 		session.setAttribute("loginAccount", loginAccount);

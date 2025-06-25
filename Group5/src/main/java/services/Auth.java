@@ -27,6 +27,7 @@ public class Auth {
 				loginAccount.setAccountId(rs.getInt("account_id"));
 				loginAccount.setName(rs.getString("name"));
 				loginAccount.setAuthority(rs.getInt("authority"));
+				System.out.println("findByEmailのloginAccount: " + loginAccount);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,8 +60,10 @@ public class Auth {
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				pass = rs.getString("password");
+				System.out.println(pass + cPass);
 			}
 			if (!pass.equals(cPass)) {
+				System.out.println("パスワードが違う");
 				return false;
 			}
 		} catch (Exception e) {

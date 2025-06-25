@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import beans.Accounts;
 import beans.AccountsData;
@@ -72,15 +71,16 @@ public class AccountsDao {
 		}
 	}
 
-	public ArrayList<Accounts> selectSearch(AccountsSearchForm asform) {
+	public ArrayList<Accounts> selectSearch(AccountsSearchForm asForm) {
 		ArrayList<Accounts> accountsList = new ArrayList<>();
 		ArrayList<Object> sqlList = new ArrayList<>();
 		ArrayList<String> where = new ArrayList<>();
-		List<Integer> authorityList = new ArrayList<>();
 		StringBuilder select = new StringBuilder("SELECT account_id, name, mail, authority FROM accounts");
 
-		String name = asform.getName();
-		String mail = asform.getMail();
+		String name = asForm.getName();
+		String mail = asForm.getMail();
+		String[] authority = asForm.getAuthority();
+		System.out.println("権限条件選択: " + authority);
 
 		if (name != null && !name.isEmpty()) {
 			// nullでないかつ空文字でない
@@ -92,10 +92,12 @@ public class AccountsDao {
 			sqlList.add(mail);
 		}
 
-		if (!authorityList.isEmpty()) {
+		if (authority != null) {
 			where.add("authority IN (" +
-					String.join(",", Collections.nCopies(authorityList.size(), "?")) + ")");
-			sqlList.addAll(authorityList);
+					String.join(",", Collections.nCopies(authority.length, "?")) + ")");
+			for (String a : authority) {
+				sqlList.add(a);
+			}
 		}
 
 		if (!where.isEmpty()) {

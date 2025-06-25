@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
+import beans.LoginAccount;
 import daos.AccountsDao;
 
 /**
@@ -61,11 +62,15 @@ public class S0044Servlet extends HttpServlet {
 
 			if (success) {
 				session.setAttribute("success", "アカウントが削除されました。");
-				session.removeAttribute("asForm");
+				// 自身のアカウントを削除した場合、ログイン画面へ戻る。
+				LoginAccount loginAccount = (LoginAccount) session.getAttribute("loginAccount");
+				if (accountId == loginAccount.getAccountId()) {
+					response.sendRedirect("C001.html");
+					return;
+				}
 				response.sendRedirect("S0041.html");
 			} else {
 				session.setAttribute("error", "削除に失敗しました");
-				session.removeAttribute("asForm");
 				response.sendRedirect("S0041.html");
 			}
 		} else if ("cancel".equals(action)) {
