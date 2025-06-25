@@ -46,7 +46,7 @@ public class S0040Servlet extends HttpServlet {
 			session.removeAttribute("errors");
 		}
 		if (notFound != null) {
-			request.setAttribute("accountsNotFound", notFound);
+			request.setAttribute("notFound", notFound);
 			session.removeAttribute("notFound");
 		}
 		if (asForm != null) {
@@ -70,7 +70,7 @@ public class S0040Servlet extends HttpServlet {
 		String mail = request.getParameter("mail");
 		System.out.println("メールアドレス： " + mail);
 
-		String[] authorityArray = request.getParameterValues("authority");
+		String[] authority = request.getParameterValues("authority");
 		ErrorService es = new ErrorService();
 		Map<String, String> errors = es.validateAccountsSearch(name, mail);
 		if (errors != null && !errors.isEmpty()) {
@@ -79,7 +79,7 @@ public class S0040Servlet extends HttpServlet {
 			return;
 		}
 
-		AccountsSearchForm asForm = new AccountsSearchForm(name, mail, authorityArray);
+		AccountsSearchForm asForm = new AccountsSearchForm(name, mail, authority);
 		
 
 		session.setAttribute("asForm", asForm);

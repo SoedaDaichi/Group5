@@ -16,7 +16,7 @@
 		<div class="col-9 offset-3">
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント詳細編集</h1>
 			<c:set var="formData"
-				value="${not empty accountsdata ? accountsdata : accounts}" />
+				value="${not empty accountsData ? accountsData : accounts}" />
 			<form id="create-task-form" action="S0042.html" method="post">
 				<input type="hidden" name="accountId" value="${accountId}">
 				<div class="row">

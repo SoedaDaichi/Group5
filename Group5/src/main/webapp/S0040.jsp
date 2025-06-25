@@ -16,7 +16,6 @@
 		<div class="col-9 offset-3">
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント検索条件入力</h1>
 
-
 			<form id="create-task-form" action="S0040.html" method="post">
 				<c:choose>
 					<c:when test="${not empty notFound.accountsNotFound}">
@@ -29,7 +28,6 @@
 							style="visibility: hidden;">&nbsp;</div>
 					</c:otherwise>
 				</c:choose>
-				
 				<div class=row>
 					<div
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
@@ -64,24 +62,24 @@
 					</div>
 					<div class="col-8 my-3">
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="checkbox"
-								name="authority_0" value="0"> <label
-								class="form-check-label" for="authorityNone">権限なし</label>
+							<input class="form-check-input" type="checkbox" name="authority"
+								value="0"> <label class="form-check-label"
+								for="authorityNone">権限なし</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="checkbox"
-								name="authority_1" value="1"> <label
-								class="form-check-label" for="authoritySales">売上登録</label>
+							<input class="form-check-input" type="checkbox" name="authority"
+								value="1"> <label class="form-check-label"
+								for="authoritySales">売上登録</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="checkbox"
-								name="authority_2" value="2"> <label
-								class="form-check-label" for="authorityAccounts">アカウント登録</label>
+							<input class="form-check-input" type="checkbox" name="authority"
+								value="2"> <label class="form-check-label"
+								for="authorityAccounts">アカウント登録</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="checkbox"
-								name="authority_3" value="3"> <label
-								class="form-check-label" for="authorityAll">管理者</label>
+							<input class="form-check-input" type="checkbox" name="authority"
+								value="3"> <label class="form-check-label"
+								for="authorityAll">管理者</label>
 						</div>
 					</div>
 				</div>

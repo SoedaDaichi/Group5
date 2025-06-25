@@ -2,7 +2,6 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import jakarta.servlet.ServletException;
@@ -60,19 +59,13 @@ public class S0041Servlet extends HttpServlet {
 		Map<String, String> notFound = es.validateNotFoundAccounts(accountsList);
 		if (notFound != null && !notFound.isEmpty()) {
 			session.setAttribute("accountsNotFound", notFound);
+			System.out.println("notFoundError");
 			response.sendRedirect("S0040.html");
 			return;
 		}
-
-
-		if (success == null && error == null) {
-			Map<String, String> unknownError = new HashMap<>();
-			unknownError.put("accountsNotFound", "エラーが発生しました。");
-			response.sendRedirect("S0040.html");
-			return;
-		}
-
+		
 		request.setAttribute("accountsList", accountsList);
+		System.out.println(request.getAttribute("accountsList"));
 		request.getRequestDispatcher("/S0041.jsp").forward(request, response);
 
 	}
