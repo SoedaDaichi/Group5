@@ -57,11 +57,10 @@ public class S0043Servlet extends HttpServlet {
 		String mail = accountsData.getMail();
 		String pass = accountsData.getPass();
 		String authority = accountsData.getAuthority();
+		String hashedPass = Auth.hashPassword(pass);
 
 		session.removeAttribute("accountId");
 		session.removeAttribute("accountsData");
-
-		String hashedPass = Auth.hashPassword(pass);
 
 		AccountsDao accountsDao = new AccountsDao();
 		boolean success = accountsDao.update(accountId, name, mail, hashedPass, authority);

@@ -1,5 +1,7 @@
 package beans;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.Data;
 
 @Data
@@ -16,5 +18,15 @@ public class AccountsData {
 		this.pass = pass;
 		this.confirmPass = confirmPass;
 		this.authority = authority;
+	}
+
+	public AccountsData(HttpServletRequest request) {
+		// TODO 自動生成されたコンストラクター・スタブ
+		this.name = request.getParameter("name");
+		this.mail = request.getParameter("mail");
+		this.pass = request.getParameter("pass");
+		this.confirmPass = request.getParameter("confirmPass");
+		this.authority = request.getParameter("authority");
+
 	}
 }

@@ -73,14 +73,14 @@ public class S0041Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		String action = request.getParameter("action");
 
 		int accountId = Integer.valueOf(request.getParameter("accountId"));
-		String action = request.getParameter("action");
-		HttpSession session = request.getSession();
-
 		AccountsDao accountsDao = new AccountsDao();
 		Accounts accounts = accountsDao.getAccountsByAccountId(accountId);
 
+		
 		session.setAttribute("accountId", accountId);
 		session.setAttribute("accounts", accounts);
 

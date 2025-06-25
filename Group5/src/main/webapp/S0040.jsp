@@ -15,19 +15,23 @@
 	<div class="container-fluid">
 		<div class="col-9 offset-3">
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント検索条件入力</h1>
-
-			<form id="create-task-form" action="S0040.html" method="post">
-				<c:choose>
-					<c:when test="${not empty notFound.accountsNotFound}">
-						<div class="alert alert-danger text-center py-1">
-							<c:out value="${notFound.accountsNotFound}" />
-						</div>
-					</c:when>
+		
+			<div class = col-6>
+				<form id="create-task-form" action="S0040.html" method="post">
+					<c:choose>
+						<c:when test="${not empty notFound.accountsNotFound}">
+							<div class="alert alert-danger text-center py-1">
+								<c:out value="${notFound.accountsNotFound}" />
+							</div>
+						</c:when>
 					<c:otherwise>
 						<div class="alert alert-danger text-center py-1"
-							style="visibility: hidden;">&nbsp;</div>
+							style="visibility: hidden;">
+							&nbsp;
+						</div>
 					</c:otherwise>
 				</c:choose>
+			</div>
 				<div class=row>
 					<div
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">

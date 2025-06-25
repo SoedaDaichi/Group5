@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Accounts;
 import beans.AccountsData;
+import services.ErrorMessageService;
 import services.ErrorService;
 
 /**
@@ -41,10 +42,11 @@ public class S0042Servlet extends HttpServlet {
 		AccountsData accountsData = (AccountsData) session.getAttribute("accountsData");
 
 		if (errors != null) {
-			request.setAttribute("errors", errors);
-			request.setAttribute("accountsData", accountsData);
-			session.removeAttribute("errors");
-			session.removeAttribute("accountsData");
+			ErrorMessageService.moveAttribute(session,request, "accountsData", accountsData);
+//			request.setAttribute("errors", errors);
+//			request.setAttribute("accountsData", accountsData);
+//			session.removeAttribute("errors");
+//			session.removeAttribute("accountsData");
 		} else {
 			Accounts accounts = (Accounts) session.getAttribute("accounts");
 			request.setAttribute("accounts", accounts);
@@ -61,18 +63,12 @@ public class S0042Servlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-
-		String name = request.getParameter("name");
-		String mail = request.getParameter("mail");
-		String pass = request.getParameter("pass");
-		String confirmPass = request.getParameter("confirmPass");
-		String authorityStr = request.getParameter("authority");
 		int accountId = (int) session.getAttribute("accountId");
 
-		AccountsData accountsData = new AccountsData(name, mail, pass, confirmPass, authorityStr);
+		AccountsData accountsData = new AccountsData(request);
 
 		ErrorService errorService = new ErrorService();
-		Map<String, String> errors = errorService.validateAccountsUpdate(accountId, name, mail, pass, confirmPass);
+		Map<String, String> errors = errorService.validateAccountsUpdate(accountId,request);
 		if (errors != null && !errors.isEmpty()) {
 			session.setAttribute("accountsData", accountsData);
 			session.setAttribute("errors", errors);
