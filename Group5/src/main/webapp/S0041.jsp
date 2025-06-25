@@ -66,7 +66,7 @@
 									<button type="submit" name="action" value="edit"
 										class="btn btn-sm btn-primary">編集</button>
 									<button type="submit" name="action" value="delete"
-										class="btn btn-sm btn-primary">削除</button>
+										class="btn btn-sm btn-danger">削除</button>
 								</form>
 							</td>
 						</c:if>
