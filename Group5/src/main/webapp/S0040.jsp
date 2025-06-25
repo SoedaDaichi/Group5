@@ -18,7 +18,18 @@
 
 
 			<form id="create-task-form" action="S0040.html" method="post">
-
+				<c:choose>
+					<c:when test="${not empty notFound.accountsNotFound}">
+						<div class="alert alert-danger text-center py-1">
+							<c:out value="${notFound.accountsNotFound}" />
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="alert alert-danger text-center py-1"
+							style="visibility: hidden;">&nbsp;</div>
+					</c:otherwise>
+				</c:choose>
+				
 				<div class=row>
 					<div
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
@@ -51,7 +62,7 @@
 						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
 						<h5 class="custom-control-label">権限</h5>
 					</div>
-					<div class="col-2 my-3">
+					<div class="col-8 my-3">
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="checkbox"
 								name="authority_0" value="0"> <label
