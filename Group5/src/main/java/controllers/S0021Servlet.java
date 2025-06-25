@@ -87,7 +87,7 @@ public class S0021Servlet extends HttpServlet {
 
 		SalesDao salesDao = new SalesDao();
 		SalesData sale = salesDao.identificationSalesData(saleId);
-
+		
 		LocalDate saleDate = (LocalDate) sale.getSaleDate();
 		int accountId = sale.getAccountId();
 		int categoryId = sale.getCategoryId();

@@ -153,12 +153,15 @@ public class SalesDao {
 						SELECT
 						    s.sale_id,
 						    s.sale_date,
+						    a.account_id,
 						    a.name,
+						    c.category_id,
 						    c.category_name,
 						    s.trade_name,
 						    s.unit_price,
 						    s.sale_number,
-						    s.unit_price * s.sale_number AS price_all
+						    s.unit_price * s.sale_number AS price_all,
+						    s.note
 						FROM sales s
 						    INNER JOIN accounts a ON s.account_id = a.account_id
 						    INNER JOIN categories c ON s.category_id = c.category_id
@@ -228,7 +231,7 @@ public class SalesDao {
 			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
 					SalesData salesdata = new SalesData(
-							rs.getInt("saleId"),
+							rs.getInt("sale_id"),
 							rs.getDate("sale_date").toLocalDate(),
 							rs.getString("name"),
 							rs.getInt("account_id"), rs.getString("category_name"),
@@ -274,7 +277,7 @@ public class SalesDao {
 						rs.getInt("sale_number"),
 						rs.getString("note"),
 						rs.getInt("price_all"));
-
+						
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
