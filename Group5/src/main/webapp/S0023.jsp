@@ -48,6 +48,9 @@
 										${ (not empty salesForm ? salesForm.accountIdStr : salesData.accountId) eq account.accountId ? 'selected' : ''}>${account.name}</option>
 								</c:forEach>
 							</select>
+							<c:if test="${not empty errors.accountId}">
+								<div class="text-danger small">${errors.accountId}</div>
+							</c:if>
 						</div>
 					</div>
 					<div class="row my-4">
@@ -63,6 +66,9 @@
 										${ (not empty salesForm ? salesForm.categoryIdStr : salesData.categoryId) eq categories.categoryId ? 'selected' : ''}>${categories.categoryName}</option>
 								</c:forEach>
 							</select>
+							<c:if test="${not empty errors.categoryId}">
+								<div class="text-danger small">${errors.categoryId}</div>
+							</c:if>
 						</div>
 					</div>
 					<div class="row my-4">

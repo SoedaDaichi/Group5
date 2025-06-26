@@ -2,7 +2,6 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
@@ -50,7 +49,6 @@ public class S0010Servlet extends HttpServlet {
 
 		if (success != null) {
 			MessageService.moveAttribute(session, request, "success", success);
-			session.removeAttribute("registerSalesForm");
 		} else if (errors != null) {
 			request.setAttribute("errors", errors);
 		}
@@ -88,12 +86,7 @@ public class S0010Servlet extends HttpServlet {
 		session.setAttribute("registerSalesForm", registerSalesForm);
 
 		if (errors != null && !errors.isEmpty()) {
-			@SuppressWarnings("unchecked")
-			Queue<Map<String, String>> errorQueue = (Queue<Map<String, String>>) session.getAttribute("errorQueue");
-			if (errorQueue == null) {
-				errorQueue = new LinkedList<>();
-			}
-			errorQueue.add(errors);
+			Queue<Map<String, String>> errorQueue = MessageService.errorIntoQueue(request, errors);
 			session.setAttribute("errorQueue", errorQueue);
 			response.sendRedirect("S0010.html");
 			return;

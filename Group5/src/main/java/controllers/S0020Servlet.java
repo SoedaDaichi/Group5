@@ -2,7 +2,6 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
@@ -17,8 +16,8 @@ import daos.SalesDao;
 import form.Accounts;
 import form.Categories;
 import form.SalesSearchForm;
-import services.MessageService;
 import services.ErrorService;
+import services.MessageService;
 
 /**
  * Servlet implementation class S0020Servlet
@@ -44,15 +43,13 @@ public class S0020Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		//		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
 		Map<String, String> errors = MessageService.processSessionMessages(request);
-		request.setAttribute("errors", errors);
 
 		Map<String, String> notFound = (Map<String, String>) session.getAttribute("notFound");
 		SalesSearchForm ssForm = (SalesSearchForm) session.getAttribute("ssForm");
 
-		//		if (errors != null) {
-		//			request.setAttribute("errors", errors);
-		//			session.removeAttribute("errors");
-		//		}
+		if (errors != null) {
+			request.setAttribute("errors", errors);
+		}
 		if (notFound != null) {
 			MessageService.moveAttribute(session, request, "notFound", notFound);
 			System.out.println("notFound_JSP挿入後: " + notFound);
@@ -82,12 +79,7 @@ public class S0020Servlet extends HttpServlet {
 
 		Map<String, String> errors = es.validateSalesSearch(request);
 		if (errors != null && !errors.isEmpty()) {
-			@SuppressWarnings("unchecked")
-			Queue<Map<String, String>> errorQueue = (Queue<Map<String, String>>) session.getAttribute("errorQueue");
-			if (errorQueue == null) {
-				errorQueue = new LinkedList<>();
-			}
-			errorQueue.add(errors);
+			Queue<Map<String, String>> errorQueue = MessageService.errorIntoQueue(request, errors);
 			session.setAttribute("errorQueue", errorQueue);
 			response.sendRedirect("S0020.html");
 			return;

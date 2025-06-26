@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
@@ -14,8 +13,8 @@ import jakarta.servlet.http.HttpSession;
 
 import form.AccountsForm;
 import form.AccountsSearchForm;
-import services.MessageService;
 import services.ErrorService;
+import services.MessageService;
 
 /**
  * Servlet implementation class S0040Servlet
@@ -42,17 +41,14 @@ public class S0040Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		Map<String, String> errors = MessageService.processSessionMessages(request);
-		request.setAttribute("errors", errors);
 		Map<String, String> notFound = (Map<String, String>) session.getAttribute("notFound");
 		AccountsSearchForm asForm = (AccountsSearchForm) request.getAttribute("asForm");
 
 		if (errors != null) {
 			request.setAttribute("errors", errors);
-			session.removeAttribute("errors");
 		}
 		if (notFound != null) {
-			request.setAttribute("notFound", notFound);
-			session.removeAttribute("notFound");
+			MessageService.moveAttribute(session, request, "notFound", notFound);
 		}
 		if (asForm != null) {
 			request.setAttribute("asForm", asForm);
@@ -77,12 +73,7 @@ public class S0040Servlet extends HttpServlet {
 
 		if (errors != null && !errors.isEmpty()) {
 			session.setAttribute("registerAccountsForm", registerAccountsForm);
-			@SuppressWarnings("unchecked")
-			Queue<Map<String, String>> errorQueue = (Queue<Map<String, String>>) session.getAttribute("errorQueue");
-			if (errorQueue == null) {
-				errorQueue = new LinkedList<>();
-			}
-			errorQueue.add(errors);
+			Queue<Map<String, String>> errorQueue = MessageService.errorIntoQueue(request, errors);
 			session.setAttribute("errorQueue", errorQueue);
 			response.sendRedirect("S0040.html");
 			return;
