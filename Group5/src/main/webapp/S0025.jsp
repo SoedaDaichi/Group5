@@ -17,7 +17,7 @@
 				<p class="fs-1 fw-bold mx-5 mt-4">売上詳細削除</p>
 			</div>
 		</div>
-		<form method="post" action="S0025.html" class="d-inline">
+		<form id="taskForm" method="post" action="S0025.html" class="d-inline">
 			<div class="row">
 				<div class="col-9 offset-3">
 					<div class="row my-4">
@@ -113,12 +113,11 @@
 	</div>
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script>
-		document.getElementById("create-task-form").addEventListener(
+		document.getElementById("taskForm").addEventListener(
 				"submit",
 				function(event) {
 					const submitter = event.submitter;
-					if (submitter && submitter.name === "action"
-							&& submitter.value === "delete") {
+					if (submitter.value === "delete") {
 						if (!confirm("本当に削除しますか？")) {
 							event.preventDefault();
 						}
