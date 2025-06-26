@@ -40,7 +40,30 @@ public class S0010Servlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		HttpSession session = request.getSession();
+	
+		String cancel = request.getParameter("cancel");
+		if ("true".equals(cancel)) {
+		    SalesData data = (SalesData) session.getAttribute("registerSalesData");
+
+		    if (data != null) {
+		        SalesForm form = new SalesForm(
+		            data.getSaleDate().toString(),
+		            String.valueOf(data.getAccountId()),
+		            String.valueOf(data.getCategoryId()),
+		            data.getTradeName(),
+		            String.valueOf(data.getUnitPrice()),
+		            String.valueOf(data.getSaleNumber()),
+		            data.getNote()
+		        );
+		        session.setAttribute("registerSalesForm", form);
+		        // メッセージ消す
+		        session.removeAttribute("success");
+		        session.removeAttribute("errors");
+		    }
+		}
+
 		String success = (String) session.getAttribute("success");
 		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
 //		System.out.println(errors);
