@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
@@ -15,8 +14,8 @@ import jakarta.servlet.http.HttpSession;
 import data.AccountsData;
 import form.Accounts;
 import form.AccountsForm;
-import services.MessageService;
 import services.ErrorService;
+import services.MessageService;
 
 /**
  * Servlet implementation class S0042Servlet
@@ -69,18 +68,13 @@ public class S0042Servlet extends HttpServlet {
 		ErrorService errorService = new ErrorService();
 		Map<String, String> errors = errorService.validateAccountsUpdate(accountId, request);
 		if (errors != null && !errors.isEmpty()) {
-			@SuppressWarnings("unchecked")
-			Queue<Map<String, String>> errorQueue = (Queue<Map<String, String>>) session.getAttribute("errorQueue");
-			if (errorQueue == null) {
-				errorQueue = new LinkedList<>();
-			}
-			errorQueue.add(errors);
+			Queue<Map<String, String>> errorQueue = MessageService.errorIntoQueue(request, errors);
 			session.setAttribute("errorQueue", errorQueue);
 			session.setAttribute("accountsForm", accountsForm);
 			response.sendRedirect("S0042.html");
 			return;
 		}
-		
+
 		AccountsData accountsData = new AccountsData(request);
 
 		session.setAttribute("accountsData", accountsData);

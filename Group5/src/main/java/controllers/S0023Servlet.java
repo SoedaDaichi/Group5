@@ -2,7 +2,6 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
@@ -18,8 +17,8 @@ import data.SalesData;
 import form.Accounts;
 import form.Categories;
 import form.SalesForm;
-import services.MessageService;
 import services.ErrorService;
+import services.MessageService;
 
 /**
  * Servlet implementation class S0023Servlet
@@ -45,9 +44,10 @@ public class S0023Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		Map<String, String> errors = MessageService.processSessionMessages(request);
-		request.setAttribute("errors", errors);
 		SalesForm salesForm = (SalesForm) session.getAttribute("salesForm");
-
+		if (errors != null) {
+			request.setAttribute("errors", errors);
+		}
 		if (salesForm != null) {
 			MessageService.moveAttribute(session, request, "salesForm", salesForm);
 		} else {
@@ -71,42 +71,36 @@ public class S0023Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-		
+
 		if ("update".equals(action)) {
-		HttpSession session = request.getSession();
+			HttpSession session = request.getSession();
 
-		ErrorService errorService = new ErrorService();
-		Map<String, String> errors = errorService.validateSales(
-				request);
-		
-		SalesForm salesForm = new SalesForm(request);
-		if (errors != null && !errors.isEmpty()) {
-			System.out.println("エラー: " + errors);
-			@SuppressWarnings("unchecked")
-			Queue<Map<String, String>> errorQueue = (Queue<Map<String, String>>) session.getAttribute("errorQueue");
-			if (errorQueue == null) {
-				errorQueue = new LinkedList<>();
+			ErrorService errorService = new ErrorService();
+			Map<String, String> errors = errorService.validateSales(request);
+
+			SalesForm salesForm = new SalesForm(request);
+			if (errors != null && !errors.isEmpty()) {
+				System.out.println("エラー: " + errors);
+				Queue<Map<String, String>> errorQueue = MessageService.errorIntoQueue(request, errors);
+				session.setAttribute("errorQueue", errorQueue);
+				session.setAttribute("salesForm", salesForm);
+				response.sendRedirect("S0023.html");
+				return;
 			}
-			errorQueue.add(errors);
-			session.setAttribute("errorQueue", errorQueue);
-			session.setAttribute("salesForm", salesForm);
-			response.sendRedirect("S0023.html");
-			return;
-		}
 
-		SalesDao salesDao = new SalesDao();
-		Accounts account = salesDao.identificationAccount(Integer.valueOf(salesForm.getAccountIdStr()));
-		String name = account.getName();
+			SalesDao salesDao = new SalesDao();
+			Accounts account = salesDao.identificationAccount(Integer.valueOf(salesForm.getAccountIdStr()));
+			String name = account.getName();
 
-		Categories category = salesDao.identificationCategory(Integer.valueOf(salesForm.getCategoryIdStr()));
-		String categoryName = category.getCategoryName();
+			Categories category = salesDao.identificationCategory(Integer.valueOf(salesForm.getCategoryIdStr()));
+			String categoryName = category.getCategoryName();
 
-		SalesData salesData = new SalesData(
-				salesForm, name, categoryName);
+			SalesData salesData = new SalesData(
+					salesForm, name, categoryName);
 
-		session.setAttribute("salesData", salesData);
+			session.setAttribute("salesData", salesData);
 
-		response.sendRedirect("S0024.html");
+			response.sendRedirect("S0024.html");
 		} else if ("cancel".equals(action)) {
 			response.sendRedirect("S0022.html");
 		}
