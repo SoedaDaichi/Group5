@@ -15,8 +15,8 @@ import daos.AccountsDao;
 import data.AccountsData;
 import form.Accounts;
 import form.AccountsSearchForm;
-import services.MessageService;
 import services.ErrorService;
+import services.MessageService;
 
 /**
  * Servlet implementation class S0041Servlet
@@ -79,7 +79,7 @@ public class S0041Servlet extends HttpServlet {
 		int accountId = Integer.valueOf(request.getParameter("accountId"));
 		AccountsDao accountsDao = new AccountsDao();
 		AccountsData accountsData = accountsDao.getAccountsByAccountId(accountId);
-
+		System.out.println("選択したアカウント： "+accountsData);
 		
 		session.setAttribute("accountId", accountId);
 		session.setAttribute("accountsData", accountsData);

@@ -65,12 +65,13 @@ public class S0044Servlet extends HttpServlet {
 				// 自身のアカウントを削除した場合、ログイン画面へ戻る。
 				LoginAccount loginAccount = (LoginAccount) session.getAttribute("loginAccount");
 				if (accountId == loginAccount.getAccountId()) {
+					session.setAttribute("error", "アカウントが存在しません。");
 					response.sendRedirect("C001.html");
 					return;
 				}
 				response.sendRedirect("S0041.html");
 			} else {
-				session.setAttribute("error", "削除に失敗しました");
+				session.setAttribute("error", "削除に失敗しました。");
 				response.sendRedirect("S0041.html");
 			}
 		} else if ("cancel".equals(action)) {

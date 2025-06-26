@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import data.AccountsData;
-import form.Accounts;
 import form.AccountsForm;
 import services.ErrorService;
 import services.MessageService;
@@ -40,14 +39,17 @@ public class S0042Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		Map<String, String> errors = MessageService.processSessionMessages(request);
-		AccountsData accountsData = (AccountsData) session.getAttribute("accountsData");
+		AccountsForm accountsForm = (AccountsForm) session.getAttribute("accountsForm");
 
 		if (errors != null) {
 			request.setAttribute("errors", errors);
-			MessageService.moveAttribute(session, request, "accountsData", accountsData);
+		}
+		if (accountsForm != null) {
+			MessageService.moveAttribute(session, request, "accountsForm", accountsForm);
 		} else {
-			Accounts accounts = (Accounts) session.getAttribute("accounts");
-			request.setAttribute("accounts", accounts);
+			AccountsData accountsData = (AccountsData) session.getAttribute("accountsData");
+			System.out.println("受け取ったアカウント: " + accountsData);
+			request.setAttribute("accountsData", accountsData);
 		}
 		int accountId = (int) session.getAttribute("accountId");
 		request.setAttribute("accountId", accountId);

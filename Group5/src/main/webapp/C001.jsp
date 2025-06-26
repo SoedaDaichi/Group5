@@ -23,6 +23,11 @@
 					<c:out value="${errors.account}" />
 				</div>
 			</c:when>
+			<c:when test="${not empty error}">
+				<div class="alert alert-danger text-center py-1">
+					<c:out value="${error}" />
+				</div>
+			</c:when>
 			<c:otherwise>
 				<div class="alert alert-danger text-center
 									py-1"
