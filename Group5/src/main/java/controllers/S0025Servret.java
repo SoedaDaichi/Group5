@@ -50,9 +50,15 @@ public class S0025Servret extends HttpServlet {
 	    session.removeAttribute("salesData");
 	    
 	    SalesDao salesDao = new SalesDao();
-	    salesDao.deleteSales(saleId);
+	    boolean success = salesDao.deleteSales(saleId);
 	    
-	    response.sendRedirect("S0021.html");	    
+	    if (success) {
+			session.setAttribute("success", "売上が削除されました。");
+			response.sendRedirect("S0021.html");
+		} else {
+			session.setAttribute("error", "削除に失敗しました。");
+			response.sendRedirect("S0021.html");
+		}
 	}
 
 }

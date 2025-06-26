@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Queue;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import form.LoginAccount;
 import services.Auth;
 import services.ErrorService;
+import services.MessageService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -33,16 +35,18 @@ public class C001Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(false);
 		if (session != null) {
-			Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
+			String error = (String) session.getAttribute("error");
+			Map<String, String> errors = MessageService.processSessionMessages(request);
+			if (error != null) {
+				MessageService.moveAttribute(session, request, "error", error);
+			}
 			if (errors != null) {
 				request.setAttribute("errors", errors);
-				session.removeAttribute("errors");
 			}
 		}
 		request.getRequestDispatcher("/C001.jsp").forward(request, response);
@@ -65,7 +69,9 @@ public class C001Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		if (errors != null && !errors.isEmpty()) {
-			session.setAttribute("errors", errors);
+			System.out.println("エラー: " + errors);
+			Queue<Map<String, String>> errorQueue = MessageService.errorIntoQueue(request, errors);
+			session.setAttribute("errorQueue", errorQueue);
 			response.sendRedirect("C001.html");
 			return;
 		}

@@ -325,16 +325,19 @@ public class SalesDao {
 		}
 	}
 
-	public void deleteSales(int saleId) {
+	public boolean deleteSales(int saleId) {
 		String deleteSales = "DELETE FROM sales where sale_id = ?";
 
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(deleteSales);) {
 			pstmt.setInt(1, saleId);
-			pstmt.executeUpdate();
+			
+			int rowsAffected = pstmt.executeUpdate();
+			return rowsAffected > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 }

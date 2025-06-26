@@ -4,12 +4,12 @@ import lombok.Data;
 
 @Data
 public class Accounts {
-	private int accountId;
+	private Integer accountId;
 	private String name;
 	private String mail;
 	private String pass;
 	private String confirmPass;
-	private int authority;
+	private Integer authority;
 	
 //	public Accounts(int account_id, String name, String mail, String pass, String confirm_pass, int authority) {
 //		this.account_id = account_id;
