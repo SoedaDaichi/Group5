@@ -45,9 +45,9 @@ public class S0031Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
+		HttpSession session = request.getSession();
 		
 		if ("register".equals(action)) {
-		HttpSession session = request.getSession();
 		AccountsData registerAccountsData = (AccountsData) session.getAttribute("registerAccountsData");
 
 		AccountsDao accountsDao = new AccountsDao();
@@ -55,6 +55,8 @@ public class S0031Servlet extends HttpServlet {
 
 		if (success) {
 			session.setAttribute("success", "アカウントが作成されました。");
+			session.removeAttribute("registerAccountsForm");
+			session.removeAttribute("registerAccountsData");
 			response.sendRedirect("S0030.html");
 		} else {
 			session.setAttribute("error", "登録に失敗しました");

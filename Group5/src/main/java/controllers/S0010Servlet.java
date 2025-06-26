@@ -18,8 +18,8 @@ import data.SalesData;
 import form.Accounts;
 import form.Categories;
 import form.SalesForm;
-import services.MessageService;
 import services.ErrorService;
+import services.MessageService;
 
 /**
  * Servlet implementation class S0010Servlet
@@ -53,9 +53,11 @@ public class S0010Servlet extends HttpServlet {
 			session.removeAttribute("registerSalesForm");
 		} else if (errors != null) {
 			request.setAttribute("errors", errors);
+		}
+		if (registerSalesForm != null) {
 			request.setAttribute("registerSalesForm", registerSalesForm);
 		}
-
+		request.setAttribute("registerSalesForm", registerSalesForm);
 		ArrayList<Accounts> accountList = new ArrayList<>();
 		ArrayList<Categories> categoryList = new ArrayList<>();
 
@@ -83,11 +85,9 @@ public class S0010Servlet extends HttpServlet {
 		//		System.out.println(errors);
 		SalesForm registerSalesForm = new SalesForm(request);
 		System.out.println("入力保持" + registerSalesForm);
+		session.setAttribute("registerSalesForm", registerSalesForm);
 
 		if (errors != null && !errors.isEmpty()) {
-			//			System.out.println("エラー時: " + Register_salesform);
-			session.setAttribute("registerSalesForm", registerSalesForm);
-			//			System.out.println("session保存後" + session.getAttribute("Register_salesform"));
 			@SuppressWarnings("unchecked")
 			Queue<Map<String, String>> errorQueue = (Queue<Map<String, String>>) session.getAttribute("errorQueue");
 			if (errorQueue == null) {
@@ -108,7 +108,6 @@ public class S0010Servlet extends HttpServlet {
 
 		SalesData registerSalesData = new SalesData(registerSalesForm, accountName, categoryName);
 
-		session.setAttribute("registerSalesForm", registerSalesForm);
 		session.setAttribute("registerSalesData", registerSalesData);
 		// request.getRequestDispatcher("S0011.html").forward(request, response);
 		response.sendRedirect("S0011.html");
