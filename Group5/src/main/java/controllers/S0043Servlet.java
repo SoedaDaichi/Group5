@@ -50,34 +50,38 @@ public class S0043Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		String action = request.getParameter("action");
+		if ("update".equals(action)) {
+			int accountId = (int) session.getAttribute("accountId");
+			AccountsData accountsData = (AccountsData) session.getAttribute("accountsData");
+			String name = accountsData.getName();
+			String mail = accountsData.getMail();
+			String pass = accountsData.getPass();
+			String authority = accountsData.getAuthority();
+			String hashedPass = Auth.hashPassword(pass);
 
-		int accountId = (int) session.getAttribute("accountId");
-		AccountsData accountsData = (AccountsData) session.getAttribute("accountsData");
-		String name = accountsData.getName();
-		String mail = accountsData.getMail();
-		String pass = accountsData.getPass();
-		String authority = accountsData.getAuthority();
-		String hashedPass = Auth.hashPassword(pass);
+			session.removeAttribute("accountId");
+			session.removeAttribute("accountsData");
 
-		session.removeAttribute("accountId");
-		session.removeAttribute("accountsData");
+			AccountsDao accountsDao = new AccountsDao();
+			boolean success = accountsDao.update(accountId, name, mail, hashedPass, authority);
 
-		AccountsDao accountsDao = new AccountsDao();
-		boolean success = accountsDao.update(accountId, name, mail, hashedPass, authority);
-
-		if (success) {
-			session.setAttribute("success", "アカウントが更新されました。");
-			// ログインユーザー自身がアカウント編集を行った場合、ログインユーザーの情報を書き換える。
-			LoginAccount loginAccount = (LoginAccount) session.getAttribute("loginAccount");
-			if (accountId == loginAccount.getAccountId()) {
-				LoginAccount newLoginAccount = new LoginAccount(accountId, name, mail, hashedPass,
-						Integer.valueOf(authority));
-				session.setAttribute("loginAccount", newLoginAccount);
+			if (success) {
+				session.setAttribute("success", "アカウントが更新されました。");
+				// ログインユーザー自身がアカウント編集を行った場合、ログインユーザーの情報を書き換える。
+				LoginAccount loginAccount = (LoginAccount) session.getAttribute("loginAccount");
+				if (accountId == loginAccount.getAccountId()) {
+					LoginAccount newLoginAccount = new LoginAccount(accountId, name, mail, hashedPass,
+							Integer.valueOf(authority));
+					session.setAttribute("loginAccount", newLoginAccount);
+				}
+				response.sendRedirect("S0041.html");
+			} else {
+				session.setAttribute("error", "更新に失敗しました");
+				response.sendRedirect("S0041.html");
 			}
-			response.sendRedirect("S0041.html");
-		} else {
-			session.setAttribute("error", "更新に失敗しました");
-			response.sendRedirect("S0041.html");
+		} else if ("cancel".equals(action)) {
+			response.sendRedirect("S0042.html");
 		}
 	}
 }

@@ -116,9 +116,8 @@
 				</div>
 				<div class="row my-2">
 					<div class="col-2 offset-2 my-3">
-						<button type="submit" class="btn btn-primary">✓更新</button>
-						<button type="button" class="btn btn-outline-secondary"
-							onclick="location.href='S0041.html'">キャンセル</button>
+						<button type="submit" name = "action" value = "update" class="btn btn-primary">✓更新</button>
+						<button type="button" name = "action" value = "cancel" class="btn btn-outline-secondary">キャンセル</button>
 					</div>
 				</div>
 			</form>

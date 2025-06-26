@@ -48,15 +48,19 @@ public class S0031Servlet extends HttpServlet {
 		AccountsData registerAccountsData = (AccountsData) session.getAttribute("registerAccountsData");
 
 		AccountsDao accountsDao = new AccountsDao();
-		boolean success = accountsDao.insert(registerAccountsData);
+		String action = request.getParameter("action");
+		if ("delete".equals(action)) {
+			boolean success = accountsDao.insert(registerAccountsData);
 
-		if (success) {
-			session.setAttribute("success", "アカウントが作成されました。");
-			response.sendRedirect("S0030.html");
-		} else {
-			session.setAttribute("error", "登録に失敗しました");
+			if (success) {
+				session.setAttribute("success", "アカウントが作成されました。");
+				response.sendRedirect("S0030.html");
+			} else {
+				session.setAttribute("error", "登録に失敗しました");
+				response.sendRedirect("S0030.html");
+			}
+		} else if ("cancel".equals(action)) {
 			response.sendRedirect("S0030.html");
 		}
 	}
-
 }

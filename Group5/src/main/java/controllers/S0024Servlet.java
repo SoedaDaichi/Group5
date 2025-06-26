@@ -65,7 +65,7 @@ public class S0024Servlet extends HttpServlet {
 				response.sendRedirect("S0021.html");
 			}
 		} else if ("cancel".equals(action)) {
-			response.sendRedirect("S0021.html");
+			response.sendRedirect("S0023.html");
 		}
 	}
 }

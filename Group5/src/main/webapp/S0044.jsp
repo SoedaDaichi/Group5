@@ -16,8 +16,7 @@
 		<div class="col-9 offset-3">
 			<h1 class="fs-1 fw-bold mx-5 mt-4">アカウント詳細削除確認</h1>
 
-			<form id="create-task-form" action="S0044.html" method="post"
-				onsubmit="return confirm('本当に削除しますか？');">
+			<form id="create-task-form" action="S0044.html" method="post">
 				<input type="hidden" name="accountId" value="${accountId}" />
 
 				<div class="row">
@@ -112,11 +111,9 @@
 				<div class="row my-2">
 					<div class="col-2 offset-2 my-3">
 						<!-- OKボタン（削除） -->
-						<button type="submit" name="action" value="delete"
-							class="btn btn-danger">×OK</button>
+						<button type="submit" name="action" value="delete" class="btn btn-danger">×OK</button>
 						<!-- キャンセルボタン（一覧画面に戻る） -->
-						<button type="submit" type="submit" name="action" value="cancel"
-							class="btn btn-outline-secondary">キャンセル</botton>
+						<button type="submit" name="action" value="cancel" class="btn btn-outline-secondary">キャンセル</botton>
 					</div>
 				</div>	
 			</form>
@@ -125,5 +122,15 @@
 	</div>
 	</div>
 	<script src="js/bootstrap.bundle.min.js"></script>
+	<script>
+	document.getElementById("create-task-form").addEventListener("submit", function(event) {
+		const submitter = event.submitter;
+		if (submitter && submitter.name === "action" && submitter.value === "delete") {
+			if (!confirm("本当に削除しますか？")) {
+				event.preventDefault();
+			}
+		}
+	});
+</script>
 </body>
 </html>
