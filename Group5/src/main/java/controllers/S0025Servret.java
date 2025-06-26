@@ -18,22 +18,23 @@ import daos.SalesDao;
 @WebServlet("/S0025.html")
 public class S0025Servret extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public S0025Servret() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public S0025Servret() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		SalesData salesData = (SalesData) session.getAttribute("salesData");
-		
+
 		request.setAttribute("salesData", salesData);
 		session.removeAttribute("salesData");
 		request.getRequestDispatcher("/S0025.jsp").forward(request, response);
@@ -42,17 +43,21 @@ public class S0025Servret extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		
-		int saleId = (int) session.getAttribute("saleId");
-		System.out.println("削除"+saleId);
-	    session.removeAttribute("saleId");
-	    
-	    SalesDao salesDao = new SalesDao();
-	    salesDao.deleteSales(saleId);
-	    
-	    response.sendRedirect("S0021.html");	    
-	}
+		String action = request.getParameter("action");
+		if ("delete".equals(action)) {
+			int saleId = (int) session.getAttribute("saleId");
+			System.out.println("削除" + saleId);
+			session.removeAttribute("saleId");
 
+			SalesDao salesDao = new SalesDao();
+			salesDao.deleteSales(saleId);
+
+			response.sendRedirect("S0021.html");
+		} else if ("cancel".equals(action)) {
+			response.sendRedirect("S0022.html");
+		}
+	}
 }
