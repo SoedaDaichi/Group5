@@ -18,7 +18,7 @@ import data.SalesData;
 import form.Accounts;
 import form.Categories;
 import form.SalesForm;
-import services.ErrorMessageService;
+import services.MessageService;
 import services.ErrorService;
 
 /**
@@ -44,12 +44,12 @@ public class S0023Servlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		Map<String, String> errors = ErrorMessageService.processSessionMessages(request);
+		Map<String, String> errors = MessageService.processSessionMessages(request);
 		request.setAttribute("errors", errors);
 		SalesForm salesForm = (SalesForm) session.getAttribute("salesForm");
 
 		if (salesForm != null) {
-			ErrorMessageService.moveAttribute(session, request, "salesForm", salesForm);
+			MessageService.moveAttribute(session, request, "salesForm", salesForm);
 		} else {
 			SalesData salesData = (SalesData) session.getAttribute("salesData");
 			request.setAttribute("salesData", salesData);
@@ -76,12 +76,10 @@ public class S0023Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		ErrorService errorService = new ErrorService();
-
 		Map<String, String> errors = errorService.validateSales(
 				request);
 		
-		SalesForm salesForm = new SalesForm(
-				request);
+		SalesForm salesForm = new SalesForm(request);
 		if (errors != null && !errors.isEmpty()) {
 			System.out.println("エラー: " + errors);
 			@SuppressWarnings("unchecked")

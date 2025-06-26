@@ -6,7 +6,7 @@ import java.util.Queue;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class ErrorMessageService {
+public class MessageService {
 	public static Map<String, String> processSessionMessages(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		return processMessage(session, "errorQueue");

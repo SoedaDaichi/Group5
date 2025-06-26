@@ -1,5 +1,7 @@
 package form;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.Data;
 
 @Data
@@ -14,7 +16,9 @@ public class AccountsSearchForm {
 		this.authority = authority;
 	}
 
-	public String[] getAuthority() {
-		return authority;
+	public AccountsSearchForm(HttpServletRequest request) {
+		this.name = request.getParameter("name");
+		this.mail = request.getParameter("mail");
+		this.authority = request.getParameterValues("authority");
 	}
 }

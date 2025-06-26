@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import daos.AccountsDao;
-import form.AccountsData;
+import data.AccountsData;
 import form.LoginAccount;
 import services.Auth;
 
@@ -49,14 +49,17 @@ public class S0043Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String action = request.getParameter("action");
+		
+		if ("update".equals(action)) {
 		HttpSession session = request.getSession();
 
-		int accountId = (int) session.getAttribute("accountId");
+		Integer accountId = (Integer) session.getAttribute("accountId");
 		AccountsData accountsData = (AccountsData) session.getAttribute("accountsData");
 		String name = accountsData.getName();
 		String mail = accountsData.getMail();
 		String pass = accountsData.getPass();
-		String authority = accountsData.getAuthority();
+		Integer authority = accountsData.getAuthority();
 		String hashedPass = Auth.hashPassword(pass);
 
 		session.removeAttribute("accountId");
@@ -78,6 +81,9 @@ public class S0043Servlet extends HttpServlet {
 		} else {
 			session.setAttribute("error", "更新に失敗しました");
 			response.sendRedirect("S0041.html");
+		}
+		} else if ("cancel".equals(action)) {
+			response.sendRedirect("S0042.html");
 		}
 	}
 }

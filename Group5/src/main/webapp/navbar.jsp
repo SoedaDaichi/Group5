@@ -13,6 +13,7 @@
 			<ul class="navbar-nav align-items-center gap-2 ps-5">
 				<li class="nav-item"><a class="nav-link" href="C002.html">ダッシュボード</a>
 				</li>
+				<!-- 売上管理 -->
 				<li class="nav-item dropdown">
 					<button class="btn dropdown-toggle nav-link ps-5" type="button"
 						id="salesDropdown" data-bs-toggle="dropdown" aria-expanded="false">売上管理</button>
@@ -21,19 +22,22 @@
 						<c:if
 							test="${sessionScope.loginAccount.authority == 1 || sessionScope.loginAccount.authority == 3}">
 							<li>
-								<form action="S0010.html" method="get">
+								<form action="NavbarServlet" method="post">
+									<input type="hidden" name="action" value="salesRegister">
 									<button type="submit" class="dropdown-item">売上登録</button>
 								</form>
 							</li>
 							<li><hr class="dropdown-divider"></li>
 						</c:if>
 						<li>
-							<form action="S0020.html" method="get">
+							<form action="NavbarServlet" method="post">
+								<input type="hidden" name="action" value="salesSearch">
 								<button type="submit" class="dropdown-item">売上検索</button>
 							</form>
 						</li>
 					</ul>
 				</li>
+				<!-- アカウント管理 -->
 				<li class="nav-item dropdown">
 					<button class="btn dropdown-toggle nav-link ps-5" type="button"
 						id="accountDropdown" data-bs-toggle="dropdown"
@@ -43,14 +47,16 @@
 						<c:if
 							test="${sessionScope.loginAccount.authority == 2 || sessionScope.loginAccount.authority == 3}">
 							<li>
-								<form action="S0030.html" method="get">
+								<form action="NavbarServlet" method="post">
+									<input type="hidden" name="action" value="accountsRegister">
 									<button type="submit" class="dropdown-item">アカウント登録</button>
 								</form>
 							</li>
 							<li><hr class="dropdown-divider"></li>
 						</c:if>
 						<li>
-							<form action="S0040.html" method="get">
+							<form action="NavbarServlet" method="post">
+								<input type="hidden" name="action" value="accountsSearch">
 								<button type="submit" class="dropdown-item">アカウント検索</button>
 							</form>
 						</li>
@@ -62,20 +68,16 @@
 					<button class="btn dropdown-toggle nav-link ps-5" type="button"
 						id="logoutDropdown" data-bs-toggle="dropdown"
 						aria-expanded="false">
-						<c:out value="${sessionScope.loginAccount
-						.name}" />
+						<c:out value="${sessionScope.loginAccount.name}" />
 					</button>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="logoutDropdown">
-
 						<form action="Logout.html" method="post"
 							onsubmit="return confirm('ログアウトしますか？');">
 							<button type="submit" class="dropdown-item">ログアウト</button>
 						</form>
+					</ul>
 				</li>
-
-				</li>
-			</ul>
 			</ul>
 		</div>
 	</div>

@@ -18,7 +18,7 @@ import data.SalesData;
 import form.Accounts;
 import form.Categories;
 import form.SalesForm;
-import services.ErrorMessageService;
+import services.MessageService;
 import services.ErrorService;
 
 /**
@@ -43,14 +43,13 @@ public class S0010Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String success = (String) session.getAttribute("success");
-		Map<String, String> errors = ErrorMessageService.processSessionMessages(request);
+		Map<String, String> errors = MessageService.processSessionMessages(request);
 		//				System.out.println(errors);
 		SalesForm registerSalesForm = (SalesForm) session.getAttribute("registerSalesForm");
 		//		System.out.println("絶対呼ばれる: " + Register_salesform);
 
 		if (success != null) {
-			request.setAttribute("success", success);
-			session.removeAttribute("success");
+			MessageService.moveAttribute(session, request, "success", success);
 			session.removeAttribute("registerSalesForm");
 		} else if (errors != null) {
 			request.setAttribute("errors", errors);
@@ -106,9 +105,9 @@ public class S0010Servlet extends HttpServlet {
 
 		Categories category = s0010Dao.identificationCategory(Integer.valueOf(registerSalesForm.getCategoryIdStr()));
 		String categoryName = category.getCategoryName();
-		
+
 		SalesData registerSalesData = new SalesData(registerSalesForm, accountName, categoryName);
-		
+
 		session.setAttribute("registerSalesForm", registerSalesForm);
 		session.setAttribute("registerSalesData", registerSalesData);
 		// request.getRequestDispatcher("S0011.html").forward(request, response);

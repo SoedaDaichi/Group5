@@ -12,8 +12,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import daos.AccountsDao;
+import data.AccountsData;
 import form.Accounts;
 import form.AccountsSearchForm;
+import services.MessageService;
 import services.ErrorService;
 
 /**
@@ -45,11 +47,9 @@ public class S0041Servlet extends HttpServlet {
 		System.out.println("検索入力保持: " + asForm);
 
 		if (success != null) {
-			request.setAttribute("success", success);
-			session.removeAttribute("success");
+			MessageService.moveAttribute(session, request, "success", success);
 		} else if (error != null) {
-			request.setAttribute("error", error);
-			session.removeAttribute("error");
+			MessageService.moveAttribute(session, request, "error", error);
 		}
 
 		AccountsDao ad = new AccountsDao();
@@ -78,11 +78,11 @@ public class S0041Servlet extends HttpServlet {
 
 		int accountId = Integer.valueOf(request.getParameter("accountId"));
 		AccountsDao accountsDao = new AccountsDao();
-		Accounts accounts = accountsDao.getAccountsByAccountId(accountId);
+		AccountsData accountsData = accountsDao.getAccountsByAccountId(accountId);
 
 		
 		session.setAttribute("accountId", accountId);
-		session.setAttribute("accounts", accounts);
+		session.setAttribute("accountsData", accountsData);
 
 		if ("edit".equals(action)) {
 			response.sendRedirect("S0042.html");

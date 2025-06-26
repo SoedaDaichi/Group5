@@ -122,7 +122,15 @@ public class ErrorService {
         return notFound;
     }
 
-    public Map<String, String> validateAccounts(String name, String mail, String pass, String confirmPass) {
+    public Map<String, String> validateAccounts(HttpServletRequest request) {
+		String name = request.getParameter("name");
+		System.out.println("アカウント名： " + name);
+		String mail = request.getParameter("mail");
+		System.out.println("メールアドレス： " + mail);
+		String pass = request.getParameter("pass");
+		String confirmPass = request.getParameter("confirmPass");
+		String authority = request.getParameter("authority");
+		System.out.println("権限： " + authority);
         AccountsDao accountsDao = new AccountsDao();
 
         if (S0010Service.validNull(name)) {
@@ -160,7 +168,12 @@ public class ErrorService {
         return errors;
     }
 
-    public Map<String, String> validateAccountsSearch(String name, String mail) {
+    public Map<String, String> validateAccountsSearch(HttpServletRequest request) {
+		String name = request.getParameter("name");
+		System.out.println("アカウント名： " + name);
+		String mail = request.getParameter("mail");
+		System.out.println("メールアドレス： " + mail);
+    	
         if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
             errors.put("name", "氏名の指定が長すぎます。");
         }

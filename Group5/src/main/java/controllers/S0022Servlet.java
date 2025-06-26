@@ -34,7 +34,7 @@ public class S0022Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		SalesData salesData = (SalesData) session.getAttribute("salesData");
 		
-		session.setAttribute("salesData", salesData);
+		request.setAttribute("salesData", salesData);
 		request.getRequestDispatcher("S0022.jsp").forward(request, response);
 	}
 

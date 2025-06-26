@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import daos.AccountsDao;
-import form.Accounts;
+import data.AccountsData;
 import form.LoginAccount;
 
 /**
@@ -35,10 +35,10 @@ public class S0044Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-		Accounts accounts = (Accounts) session.getAttribute("accounts");
+		AccountsData accountsData = (AccountsData) session.getAttribute("accountsData");
 		int accountId = (int) session.getAttribute("accountId");
 
-		request.setAttribute("accounts", accounts);
+		request.setAttribute("accountsData", accountsData);
 		request.setAttribute("accountId", accountId);
 		// session.removeAttribute("accounts");
 		request.getRequestDispatcher("/S0044.jsp").forward(request, response);
@@ -55,7 +55,7 @@ public class S0044Servlet extends HttpServlet {
 			int accountId = (int) session.getAttribute("accountId");
 
 			session.removeAttribute("accountId");
-			session.removeAttribute("accounts");
+			session.removeAttribute("accountsData");
 
 			AccountsDao accountsDao = new AccountsDao();
 			boolean success = accountsDao.deleteAccount(accountId);

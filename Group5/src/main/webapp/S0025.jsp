@@ -80,7 +80,7 @@
 							onsubmit="return confirm('本当に削除しますか？');">
 							<button type="submit" class="btn btn-danger">×OK</button>
 						</form>
-						<a href="S0021.html" class="btn btn-outline-secondary">キャンセル</a>
+						<a href="S0022.html" class="btn btn-outline-secondary">キャンセル</a>
 					</div>
 				</div>
 			</div>

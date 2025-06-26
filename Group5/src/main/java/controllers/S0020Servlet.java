@@ -17,7 +17,7 @@ import daos.SalesDao;
 import form.Accounts;
 import form.Categories;
 import form.SalesSearchForm;
-import services.ErrorMessageService;
+import services.MessageService;
 import services.ErrorService;
 
 /**
@@ -43,7 +43,7 @@ public class S0020Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		//		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
-		Map<String, String> errors = ErrorMessageService.processSessionMessages(request);
+		Map<String, String> errors = MessageService.processSessionMessages(request);
 		request.setAttribute("errors", errors);
 
 		Map<String, String> notFound = (Map<String, String>) session.getAttribute("notFound");
@@ -54,9 +54,8 @@ public class S0020Servlet extends HttpServlet {
 		//			session.removeAttribute("errors");
 		//		}
 		if (notFound != null) {
-			request.setAttribute("notFound", notFound);
+			MessageService.moveAttribute(session, request, "notFound", notFound);
 			System.out.println("notFound_JSP挿入後: " + notFound);
-			session.removeAttribute("notFound");
 		}
 		if (ssForm != null) {
 			request.setAttribute("ssForm", ssForm);

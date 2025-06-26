@@ -1,7 +1,9 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,7 +12,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import form.AccountsForm;
 import form.AccountsSearchForm;
+import services.MessageService;
 import services.ErrorService;
 
 /**
@@ -36,11 +40,12 @@ public class S0040Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		
-		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors");
+
+		Map<String, String> errors = MessageService.processSessionMessages(request);
+		request.setAttribute("errors", errors);
 		Map<String, String> notFound = (Map<String, String>) session.getAttribute("notFound");
 		AccountsSearchForm asForm = (AccountsSearchForm) request.getAttribute("asForm");
-		
+
 		if (errors != null) {
 			request.setAttribute("errors", errors);
 			session.removeAttribute("errors");
@@ -51,7 +56,7 @@ public class S0040Servlet extends HttpServlet {
 		}
 		if (asForm != null) {
 			request.setAttribute("asForm", asForm);
-//			session.removeAttribute("ssForm");
+			//			session.removeAttribute("ssForm");
 		}
 		request.getRequestDispatcher("/S0040.jsp").forward(request, response);
 	}
@@ -65,23 +70,25 @@ public class S0040Servlet extends HttpServlet {
 
 		System.out.println("----------アカウント検索-----------");
 
-		String name = request.getParameter("name");
-		System.out.println("アカウント名： " + name);
-		String mail = request.getParameter("mail");
-		System.out.println("メールアドレス： " + mail);
-
-		String[] authority = request.getParameterValues("authority");
 		ErrorService es = new ErrorService();
-		Map<String, String> errors = es.validateAccountsSearch(name, mail);
+		Map<String, String> errors = es.validateAccountsSearch(request);
+
+		AccountsForm registerAccountsForm = new AccountsForm(request);
+
 		if (errors != null && !errors.isEmpty()) {
-			session.setAttribute("errors", errors);
+			session.setAttribute("registerAccountsForm", registerAccountsForm);
+			@SuppressWarnings("unchecked")
+			Queue<Map<String, String>> errorQueue = (Queue<Map<String, String>>) session.getAttribute("errorQueue");
+			if (errorQueue == null) {
+				errorQueue = new LinkedList<>();
+			}
+			errorQueue.add(errors);
+			session.setAttribute("errorQueue", errorQueue);
 			response.sendRedirect("S0040.html");
 			return;
 		}
 
-		AccountsSearchForm asForm = new AccountsSearchForm(name, mail, authority);
-		
-
+		AccountsSearchForm asForm = new AccountsSearchForm(request);
 		session.setAttribute("asForm", asForm);
 		response.sendRedirect("S0041.html");
 	}

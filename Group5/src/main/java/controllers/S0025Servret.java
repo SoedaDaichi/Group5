@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import daos.SalesDao;
-import form.SalesForm;
+import data.SalesData;
 
 /**
  * Servlet implementation class S0025Servret
@@ -32,10 +32,9 @@ public class S0025Servret extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		SalesForm salesData = (SalesForm) session.getAttribute("salesData");
+		SalesData salesData = (SalesData) session.getAttribute("salesData");
 		
 		request.setAttribute("salesData", salesData);
-		session.removeAttribute("salesData");
 		request.getRequestDispatcher("/S0025.jsp").forward(request, response);
 	}
 
@@ -48,6 +47,7 @@ public class S0025Servret extends HttpServlet {
 		int saleId = (int) session.getAttribute("saleId");
 		System.out.println("削除"+saleId);
 	    session.removeAttribute("saleId");
+	    session.removeAttribute("salesData");
 	    
 	    SalesDao salesDao = new SalesDao();
 	    salesDao.deleteSales(saleId);

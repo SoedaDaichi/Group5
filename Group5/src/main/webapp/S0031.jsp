@@ -115,8 +115,8 @@
 
 				<div class="row my-2">
 					<div class="col-2 offset-2 my-3">
-						<button type="submit" class="btn btn-primary">OK</button>
-						<a href="S0030.jsp" class="btn btn-outline-secondary">キャンセル</a>
+						<button type="submit" name="action" value="register" class="btn btn-primary">OK</button>
+						<button type="submit" name="action" value="cancel" class="btn btn-outline-secondary">キャンセル</a>
 					</div>
 				</div>
 			</form>

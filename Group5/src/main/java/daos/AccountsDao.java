@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import data.AccountsData;
 import form.Accounts;
-import form.AccountsData;
 import form.AccountsSearchForm;
 import services.Auth;
 import utils.Db;
@@ -51,7 +51,7 @@ public class AccountsDao {
 		String name = accountsData.getName();
 		String mail = accountsData.getMail();
 		String pass = accountsData.getPass();
-		String authorityStr = accountsData.getAuthority();
+		String authorityStr = accountsData.getAuthorityStr();
 		String hashedPass = Auth.hashPassword(pass);
 
 		System.out.println("insert called with: " + name + ", " + mail);
@@ -130,28 +130,29 @@ public class AccountsDao {
 		return accountsList;
 	}
 
-	public Accounts getAccountsByAccountId(int accountId) {
+	public AccountsData getAccountsByAccountId(int accountId) {
 		String sql = "SELECT account_id, name,  mail, password, authority FROM accounts WHERE account_id = ?";
-		Accounts accounts = null;
+		AccountsData accountsData = null;
 		try (
 				Connection conn = Db.open();
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setInt(1, accountId);
 			ResultSet rs = pstmt.executeQuery();
 
-			accounts = new Accounts();
 			if (rs.next()) {
-				accounts.setAccountId(rs.getInt("account_id"));
-				accounts.setName(rs.getString("name"));
-				accounts.setMail(rs.getString("mail"));
-				accounts.setPass(rs.getString("password"));
-				accounts.setAuthority(rs.getInt("authority"));
+			accountsData = new AccountsData(
+				rs.getInt("account_id"),
+				rs.getString("name"),
+				rs.getString("mail"),
+				rs.getString("password"),
+				rs.getInt("authority")
+				);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return accounts;
+		return accountsData;
 	}
 
 	public boolean accountUpdateNameCheck(String name, int accountId) {
@@ -190,7 +191,7 @@ public class AccountsDao {
 		return false;
 	}
 
-	public boolean update(int accountId, String name, String mail, String hashedPass, String authority) {
+	public boolean update(Integer accountId, String name, String mail, String hashedPass, Integer authority) {
 		String sql = "UPDATE accounts SET name=?, mail=?, password=?, authority=? WHERE account_id=?";
 
 		try (
@@ -200,7 +201,7 @@ public class AccountsDao {
 			pstmt.setString(1, name);
 			pstmt.setString(2, mail);
 			pstmt.setString(3, hashedPass);
-			pstmt.setInt(4, Integer.parseInt(authority));
+			pstmt.setInt(4, authority);
 			pstmt.setInt(5, accountId);
 
 			int rowsAffected = pstmt.executeUpdate();

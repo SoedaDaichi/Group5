@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import daos.AccountsDao;
-import form.AccountsData;
+import data.AccountsData;
 
 /**
  * Servlet implementation class S0031Servlet
@@ -44,6 +44,9 @@ public class S0031Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String action = request.getParameter("action");
+		
+		if ("register".equals(action)) {
 		HttpSession session = request.getSession();
 		AccountsData registerAccountsData = (AccountsData) session.getAttribute("registerAccountsData");
 
@@ -55,6 +58,9 @@ public class S0031Servlet extends HttpServlet {
 			response.sendRedirect("S0030.html");
 		} else {
 			session.setAttribute("error", "登録に失敗しました");
+			response.sendRedirect("S0030.html");
+		}
+		} else if ("cancel".equals(action)) {
 			response.sendRedirect("S0030.html");
 		}
 	}
