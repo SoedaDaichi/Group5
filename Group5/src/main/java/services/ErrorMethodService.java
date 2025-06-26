@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class S0010Service {
+public class ErrorMethodService {
 	public static boolean validDate(String dateStr) {
 		dateStr = dateStr.trim();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

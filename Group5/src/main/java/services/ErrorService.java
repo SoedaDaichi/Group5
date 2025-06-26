@@ -19,7 +19,7 @@ public class ErrorService {
     Map<String, String> errors = new HashMap<>();
 
     public Map<String, String> validateLogin(String mail, String pass, String hashedPass) {
-        if (S0010Service.validNull(mail)) {
+        if (ErrorMethodService.validNull(mail)) {
             errors.put("mail", "メールアドレスを入力して下さい。");
         } else if (mail.getBytes(StandardCharsets.UTF_8).length >= 100) {
             errors.put("mail", "メールアドレスが長すぎます。");
@@ -27,7 +27,7 @@ public class ErrorService {
             errors.put("mail", "メールアドレスを正しく入力してください。");
         }
 
-        if (S0010Service.validNull(pass)) {
+        if (ErrorMethodService.validNull(pass)) {
             errors.put("pass", "パスワードが未入力です。");
         } else if (pass.getBytes(StandardCharsets.UTF_8).length >= 100) {
             errors.put("pass", "パスワードが長すぎます。");
@@ -55,43 +55,43 @@ public class ErrorService {
 		
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setLenient(false);
-        if (S0010Service.validNull(saleDateStr)) {
+        if (ErrorMethodService.validNull(saleDateStr)) {
             errors.put("saleDate", "販売日を入力してください。");
-        } else if (!S0010Service.validDate(saleDateStr)) {
+        } else if (!ErrorMethodService.validDate(saleDateStr)) {
             errors.put("saleDate", "販売日を正しく入力してください。");
         }
 
         SalesDao salesDao = new SalesDao();
-        if (S0010Service.validNull(accountIdStr)) {
+        if (ErrorMethodService.validNull(accountIdStr)) {
             errors.put("accountId", "担当が未選択です。");
         } else if (salesDao.identificationAccount(Integer.valueOf(accountIdStr)) == null) {
             errors.put("accountId", "アカウントテーブルに存在しません。");
         }
-        if (S0010Service.validNull(categoryIdStr)) {
+        if (ErrorMethodService.validNull(categoryIdStr)) {
             errors.put("categoryId", "商品カテゴリーが未選択です。");
         } else if (salesDao.identificationCategory(Integer.valueOf(categoryIdStr)) == null) {
             errors.put("categoryId", "商品カテゴリーテーブルに存在しません。");
         }
 
-        if (S0010Service.validNull(tradeName)) {
+        if (ErrorMethodService.validNull(tradeName)) {
             errors.put("tradeName", "商品名を入力してください。");
         } else if (tradeName.getBytes(StandardCharsets.UTF_8).length > 100) {
             errors.put("tradeName", "商品名が長すぎます。");
         }
 
-        if (S0010Service.validNull(unitPriceStr)) {
+        if (ErrorMethodService.validNull(unitPriceStr)) {
             errors.put("unitPrice", "単価を入力してください。");
         } else if (unitPriceStr.getBytes(StandardCharsets.UTF_8).length >= 10) {
             errors.put("unitPrice", "単価が長すぎます。");
-        } else if (S0010Service.inValidInt(unitPriceStr)) {
+        } else if (ErrorMethodService.inValidInt(unitPriceStr)) {
             errors.put("unitPrice", "単価を正しく入力してください。");
         }
 
-        if (S0010Service.validNull(saleNumberStr)) {
+        if (ErrorMethodService.validNull(saleNumberStr)) {
             errors.put("saleNumber", "個数を入力してください。");
         } else if (saleNumberStr.getBytes(StandardCharsets.UTF_8).length >= 10) {
             errors.put("saleNumber", "個数が長すぎます。");
-        } else if (S0010Service.inValidInt(saleNumberStr)) {
+        } else if (ErrorMethodService.inValidInt(saleNumberStr)) {
             errors.put("saleNumber", "個数を正しく入力してください。");
         }
 
@@ -105,10 +105,10 @@ public class ErrorService {
     	String firstStr = request.getParameter("first");
     	String lastStr = request.getParameter("last");
     	
-        if (!S0010Service.validNull(firstStr) && !S0010Service.validDate(firstStr)) {
+        if (!ErrorMethodService.validNull(firstStr) && !ErrorMethodService.validDate(firstStr)) {
             errors.put("first", "販売日（検索開始日）を正しく入力して下さい。");
         }
-        if (!S0010Service.validNull(lastStr) && !S0010Service.validDate(lastStr)) {
+        if (!ErrorMethodService.validNull(lastStr) && !ErrorMethodService.validDate(lastStr)) {
             errors.put("last", "販売日（検索終了日）を正しく入力して下さい。");
         }
         return errors;
@@ -133,7 +133,7 @@ public class ErrorService {
 		System.out.println("権限： " + authority);
         AccountsDao accountsDao = new AccountsDao();
 
-        if (S0010Service.validNull(name)) {
+        if (ErrorMethodService.validNull(name)) {
             errors.put("name", "氏名を入力して下さい。");
         } else if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
             errors.put("name", "氏名が長すぎます。");
@@ -141,7 +141,7 @@ public class ErrorService {
             errors.put("name", "このユーザー名は既に使用されています。");
         }
 
-        if (S0010Service.validNull(mail)) {
+        if (ErrorMethodService.validNull(mail)) {
             errors.put("mail", "メールアドレスを入力して下さい。");
         } else if (mail.getBytes(StandardCharsets.UTF_8).length > 100) {
             errors.put("mail", "メールアドレスが長すぎます。");
@@ -151,17 +151,17 @@ public class ErrorService {
             errors.put("mail", "このメールアドレスは既に使用されています。");
         }
 
-        if (S0010Service.validNull(pass)) {
+        if (ErrorMethodService.validNull(pass)) {
             errors.put("pass", "パスワードを入力して下さい。");
         } else if (pass.getBytes(StandardCharsets.UTF_8).length > 30) {
             errors.put("pass", "パスワードが長すぎます。");
         }
 
-        if (S0010Service.validNull(confirmPass)) {
+        if (ErrorMethodService.validNull(confirmPass)) {
             errors.put("confirmPass", "パスワード（確認）を入力して下さい。");
         }
 
-        if (!S0010Service.validNull(pass) && !S0010Service.validNull(confirmPass) && !pass.equals(confirmPass)) {
+        if (!ErrorMethodService.validNull(pass) && !ErrorMethodService.validNull(confirmPass) && !pass.equals(confirmPass)) {
             errors.put("pass", "パスワードとパスワード（確認）の入力内容が異なっています。");
             errors.put("confirmPass", "パスワードとパスワード（確認）の入力内容が異なっています。");
         }
@@ -199,7 +199,7 @@ public class ErrorService {
     	
         AccountsDao accountsDao = new AccountsDao();
 
-        if (S0010Service.validNull(name)) {
+        if (ErrorMethodService.validNull(name)) {
             errors.put("name", "氏名を入力して下さい。");
         } else if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
             errors.put("name", "氏名が長すぎます。");
@@ -207,7 +207,7 @@ public class ErrorService {
             errors.put("name", "このユーザー名は既に使用されています。");
         }
 
-        if (S0010Service.validNull(mail)) {
+        if (ErrorMethodService.validNull(mail)) {
             errors.put("mail", "メールアドレスを入力して下さい。");
         } else if (mail.getBytes(StandardCharsets.UTF_8).length > 100) {
             errors.put("mail", "メールアドレスが長すぎます。");
@@ -217,17 +217,17 @@ public class ErrorService {
             errors.put("mail", "このメールアドレスは既に使用されています。");
         }
 
-        if (S0010Service.validNull(pass)) {
+        if (ErrorMethodService.validNull(pass)) {
             errors.put("pass", "パスワードを入力して下さい。");
         } else if (pass.getBytes(StandardCharsets.UTF_8).length > 30) {
             errors.put("pass", "パスワードが長すぎます。");
         }
 
-        if (S0010Service.validNull(confirmPass)) {
+        if (ErrorMethodService.validNull(confirmPass)) {
             errors.put("confirmPass", "パスワード（確認）を入力して下さい。");
         }
 
-        if (!S0010Service.validNull(pass) && !S0010Service.validNull(confirmPass) && !pass.equals(confirmPass)) {
+        if (!ErrorMethodService.validNull(pass) && !ErrorMethodService.validNull(confirmPass) && !pass.equals(confirmPass)) {
             errors.put("pass", "パスワードとパスワード（確認）の入力内容が異なっています。");
             errors.put("confirmPass", "パスワードとパスワード（確認）の入力内容が異なっています。");
         }
