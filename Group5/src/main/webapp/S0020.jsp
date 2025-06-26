@@ -30,7 +30,7 @@
 			</c:choose>
 
 			<div class="row">
-				<div class="col- offset-3">
+				<div class="col-9 offset-3">
 					<div class="row my-4">
 						<div class="col-2 text-end my-1">
 							<h5><span class>販売日</span></h5>
