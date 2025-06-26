@@ -99,9 +99,8 @@
 				</div>
 				<div class="row my-5">
 					<div class="col-3 text-end">
-						<button type="submit" class="btn btn-primary">✓登録</button>
-						<a href="S0010.html" button type="submit"
-							class="btn btn-outline-secondary">キャンセル</a>
+						<button type="submit" name = "action" value = "insert" class="btn btn-primary">✓登録</button>
+						<button type="submit" name = "action" value = "cancel" class="btn btn-outline-secondary">キャンセル</a>
 					</div>
 				</div>
 			</form>
