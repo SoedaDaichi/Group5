@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.LoginAccount;
+import form.LoginAccount;
 import services.Auth;
 import services.ErrorService;
 

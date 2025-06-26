@@ -7,8 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Base64;
 
-import beans.Accounts;
-import beans.LoginAccount;
+import form.Accounts;
+import form.LoginAccount;
 import utils.Db;
 
 public class Auth {

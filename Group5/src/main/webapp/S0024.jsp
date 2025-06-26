@@ -86,8 +86,8 @@
 					
 					<div class="row">
 						<div class="col-3 my-3 text-end">
-							<button type="submit" class="btn btn-primary">✓OK</button>
-							<a href="#" class="btn btn-outline-secondary">キャンセル</a>
+							<button type="submit" name="action" value="update" class="btn btn-primary">✓OK</button>
+							<button type="submit" name="action" value="cancel" class="btn btn-outline-secondary">キャンセル</a>
 						</div>
 					</div>
 					

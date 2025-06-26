@@ -1,9 +1,9 @@
-package beans;
+package form;
 
 import lombok.Data;
 
 @Data
-public class SalesForm {
+public class SForm {
 	private String saleDate;
 	private String accountId;
 	private String categoryId;
@@ -12,7 +12,7 @@ public class SalesForm {
 	private String saleNumber;
 	private String note;
 
-	public SalesForm(String saleDate, String accountId, String categoryId, String tradeName,
+	public SForm(String saleDate, String accountId, String categoryId, String tradeName,
 			String unitPrice, String saleNumber, String note) {
 		this.saleDate = saleDate;
 		this.accountId = accountId;

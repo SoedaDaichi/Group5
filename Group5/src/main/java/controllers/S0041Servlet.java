@@ -11,9 +11,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.Accounts;
-import beans.AccountsSearchForm;
 import daos.AccountsDao;
+import form.Accounts;
+import form.AccountsSearchForm;
 import services.ErrorService;
 
 /**

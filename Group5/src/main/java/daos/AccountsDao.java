@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import beans.Accounts;
-import beans.AccountsData;
-import beans.AccountsSearchForm;
+import form.Accounts;
+import form.AccountsData;
+import form.AccountsSearchForm;
 import services.Auth;
 import utils.Db;
 

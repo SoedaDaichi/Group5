@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.SalesData;
+import data.SalesData;
 
 /**
  * Servlet implementation class S0022Servlet

@@ -13,10 +13,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.Accounts;
-import beans.Categories;
-import beans.SalesSearchForm;
 import daos.SalesDao;
+import form.Accounts;
+import form.Categories;
+import form.SalesSearchForm;
 import services.ErrorMessageService;
 import services.ErrorService;
 

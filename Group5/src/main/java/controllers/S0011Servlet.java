@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.SalesData;
 import daos.SalesDao;
+import data.SalesData;
 
 /**
  * Servlet implementation class S0010Servlet
@@ -34,6 +34,7 @@ public class S0011Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		SalesData registerSalesData = (SalesData) session.getAttribute("registerSalesData");
+		System.out.println(registerSalesData.getTradeName());
 
 		request.setAttribute("salesData", registerSalesData);
 		request.getRequestDispatcher("/S0011.jsp").forward(request, response);
@@ -46,20 +47,25 @@ public class S0011Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		SalesDao salesDao = new SalesDao();
+		String action = request.getParameter("action");
 
-		HttpSession session = request.getSession();
-		SalesData registerSalesData = (SalesData) session.getAttribute("registerSalesData");
+		if ("register".equals(action)) {
+			HttpSession session = request.getSession();
+			SalesData registerSalesData = (SalesData) session.getAttribute("registerSalesData");
+			
+			session.removeAttribute("registerSalesData"); // Filter範囲外
 
+			boolean success = salesDao.insert(registerSalesData);
 
-		session.removeAttribute("registerSalesData"); // Filter範囲外
-
-		boolean success = salesDao.insert(registerSalesData);
-
-		if (success) {
-			session.setAttribute("success", "商品が登録されました");
-			response.sendRedirect("S0010.html");
-		} else {
-			session.setAttribute("error", "登録に失敗しました");
+			if (success) {
+				session.setAttribute("success", "商品が登録されました");
+				session.removeAttribute("registerSalesForm");
+				response.sendRedirect("S0010.html");
+			} else {
+				session.setAttribute("error", "登録に失敗しました");
+				response.sendRedirect("S0010.html");
+			}
+		} else if ("cancel".equals(action)) {
 			response.sendRedirect("S0010.html");
 		}
 	}

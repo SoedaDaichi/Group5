@@ -8,11 +8,11 @@ import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-import beans.Accounts;
-import beans.LoginAccount;
-import beans.SalesData;
 import daos.AccountsDao;
 import daos.SalesDao;
+import form.Accounts;
+import form.LoginAccount;
+import form.SalesForm;
 
 public class ErrorService {
 
@@ -44,8 +44,15 @@ public class ErrorService {
         return errors;
     }
 
-    public Map<String, String> validateSales(String saleDateStr, String accountIdStr, String categoryIdStr,
-            String tradeName, String unitPriceStr, String saleNumberStr, String note) {
+    public Map<String, String> validateSales(HttpServletRequest request) {
+		String saleDateStr = request.getParameter("saleDate");
+		String accountIdStr = request.getParameter("accountId");
+		String categoryIdStr = request.getParameter("categoryId");
+		String tradeName = request.getParameter("tradeName");
+		String unitPriceStr = request.getParameter("unitPrice");
+		String saleNumberStr = request.getParameter("saleNumber");
+		String note = request.getParameter("note");
+		
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setLenient(false);
         if (S0010Service.validNull(saleDateStr)) {
@@ -107,7 +114,7 @@ public class ErrorService {
         return errors;
     }
 
-    public Map<String, String> validateNotFoundSales(ArrayList<SalesData> salesList) {
+    public Map<String, String> validateNotFoundSales(ArrayList<SalesForm> salesList) {
         Map<String, String> notFound = new HashMap<>();
         if (salesList == null || salesList.isEmpty()) {
             notFound.put("salesNotFound", "ご指定の条件に該当するデータが見つかりませんでした。");

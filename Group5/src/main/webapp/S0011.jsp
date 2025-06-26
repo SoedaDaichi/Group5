@@ -33,8 +33,7 @@
 						</h5>
 					</div>
 					<div class="col-2  my-3">
-						<class = input type="text" class="form-control"
-							 name="accountName"
+						<class = input type="text" class="form-control" name="accountName"
 							value="${registerSalesData.accountId}" disabled>${registerSalesData.name}</class>
 					</div>
 				</div>
@@ -46,7 +45,7 @@
 					</div>
 					<div class="col-4 my-3">
 						<class = input type="text" class="form-control"
-							 name="categoryName" var="category"
+							name="categoryName" var="category"
 							value="${registerSalesData.categoryId}" disabled>${registerSalesData.categoryName}</class>
 					</div>
 				</div>
@@ -57,8 +56,7 @@
 						</h5>
 					</div>
 					<div class="col-4 my-3">
-						<input type="text" class="form-control"
-							 name="tradeName"
+						<input type="text" class="form-control" name="tradeName"
 							value="${registerSalesData.tradeName}" disabled>
 					</div>
 				</div>
@@ -69,9 +67,8 @@
 						</h5>
 					</div>
 					<div class="col-2 my-3">
-						<input type="text" class="form-control"
-							 name="unitPrice" placeholder="単価"
-							value="${registerSalesData.unitPrice}" disabled>
+						<input type="text" class="form-control" name="unitPrice"
+							placeholder="単価" value="${registerSalesData.unitPrice}" disabled>
 					</div>
 				</div>
 				<div class=row>
@@ -81,9 +78,8 @@
 						</h5>
 					</div>
 					<div class="col-2 my-3">
-						<input type="text" class="form-control"
-							name="saleNumber" placeholder="個数"
-							value="${registerSalesData.saleNumber}" disabled>
+						<input type="text" class="form-control" name="saleNumber"
+							placeholder="個数" value="${registerSalesData.saleNumber}" disabled>
 					</div>
 				</div>
 				<div class=row>
@@ -93,14 +89,15 @@
 						</h5>
 					</div>
 					<div class="col-5 my-3">
-						<textarea class="form-control" 
-							name="note" rows="5" placeholder="備考" disabled>${registerSalesData.note}</textarea>
+						<textarea class="form-control" name="note" rows="5"
+							placeholder="備考" disabled>${registerSalesData.note}</textarea>
 					</div>
 				</div>
 				<div class="row my-5">
 					<div class="col-3 text-end">
-						<button type="submit" class="btn btn-primary">✓登録</button>
-						<a href="S0010.html" button type="submit"
+						<button type="submit" name="action" value="register"
+							class="btn btn-danger">✓登録</button>
+						<button type="submit" name="action" value="cancel"
 							class="btn btn-outline-secondary">キャンセル</a>
 					</div>
 				</div>

@@ -1,4 +1,4 @@
-package beans;
+package form;
 
 import jakarta.servlet.http.HttpServletRequest;
 

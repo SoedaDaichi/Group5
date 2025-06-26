@@ -40,7 +40,7 @@
 					</div>
 					<div class="col-2 my-3">
 						<input type="date" name="saleDate" class="form-control"
-							value="${registerSalesForm.saleDate}">
+							value="${registerSalesForm.saleDateStr}">
 						<c:choose>
 							<c:when test="${not empty errors.saleDate}">
 								<div class="text-danger small">
@@ -63,10 +63,10 @@
 						<select class="form-select form-select-sm"
 							aria-label=".form-select-sm example" name="accountId">
 							<option value=""
-								${empty registerSalesForm.accountId ? 'selected' : ''}>選択してください</option>
+								${empty registerSalesForm.accountIdStr ? 'selected' : ''}>選択してください</option>
 							<c:forEach var="account" items="${accountList}">
 								<option value="${account.accountId}"
-									${registerSalesForm.accountId eq account.accountId ? 'selected' : ''}>${account.name}</option>
+									${registerSalesForm.accountIdStr eq account.accountId ? 'selected' : ''}>${account.name}</option>
 							</c:forEach>
 						</select>
 						<c:choose>
@@ -91,10 +91,10 @@
 						<select class="form-select form-select-sm"
 							aria-label=".form-select-sm example" name="categoryId">
 							<option value=""
-								${empty registerSalesForm.categoryId ? 'selected' : ''}>選択してください</option>
+								${empty registerSalesForm.categoryIdStr ? 'selected' : ''}>選択してください</option>
 							<c:forEach var="category" items="${categoryList}">
 								<option value="${category.categoryId}"
-									${registerSalesForm.categoryId eq category.categoryId ? 'selected' : ''}>${category.categoryName}</option>
+									${registerSalesForm.categoryIdStr eq category.categoryId ? 'selected' : ''}>${category.categoryName}</option>
 							</c:forEach>
 						</select>
 						<c:choose>
@@ -140,7 +140,7 @@
 					<div class="col-2 my-3">
 						<input type="text" class="form-control"
 							name="unitPrice"
-							value="${registerSalesForm.unitPrice}" placeholder="単価">
+							value="${registerSalesForm.unitPriceStr}" placeholder="単価">
 						<c:choose>
 							<c:when test="${not empty errors.unitPrice}">
 								<div class="text-danger small">
@@ -162,7 +162,7 @@
 					<div class="col-2 my-3">
 						<input type="text" class="form-control"
 							 name="saleNumber"
-							value="${registerSalesForm.saleNumber}" placeholder="個数">
+							value="${registerSalesForm.saleNumberStr}" placeholder="個数">
 						<c:choose>
 							<c:when test="${not empty errors.saleNumber}">
 								<div class="text-danger small">

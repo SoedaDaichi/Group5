@@ -1,9 +1,10 @@
 package controllers;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,11 +13,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.Accounts;
-import beans.Categories;
-import beans.SalesData;
-import beans.SalesForm;
 import daos.SalesDao;
+import data.SalesData;
+import form.Accounts;
+import form.Categories;
+import form.SalesForm;
+import services.ErrorMessageService;
 import services.ErrorService;
 
 /**
@@ -37,23 +39,20 @@ public class S0023Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
 
-		Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); // 無視できるエラー
-		SalesForm salesform = (SalesForm) session.getAttribute("salesform");
+		Map<String, String> errors = ErrorMessageService.processSessionMessages(request);
+		request.setAttribute("errors", errors);
+		SalesForm salesForm = (SalesForm) session.getAttribute("salesForm");
 
-		if (errors != null) {
-			request.setAttribute("errors", errors);
-			request.setAttribute("salesform", salesform);
-			session.removeAttribute("errors");
-			session.removeAttribute("salesform");
+		if (salesForm != null) {
+			ErrorMessageService.moveAttribute(session, request, "salesForm", salesForm);
 		} else {
-			SalesData salesdata = (SalesData) session.getAttribute("salesdata");
-			request.setAttribute("salesdata", salesdata);
+			SalesData salesData = (SalesData) session.getAttribute("salesData");
+			request.setAttribute("salesData", salesData);
 		}
 
 		SalesDao salesDao = new SalesDao();
@@ -71,53 +70,48 @@ public class S0023Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String action = request.getParameter("action");
+		
+		if ("update".equals(action)) {
 		HttpSession session = request.getSession();
-
-		String saleDateStr = request.getParameter("saleDate");
-		String accountIdStr = request.getParameter("accountId");
-		String categoryIdStr = request.getParameter("categoryId");
-		String tradeName = request.getParameter("tradeName");
-		String unitPriceStr = request.getParameter("unitPrice");
-		String saleNumberStr = request.getParameter("saleNumber");
-		String note = request.getParameter("note");
 
 		ErrorService errorService = new ErrorService();
 
 		Map<String, String> errors = errorService.validateSales(
-				saleDateStr, accountIdStr, categoryIdStr, tradeName,
-				unitPriceStr, saleNumberStr, note);
-
+				request);
+		
+		SalesForm salesForm = new SalesForm(
+				request);
 		if (errors != null && !errors.isEmpty()) {
 			System.out.println("エラー: " + errors);
-			SalesForm salesForm = new SalesForm(
-					saleDateStr, accountIdStr, categoryIdStr, tradeName,
-					unitPriceStr, saleNumberStr, note);
+			@SuppressWarnings("unchecked")
+			Queue<Map<String, String>> errorQueue = (Queue<Map<String, String>>) session.getAttribute("errorQueue");
+			if (errorQueue == null) {
+				errorQueue = new LinkedList<>();
+			}
+			errorQueue.add(errors);
+			session.setAttribute("errorQueue", errorQueue);
 			session.setAttribute("salesForm", salesForm);
-			session.setAttribute("errors", errors);
 			response.sendRedirect("S0023.html");
 			return;
 		}
 
-		LocalDate saleDate = LocalDate.parse(request.getParameter("saleDate"));
-		int accountId = Integer.valueOf(request.getParameter("accountId"));
-		int categoryId = Integer.valueOf(request.getParameter("categoryId"));
-		int unitPrice = Integer.valueOf(request.getParameter("unitPrice"));
-		int saleNumber = Integer.valueOf(request.getParameter("saleNumber"));
-
 		SalesDao salesDao = new SalesDao();
-		Accounts account = salesDao.identificationAccount(accountId);
+		Accounts account = salesDao.identificationAccount(Integer.valueOf(salesForm.getAccountIdStr()));
 		String name = account.getName();
 
-		Categories category = salesDao.identificationCategory(categoryId);
+		Categories category = salesDao.identificationCategory(Integer.valueOf(salesForm.getCategoryIdStr()));
 		String categoryName = category.getCategoryName();
 
 		SalesData salesData = new SalesData(
-				saleDate, name, accountId, categoryName, categoryId, tradeName,
-				unitPrice, saleNumber, note);
+				salesForm, name, categoryName);
 
 		session.setAttribute("salesData", salesData);
 
 		response.sendRedirect("S0024.html");
+		} else if ("cancel".equals(action)) {
+			response.sendRedirect("S0022.html");
+		}
 	}
 
 }

@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.AccountsData;
 import daos.AccountsDao;
+import form.AccountsData;
 
 /**
  * Servlet implementation class S0031Servlet

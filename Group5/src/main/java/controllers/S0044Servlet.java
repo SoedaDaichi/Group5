@@ -9,9 +9,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.Accounts;
-import beans.LoginAccount;
 import daos.AccountsDao;
+import form.Accounts;
+import form.LoginAccount;
 
 /**
  * Servlet implementation class S0044Servlet

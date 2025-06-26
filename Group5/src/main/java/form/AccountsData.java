@@ -1,4 +1,4 @@
-package beans;
+package form;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -21,7 +21,6 @@ public class AccountsData {
 	}
 
 	public AccountsData(HttpServletRequest request) {
-		// TODO 自動生成されたコンストラクター・スタブ
 		this.name = request.getParameter("name");
 		this.mail = request.getParameter("mail");
 		this.pass = request.getParameter("pass");

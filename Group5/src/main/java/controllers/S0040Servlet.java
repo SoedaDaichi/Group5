@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.AccountsSearchForm;
+import form.AccountsSearchForm;
 import services.ErrorService;
 
 /**

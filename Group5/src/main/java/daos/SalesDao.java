@@ -7,10 +7,11 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import beans.Accounts;
-import beans.Categories;
-import beans.SalesData;
-import beans.SalesSearchForm;
+import data.SalesData;
+import form.Accounts;
+import form.Categories;
+import form.SalesForm;
+import form.SalesSearchForm;
 import utils.Db;
 
 public class SalesDao {
@@ -99,14 +100,14 @@ public class SalesDao {
 		return category;
 	}
 
-	public boolean insert(SalesData registerSalesdata) {
-		LocalDate saleDate = registerSalesdata.getSaleDate();
-		int accountId = registerSalesdata.getAccountId();
-		int categoryId = registerSalesdata.getCategoryId();
-		String tradeName = registerSalesdata.getTradeName();
-		int unitPrice = registerSalesdata.getUnitPrice();
-		int saleNumber = registerSalesdata.getSaleNumber();
-		String note = registerSalesdata.getNote();
+	public boolean insert(SalesData registerSalesData) {
+		LocalDate saleDate = registerSalesData.getSaleDate();
+		int accountId = registerSalesData.getAccountId();
+		int categoryId = registerSalesData.getCategoryId();
+		String tradeName = registerSalesData.getTradeName();
+		int unitPrice = registerSalesData.getUnitPrice();
+		int saleNumber = registerSalesData.getSaleNumber();
+		String note = registerSalesData.getNote();
 
 		String insert = """
 				INSERT INTO sales (
@@ -144,8 +145,8 @@ public class SalesDao {
 		}
 	}
 
-	public ArrayList<SalesData> selectSearch(SalesSearchForm ssForm) {
-		ArrayList<SalesData> salesList = new ArrayList<>();
+	public ArrayList<SalesForm> selectSearch(SalesSearchForm ssForm) {
+		ArrayList<SalesForm> salesList = new ArrayList<>();
 		ArrayList<Object> sqlList = new ArrayList<>();
 		ArrayList<String> where = new ArrayList<>();
 		StringBuilder select = new StringBuilder(
@@ -230,7 +231,7 @@ public class SalesDao {
 
 			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
-					SalesData salesdata = new SalesData(
+					SalesForm salesdata = new SalesForm(
 							rs.getInt("sale_id"),
 							rs.getDate("sale_date").toLocalDate(),
 							rs.getString("name"),

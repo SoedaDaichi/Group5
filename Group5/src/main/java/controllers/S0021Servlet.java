@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -12,11 +11,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.Accounts;
-import beans.Categories;
-import beans.SalesData;
-import beans.SalesSearchForm;
 import daos.SalesDao;
+import data.SalesData;
+import form.SalesForm;
+import form.SalesSearchForm;
 import services.ErrorService;
 
 /**
@@ -54,7 +52,7 @@ public class S0021Servlet extends HttpServlet {
 		}
 		
 		SalesDao salesDao = new SalesDao();
-		ArrayList<SalesData> salesList = salesDao.selectSearch(ssForm);
+		ArrayList<SalesForm> salesList = salesDao.selectSearch(ssForm);
 		
 		ErrorService es = new ErrorService();
 		Map<String, String> notFound = es.validateNotFoundSales(salesList);
@@ -76,31 +74,12 @@ public class S0021Servlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		int saleId = Integer.valueOf(request.getParameter("saleId"));
-//		System.out.println("詳細を見る主キー: " + saleId);
+		System.out.println("詳細を見る主キー: " + saleId);
 		HttpSession session = request.getSession();
 
 		SalesDao salesDao = new SalesDao();
-		SalesData saledata = salesDao.identificationSalesData(saleId);
+		SalesData salesData = salesDao.identificationSalesData(saleId);
 		
-		LocalDate saleDate = (LocalDate) saledata.getSaleDate();
-		int accountId = saledata.getAccountId();
-		int categoryId = saledata.getCategoryId();
-		String tradeName = saledata.getTradeName();
-		int unitPrice = saledata.getUnitPrice();
-		int saleNumber = saledata.getSaleNumber();
-		String note = saledata.getNote();
-
-		// 取り出したsalesテーブルのaccountIdとcategoryIdを
-		// 各テーブルの紐づいたnameを取ってくる作業
-		Accounts account = salesDao.identificationAccount(accountId);
-		String name = account.getName();
-		Categories category = salesDao.identificationCategory(categoryId);
-		String categoryName = category.getCategoryName();
-
-		SalesData salesData = new SalesData(
-				saleId, saleDate, name, accountId, categoryName, categoryId, tradeName,
-				unitPrice, saleNumber, note);
-
 		session.setAttribute("saleId", saleId);
 		session.setAttribute("salesData", salesData);
 

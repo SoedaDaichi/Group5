@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.SalesData;
 import daos.SalesDao;
+import data.SalesData;
 
 /**
  * Servlet implementation class S0024Servlet
@@ -44,11 +44,13 @@ public class S0024Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		String action = request.getParameter("action");
+		
+		if ("update".equals(action)) {
 		HttpSession session = request.getSession();
 		SalesData salesData = (SalesData) session.getAttribute("salesData");
 		int saleId = (int) session.getAttribute("saleId");
-
+		
 		session.removeAttribute("saleId");
 		session.removeAttribute("salesData");
 
@@ -61,6 +63,9 @@ public class S0024Servlet extends HttpServlet {
 		} else {
 			session.setAttribute("error", "更新に失敗しました");
 			response.sendRedirect("S0021.html");
+		}
+		} else if ("cancel".equals(action)) {
+			response.sendRedirect("S0023.html");
 		}
 	}
 

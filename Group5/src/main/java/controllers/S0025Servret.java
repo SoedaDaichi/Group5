@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.SalesData;
 import daos.SalesDao;
+import form.SalesForm;
 
 /**
  * Servlet implementation class S0025Servret
@@ -32,7 +32,7 @@ public class S0025Servret extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		SalesData salesData = (SalesData) session.getAttribute("salesData");
+		SalesForm salesData = (SalesForm) session.getAttribute("salesData");
 		
 		request.setAttribute("salesData", salesData);
 		session.removeAttribute("salesData");

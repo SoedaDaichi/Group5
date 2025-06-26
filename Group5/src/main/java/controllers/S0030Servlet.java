@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.AccountsData;
-import beans.AccountsForm;
+import form.AccountsData;
+import form.AccountsForm;
 import services.ErrorService;
 
 /**
