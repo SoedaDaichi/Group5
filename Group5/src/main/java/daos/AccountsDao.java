@@ -192,6 +192,7 @@ public class AccountsDao {
 
 	public boolean update(int accountId, String name, String mail, String hashedPass, String authority) {
 		String sql = "UPDATE accounts SET name=?, mail=?, password=?, authority=? WHERE account_id=?";
+		
 
 		try (
 				Connection conn = Db.open();

@@ -46,22 +46,26 @@ public class S0024Servlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		SalesData salesData = (SalesData) session.getAttribute("salesData");
-		int saleId = (int) session.getAttribute("saleId");
+		String action = request.getParameter("action");
+		if ("update".equals(action)) {
+			int saleId = (int) session.getAttribute("saleId");
+			SalesData salesData = (SalesData) session.getAttribute("salesData");
 
-		session.removeAttribute("saleId");
-		session.removeAttribute("salesData");
+			session.removeAttribute("saleId");
+			session.removeAttribute("salesData");
 
-		SalesDao salesDao = new SalesDao();
-		boolean success = salesDao.updateSales(saleId, salesData);
+			SalesDao salesDao = new SalesDao();
+			boolean success = salesDao.updateSales(saleId, salesData);
 
-		if (success) {
-			session.setAttribute("success", "売上が更新されました。");
-			response.sendRedirect("S0021.html");
-		} else {
-			session.setAttribute("error", "更新に失敗しました");
+			if (success) {
+				session.setAttribute("success", "売上が更新されました。");
+				response.sendRedirect("S0021.html");
+			} else {
+				session.setAttribute("error", "更新に失敗しました");
+				response.sendRedirect("S0021.html");
+			}
+		} else if ("cancel".equals(action)) {
 			response.sendRedirect("S0021.html");
 		}
 	}
-
 }
