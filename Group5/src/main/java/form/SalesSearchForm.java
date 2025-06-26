@@ -25,10 +25,10 @@ public class SalesSearchForm {
 	
 	public SalesSearchForm(HttpServletRequest request) {
 		this.first = request.getParameter("first");
-		this.first = request.getParameter("last");
-		this.first = request.getParameter("accountId");
-		this.first = request.getParameter("categoryId");
-		this.first = request.getParameter("tradeName");
-		this.first = request.getParameter("note");
+		this.last = request.getParameter("last");
+		this.accountId = request.getParameter("accountId");
+		this.categoryId = request.getParameter("categoryId");
+		this.tradeName = request.getParameter("tradeName");
+		this.note = request.getParameter("note");
 	}
 }
