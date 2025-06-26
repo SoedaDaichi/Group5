@@ -14,8 +14,8 @@ import jakarta.servlet.http.HttpSession;
 
 import data.AccountsData;
 import form.AccountsForm;
-import services.MessageService;
 import services.ErrorService;
+import services.MessageService;
 
 /**
  * Servlet implementation class S0030Servlet
@@ -44,11 +44,12 @@ public class S0030Servlet extends HttpServlet {
 
 		String success = (String) session.getAttribute("success");
 		if (success != null) {
-			request.setAttribute("success", success);
-			session.removeAttribute("success");
+			MessageService.moveAttribute(session, request, success, success);
 		} else if (errors != null) {
 			request.setAttribute("errors", errors);
-			MessageService.moveAttribute(session, request, "registerAccountsForm", registerAccountsForm);
+		}
+		if (registerAccountsForm != null) {
+			request.setAttribute("registerAccountsForm", registerAccountsForm);
 		}
 		request.getRequestDispatcher("/S0030.jsp").forward(request, response);
 	}
@@ -65,15 +66,16 @@ public class S0030Servlet extends HttpServlet {
 		System.out.println("アカウント登録エラー: " + errors);
 		HttpSession session = request.getSession();
 
+		AccountsForm registerAccountsForm = new AccountsForm(request);
+		session.setAttribute("registerAccountsForm", registerAccountsForm);
+		
 		if (errors != null && !errors.isEmpty()) {
-			AccountsForm registerAccountsForm = new AccountsForm(request);
 			@SuppressWarnings("unchecked")
 			Queue<Map<String, String>> errorQueue = (Queue<Map<String, String>>) session.getAttribute("errorQueue");
 			if (errorQueue == null) {
 				errorQueue = new LinkedList<>();
 			}
 			errorQueue.add(errors);
-			session.setAttribute("registerAccountsForm", registerAccountsForm);
 			session.setAttribute("errorQueue", errorQueue);
 			response.sendRedirect("S0030.html");
 			return;

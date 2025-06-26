@@ -96,7 +96,7 @@
 				<div class="row my-5">
 					<div class="col-3 text-end">
 						<button type="submit" name="action" value="register"
-							class="btn btn-danger">✓登録</button>
+							class="btn btn-primary">✓登録</button>
 						<button type="submit" name="action" value="cancel"
 							class="btn btn-outline-secondary">キャンセル</a>
 					</div>

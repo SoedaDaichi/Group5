@@ -51,7 +51,7 @@ public class AccountsDao {
 		String name = accountsData.getName();
 		String mail = accountsData.getMail();
 		String pass = accountsData.getPass();
-		String authorityStr = accountsData.getAuthorityStr();
+		Integer authority = accountsData.getAuthority();
 		String hashedPass = Auth.hashPassword(pass);
 
 		System.out.println("insert called with: " + name + ", " + mail);
@@ -62,7 +62,7 @@ public class AccountsDao {
 			ps.setString(1, name);
 			ps.setString(2, mail);
 			ps.setString(3, hashedPass);
-			ps.setInt(4, Integer.parseInt(authorityStr));
+			ps.setInt(4, authority);
 			ps.executeUpdate();
 			return true;
 		} catch (Exception e) {

@@ -53,13 +53,12 @@ public class S0011Servlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			SalesData registerSalesData = (SalesData) session.getAttribute("registerSalesData");
 			
-			session.removeAttribute("registerSalesData"); // Filter範囲外
-
 			boolean success = salesDao.insert(registerSalesData);
 
 			if (success) {
 				session.setAttribute("success", "商品が登録されました");
 				session.removeAttribute("registerSalesForm");
+				session.removeAttribute("registerSalesData");
 				response.sendRedirect("S0010.html");
 			} else {
 				session.setAttribute("error", "登録に失敗しました");
