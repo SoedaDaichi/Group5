@@ -29,7 +29,7 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="text" name="name" class="form-control"
-							value="${accounts.name}" readonly>
+							value="${accounts.name}" disabled>
 					</div>
 				</div>
 
@@ -42,7 +42,7 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="email" name="mail" class="form-control"
-							value="${accounts.mail}" readonly>
+							value="${accounts.mail}" disabled>
 					</div>
 				</div>
 
@@ -55,7 +55,7 @@
 					</div>
 					<div class="col-4 my-3">
 						<input type="password" name="pass" class="form-control"
-							value="${accounts.pass}" readonly>
+							value="${accounts.pass}" disabled>
 					</div>
 				</div>
 
@@ -115,8 +115,8 @@
 						<button type="submit" name="action" value="delete"
 							class="btn btn-danger">×OK</button>
 						<!-- キャンセルボタン（一覧画面に戻る） -->
-						<a href="S0041.html" type="submit" name="action" value="cancel"
-							class="btn btn-outline-secondary">キャンセル</a>
+						<button type="submit" type="submit" name="action" value="cancel"
+							class="btn btn-outline-secondary">キャンセル</botton>
 					</div>
 				</div>	
 			</form>

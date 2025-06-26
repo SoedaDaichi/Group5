@@ -39,17 +39,17 @@
 				</div>
 				<div class=row>
 					<div
-						class="col-2 text-end my-3 d-flex align-items-center justify-content-end">
+						class="col-2 text-end my-3 d-flex align-items-center justify-content-end" >
 						<h5>
 							<label for="name" class="form-label">氏名 <span
 								class="badge bg-secondary ms-2">必須</span></label>
 						</h5>
 					</div>
-					<div class="col-4 my-3">
+					<div class="col-4 my-3" >
 						<input type="text" value="${registerAccountsForm.name}"
 							name="name"
 							class="form-control ${not empty error ? ' is-invalid' : ''}"
-							placeholder="氏名">
+							placeholder="氏名" novalidate>
 						<c:choose>
 							<c:when test="${not empty errors.name}">
 								<div class="text-danger small">
@@ -75,7 +75,7 @@
 						<input type="email"
 							value="${registerAccountsForm.mail}" name="mail"
 							class="form-control ${not empty error ? ' is-invalid' : ''}"
-							placeholder="メールアドレス">
+							placeholder="メールアドレス" novalidate>
 						<c:choose>
 							<c:when test="${not empty errors.mail}">
 								<div class="text-danger small">
@@ -100,7 +100,7 @@
 					<div class="col-4 my-3">
 						<input type="password" name="pass"
 							class="form-control ${not empty error ? ' is-invalid' : ''}"
-							placeholder="パスワード">
+							placeholder="パスワード" >
 						<c:choose>
 							<c:when test="${not empty errors.pass}">
 								<div class="text-danger small">
