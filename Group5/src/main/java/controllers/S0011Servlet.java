@@ -48,18 +48,22 @@ public class S0011Servlet extends HttpServlet {
 		SalesDao salesDao = new SalesDao();
 
 		HttpSession session = request.getSession();
-		SalesData registerSalesData = (SalesData) session.getAttribute("registerSalesData");
+		String action = request.getParameter("action");
+		if ("insert".equals(action)) {
+			SalesData registerSalesData = (SalesData) session.getAttribute("registerSalesData");
 
+			session.removeAttribute("registerSalesData"); // Filter範囲外
 
-		session.removeAttribute("registerSalesData"); // Filter範囲外
+			boolean success = salesDao.insert(registerSalesData);
 
-		boolean success = salesDao.insert(registerSalesData);
-
-		if (success) {
-			session.setAttribute("success", "商品が登録されました");
-			response.sendRedirect("S0010.html");
-		} else {
-			session.setAttribute("error", "登録に失敗しました");
+			if (success) {
+				session.setAttribute("success", "商品が登録されました");
+				response.sendRedirect("S0010.html");
+			} else {
+				session.setAttribute("error", "登録に失敗しました");
+				response.sendRedirect("S0010.html");
+			}
+		} else if ("cancel".equals(action)) {
 			response.sendRedirect("S0010.html");
 		}
 	}
