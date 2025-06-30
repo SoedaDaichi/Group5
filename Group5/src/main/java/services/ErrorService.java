@@ -33,9 +33,8 @@ public class ErrorService {
             errors.put("pass", "パスワードが長すぎます。");
         }
 
-        LoginAccount account = Auth.findByEmail(mail);
+        LoginAccount account = Auth.findByEmail(mail); // メールアドレスでアカウント検索
         if (account == null && errors.isEmpty()) {
-        	System.out.println("データベースにない");
             errors.put("account", "メールアドレス、パスワードを正しく入力して下さい。");
             return errors;
         } else if (account != null && !Auth.passCheck(account.getAccountId(), hashedPass)) {
